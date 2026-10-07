@@ -53,7 +53,7 @@ type ViewProps = {
 
 export function ViewToggle({ value, onChange }: ViewProps) {
   return (
-    <View style={styles.wrap} accessibilityRole="tablist" accessibilityLabel="תצוגת קריאה">
+    <View style={styles.viewWrap} accessibilityRole="tablist" accessibilityLabel="תצוגת קריאה">
       {(
         [
           { id: 'verse', label: 'פסוק־פסוק' },
@@ -68,12 +68,12 @@ export function ViewToggle({ value, onChange }: ViewProps) {
             accessibilityRole={a11y.roles.tab}
             accessibilityState={{ selected: active }}
             accessibilityLabel={opt.label}
-            style={[styles.opt, active && styles.optActive]}
+            style={[styles.viewOpt, active && styles.viewOptActive]}
           >
             <Text
               style={[
-                styles.text,
-                active && styles.textActive,
+                styles.viewText,
+                active && styles.viewTextActive,
                 { fontFamily: active ? fonts.uiBold : fonts.uiSemi },
               ]}
             >
@@ -120,5 +120,37 @@ const styles = StyleSheet.create({
   },
   textActive: {
     color: colors.textOnPrimary,
+  },
+  /** טוגל קריאה — זכוכית בהירה כמו במוקאפ */
+  viewWrap: {
+    flexDirection: 'row-reverse',
+    alignSelf: 'center',
+    backgroundColor: 'rgba(255,255,255,0.28)',
+    borderRadius: radii.pill,
+    padding: 4,
+    borderWidth: 1.5,
+    borderColor: 'rgba(255,255,255,0.85)',
+    shadowColor: '#0A2E35',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.18,
+    shadowRadius: 16,
+    elevation: 6,
+  },
+  viewOpt: {
+    minHeight: 40,
+    paddingHorizontal: 18,
+    borderRadius: radii.pill,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  viewOptActive: {
+    backgroundColor: colors.primaryDark,
+  },
+  viewText: {
+    fontSize: 13,
+    color: colors.text,
+  },
+  viewTextActive: {
+    color: '#FFFFFF',
   },
 });

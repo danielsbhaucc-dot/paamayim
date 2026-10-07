@@ -1,16 +1,16 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
 import React from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppBackground } from '../../src/components/AppBackground';
 import { BrandHeader } from '../../src/components/BrandHeader';
 import { GlassCard } from '../../src/components/GlassCard';
+import { MenuButton } from '../../src/components/MenuButton';
 import { useAppStore } from '../../src/store/useAppStore';
 import { colors, spacing, typography } from '../../src/theme/tokens';
 
 export default function MoreScreen() {
-  const router = useRouter();
+  const openSideMenu = useAppStore((s) => s.openSideMenu);
   const calendarMode = useAppStore((s) => s.calendarMode);
   const setCalendarMode = useAppStore((s) => s.setCalendarMode);
   const resetProgress = useAppStore((s) => s.resetProgress);
@@ -20,7 +20,10 @@ export default function MoreScreen() {
     <AppBackground>
       <SafeAreaView style={styles.safe} edges={['top']}>
         <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          <BrandHeader subtitle="תפריט" />
+          <View style={styles.headerRow}>
+            <MenuButton />
+            <BrandHeader subtitle="עוד אפשרויות" />
+          </View>
 
           <Text style={styles.section}>בחירת לוח</Text>
           <View style={styles.calRow}>
@@ -39,11 +42,7 @@ export default function MoreScreen() {
           </View>
 
           <GlassCard round="xl">
-            <MenuRow title="פרשת השבוע" onPress={() => { setOnboardingDone(true); router.push('/(tabs)'); }} />
-            <MenuRow title="מסלול עד שבת" onPress={() => router.push('/(tabs)/path')} />
-            <MenuRow title="סיפור ההפטרה" onPress={() => router.push({ pathname: '/story', params: { kind: 'haftara' } })} />
-            <MenuRow title="מצב משפחה" onPress={() => router.push('/(tabs)/family')} />
-            <MenuRow title="הגדרות" onPress={() => router.push('/settings')} />
+            <MenuRow title="פתח תפריט ניווט" onPress={openSideMenu} />
             <MenuRow
               title="מסך פתיחה מחדש"
               onPress={() => setOnboardingDone(false)}
@@ -65,10 +64,6 @@ export default function MoreScreen() {
                 ])
               }
             />
-          </GlassCard>
-
-          <GlassCard round="lg">
-            <Text style={styles.quote}>התורה לא רק ללמוד — אלא לחיות.</Text>
           </GlassCard>
 
           <Text style={styles.footer}>פעמיים · גרסה 1.0</Text>
@@ -141,6 +136,12 @@ const styles = StyleSheet.create({
     paddingTop: spacing.md,
     gap: spacing.md,
   },
+  headerRow: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
   section: {
     ...typography.subtitle,
     fontWeight: '800',
@@ -193,12 +194,6 @@ const styles = StyleSheet.create({
   chev: {
     fontSize: 22,
     color: colors.textMuted,
-  },
-  quote: {
-    ...typography.body,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    fontSize: 14,
   },
   footer: {
     ...typography.caption,

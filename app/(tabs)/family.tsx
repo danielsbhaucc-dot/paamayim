@@ -6,6 +6,7 @@ import { AppBackground } from '../../src/components/AppBackground';
 import { FamilyToggle } from '../../src/components/FamilyToggle';
 import { GlassButton } from '../../src/components/GlassButton';
 import { GlassCard } from '../../src/components/GlassCard';
+import { MenuButton } from '../../src/components/MenuButton';
 import { getCurrentParasha } from '../../src/data/parashot';
 import { useAppStore } from '../../src/store/useAppStore';
 import { assets, colors, radii, spacing, typography } from '../../src/theme/tokens';
@@ -25,10 +26,15 @@ export default function FamilyScreen() {
     <AppBackground bg="jerusalem">
       <SafeAreaView style={styles.safe} edges={['top']}>
         <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          <Text style={styles.title} accessibilityRole="header">
-            מצב משפחה
-          </Text>
-          <Text style={styles.sub}>שני קולות · סיפור אחד</Text>
+          <View style={styles.topRow}>
+            <MenuButton />
+            <View style={styles.titleBlock}>
+              <Text style={styles.title} accessibilityRole="header">
+                מצב משפחה
+              </Text>
+              <Text style={styles.sub}>שני קולות · סיפור אחד</Text>
+            </View>
+          </View>
 
           <FamilyToggle value={familyVoice} onChange={setFamilyVoice} />
 
@@ -75,6 +81,15 @@ const styles = StyleSheet.create({
     paddingTop: spacing.md,
     gap: spacing.md,
   },
+  topRow: {
+    flexDirection: 'row-reverse',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  titleBlock: {
+    flex: 1,
+  },
   title: {
     ...typography.hero,
     color: colors.text,
@@ -84,7 +99,7 @@ const styles = StyleSheet.create({
     ...typography.subtitle,
     color: colors.textSecondary,
     textAlign: 'right',
-    marginTop: -8,
+    marginTop: 4,
   },
   heroArt: {
     width: '100%',

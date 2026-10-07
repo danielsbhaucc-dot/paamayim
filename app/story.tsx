@@ -6,6 +6,7 @@ import { AppBackground } from '../src/components/AppBackground';
 import { FamilyToggle } from '../src/components/FamilyToggle';
 import { GlassButton } from '../src/components/GlassButton';
 import { GlassCard } from '../src/components/GlassCard';
+import { MenuButton } from '../src/components/MenuButton';
 import { getCurrentParasha } from '../src/data/parashot';
 import { useAppStore } from '../src/store/useAppStore';
 import { assets, colors, radii, spacing, typography } from '../src/theme/tokens';
@@ -45,6 +46,8 @@ export default function StoryScreen() {
     <AppBackground bg="galilee">
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <View style={styles.topBar}>
+          <MenuButton />
+          <FamilyToggle value={familyVoice} onChange={setFamilyVoice} />
           <Pressable
             onPress={() => router.back()}
             accessibilityRole="button"
@@ -53,7 +56,6 @@ export default function StoryScreen() {
           >
             <Text style={styles.backText}>→ חזרה</Text>
           </Pressable>
-          <FamilyToggle value={familyVoice} onChange={setFamilyVoice} />
         </View>
 
         <View style={styles.tabs}>

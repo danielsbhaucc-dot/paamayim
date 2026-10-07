@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppBackground } from '../src/components/AppBackground';
 import { GlassButton } from '../src/components/GlassButton';
 import { GlassCard } from '../src/components/GlassCard';
+import { MenuButton } from '../src/components/MenuButton';
 import { countPasses, getCurrentParasha, isParashaComplete } from '../src/data/parashot';
 import { useAppStore } from '../src/store/useAppStore';
 import { colors, radii, spacing, typography } from '../src/theme/tokens';
@@ -22,6 +23,9 @@ export default function CompletionScreen() {
   return (
     <AppBackground bg="jerusalem">
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+        <View style={styles.topRow}>
+          <MenuButton />
+        </View>
         <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
           <GlassCard strong round="xl" style={styles.hero}>
             <View style={styles.trophyWrap}>
@@ -69,9 +73,14 @@ export default function CompletionScreen() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1 },
+  topRow: {
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.sm,
+    alignItems: 'flex-start',
+  },
   scroll: {
     paddingHorizontal: spacing.lg,
-    paddingTop: spacing.xxl,
+    paddingTop: spacing.md,
     gap: spacing.md,
   },
   hero: { alignItems: 'center' },

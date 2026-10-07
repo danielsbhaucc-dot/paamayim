@@ -3,10 +3,10 @@ import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppBackground } from '../src/components/AppBackground';
-import { CalendarToggle } from '../src/components/CalendarToggle';
+import { CalendarToggle, ViewToggle } from '../src/components/CalendarToggle';
 import { FamilyToggle } from '../src/components/FamilyToggle';
 import { GlassCard } from '../src/components/GlassCard';
-import { ViewToggle } from '../src/components/CalendarToggle';
+import { MenuButton } from '../src/components/MenuButton';
 import { useAppStore } from '../src/store/useAppStore';
 import { colors, spacing, typography } from '../src/theme/tokens';
 
@@ -23,6 +23,8 @@ export default function SettingsScreen() {
     <AppBackground>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <View style={styles.topBar}>
+          <MenuButton />
+          <Text style={styles.title}>הגדרות</Text>
           <Pressable
             onPress={() => router.back()}
             accessibilityRole="button"
@@ -31,8 +33,6 @@ export default function SettingsScreen() {
           >
             <Text style={styles.backText}>סגור</Text>
           </Pressable>
-          <Text style={styles.title}>הגדרות</Text>
-          <View style={{ width: 48 }} />
         </View>
 
         <ScrollView contentContainerStyle={styles.scroll}>

@@ -19,6 +19,8 @@ interface AppState {
   lastVerseId: string | null;
   progress: ProgressMap;
   onboardingDone: boolean;
+  /** תפריט צד — לא נשמר ב-persist */
+  sideMenuOpen: boolean;
 
   setCalendarMode: (mode: CalendarMode) => void;
   setFamilyVoice: (voice: FamilyVoice) => void;
@@ -29,6 +31,8 @@ interface AppState {
   resetProgress: () => void;
   setOnboardingDone: (done: boolean) => void;
   getVerseProgress: (verseId: string) => VerseProgress;
+  openSideMenu: () => void;
+  closeSideMenu: () => void;
 }
 
 const emptyProgress = (): VerseProgress => ({
@@ -47,6 +51,7 @@ export const useAppStore = create<AppState>()(
       lastVerseId: null,
       progress: {},
       onboardingDone: false,
+      sideMenuOpen: false,
 
       setCalendarMode: (mode) => set({ calendarMode: mode }),
       setFamilyVoice: (voice) => set({ familyVoice: voice }),
@@ -54,6 +59,8 @@ export const useAppStore = create<AppState>()(
       setActiveAliyah: (id) => set({ activeAliyah: id }),
       setLastVerseId: (id) => set({ lastVerseId: id }),
       setOnboardingDone: (done) => set({ onboardingDone: done }),
+      openSideMenu: () => set({ sideMenuOpen: true }),
+      closeSideMenu: () => set({ sideMenuOpen: false }),
 
       getVerseProgress: (verseId) => get().progress[verseId] ?? emptyProgress(),
 

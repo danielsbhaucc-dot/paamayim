@@ -2,8 +2,10 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { I18nManager } from 'react-native';
+import { AppLoadingScreen } from '../src/components/AppLoadingScreen';
+import { SideMenu } from '../src/components/SideMenu';
 import { fontAssets } from '../src/theme/fonts';
 import { colors } from '../src/theme/tokens';
 import { enforceRTL } from '../src/utils/a11y';
@@ -13,6 +15,7 @@ enforceRTL();
 
 export default function RootLayout() {
   const [loaded] = useFonts(fontAssets);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     if (!I18nManager.isRTL) {
@@ -22,8 +25,15 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (loaded) SplashScreen.hideAsync().catch(() => undefined);
+    if (loaded) {
+      // מסך הטעינה המותאם מחליף את ה-native splash
+      SplashScreen.hideAsync().catch(() => undefined);
+    }
   }, [loaded]);
+
+  const onLoaderFinish = useCallback(() => {
+    setShowLoader(false);
+  }, []);
 
   if (!loaded) return null;
 
@@ -43,6 +53,8 @@ export default function RootLayout() {
         <Stack.Screen name="completion" options={{ presentation: 'modal' }} />
         <Stack.Screen name="settings" options={{ presentation: 'modal' }} />
       </Stack>
+      <SideMenu />
+      {showLoader ? <AppLoadingScreen ready={loaded} onFinish={onLoaderFinish} /> : null}
     </>
   );
 }

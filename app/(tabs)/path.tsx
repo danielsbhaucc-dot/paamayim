@@ -6,6 +6,7 @@ import { AppBackground } from '../../src/components/AppBackground';
 import { DaySelector } from '../../src/components/DaySelector';
 import { GlassButton } from '../../src/components/GlassButton';
 import { GlassCard } from '../../src/components/GlassCard';
+import { MenuButton } from '../../src/components/MenuButton';
 import { ProgressRing } from '../../src/components/ProgressBar';
 import { aliyahProgress, getCurrentParasha } from '../../src/data/parashot';
 import { useAppStore } from '../../src/store/useAppStore';
@@ -47,10 +48,15 @@ export default function PathScreen() {
     <AppBackground bg="galilee">
       <SafeAreaView style={styles.safe} edges={['top']}>
         <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          <Text style={styles.title} accessibilityRole="header">
-            מסלול עד שבת
-          </Text>
-          <Text style={styles.sub}>ז׳ עליות · לא מאבדים את המקום</Text>
+          <View style={styles.topRow}>
+            <MenuButton />
+            <View style={styles.titleBlock}>
+              <Text style={styles.title} accessibilityRole="header">
+                מסלול עד שבת
+              </Text>
+              <Text style={styles.sub}>ז׳ עליות · לא מאבדים את המקום</Text>
+            </View>
+          </View>
 
           <DaySelector
             aliyot={parasha.aliyot}
@@ -123,6 +129,15 @@ const styles = StyleSheet.create({
     paddingTop: spacing.md,
     gap: spacing.md,
   },
+  topRow: {
+    flexDirection: 'row-reverse',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  titleBlock: {
+    flex: 1,
+  },
   title: {
     ...typography.hero,
     color: colors.text,
@@ -132,7 +147,7 @@ const styles = StyleSheet.create({
     ...typography.subtitle,
     color: colors.textSecondary,
     textAlign: 'right',
-    marginTop: -8,
+    marginTop: 4,
   },
   aliyahName: {
     ...typography.title,

@@ -16,6 +16,7 @@ import { AppBackground } from '../../src/components/AppBackground';
 import { CalendarToggle } from '../../src/components/CalendarToggle';
 import { GlassButton } from '../../src/components/GlassButton';
 import { GlassCard } from '../../src/components/GlassCard';
+import { MenuButton } from '../../src/components/MenuButton';
 import {
   aliyahProgress,
   getCurrentParasha,
@@ -46,14 +47,7 @@ export default function HomeScreen() {
       <AppBackground dim={false}>
         <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
           <View style={styles.splashHeader}>
-            <Pressable
-              onPress={() => router.push('/settings')}
-              accessibilityRole="button"
-              accessibilityLabel="פרופיל והגדרות"
-              style={styles.profileBtn}
-            >
-              <Ionicons name="person" size={20} color="#fff" />
-            </Pressable>
+            <MenuButton light />
             <CalendarToggle value={calendarMode} onChange={setCalendarMode} />
           </View>
 
@@ -100,14 +94,7 @@ export default function HomeScreen() {
       <SafeAreaView style={styles.safe} edges={['top']}>
         <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
           <View style={styles.dashTop}>
-            <Pressable
-              onPress={() => router.push('/settings')}
-              accessibilityRole="button"
-              accessibilityLabel="תפריט"
-              style={styles.iconBtn}
-            >
-              <Ionicons name="menu" size={22} color={colors.text} />
-            </Pressable>
+            <MenuButton />
             <Text style={styles.dashHeading}>פרשת השבוע</Text>
             <Image source={assets.icon} style={styles.dashLogo} />
           </View>
@@ -191,16 +178,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.sm,
-  },
-  profileBtn: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.22)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.55)',
   },
   splashCenter: {
     flex: 1,
@@ -317,16 +294,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  iconBtn: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: 'rgba(255,255,255,0.45)',
-    borderWidth: 1,
-    borderColor: colors.glassBorder,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   dashHeading: {
     fontFamily: fonts.uiBold,

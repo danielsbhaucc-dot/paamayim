@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { usePathname, useRouter } from 'expo-router';
 import { BlurView } from 'expo-blur';
+import { usePathname, useRouter } from 'expo-router';
 import React from 'react';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -20,7 +20,7 @@ function isActive(pathname: string, match: readonly string[]) {
   return match.some((m) => pathname === m || pathname.endsWith(m.replace('/(tabs)', '')));
 }
 
-/** תפריט תחתון זכוכית — תמיד, בכל מסך */
+/** תפריט תחתון זכוכית כמו בסקצ׳ — blur + שקיפות + מסגרת לבנה */
 export function GlassBottomNav() {
   const router = useRouter();
   const pathname = usePathname();
@@ -29,15 +29,19 @@ export function GlassBottomNav() {
   return (
     <View
       pointerEvents="box-none"
-      style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]}
+      style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 8) }]}
     >
       <View style={styles.bar}>
-        <BlurView intensity={85} tint="light" style={StyleSheet.absoluteFill} />
-        <View style={styles.fill} />
+        {Platform.OS === 'web' ? (
+          <View style={[StyleSheet.absoluteFill, styles.webBlur]} />
+        ) : (
+          <BlurView intensity={70} tint="light" style={StyleSheet.absoluteFill} />
+        )}
+        <View style={styles.fill} pointerEvents="none" />
         <View style={styles.row}>
           {ITEMS.map((item) => {
             const active = isActive(pathname, item.match);
-            const color = active ? colors.primary : colors.textMuted;
+            const color = active ? colors.primary : colors.textSecondary;
             return (
               <Pressable
                 key={item.href}
@@ -66,7 +70,7 @@ export function GlassBottomNav() {
   );
 }
 
-export const BOTTOM_NAV_SPACE = 92;
+export const BOTTOM_NAV_SPACE = 96;
 
 const styles = StyleSheet.create({
   wrap: {
@@ -76,52 +80,65 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     zIndex: 100,
+    paddingHorizontal: 12,
   },
   bar: {
-    marginHorizontal: 14,
     alignSelf: 'stretch',
     borderRadius: radii.xl,
     overflow: 'hidden',
-    borderWidth: 1.25,
-    borderColor: colors.glassBorder,
-    minHeight: 68,
+    borderWidth: 1.5,
+    borderColor: 'rgba(255,255,255,0.82)',
+    minHeight: 70,
     ...Platform.select({
       ios: {
         shadowColor: '#0A2E35',
-        shadowOffset: { width: 0, height: 10 },
-        shadowOpacity: 0.2,
-        shadowRadius: 22,
+        shadowOffset: { width: 0, height: 12 },
+        shadowOpacity: 0.22,
+        shadowRadius: 24,
       },
-      android: { elevation: 14 },
-      default: {},
+      android: { elevation: 16 },
+      default: {
+        shadowColor: '#0A2E35',
+        shadowOffset: { width: 0, height: 12 },
+        shadowOpacity: 0.18,
+        shadowRadius: 20,
+      },
     }),
+  },
+  webBlur: {
+    backgroundColor: 'rgba(255,255,255,0.28)',
+    ...( {
+      backdropFilter: 'blur(28px)',
+      WebkitBackdropFilter: 'blur(28px)',
+    } as object),
   },
   fill: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255,255,255,0.52)',
+    // שקוף יותר — הנוף נראה מאחורי הזכוכית
+    backgroundColor: 'rgba(255,255,255,0.32)',
   },
   row: {
     flexDirection: 'row-reverse',
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 8,
   },
   item: {
     flex: 1,
     alignItems: 'center',
     minHeight: a11y.minTouch,
-    gap: 2,
+    gap: 3,
   },
   iconWrap: {
-    width: 40,
-    height: 32,
-    borderRadius: 16,
+    width: 42,
+    height: 34,
+    borderRadius: 17,
     alignItems: 'center',
     justifyContent: 'center',
   },
   iconActive: {
-    backgroundColor: colors.accentSoft,
+    backgroundColor: 'rgba(42, 168, 176, 0.28)',
   },
   label: {
     fontSize: 11,
