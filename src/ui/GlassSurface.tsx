@@ -117,9 +117,13 @@ export function GlassSurface({
         accessibilityRole={accessibilityRole ?? 'button'}
         accessibilityState={accessibilityState}
         accessibilityValue={accessibilityValue}
-        style={({ pressed }) => [
+        style={(state) => [
           outerBase,
-          pressed && { opacity: 0.92, transform: [{ scale: 0.985 }] },
+          // web עם עכבר: הרמה עדינה ב-hover (במגע hovered לא נדלק)
+          Platform.OS === 'web' &&
+            (state as { hovered?: boolean }).hovered &&
+            !state.pressed && [nw.shadow.float, { transform: [{ translateY: -2 }] }],
+          state.pressed && { opacity: 0.92, transform: [{ scale: 0.985 }] },
         ]}
       >
         {inner}

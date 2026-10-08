@@ -15,9 +15,24 @@ import {
   ScreenBackground,
   ScreenHeader,
   SegmentedTabs,
+  useLayout,
 } from '../src/ui';
+import { StoryWide } from '../src/wide/StoryWide';
 
 export default function StoryScreen() {
+  const { isWide } = useLayout();
+  return isWide ? <StoryWideRoute /> : <StoryMobile />;
+}
+
+function StoryWideRoute() {
+  const params = useLocalSearchParams<{ kind?: string }>();
+  const [kind, setKind] = useState<'parasha' | 'haftara'>(
+    params.kind === 'haftara' ? 'haftara' : 'parasha'
+  );
+  return <StoryWide kind={kind} setKind={setKind} />;
+}
+
+function StoryMobile() {
   const router = useRouter();
   const params = useLocalSearchParams<{ kind?: string }>();
   const [kind, setKind] = useState<'parasha' | 'haftara'>(

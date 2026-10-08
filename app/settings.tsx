@@ -36,7 +36,7 @@ export default function SettingsScreen() {
   ) : undefined;
 
   return (
-    <ScreenBackground variant="mist" showNav={false}>
+    <ScreenBackground variant="mist" showNav={false} wideNav wideMaxWidth={760}>
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
         <ScreenHeader title="הגדרות" endSlot={closeSlot} />
 

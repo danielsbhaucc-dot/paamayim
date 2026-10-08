@@ -16,6 +16,9 @@ import {
   ScreenBackground,
   ScreenHeader,
   StatTile,
+  WideCols,
+  WidePage,
+  useLayout,
 } from '../src/ui';
 
 const LEAVES: {
@@ -36,6 +39,11 @@ const LEAVES: {
 ];
 
 export default function CompletionScreen() {
+  const { isWide } = useLayout();
+  return isWide ? <CompletionWide /> : <CompletionMobile />;
+}
+
+function CompletionMobile() {
   const router = useRouter();
   const calendarMode = useAppStore((s) => s.calendarMode);
   const progress = useAppStore((s) => s.progress);
@@ -268,5 +276,95 @@ export default function CompletionScreen() {
         </View>
       </SafeAreaView>
     </ScreenBackground>
+  );
+}
+
+/** סיום — web רחב: חגיגה מימין, נתונים ופעולות משמאל, בתוך פאנל זכוכית ממורכז. */
+function CompletionWide() {
+  const router = useRouter();
+  const { isDesktop } = useLayout();
+  const calendarMode = useAppStore((s) => s.calendarMode);
+  const progress = useAppStore((s) => s.progress);
+  const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
+  const counts = useMemo(() => countPasses(parasha, progress), [parasha, progress]);
+  const complete = useMemo(() => isParashaComplete(parasha, progress), [parasha, progress]);
+  const total = parasha.verses.length;
+  const fullDone = parasha.verses.filter((v) => {
+    const p = progress[v.id];
+    return p?.mikra1 && p?.mikra2 && p?.onkelos;
+  }).length;
+  const pct = total ? Math.round((fullDone / total) * 100) : 0;
+
+  return (
+    <WidePage variant="photo" source={img.completion} maxWidth={isDesktop ? 1040 : 760}>
+      <GlassSurface variant="card" radius={30} style={{ marginTop: isDesktop ? 40 : 24 }} contentStyle={{ padding: isDesktop ? 40 : 28 }}>
+        <WideCols stack={!isDesktop} gap={36} align="center">
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ width: 320, height: 220, alignItems: 'center', justifyContent: 'center' }}>
+              {imgReady.confettiLeaves ? (
+                <Image source={img.confettiLeaves} contentFit="contain" style={{ position: 'absolute', width: 320, height: 220 }} />
+              ) : null}
+              <GlassSurface
+                variant="subtle"
+                tint="rgba(227,244,240,0.8)"
+                radius={58}
+                padded={false}
+                style={{ width: 116, height: 116, alignSelf: 'center' }}
+                contentStyle={{ alignItems: 'center', justifyContent: 'center' }}
+              >
+                {imgReady.trophy ? (
+                  <Image source={img.trophy} contentFit="contain" style={{ width: 76, height: 76 }} />
+                ) : (
+                  <Trophy size={52} color={nw.color.gold} strokeWidth={1.75} fill="rgba(242,180,32,0.25)" />
+                )}
+              </GlassSurface>
+            </View>
+            <Text accessibilityRole="header" style={{ ...nw.type.displayWide, color: nw.color.ink, textAlign: 'center', writingDirection: 'rtl' }}>
+              {complete ? 'סיימת!' : 'כמעט שם'}
+            </Text>
+            <Text style={{ fontFamily: fonts.uiBold, fontSize: 20, color: nw.color.tealDeep, textAlign: 'center', writingDirection: 'rtl', marginTop: 4 }}>
+              שניים מקרא ואחד תרגום
+            </Text>
+          </View>
+          <View style={{ flex: 1, alignItems: 'center', gap: 26 }}>
+            <View style={{ flexDirection: rtl.row, gap: 14, justifyContent: 'center' }}>
+              <StatTile tone="snow" caption={`${fullDone}/${total} פסוקים`}>
+                <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: nw.color.mint, alignItems: 'center', justifyContent: 'center' }}>
+                  {complete ? (
+                    <Check size={30} color={nw.color.tealBright} strokeWidth={3} />
+                  ) : (
+                    <Text style={{ fontFamily: fonts.uiBold, fontSize: 16, color: nw.color.tealDeep, textAlign: 'center' }}>{`${pct}%`}</Text>
+                  )}
+                </View>
+              </StatTile>
+              <StatTile tone="mint" value="2" label="מקרא" sub="(פעמיים)" caption={`${Math.min(counts.mikra1, counts.mikra2)}/${total}`} />
+              <StatTile tone="sky" value="1" label="תרגום" sub="אונקלוס" caption={`${counts.onkelos}/${total}`} />
+            </View>
+            <Text style={{ fontFamily: fonts.uiBold, fontSize: 22, lineHeight: 32, color: nw.color.ink, textAlign: 'center', writingDirection: 'rtl' }}>
+              {'"כל צעד קטן בלימוד\nהוא צעד גדול בדרך"'}
+            </Text>
+            <View style={{ width: '100%', maxWidth: 380, gap: 10 }}>
+              <PrimaryButton
+                title={complete ? 'לפרשה הבאה' : 'להמשיך לקרוא'}
+                icon="arrow"
+                onPress={() => (complete ? router.replace('/(tabs)') : router.replace('/reading'))}
+              />
+              {!complete ? (
+                <Pressable
+                  onPress={() => router.replace('/(tabs)')}
+                  accessibilityRole="button"
+                  accessibilityLabel="חזרה לבית"
+                  style={{ minHeight: 44, justifyContent: 'center' }}
+                >
+                  <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, textAlign: 'center', writingDirection: 'rtl' }}>
+                    חזרה לבית
+                  </Text>
+                </Pressable>
+              ) : null}
+            </View>
+          </View>
+        </WideCols>
+      </GlassSurface>
+    </WidePage>
   );
 }

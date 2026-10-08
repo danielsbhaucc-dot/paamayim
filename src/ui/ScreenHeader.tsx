@@ -5,6 +5,7 @@ import { Pressable, Text, View } from 'react-native';
 import { MenuButton } from '../components/MenuButton';
 import { nw } from '../theme/design';
 import { rtl } from '../theme/rtl';
+import { useLayout } from './useLayout';
 
 type Props = {
   title: string;
@@ -26,6 +27,8 @@ export function ScreenHeader({
   light,
 }: Props) {
   const router = useRouter();
+  // web רחב: כפתור התפריט נמצא בניווט העליון
+  const { isWide } = useLayout();
   const canBack = showBack ?? router.canGoBack();
   const handleBack = onBack ?? (() => router.back());
   const ink = light ? '#FFFFFF' : nw.color.ink;
@@ -41,7 +44,7 @@ export function ScreenHeader({
       }}
     >
       <View style={{ width: 88, alignItems: rtl.alignRight }}>
-        <MenuButton light={light} />
+        {isWide ? null : <MenuButton light={light} />}
       </View>
 
       <View style={{ flex: 1, alignItems: 'center' }}>

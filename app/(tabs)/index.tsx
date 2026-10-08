@@ -4,17 +4,17 @@ import { Image as ExpoImage } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { BookOpen, BookOpenText, Sunrise } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import {
+  Animated,
   Image,
   Platform,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BOTTOM_NAV_SPACE } from '../../src/components/GlassBottomNav';
 import { MenuButton } from '../../src/components/MenuButton';
 import { getCurrentParasha, isParashaComplete } from '../../src/data/parashot';
@@ -33,7 +33,9 @@ import {
   PrimaryButton,
   ScreenBackground,
   ScreenHeader,
+  useLayout,
 } from '../../src/ui';
+import { HomeWide } from '../../src/wide/HomeWide';
 
 function haftaraBook(source: string): string {
   const match = source.match(/^(.*?)\s+[\u0590-\u05EA״׳]+[:：]/);
@@ -41,7 +43,16 @@ function haftaraBook(source: string): string {
 }
 
 export default function HomeScreen() {
+  const { isWide } = useLayout();
+  const onboardingDone = useAppStore((s) => s.onboardingDone);
+  if (isWide && onboardingDone) return <HomeWide />;
+  return <HomeMobile />;
+}
+
+function HomeMobile() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
+  const scrollY = useRef(new Animated.Value(0)).current;
   const calendarMode = useAppStore((s) => s.calendarMode);
   const progress = useAppStore((s) => s.progress);
   const lastVerseId = useAppStore((s) => s.lastVerseId);
@@ -52,13 +63,14 @@ export default function HomeScreen() {
 
   if (!onboardingDone) {
     return (
-      <ScreenBackground variant="photo" source={img.heroSunrise} showNav={false}>
-        <LinearGradient
-          pointerEvents="none"
-          colors={nw.scrim.splash}
-          locations={nw.scrim.splashLocations}
-          style={StyleSheet.absoluteFill}
-        />
+      <ScreenBackground
+        variant="photo"
+        source={img.heroSunrise}
+        showNav={false}
+        scrim={nw.scrim.splash}
+        scrimLocations={nw.scrim.splashLocations}
+        wideMaxWidth={520}
+      >
         <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
           <View style={styles.splashHeader}>
             <MenuButton light />
@@ -176,13 +188,20 @@ export default function HomeScreen() {
 
   return (
     <ScreenBackground variant="mist">
-      <SafeAreaView style={styles.safe} edges={['top']}>
-        <ScreenHeader title="פרשת השבוע" />
-        <ScrollView
+      <View style={styles.safe}>
+        <Animated.ScrollView
           contentContainerStyle={{ paddingBottom: BOTTOM_NAV_SPACE + 24 }}
           showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+            useNativeDriver: Platform.OS !== 'web',
+          })}
         >
-          <HeroBanner parashaName={parasha.name} rangeLabel={parasha.rangeLabel} />
+          <HeroBanner
+            parashaName={parasha.name}
+            rangeLabel={parasha.rangeLabel}
+            underlay={insets.top + nw.space.headerH + 8}
+          />
 
           <View
             style={{
@@ -335,14 +354,42 @@ export default function HomeScreen() {
             style={{ marginHorizontal: nw.space.screenX, marginTop: 16 }}
             onPress={() => (doneAll ? router.push('/completion') : router.push('/reading'))}
           />
-        </ScrollView>
-      </SafeAreaView>
+        </Animated.ScrollView>
+
+        {/* כותרת צפה: שקופה מעל תמונת הבאנר; בגלילה נכנסת זכוכית רכה בלי קו תחתון קשה */}
+        <View pointerEvents="box-none" style={styles.floatingHeader}>
+          <Animated.View
+            pointerEvents="none"
+            style={[
+              styles.headerFrost,
+              {
+                opacity: scrollY.interpolate({
+                  inputRange: [0, nw.header.frostFadeAt],
+                  outputRange: [0, 1],
+                  extrapolate: 'clamp',
+                }),
+              },
+            ]}
+          >
+            <LinearGradient
+              colors={nw.header.frost}
+              locations={nw.header.frostLocations}
+              style={StyleSheet.absoluteFill}
+            />
+          </Animated.View>
+          <View style={{ paddingTop: insets.top }}>
+            <ScreenHeader title="פרשת השבוע" />
+          </View>
+        </View>
+      </View>
     </ScreenBackground>
   );
 }
 
 const styles = StyleSheet.create({
   safe: { flex: 1 },
+  floatingHeader: { position: 'absolute', top: 0, left: 0, right: 0 },
+  headerFrost: { position: 'absolute', top: 0, left: 0, right: 0, bottom: -24 },
   splashHeader: {
     flexDirection: rtl.row,
     alignItems: 'center',

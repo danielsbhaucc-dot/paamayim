@@ -30,9 +30,16 @@ import {
   ScreenHeader,
   SegmentedTabs,
   VerseFocusCard,
+  useLayout,
 } from '../src/ui';
+import { ReadingWide } from '../src/wide/ReadingWide';
 
 export default function ReadingScreen() {
+  const { isWide } = useLayout();
+  return isWide ? <ReadingWide /> : <ReadingMobile />;
+}
+
+function ReadingMobile() {
   const router = useRouter();
   const params = useLocalSearchParams<{ aliyah?: string; focus?: string }>();
 

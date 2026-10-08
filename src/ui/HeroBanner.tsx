@@ -12,28 +12,44 @@ import { WaveEdge } from './WaveEdge';
 type Props = {
   parashaName: string;
   rangeLabel: string;
+  /**
+   * כמה הבאנר נמשך למעלה מתחת לכותרת הצפה (status bar + header + 8).
+   * התוכן שמתחת נשאר בדיוק באותו מקום; התמונה ממשיכה מאחורי הכותרת עם scrim רך.
+   */
+  underlay?: number;
 };
 
 /** באנר הבית: קצה תחתון גלי ועדין, עם קו לבן דק שמפריד בין התמונה לדף. */
-export function HeroBanner({ parashaName, rangeLabel }: Props) {
+export function HeroBanner({ parashaName, rangeLabel, underlay }: Props) {
+  const under = underlay ?? 0;
   return (
-    <View style={{ width: '100%', height: 262, marginTop: 8 }}>
+    <View style={{ width: '100%', height: 262 + under, marginTop: underlay != null ? 0 : 8 }}>
       <Image
         source={img.homeHeroTree}
         contentFit="cover"
+        contentPosition={underlay != null ? 'left' : 'center'}
         style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
       />
-      <LinearGradient
-        colors={[`${nw.color.mistTop}E6`, 'transparent']}
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 40 }}
-      />
+      {underlay != null ? (
+        <LinearGradient
+          pointerEvents="none"
+          colors={nw.header.scrim}
+          locations={nw.header.scrimLocations}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: under + 28 }}
+        />
+      ) : (
+        <LinearGradient
+          colors={[`${nw.color.mistTop}E6`, 'transparent']}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 40 }}
+        />
+      )}
       <WaveEdge />
       <GlassSurface
         variant="card"
         radius={22}
         style={{
           position: 'absolute',
-          top: 18,
+          top: 18 + under,
           bottom: 44,
           ...rtl.right(18),
           width: '58%',

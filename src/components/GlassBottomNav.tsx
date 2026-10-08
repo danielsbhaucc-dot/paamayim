@@ -9,14 +9,14 @@ import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { a11y } from '../utils/a11y';
 
-const ITEMS: ReadonlyArray<{ href: string; match: readonly string[]; label: string; Icon: LucideIcon }> = [
+export const NAV_ITEMS: ReadonlyArray<{ href: string; match: readonly string[]; label: string; Icon: LucideIcon }> = [
   { href: '/(tabs)', match: ['/', '/(tabs)', '/(tabs)/'], label: 'בית', Icon: House },
   { href: '/(tabs)/path', match: ['/path', '/(tabs)/path'], label: 'מסלול', Icon: Map },
   { href: '/(tabs)/family', match: ['/family', '/(tabs)/family'], label: 'משפחה', Icon: Users },
   { href: '/(tabs)/more', match: ['/more', '/(tabs)/more'], label: 'עוד', Icon: Ellipsis },
 ];
 
-function isActive(pathname: string, match: readonly string[]) {
+export function isNavActive(pathname: string, match: readonly string[]) {
   const atHome = pathname === '/' || pathname === '' || pathname === '/(tabs)';
   if (match.includes('/')) return atHome; // "בית" פעיל רק במסך הבית
   if (atHome) return false;
@@ -52,8 +52,8 @@ export function GlassBottomNav() {
         )}
         <View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: nw.glass.fillStrong }]} />
         <View style={styles.row}>
-          {ITEMS.map(({ href, match, label, Icon }) => {
-            const active = isActive(pathname, match);
+          {NAV_ITEMS.map(({ href, match, label, Icon }) => {
+            const active = isNavActive(pathname, match);
             return (
               <Pressable
                 key={href}

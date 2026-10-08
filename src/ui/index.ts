@@ -16,3 +16,7 @@ export { SegmentedTabs } from './SegmentedTabs';
 export { StatTile } from './StatTile';
 export { VerseFocusCard } from './VerseFocusCard';
 export { WaveEdge } from './WaveEdge';
+export { TopNav } from './TopNav';
+export { useLayout } from './useLayout';
+export type { Breakpoint, Layout } from './useLayout';
+export { WideCols, WidePage, WideSectionTitle, wideText } from './WidePage';

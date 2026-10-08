@@ -8,7 +8,14 @@ import { nw } from '../src/theme/design';
 import { fonts } from '../src/theme/fonts';
 import { img } from '../src/theme/images';
 import { rtl } from '../src/theme/rtl';
-import { GlassSurface, IsraelFlag, PrimaryButton, ScreenBackground, ScreenHeader } from '../src/ui';
+import {
+  GlassSurface,
+  IsraelFlag,
+  PrimaryButton,
+  ScreenBackground,
+  ScreenHeader,
+  useLayout,
+} from '../src/ui';
 
 export default function CalendarScreen() {
   const { onboarding } = useLocalSearchParams<{ onboarding?: string }>();
@@ -16,6 +23,8 @@ export default function CalendarScreen() {
   const calendarMode = useAppStore((s) => s.calendarMode);
   const setCalendarMode = useAppStore((s) => s.setCalendarMode);
   const setOnboardingDone = useAppStore((s) => s.setOnboardingDone);
+  // web רחב: שני הכרטיסים זה לצד זה בעמודה ממורכזת; בטלפון — בדיוק כמו קודם
+  const { isWide } = useLayout();
 
   const onContinue = () => {
     if (onboarding === '1') {
@@ -27,7 +36,13 @@ export default function CalendarScreen() {
   };
 
   return (
-    <ScreenBackground variant="photo" source={img.calendar} showNav={false}>
+    <ScreenBackground
+      variant="photo"
+      source={img.calendar}
+      showNav={false}
+      wideNav={onboarding !== '1'}
+      wideMaxWidth={880}
+    >
       <SafeAreaView edges={['top', 'bottom']} style={{ flex: 1 }}>
         <ScreenHeader
           title="בחירת לוח"
@@ -35,14 +50,26 @@ export default function CalendarScreen() {
         />
 
         <View
-          style={{
-            flex: 1,
-            paddingHorizontal: nw.space.screenX,
-            paddingTop: 12,
-            gap: 16,
-          }}
+          style={[
+            {
+              flex: 1,
+              paddingHorizontal: nw.space.screenX,
+              paddingTop: 12,
+              gap: 16,
+            },
+            isWide && {
+              flexGrow: 0,
+              flexShrink: 0,
+              flexBasis: 'auto',
+              flexDirection: rtl.row,
+              gap: 24,
+              paddingTop: 64,
+              paddingBottom: 36,
+            },
+          ]}
         >
           <ModeCard
+            wide={isWide}
             selected={calendarMode === 'israel'}
             onPress={() => setCalendarMode('israel')}
             icon={
@@ -65,6 +92,7 @@ export default function CalendarScreen() {
           />
 
           <ModeCard
+            wide={isWide}
             selected={calendarMode === 'diaspora'}
             onPress={() => setCalendarMode('diaspora')}
             icon={<Globe size={48} color={nw.color.tealIcon} strokeWidth={1.5} />}
@@ -77,7 +105,10 @@ export default function CalendarScreen() {
           title="המשך"
           icon="none"
           onPress={onContinue}
-          style={{ marginHorizontal: nw.space.screenX, marginBottom: 24 }}
+          style={[
+            { marginHorizontal: nw.space.screenX, marginBottom: 24 },
+            isWide && { width: 420, alignSelf: 'center' },
+          ]}
         />
       </SafeAreaView>
     </ScreenBackground>
@@ -85,12 +116,14 @@ export default function CalendarScreen() {
 }
 
 function ModeCard({
+  wide,
   selected,
   onPress,
   icon,
   title,
   description,
 }: {
+  wide?: boolean;
   selected: boolean;
   onPress: () => void;
   icon: React.ReactNode;
@@ -98,7 +131,7 @@ function ModeCard({
   description: string;
 }) {
   return (
-    <View>
+    <View style={wide ? { flex: 1 } : undefined}>
       <GlassSurface
         variant="strong"
         radius={24}

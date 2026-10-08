@@ -13,9 +13,9 @@ This project is an Expo SDK 52 + expo-router app (React Native 0.76, Hebrew RTL)
 Never modify these unless the user's message explicitly names the file and the change:
 
 1. `src/components/SideMenu.tsx`: no code, style, animation or content changes at all.
-2. `src/components/MenuButton.tsx`: keep the component exactly as is. Every screen keeps rendering `<MenuButton />` on the **visual right side of its header**, the same as today.
+2. `src/components/MenuButton.tsx`: keep the component exactly as is. Every screen keeps rendering `<MenuButton />` on the **visual right side of its header**, the same as today (phone layout). On wide web (≥768) the MenuButton lives in `TopNav` instead.
 3. `src/components/GlassBottomNav.tsx`: may be restyled visually only. Keep the 4 items, their order, labels and routes (בית `/(tabs)`, מסלול `/(tabs)/path`, משפחה `/(tabs)/family`, עוד `/(tabs)/more`), navigation with `router.push`, and the exports `GlassBottomNav` and `BOTTOM_NAV_SPACE = 96`. Style: glass card radius 24, lucide line icons (House, Map, Users, Ellipsis), the active item on a soft white tile. Only the current screen's item is active. A screen may hide the nav by passing `showNav={false}` to the background wrapper.
-4. `app/(tabs)/more.tsx` (the "עוד" screen): may be restyled visually only. Keep every action exactly: calendar choice (israel/diaspora), "פתח תפריט ניווט" (openSideMenu), "מסך פתיחה מחדש" (setOnboardingDone(false)), "משפטי" (/legal), "איפוס התקדמות" (same Alert, resetProgress + setOnboardingDone(false)), and the version footer.
+4. `app/(tabs)/more.tsx` (the "עוד" screen): may be restyled visually only. Keep every action exactly: calendar choice (israel/diaspora), "פתח תפריט ניווט" (openSideMenu), "מסך פתיחה מחדש" (setOnboardingDone(false)), "משפטי" (/legal), "איפוס התקדמות" (same Alert, resetProgress + setOnboardingDone(false); on wide web `window.confirm`, because `Alert.alert` shows nothing in a browser), and the version footer. The wide layout (`MoreWide`) adds a "הגדרות" row.
 5. The "התחל" button on the splash/onboarding branch of `app/(tabs)/index.tsx`: keep its styles exactly (`styles.startBtn`, `styles.startFill`, `styles.startText`, `styles.startArrow`, the BlurView and the chevron). Only its `onPress` may change when a step says so.
 6. `src/components/TorahScrollView.tsx` and `assets/megillah-*.png`: do not edit. The Torah scroll stays as it is.
 7. Brand: the app name stays **נהורא**. Do not edit `src/theme/brand.ts` (`APP_NAME = 'נהורא'`, `APP_TAGLINE = 'אור הפסוק. עד שבת.'`). Never write "NuraWell" in the UI.
@@ -23,11 +23,34 @@ Never modify these unless the user's message explicitly names the file and the c
 9. Data and state logic: `src/store/useAppStore.ts` and `src/data/*` must not change behavior. Read from them only. Exception: haftara content may change: `src/data/haftaraStories.ts`, the `haftara` object built in `assemble()` in `src/data/parashot.ts`, and the optional field `specialReason` in `HaftaraInfo` (`src/data/types.ts`).
 10. Existing files in `assets/` (root) must not be deleted, renamed or overwritten.
 
-## 2. Platform scope
+## 2. Platform scope and responsive web
 
-- **Phone only** (widths 360–430pt). Ignore desktop web layout entirely, and do not add breakpoints or max-width wrappers.
+- **Phone layout** (native iOS/Android at any width, and web < 768px) is the reference design. It must stay pixel-identical: the phone code path of every screen is the original component (e.g. `HomeMobile`, `PathMobile`) and is not changed by web work.
 - The app must still run in Expo Go (iOS/Android) and in a mobile browser (`expo start --web` at 393×852).
 - `npx tsc --noEmit` must pass after every change.
+
+### Breakpoints (web only), shared hook `src/ui/useLayout.ts`
+
+| Breakpoint | Width | Layout |
+|---|---|---|
+| phone | < 768 | current mobile design, bottom tab bar (`GlassBottomNav`) |
+| tablet | 768–1199 | top nav (`TopNav`), 2 columns where it helps, gutters 32 |
+| desktop | ≥ 1200 | top nav with full labels + settings button, 2–4 column grids, gutters 48 |
+
+- `const { bp, isWide, isDesktop, isTablet, gutter, contentMax } = useLayout()`. `isWide` is true only when `Platform.OS === 'web'` and width ≥ 768. Native never gets the wide layout (native tablets keep the phone layout).
+- Tokens: `nw.layout` (`tablet` 768, `desktop` 1200, `contentMax` 1200, `gutterTablet` 32, `gutterDesktop` 48, `textMax` 680, `topNavH` 68) and `nw.type.displayWide`.
+- Pattern per screen: the default export only picks the branch, e.g. `return isWide ? <PathWide /> : <PathMobile />;`. Never add an early return after other hooks. Wide screens live in `src/wide/*` (or next to the mobile component in the same route file for small ones), and reuse `src/ui` components and the same store/data.
+- Wide pages use `WidePage` (`src/ui/WidePage.tsx`): background A + `TopNav`, content centered with `maxWidth` ≤ 1200, large page title (`displayWide` on desktop), optional back button. Columns: `WideCols` (RTL row, `stack` to collapse). Section headings: `WideSectionTitle`.
+- Screens that keep the phone layout on wide web (settings, legal, splash, calendar) use `ScreenBackground` props `wideMaxWidth` (centered column) and `wideNav` (show `TopNav`). The photo and scrim stay full-bleed.
+- Navigation on wide web: `TopNav` replaces the bottom tab bar. It uses the same routes (`NAV_ITEMS` / `isNavActive` exported from `GlassBottomNav`), the brand נהורא on the right, a calendar pill (→ `/calendar`), settings (desktop) and `MenuButton`, which opens the unchanged `SideMenu`. On wide web `SideMenuHost` shows the SideMenu as a 420px drawer on the right with a dimmed backdrop. `ScreenHeader` hides its own menu button on wide web.
+- Text line length: paragraphs ≤ `nw.layout.textMax` (680) via `wideText(style)`. Never stretch buttons full width on wide: CTAs are max 320–520 wide.
+- Hover (web, mouse only): `GlassSurface` with `onPress` lifts 2px with `shadow.float`; TopNav links get a soft white background. Touch never triggers hover.
+- Reading on desktop shows verse card and Torah scroll side by side (scroll column 472 wide, height follows the window). Tablet keeps the verse/scroll toggle in a centered column. Keyboard: ← next verse, → previous verse.
+- No olive-branch edge art yet (no asset); the background stays `img.mistSky` (wide: `contentPosition: 'bottom'` so the landscape shows).
+
+### Home header (phone)
+
+- The home header floats over the hero image: `HeroBanner underlay={insets.top + 56 + 8}` extends the image behind the status bar and header, with a soft top scrim `nw.header.scrim`. The header is transparent at rest and fades in a frosted gradient (`nw.header.frost`, no hard bottom edge) after scrolling `nw.header.frostFadeAt` (90) px. Content below the banner keeps its exact position.
 
 ## 3. Working rules
 
@@ -197,7 +220,10 @@ export const rtl = {
 | Component | Purpose |
 |---|---|
 | `GlassSurface` | base of every card/tile/pill. Props `variant` ('card' / 'strong' / 'subtle' / 'onPhoto'), `radius`, `padded`, `shadow` ('card' / 'float' / 'none'), `style` (OUTER: margin/flex/width/position), `contentStyle` (INNER: alignItems/justifyContent/padding/gap). Blur/fill/highlight layers are always absoluteFill, so `alignItems:'center'` never shrinks the glass. |
-| `ScreenBackground` | `variant` ('mist' / 'photo'), `source?`, `showNav?` (default true; renders the existing `GlassBottomNav` and bottom padding `BOTTOM_NAV_SPACE`) |
+| `ScreenBackground` | `variant` ('mist' / 'photo'), `source?`, `showNav?` (default true; renders the existing `GlassBottomNav` and bottom padding `BOTTOM_NAV_SPACE`), `scrim?`/`scrimLocations?` (full-screen extra gradient, e.g. splash), wide web only: `wideNav?` (TopNav), `wideMaxWidth?` (centered column) |
+| `useLayout` | breakpoints hook (see section 2) |
+| `TopNav` | wide web top navigation bar (glass, 68 high, max 1200) |
+| `WidePage` / `WideCols` / `WideSectionTitle` / `wideText` | wide web page shell, RTL columns, section titles, line-length-limited text |
 | `ScreenHeader` | height 56; right = `<MenuButton />`; center = title (+ optional `titleIcon` to its right, optional `subtitle` below); left = back chevron (when `router.canGoBack()`) and/or `endSlot` |
 | `PrimaryButton` | wide bottom CTA, height 60, radius 30; variants `glass` (default) and `solid` |
 | `PillButton` | small in-card pill, height 44, chevron on its left, placed at the card's visual left |

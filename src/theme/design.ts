@@ -62,6 +62,24 @@ export const nw = {
     height: 56,
     fadeBelow: 36,
   },
+  /** כותרת צפה בבית: שקופה מעל התמונה, scrim רך לקריאות, וזכוכית שנכנסת בגלילה */
+  header: {
+    scrim: ['rgba(203,214,226,0.92)', 'rgba(203,214,226,0.55)', 'rgba(203,214,226,0)'],
+    scrimLocations: [0, 0.55, 1],
+    frost: ['rgba(214,224,233,0.98)', 'rgba(214,224,233,0.94)', 'rgba(214,224,233,0)'],
+    frostLocations: [0, 0.72, 1],
+    frostFadeAt: 90,
+  },
+  /** רספונסיבי (web): טלפון < 768 · טאבלט 768–1199 · דסקטופ ≥ 1200 */
+  layout: {
+    tablet: 768,
+    desktop: 1200,
+    contentMax: 1200,
+    gutterTablet: 32,
+    gutterDesktop: 48,
+    textMax: 680,
+    topNavH: 68,
+  },
   radius: { xs: 10, chip: 14, tile: 18, card: 22, hero: 26, button: 30, pill: 999 },
   space: { screenX: 18, gap: 14, cardPad: 18, headerH: 56, xs: 4, s: 8, m: 12, l: 16, xl: 24, xxl: 32 },
   shadow: {
@@ -72,6 +90,7 @@ export const nw = {
   type: {
     screenTitle: { fontFamily: fonts.uiBold, fontSize: 21, lineHeight: 28 },
     display: { fontFamily: fonts.uiExtra, fontSize: 34, lineHeight: 42 },
+    displayWide: { fontFamily: fonts.uiExtra, fontSize: 48, lineHeight: 58 },
     parashaName: { fontFamily: fonts.uiExtra, fontSize: 38, lineHeight: 46 },
     h2: { fontFamily: fonts.uiBold, fontSize: 22, lineHeight: 30 },
     h3: { fontFamily: fonts.uiBold, fontSize: 18, lineHeight: 25 },

@@ -15,9 +15,16 @@ import {
   ProgressRing,
   ScreenBackground,
   ScreenHeader,
+  useLayout,
 } from '../../src/ui';
+import { PathWide } from '../../src/wide/PathWide';
 
 export default function PathScreen() {
+  const { isWide } = useLayout();
+  return isWide ? <PathWide /> : <PathMobile />;
+}
+
+function PathMobile() {
   const router = useRouter();
   const calendarMode = useAppStore((s) => s.calendarMode);
   const progress = useAppStore((s) => s.progress);

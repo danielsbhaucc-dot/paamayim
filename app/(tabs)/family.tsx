@@ -17,9 +17,16 @@ import {
   ScreenBackground,
   ScreenHeader,
   SegmentedTabs,
+  useLayout,
 } from '../../src/ui';
+import { FamilyWide } from '../../src/wide/FamilyWide';
 
 export default function FamilyScreen() {
+  const { isWide } = useLayout();
+  return isWide ? <FamilyWide /> : <FamilyMobile />;
+}
+
+function FamilyMobile() {
   const router = useRouter();
   const calendarMode = useAppStore((s) => s.calendarMode);
   const familyVoice = useAppStore((s) => s.familyVoice);

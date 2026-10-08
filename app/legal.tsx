@@ -27,7 +27,7 @@ export default function LegalScreen() {
   ) : undefined;
 
   return (
-    <ScreenBackground variant="mist" showNav={false}>
+    <ScreenBackground variant="mist" showNav={false} wideNav wideMaxWidth={760}>
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
         <ScreenHeader title="משפטי" endSlot={closeSlot} />
 

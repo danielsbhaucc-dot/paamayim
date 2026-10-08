@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useCallback, useEffect, useState } from 'react';
 import { I18nManager } from 'react-native';
 import { AppLoadingScreen } from '../src/components/AppLoadingScreen';
-import { SideMenu } from '../src/components/SideMenu';
+import { SideMenuHost } from '../src/components/SideMenuHost';
 import { fontAssets } from '../src/theme/fonts';
 import { colors } from '../src/theme/tokens';
 import { enforceRTL } from '../src/utils/a11y';
@@ -55,7 +55,7 @@ export default function RootLayout() {
         <Stack.Screen name="legal" options={{ presentation: 'modal' }} />
         <Stack.Screen name="calendar" options={{ presentation: 'card' }} />
       </Stack>
-      <SideMenu />
+      <SideMenuHost />
       {showLoader ? <AppLoadingScreen ready={loaded} onFinish={onLoaderFinish} /> : null}
     </>
   );
