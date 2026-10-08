@@ -15,3 +15,4 @@ export { ScreenHeader } from './ScreenHeader';
 export { SegmentedTabs } from './SegmentedTabs';
 export { StatTile } from './StatTile';
 export { VerseFocusCard } from './VerseFocusCard';
+export { WaveEdge } from './WaveEdge';

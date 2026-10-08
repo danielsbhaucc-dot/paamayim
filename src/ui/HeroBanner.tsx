@@ -7,15 +7,17 @@ import { fonts } from '../theme/fonts';
 import { img } from '../theme/images';
 import { rtl } from '../theme/rtl';
 import { GlassSurface } from './GlassSurface';
+import { WaveEdge } from './WaveEdge';
 
 type Props = {
   parashaName: string;
   rangeLabel: string;
 };
 
+/** באנר הבית: קצה תחתון גלי ועדין, עם קו לבן דק שמפריד בין התמונה לדף. */
 export function HeroBanner({ parashaName, rangeLabel }: Props) {
   return (
-    <View style={{ width: '100%', height: 230, marginTop: 8 }}>
+    <View style={{ width: '100%', height: 262, marginTop: 8 }}>
       <Image
         source={img.homeHeroTree}
         contentFit="cover"
@@ -25,13 +27,14 @@ export function HeroBanner({ parashaName, rangeLabel }: Props) {
         colors={[`${nw.color.mistTop}E6`, 'transparent']}
         style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 40 }}
       />
+      <WaveEdge />
       <GlassSurface
         variant="card"
         radius={22}
         style={{
           position: 'absolute',
           top: 18,
-          bottom: 18,
+          bottom: 44,
           ...rtl.right(18),
           width: '58%',
         }}

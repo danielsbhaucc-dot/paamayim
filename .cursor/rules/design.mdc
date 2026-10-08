@@ -140,8 +140,9 @@ Names in use: `House, Map, Ellipsis, Menu, FileText, RotateCcw, BookOpen, BookOp
 
 ## 6. Backgrounds
 
-- **mist** (content screens: home, path, reading, story, family, settings, legal, more): image `img.mistSky` plus ONE LinearGradient `nw.bg.mistVeil` = colors `['rgba(170,196,214,0.35)', 'rgba(200,218,229,0.45)', 'rgba(208,224,233,0.55)']`, locations `[0, 0.45, 1]`, over base color `nw.bg.base` `#C9D8E2`. No white layer. The result is cool blue-gray with visible clouds and a misty landscape at the bottom. Never near-white, never beige.
+- **mist** (content screens: home, path, reading, story, family, settings, legal, more): image `img.mistSky` plus ONE LinearGradient `nw.bg.mistVeil` = colors `['rgba(120,165,210,0.18)', 'rgba(255,255,255,0)', 'rgba(120,140,120,0.10)']`, locations `[0, 0.5, 1]`, over base color `nw.bg.base` `#C9D8E2`. This is a light veil: a soft blue tint at the top, nothing in the middle, a faint green tint at the bottom. The photo's own colors (blue sky, peach clouds, misty olive trees) show through. No white layer, never a near-white or washed-out look.
 - **photo** (splash, calendar, completion): full-color image plus LinearGradient `nw.bg.photoVeil` = colors `['rgba(20,52,74,0.16)', 'rgba(20,52,74,0)', 'rgba(20,52,74,0.10)']`, locations `[0, 0.35, 1]`. Never a white veil on photos. The splash adds `nw.scrim.splash` (dark top/middle scrim) so white text stays readable.
+- **Wave edge** (`src/ui/WaveEdge.tsx`): used ONLY where a full-width image ends directly on the page background with a hard edge. Today that is only the home hero banner (`src/ui/HeroBanner.tsx`: full width, height 262, `<WaveEdge />` as a child, parasha card `bottom: 44`). The wave covers the image's bottom 56pt, filled with `nw.wave.color` `#E4DDD8` (opacity 0.55 → 1), with a thin white line (1.75pt plus a soft 6pt glow), and fades to transparent over 36pt below the image. Images inside rounded cards (story, family) and full-screen photos (splash, calendar, completion) do NOT get a wave. Never on SideMenu or the Torah scroll.
 
 ## 7. Images (`src/theme/images.ts`)
 

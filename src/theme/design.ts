@@ -48,14 +48,19 @@ export const nw = {
   },
   bg: {
     base: '#C9D8E2',
-    mistVeil: ['rgba(170,196,214,0.35)', 'rgba(200,218,229,0.45)', 'rgba(208,224,233,0.55)'],
-    mistVeilLocations: [0, 0.45, 1],
+    mistVeil: ['rgba(120,165,210,0.18)', 'rgba(255,255,255,0)', 'rgba(120,140,120,0.10)'],
+    mistVeilLocations: [0, 0.5, 1],
     photoVeil: ['rgba(20,52,74,0.16)', 'rgba(20,52,74,0)', 'rgba(20,52,74,0.10)'],
     photoVeilLocations: [0, 0.35, 1],
   },
   scrim: {
     splash: ['rgba(18,52,82,0.42)', 'rgba(18,52,82,0.08)', 'rgba(18,52,82,0)', 'rgba(14,42,58,0.30)', 'rgba(14,42,58,0.08)'],
     splashLocations: [0, 0.32, 0.45, 0.66, 1],
+  },
+  wave: {
+    color: '#E4DDD8',
+    height: 56,
+    fadeBelow: 36,
   },
   radius: { xs: 10, chip: 14, tile: 18, card: 22, hero: 26, button: 30, pill: 999 },
   space: { screenX: 18, gap: 14, cardPad: 18, headerH: 56, xs: 4, s: 8, m: 12, l: 16, xl: 24, xxl: 32 },
