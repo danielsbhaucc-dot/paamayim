@@ -1,0 +1,794 @@
+{
+  "schemaVersion": 2,
+  "slug": "pekudei",
+  "meta": {
+    "slug": "pekudei",
+    "name": "פקודי",
+    "nameEn": "Pekudei",
+    "book": "Exodus",
+    "bookHe": "שמות",
+    "range": "Exodus 38:21-40:38",
+    "rangeHe": "שמות ל״ח:כ״א–מ׳:ל״ח",
+    "verseCount": 92,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Exodus 38:21-39:1"
+      },
+      {
+        "n": 2,
+        "ref": "Exodus 39:2-39:21"
+      },
+      {
+        "n": 3,
+        "ref": "Exodus 39:22-39:32"
+      },
+      {
+        "n": 4,
+        "ref": "Exodus 39:33-39:43"
+      },
+      {
+        "n": 5,
+        "ref": "Exodus 40:1-40:16"
+      },
+      {
+        "n": 6,
+        "ref": "Exodus 40:17-40:27"
+      },
+      {
+        "n": 7,
+        "ref": "Exodus 40:28-40:38"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "I Kings 7:51-8:21",
+        "refHe": "מלכים א׳ ז, נא – ח, כא"
+      },
+      "sephardi": {
+        "ref": "I Kings 7:40-50",
+        "refHe": "מלכים א׳ ז, מ–נ"
+      },
+      "sameForAll": false
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Exodus (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "שמות לח, כא – מ, לח"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "הענן מעל האוהל",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "משה נותן דין וחשבון על כל הזהב והכסף. בגדי הכהונה נגמרים, והמשכן מוקם באחד בניסן. הכבוד ממלא את האוהל, ומשה לא יכול להיכנס. הענן מורה מתי לחנות ומתי לנסוע.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "גומרים לבנות את המשכן, וענן יפה יורד עליו. זה הסימן שאלוהים שם. כשהענן עולה, העם יודע שהגיע זמן ללכת.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "שלמה מביא את הארון אל הבית, והענן ממלא אותו עד שהכהנים לא יכולים לעמוד. אותו רגע של סיום ושל כבוד.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T17:09:06.653Z",
+      "source": "import:content-writer",
+      "draft": "הפרשה נגמרת ברגע שבו המשכן מוקם והענן מכסה אותו, ״ולא יכיל משה למיעל״ – כבוד ה׳ ממלא את הבית. בהפטרה לפי מנהג האשכנזים (מלכים א ז, נא – ח, כא) קורה אותו דבר בדיוק בבית המקדש של שלמה: ״ותשלם כל המלאכה״, הארון נכנס למקומו, והענן ממלא את הבית, ״ולא יכלו הכהנים לעמוד לשרת מפני הענן״. מה שהתחיל במדבר באוהל נייד, ממשיך באבן בירושלים – וה׳ שוכן בשניהם באותה דרך. הספרדים קוראים את מלכים א ז, מ–נ – חירם משלים את כלי המקדש, כמו בצלאל בפרשה. (ברוב השנים פקודי נקראת יחד עם ויקהל, ולעתים קרובות מאוד היא חלה בשבת שקלים, בשבת פרה או בשבת החודש – ואז קוראים את ההפטרה המיוחדת.)"
+    },
+    "haftaraConnections": {
+      "published": [
+        "סיום הבניין",
+        "ענן וכבוד",
+        "חשבון מדויק"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "39:32",
+        "40:34"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "בפרשה מסיימים לבנות את המשכן, וענן של ה׳ ממלא אותו. בהפטרה שלמה המלך מסיים לבנות את בית המקדש – ושוב ענן של ה׳ ממלא את הבית. ה׳ בא לגור במקום שבנינו לו באהבה.",
+      "updatedAt": "2026-10-08T17:09:06.653Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "דין וחשבון",
+          "text": "הפרשה פותחת ברשימה מדויקת של כל הזהב, הכסף והנחושת. משה, הנאמן שבנאמנים, לא אמר ״תסמכו עליי״. הוא פתח את הספרים לעיני כולם. מי שמחזיק בכסף של אחרים חייב להיות שקוף – לא כי חושדים בו, אלא כי כך בונים אמון."
+        },
+        {
+          "title": "בדיוק כפי שנצטווה",
+          "text": "שוב ושוב חוזר המשפט ״כאשר ציווה ה׳ את משה״. אין כאן חידושים אישיים ואין קיצורי דרך. יש רגעים שבהם הגדולה היא לא ביצירתיות – אלא בנאמנות לפרטים, גם הקטנים."
+        },
+        {
+          "title": "הברכה שבסוף העבודה",
+          "text": "כשמשה ראה שהכול נעשה כמו שצריך, הוא בירך את העם. רש״י מביא את הברכה: שתשרה שכינה במעשה ידיכם. אחרי מאמץ גדול, אנשים צריכים לשמוע שראו אותם. מילה טובה בסוף עבודה היא חלק מהעבודה."
+        },
+        {
+          "title": "לחכות להזמנה",
+          "text": "משה בנה את המשכן – ובסוף לא יכול היה להיכנס אליו, כי הענן מילא אותו. גם כשעשינו הכול, הקדושה לא שייכת לנו; היא מתנה. ספר שמות, שנפתח בעבדות, נגמר בענן ובאש של ה׳ בתוך המחנה. מגלות לשכינה – זה המסע כולו."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.653Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "לספור ולהראות",
+          "text": "משה סיפר לכל העם בדיוק כמה זהב וכסף הגיע ולאן הלך. כשסומכים עליי עם משהו – אני שומר עליו ומספר את האמת."
+        },
+        {
+          "title": "ענן ביום ואש בלילה",
+          "text": "ה׳ שמר על בני ישראל במדבר – ענן ביום ואש בלילה. גם כשחשוך, ה׳ איתנו. הם נסעו רק כשהענן זז, וחיכו בסבלנות כשהוא נשאר."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.653Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "exodus-38-21": {
+      "onkelosExplanation": {
+        "draft": "״אלין מניני משכנא משכנא דסהדותא״ – אלה פקודי המשכן, משכן העדות. רש״י מביא: ״המשכן״ פעמיים – רמז לשני בתי המקדש שנלקחו ״כמשכון״ בעוונות ישראל. ״די אתמני על מימרא דמשה״ – אשר נמנו על פי משה. מנהיג נותן דין וחשבון על כל מה שנמסר לידיו.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-22": {
+      "onkelosExplanation": {
+        "draft": "״ובצלאל... עבד ית כל די פקיד יי ית משה״ – ובצלאל עשה את כל אשר ציווה ה׳ את משה. רש״י מסביר: ״אשר ציווה ה׳״ – ולא ״אשר ציווה משה״. בצלאל כיוון לדעת ה׳ גם במקום שמשה לא פירט לו, ומשה אמר לו: בצל אל היית.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-23": {
+      "onkelosExplanation": {
+        "draft": "״ועמה אהליאב בר אחיסמך לשבטא דדן נגר ואמן וציר״ – ואיתו אהליאב, חרש וחושב ורוקם. שני אמנים משני קצוות העם.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-24": {
+      "onkelosExplanation": {
+        "draft": "״כל דהבא דאתעבד לעבידא... עסרין ותשע ככרין ושבע מאה ותלתין סלעין״ – כל הזהב: עשרים ותשע כיכר ושבע מאות ושלושים שקל. כל גרם נמנה. שקיפות בכסף ציבורי היא חלק מהקדושה.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-25": {
+      "onkelosExplanation": {
+        "draft": "״וכסף מניני כנשתא מאה ככרין״ – כסף פקודי העדה, מאה כיכר.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-26": {
+      "onkelosExplanation": {
+        "draft": "״תקלא לגלגלתא פלגות סלעא... לשית מאה ותלתא אלפין וחמש מאה וחמשין״ – בקע לגולגולת, מחצית השקל, לשש מאות ושלושה אלף וחמש מאות וחמישים. כל אחד אותו סכום – וכולם נספרו.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-27": {
+      "onkelosExplanation": {
+        "draft": "״מאה ככרין דכסף לאתכא ית סמכי קודשא״ – מאה כיכר הכסף ליצוק את אדני הקודש. ״ככרא לסמכא״ – כיכר לאדן. היסודות של המשכן עשויים מהנתינה השווה של כל העם.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-28": {
+      "onkelosExplanation": {
+        "draft": "״עבד ווין לעמודיא וחפא רישיהון״ – מהשאר עשה ווים לעמודים. אפילו העודף מקבל תפקיד.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-29": {
+      "onkelosExplanation": {
+        "draft": "״ונחשא דארמותא שבעין ככרין״ – ונחושת התנופה שבעים כיכר.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-30": {
+      "onkelosExplanation": {
+        "draft": "״ועבד בה ית סמכי תרע משכן זמנא וית מדבחא דנחשא״ – ויעש בה את אדני פתח אוהל מועד ואת מזבח הנחושת.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-31": {
+      "onkelosExplanation": {
+        "draft": "״וית כל סכי משכנא וית כל סכי דרתא״ – וכל יתדות המשכן והחצר.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-1": {
+      "onkelosExplanation": {
+        "draft": "״עבדו לבושי שמושא לשמשא בקודשא... כמא די פקיד יי ית משה״ – כאשר ציווה ה׳ את משה. המשפט הזה חוזר בפרשה שוב ושוב, וחז״ל קשרו את חזרותיו לשמונה עשרה הברכות של תפילת העמידה. כל פרט נעשה בדיוק – וזה עצמו כמו תפילה.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-2": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית אפודא דהבא תכלא וארגונא״ – ויעש את האפוד.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-3": {
+      "onkelosExplanation": {
+        "draft": "״ורדידו ית טסי דהבא וקציצו חוטין״ – וירקעו את פחי הזהב וקיצץ פתילים. ריקעו את הזהב לפחים דקים וחתכו אותו לחוטים, ושזרו אותו בתוך כל חוטי הצבע. עבודה עדינה ומדויקת.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-4": {
+      "onkelosExplanation": {
+        "draft": "״כתפן עבדו לה מלפפן״ – כתפות חוברות.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-5": {
+      "onkelosExplanation": {
+        "draft": "״והמין תקונה די עלוהי מנה הוא כעובדוהי״ – וחשב אפודתו ממנו הוא. ״כמא די פקיד יי ית משה״.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-6": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו ית אבני בורלא... גליפן כתב מפרש על שמהת בני ישראל״ – אבני השוהם, מפותחות על שמות בני ישראל.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-7": {
+      "onkelosExplanation": {
+        "draft": "״אבני דוכרנא לבני ישראל״ – אבני זיכרון לבני ישראל.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-8": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית חושנא עובד אמן״ – החושן, מעשה חושב.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-9": {
+      "onkelosExplanation": {
+        "draft": "״מרבע הוה עיף״ – רבוע היה, כפול.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-10": {
+      "onkelosExplanation": {
+        "draft": "״ואשלימו בה ארבעא סדרי אבן טבא״ – וימלאו בו ארבעה טורי אבן.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-11": {
+      "onkelosExplanation": {
+        "draft": "״וסדרא תנינא אזמרגדין שבזיז וסבהלום״ – הטור השני.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-12": {
+      "onkelosExplanation": {
+        "draft": "״וסדרא תליתאה קנכרי טרקיא ועין עגלא״ – הטור השלישי.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-13": {
+      "onkelosExplanation": {
+        "draft": "״וסדרא רביעאה כרום ימא ובורלא ופנטרי״ – הטור הרביעי.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-14": {
+      "onkelosExplanation": {
+        "draft": "״גבר על שמה לתרין עסר שבטין״ – איש על שמו לשנים עשר שבט. כל שבט – אבן משלו, על לב אחד.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-15": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו על חושנא תכין מתחמן״ – שרשרות גבלות.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-16": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו תרתין מרמצן דדהב ותרתין עזקן דדהב״ – משבצות וטבעות.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-17": {
+      "onkelosExplanation": {
+        "draft": "״ויהבו תרתין גדילתא דדהב על תרתין עזקתא״ – העבותות בטבעות.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-18": {
+      "onkelosExplanation": {
+        "draft": "״ויהבנון על כתפי אפודא לקבל אפוהי״ – על כתפות האפוד.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-19": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו תרתין עזקן דדהב... על ספתה די לעברא דאפודא מלגיו״ – טבעות בשפת החושן מבפנים.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-20": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו תרתין עזקן דדהב... מעלוי להמין אפודא״ – טבעות על כתפות האפוד מלמטה.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-21": {
+      "onkelosExplanation": {
+        "draft": "״ולא יתפרק חושנא מעלוי אפודא״ – ולא ייזח החושן מעל האפוד. הלב והכתפיים קשורים יחד.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-22": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית מעילא דאפודא עובד מחי גמיר תכלא״ – מעיל האפוד, מעשה אורג, כליל תכלת.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-23": {
+      "onkelosExplanation": {
+        "draft": "״ופום מעילא כפיל לגוה... לא יתבזע״ – ופי המעיל בתוכו, לא ייקרע.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-24": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו על שפולי מעילא רמוני תכלא״ – רימונים על שולי המעיל.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-25": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו זגיא דהב דכי ויהבו ית זגיא בגו רמוניא״ – פעמוני זהב בתוך הרימונים.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-26": {
+      "onkelosExplanation": {
+        "draft": "״זגא ורמונא זגא ורמונא... לשמשא״ – פעמון ורימון, לשרת.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-27": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו ית כתונין דבוצא עובד מחי לאהרן ולבנוהי״ – כתונות שש לאהרן ולבניו.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-28": {
+      "onkelosExplanation": {
+        "draft": "״וית מצנפתא דבוצא וית שבח כובעיא״ – המצנפת ופארי המגבעות.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-29": {
+      "onkelosExplanation": {
+        "draft": "״וית המינא דבוץ שזיר... עובד ציר״ – האבנט, מעשה רוקם.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-30": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו ית ציצא כלילא דקודשא דהב דכי וכתבו עלוהי... קדש ליי״ – ציץ נזר הקודש, ואונקלוס: כליל הקודש. ״קודש לה׳״.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-31": {
+      "onkelosExplanation": {
+        "draft": "״ויהבו עלוהי חוטא תכלתא למתן על מצנפתא מלעלא״ – פתיל תכלת על המצנפת.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-32": {
+      "onkelosExplanation": {
+        "draft": "״ושלים כל פלחן משכנא משכן זמנא ועבדו בני ישראל ככל די פקיד יי״ – ותכל כל עבודת המשכן, ויעשו בני ישראל. ״בני ישראל״ – כל העם נחשב כעושה, גם מי שרק תרם.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-33": {
+      "onkelosExplanation": {
+        "draft": "״ואיתיו ית משכנא למשה״ – ויביאו את המשכן אל משה. רש״י מביא: לא יכלו להקים אותו, כי הקרשים כבדים מדי. משה, שלא עשה שום מלאכה בבנייה, זכה להקים אותו – וה׳ אמר לו: עסוק בידך, והוא יקום מאליו.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-34": {
+      "onkelosExplanation": {
+        "draft": "״וית חופאה משכי דדכרי מסמקי״ – המכסים.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-35": {
+      "onkelosExplanation": {
+        "draft": "״ית ארונא דסהדותא וית אריחוהי וית כפרתא״ – הארון, הבדים והכפורת.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-36": {
+      "onkelosExplanation": {
+        "draft": "״ית פתורא ית כל מנוהי וית לחם אפיא״ – השולחן וכליו.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-37": {
+      "onkelosExplanation": {
+        "draft": "״ית מנרתא דכיתא ית בוצינהא בוצני סדרא״ – המנורה הטהורה ונרותיה, נרות המערכה.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-38": {
+      "onkelosExplanation": {
+        "draft": "״וית מדבחא דדהבא וית משחא דרבותא״ – מזבח הזהב ושמן המשחה.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-39": {
+      "onkelosExplanation": {
+        "draft": "״ית מדבחא דנחשא... ית כיורא וית בסיסה״ – מזבח הנחושת והכיור.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-40": {
+      "onkelosExplanation": {
+        "draft": "״ית סרדי דדרתא... ית אטונוהי וסכהא״ – קלעי החצר, מיתריה ויתדותיה.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-41": {
+      "onkelosExplanation": {
+        "draft": "״ית לבושי שמושא לשמשא בקודשא״ – בגדי השרד.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-42": {
+      "onkelosExplanation": {
+        "draft": "״ככל די פקיד יי ית משה כן עבדו בני ישראל ית כל פלחנא״ – ככל אשר ציווה ה׳ – כן עשו. לא פחות ולא יותר.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-39-43": {
+      "onkelosExplanation": {
+        "draft": "״וחזא משה ית כל עבדתא והא עבדו יתה כמא די פקיד יי... ובריך יתהון משה״ – וירא משה את כל המלאכה, והנה עשו אותה, ויברך אותם משה. רש״י מביא את הברכה: יהי רצון שתשרה שכינה במעשה ידיכם. משה לא רק בודק – הוא מברך. מנהיג טוב רואה את העבודה ואומר תודה.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-2": {
+      "onkelosExplanation": {
+        "draft": "״ביומא ירחא קדמאה בחד לירחא תקים ית משכנא״ – ביום החודש הראשון באחד לחודש תקים את המשכן. ראש חודש ניסן – אותו חודש שבו יצאו ממצרים.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-3": {
+      "onkelosExplanation": {
+        "draft": "״ותשוי תמן ית ארונא דסהדותא״ – ושמת שם את ארון העדות. הראשון שנכנס – הארון.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-4": {
+      "onkelosExplanation": {
+        "draft": "״ותעל ית פתורא ותסדר ית סדרה ותעל ית מנרתא ותדלק ית בוצינהא״ – השולחן וערכו, והמנורה ונרותיה.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-5": {
+      "onkelosExplanation": {
+        "draft": "״ותתן ית מדבחא דדהבא לקטרת בוסמיא קדם ארונא דסהדותא״ – מזבח הזהב לפני ארון העדות.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-6": {
+      "onkelosExplanation": {
+        "draft": "״ותתן ית מדבחא דעלתא קדם תרע משכנא״ – מזבח העולה לפני פתח המשכן.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-7": {
+      "onkelosExplanation": {
+        "draft": "״ותתן ית כיורא בין משכן זמנא ובין מדבחא ותתן תמן מיא״ – הכיור, ומים בתוכו.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-8": {
+      "onkelosExplanation": {
+        "draft": "״ותשוי ית דרתא סחור סחור״ – והחצר סביב.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-9": {
+      "onkelosExplanation": {
+        "draft": "״ותסב ית משחא דרבותא ותרבי ית משכנא... ויהי קודשא״ – ומשחת את המשכן, והיה קודש.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-10": {
+      "onkelosExplanation": {
+        "draft": "״ויהי מדבחא קדש קודשין״ – והיה המזבח קודש קודשים.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-11": {
+      "onkelosExplanation": {
+        "draft": "״ותרבי ית כיורא וית בסיסה״ – ומשחת את הכיור.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-12": {
+      "onkelosExplanation": {
+        "draft": "״ותקרב ית אהרן וית בנוהי... ותסחי יתהון במיא״ – והקרבת את אהרן ובניו ורחצת אותם.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-13": {
+      "onkelosExplanation": {
+        "draft": "״ותלבש ית אהרן ית לבושי קודשא ותרבי יתה״ – והלבשת את אהרן ומשחת אותו.",
+        "updatedAt": "2026-10-08T17:09:06.653Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-14": {
+      "onkelosExplanation": {
+        "draft": "״וית בנוהי תקרב ותלבש יתהון כתונין״ – ואת בניו.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-15": {
+      "onkelosExplanation": {
+        "draft": "״ותהי למהוי להון רבותהון לכהנות עלם לדריהון״ – והייתה להיות להם משיחתם לכהונת עולם, ואונקלוס: רבותם – גדולתם. משיחה אחת לדורות.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-16": {
+      "onkelosExplanation": {
+        "draft": "״ועבד משה ככל די פקיד יי יתה כן עבד״ – ויעש משה ככל אשר ציווה ה׳. גם משה עצמו – בדיוק כפי שנצטווה.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-17": {
+      "onkelosExplanation": {
+        "draft": "״והוה בירחא קדמאה בשתא תניתא בחד לירחא אתקם משכנא״ – בחודש הראשון בשנה השנית, באחד לחודש, הוקם המשכן. שנה אחרי היציאה – ה׳ שוכן בתוכם.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-18": {
+      "onkelosExplanation": {
+        "draft": "״ואקם משה ית משכנא ויהב ית סמכוהי ושוי ית דפוהי״ – ויקם משה את המשכן, ויתן את אדניו וישם את קרשיו. מן היסוד – למעלה.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-19": {
+      "onkelosExplanation": {
+        "draft": "״ופרס ית פרסא על משכנא... כמא די פקיד יי ית משה״ – ויפרוש את האוהל על המשכן.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-20": {
+      "onkelosExplanation": {
+        "draft": "״ונסיב ויהב ית סהדותא לארונא״ – ויקח ויתן את העדות אל הארון. הלוחות נכנסים למקומם.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-21": {
+      "onkelosExplanation": {
+        "draft": "״ואעל ית ארונא למשכנא ושוי ית פרכתא דפרסא״ – ויבא את הארון אל המשכן.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-22": {
+      "onkelosExplanation": {
+        "draft": "״ויהב ית פתורא במשכן זמנא על צדא דמשכנא צפונא״ – השולחן בצפון.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-23": {
+      "onkelosExplanation": {
+        "draft": "״וסדר עלוהי סדור דלחם קדם יי״ – ויערוך עליו ערך לחם לפני ה׳.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-24": {
+      "onkelosExplanation": {
+        "draft": "״ושוי ית מנרתא במשכן זמנא לקבל פתורא על צדא דמשכנא לדרומא״ – המנורה מול השולחן, בדרום.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-25": {
+      "onkelosExplanation": {
+        "draft": "״ואדלק בוצינהא קדם יי״ – ויעל הנרות לפני ה׳. האור הראשון במשכן.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-26": {
+      "onkelosExplanation": {
+        "draft": "״ושוי ית מדבחא דדהבא במשכן זמנא קדם פרכתא״ – מזבח הזהב לפני הפרוכת.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-27": {
+      "onkelosExplanation": {
+        "draft": "״ואקטר עלוהי קטרת בוסמין״ – ויקטר עליו קטורת סמים.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-28": {
+      "onkelosExplanation": {
+        "draft": "״ושוי ית פרסא דתרעא למשכנא״ – המסך לפתח המשכן.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-29": {
+      "onkelosExplanation": {
+        "draft": "״ואסק עלוהי ית עלתא וית מנחתא״ – ויעל עליו את העולה ואת המנחה.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-30": {
+      "onkelosExplanation": {
+        "draft": "״ויהב תמן מיא לקדוש״ – ויתן שמה מים לרחצה, ואונקלוס: לקידוש.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-31": {
+      "onkelosExplanation": {
+        "draft": "״ומקדשין מנה משה ואהרן ובנוהי ית ידיהון וית רגליהון״ – ורחצו ממנו, ואונקלוס: ומתקדשים ממנו.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-32": {
+      "onkelosExplanation": {
+        "draft": "״במעלהון למשכן זמנא ובמקרבהון למדבחא יקדשון״ – בבואם אל אוהל מועד ירחצו.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-33": {
+      "onkelosExplanation": {
+        "draft": "״ואקם ית דרתא סחור סחור... ושיצי משה ית עבידא״ – ויכל משה את המלאכה. כמו ״ויכל אלהים... מלאכתו״ בבריאה – המשכן הוא עולם קטן.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-34": {
+      "onkelosExplanation": {
+        "draft": "״וחפא עננא ית משכן זמנא ויקרא דיי אתמלי ית משכנא״ – ויכס הענן את אוהל מועד וכבוד ה׳ מלא את המשכן. כל העבודה, כל הנדבות, כל הפרטים – נועדו לרגע הזה.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-35": {
+      "onkelosExplanation": {
+        "draft": "״ולא יכיל משה למיעל למשכן זמנא ארי שרא עלוהי עננא״ – ולא יכול משה לבוא אל אוהל מועד, כי שכן עליו הענן. משה, שעלה להר, לא יכול להיכנס לבית שבנה. מחכים להזמנה – והיא תגיע בתחילת ספר ויקרא.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-36": {
+      "onkelosExplanation": {
+        "draft": "״ובאסתלקות עננא מעלוי משכנא נטלין בני ישראל בכל מטלניהון״ – ובהעלות הענן – ייסעו בני ישראל בכל מסעיהם.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-37": {
+      "onkelosExplanation": {
+        "draft": "״ואם לא יסתלק עננא ולא נטלין״ – ואם לא יעלה הענן – לא ייסעו. סבלנות: זזים רק כשה׳ זז.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-40-38": {
+      "onkelosExplanation": {
+        "draft": "״ארי עננא יקרא דיי על משכנא ביממא וחיזו אשתא הוי בליליא בה לעיני כל בית ישראל בכל מטלניהון״ – כי ענן ה׳ על המשכן יומם, ואש תהיה לילה בו, לעיני כל בית ישראל בכל מסעיהם. ספר שמות, שהתחיל בעבדות וחושך, נגמר בענן ובאש של ה׳ – בתוך המחנה, לעיני כולם. חזק חזק ונתחזק.",
+        "updatedAt": "2026-10-08T17:09:06.654Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}

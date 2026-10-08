@@ -1,0 +1,1382 @@
+{
+  "schemaVersion": 2,
+  "slug": "nasso",
+  "meta": {
+    "slug": "nasso",
+    "name": "נשא",
+    "nameEn": "Nasso",
+    "book": "Numbers",
+    "bookHe": "במדבר",
+    "range": "Numbers 4:21-7:89",
+    "rangeHe": "במדבר ד׳:כ״א–ז׳:פ״ט",
+    "verseCount": 176,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Numbers 4:21-4:37"
+      },
+      {
+        "n": 2,
+        "ref": "Numbers 4:38-4:49"
+      },
+      {
+        "n": 3,
+        "ref": "Numbers 5:1-5:10"
+      },
+      {
+        "n": 4,
+        "ref": "Numbers 5:11-6:27"
+      },
+      {
+        "n": 5,
+        "ref": "Numbers 7:1-7:41"
+      },
+      {
+        "n": 6,
+        "ref": "Numbers 7:42-7:71"
+      },
+      {
+        "n": 7,
+        "ref": "Numbers 7:72-7:89"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "Judges 13:2-25",
+        "refHe": "שופטים יג, ב–כה"
+      },
+      "sephardi": {
+        "ref": "Judges 13:2-25",
+        "refHe": "שופטים יג, ב–כה"
+      },
+      "sameForAll": true
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Numbers (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "במדבר ד, כא – ז, פט"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "ברכת כהנים",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "נשיאי השבטים מביאים קרבן זהה, כל יום נשיא, ובכל זאת כל אחד ביומו. באמצע: סוטה ונזיר, וברכת כהנים — ״יברכך ה׳ וישמרך״. הברכה אחת, והפנים אל העם.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "הכהנים פורשים ידיים ומברכים: שישמור אותך, וישים עליך שלום. כל נשיא מביא מתנה, יום אחרי יום.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "הולדת שמשון, הנזיר, מסופרת בשופטים. ההפטרה נבחרה כי בפרשה דין הנזיר.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T17:09:06.646Z",
+      "source": "import:content-writer",
+      "draft": "הפרשה מתארת את הנזיר – אדם שבוחר להתקדש: לא שותה יין, לא מסתפר ולא נטמא למת. ההפטרה (שופטים יג, ב–כה; אשכנזים וספרדים קוראים אותה) מספרת על לידתו של שמשון, הנזיר המפורסם בתנ״ך. מלאך ה׳ מתגלה לאשת מנוח העקרה ואומר לה: ״והנה את הרה... ומורה לא יעלה על ראשו, כי נזיר אלוהים יהיה הנער מן הבטן״. וגם האם עצמה נדרשת לא לשתות יין ולא לאכול טמא. אבל יש הבדל: בפרשה הנזירות היא בחירה חופשית לזמן מוגבל; אצל שמשון היא ייעוד לכל החיים, כדי ״להושיע את ישראל מיד פלשתים״. ומנוח שואל את המלאך לשמו, והוא עונה: ״למה זה תשאל לשמי והוא פלאי״ – לשון ״יפליא״ שבפרשה."
+    },
+    "haftaraConnections": {
+      "published": [
+        "נזיר",
+        "ברכת כהנים",
+        "מתנה של כל שבט"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "6:22",
+        "6:24"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "בפרשה לומדים על הנזיר, שלא שותה יין ולא מסתפר כדי להיות קרוב לה׳. בהפטרה מלאך מודיע לאמא של שמשון שייוולד לה בן, והוא יהיה נזיר מיום שנולד. שמשון גדל והיה גיבור חזק שהציל את ישראל.",
+      "updatedAt": "2026-10-08T17:09:06.646Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "לשים לעצמך גבול",
+          "text": "רש״י מסביר שפרשת נזיר באה מיד אחרי סוטה: מי שראה לאן ההפקרות מובילה, מזיר את עצמו מן היין. לפעמים החוכמה היא לא לחכות שהבעיה תגיע – אלא לבחור מראש גבול שישמור עליך. גבול שבוחרים בו מתוך חופש הוא לא כלא; הוא גדר של בית."
+        },
+        {
+          "title": "גדול השלום",
+          "text": "בפרשת סוטה ה׳ מתיר למחוק את שמו הקדוש במים, כדי שאיש ואשתו יחזרו לחיות בשלום. אם ה׳ מוותר על כבוד שמו בשביל שלום בבית – כמה עלינו לוותר על כבודנו, על ״מי צודק״ ועל עלבונות קטנים, כדי לשמור על השלום עם מי שאנחנו אוהבים."
+        },
+        {
+          "title": "ברכה שעוברת דרכך",
+          "text": "״ושמו את שמי על בני ישראל, ואני אברכם״. הכוהנים מברכים, אבל הברכה עצמה היא של ה׳. כל אחד מאיתנו יכול להיות צינור לברכה – הורה שמברך ילד, חבר שמאחל טוב. אנחנו לא מייצרים את הברכה; אנחנו רק פותחים לה דרך."
+        },
+        {
+          "title": "אותה מתנה, כבוד אחר",
+          "text": "שנים עשר נשיאים הביאו קרבן זהה לגמרי, והתורה חוזרת על כל אחד מהם מילה במילה. התורה, שחוסכת כל אות, לא חוסכת כאן. כל אדם שנותן – גם אם הוא נותן בדיוק כמו אחרים – ראוי שיראו אותו בנפרד, בשמו וביומו."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.646Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "ברכת כוהנים",
+          "text": "הכוהנים מברכים את העם: ״יברכך ה׳ וישמרך... וישם לך שלום״. הורים רבים מברכים את ילדיהם בברכה הזו בליל שבת. גם אני יכול לאחל לאחרים דברים טובים."
+        },
+        {
+          "title": "כל אחד מקבל יום",
+          "text": "כל נשיא הביא את הקרבן שלו ביום משלו, וכולם קיבלו אותו כבוד. גם בכיתה – לכל אחד מגיע שישמחו בו ויראו אותו."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.646Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "numbers-4-21": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-22": {
+      "onkelosExplanation": {
+        "draft": "״קבל ית חשבן בני גרשון אף אנון לבית אבהתהון״ – נשוא את ראש בני גרשון גם הם. רש״י מסביר: ״גם הם״ – כמו בני קהת. גרשון, הבכור, לא נשכח. לכל משפחה יש מקום בעבודה.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-23": {
+      "onkelosExplanation": {
+        "draft": "״מבר תלתין שנין ולעלא עד בר חמשין שנין... כל דאתי לחילא חילא למפלח פולחנא״ – מבן שלושים ועד בן חמישים, כל הבא לצבוא צבא.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-24": {
+      "onkelosExplanation": {
+        "draft": "״דין פולחן זרעית גרשון למפלח ולמטול״ – זאת עבודת משפחות הגרשוני, לעבוד ולמשא.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-25": {
+      "onkelosExplanation": {
+        "draft": "״ויטלון ית יריעת משכנא וית משכן זמנא חופאה וחופאה דססגונא״ – ונשאו את יריעות המשכן ואת אוהל מועד, מכסהו ומכסה התחש.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-26": {
+      "onkelosExplanation": {
+        "draft": "״וית סרדי דדרתא... וית כל די יתמסר להון ויפלחון״ – ואת קלעי החצר... ועבדו.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-27": {
+      "onkelosExplanation": {
+        "draft": "״על מימר אהרן ובנוהי יהי כל פולחן בני גרשון״ – על פי אהרן ובניו תהיה כל עבודת בני הגרשוני.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-28": {
+      "onkelosExplanation": {
+        "draft": "״ומטרתהון בידא דאיתמר בר אהרן כהנא״ – ומשמרתם ביד איתמר בן אהרן הכהן.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-29": {
+      "onkelosExplanation": {
+        "draft": "״בני מררי לזרעיתהון לבית אבהתהון תמני יתהון״ – בני מררי – תפקוד אותם.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-30": {
+      "onkelosExplanation": {
+        "draft": "״מבר תלתין שנין ולעלא ועד בר חמשין שנין תמננון״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-31": {
+      "onkelosExplanation": {
+        "draft": "״ודא מטרת מטולהון... דפי משכנא ועברוהי ועמודוהי וסמכוהי״ – וזאת משמרת משאם: קרשי המשכן ובריחיו ועמודיו ואדניו.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-32": {
+      "onkelosExplanation": {
+        "draft": "״ובשמהן תמנון ית מני מטרת מטולהון״ – ובשמות תפקדו את כלי משמרת משאם. גם כל יתד נספרת בשמה. כל פרט בעבודת הקודש חשוב.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-33": {
+      "onkelosExplanation": {
+        "draft": "״דין פולחן זרעית בני מררי... בידא דאיתמר בר אהרן כהנא״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-34": {
+      "onkelosExplanation": {
+        "draft": "״ומנא משה ואהרן ורברבי כנשתא ית בני קהת״ – ויפקוד משה ואהרן ונשיאי העדה את בני הקהתי.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-35": {
+      "onkelosExplanation": {
+        "draft": "״מבר תלתין שנין ולעלא ועד בר חמשין שנין״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-36": {
+      "onkelosExplanation": {
+        "draft": "״והוו מניניהון לזרעיתהון תרין אלפין שבע מאה וחמשין״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-37": {
+      "onkelosExplanation": {
+        "draft": "״אלין מניני זרעית קהת... על מימרא דיי בידא דמשה״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-38": {
+      "onkelosExplanation": {
+        "draft": "״ומניני בני גרשון לזרעיתהון ולבית אבהתהון״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-39": {
+      "onkelosExplanation": {
+        "draft": "״מבר תלתין שנין ולעלא ועד בר חמשין שנין״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-40": {
+      "onkelosExplanation": {
+        "draft": "״והוו מנינהון... תרין אלפין ושית מאה ותלתין״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-41": {
+      "onkelosExplanation": {
+        "draft": "״אלין מניני זרעית בני גרשון... על מימרא דיי״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-42": {
+      "onkelosExplanation": {
+        "draft": "״ומניני זרעית בני מררי לזרעיתהון״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-43": {
+      "onkelosExplanation": {
+        "draft": "״מבר תלתין שנין ולעלא ועד בר חמשין שנין״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-44": {
+      "onkelosExplanation": {
+        "draft": "״והוו מניניהון לזרעיתהון תלתא אלפין ומאתן״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-45": {
+      "onkelosExplanation": {
+        "draft": "״אלין מניני זרעית בני מררי״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-46": {
+      "onkelosExplanation": {
+        "draft": "״כל מניניא די מנא משה ואהרן ורברבי ישראל ית לואי״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-47": {
+      "onkelosExplanation": {
+        "draft": "״כל דאתי למפלח פולחן פולחנא ופולחן מטול במשכן זמנא״ – כל הבא לעבוד עבודת עבודה ועבודת משא. רש״י מסביר: ״עבודת עבודה״ – השירה במצלתיים ובכינורות, עבודה שמלווה עבודה אחרת. גם המוזיקה היא עבודת קודש.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-48": {
+      "onkelosExplanation": {
+        "draft": "״והוו מניניהון תמניא אלפין וחמש מאה ותמנן״ – שמונת אלפים וחמש מאות ושמונים.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-49": {
+      "onkelosExplanation": {
+        "draft": "״על מימרא דיי מנא יתהון בידא דמשה גבר גבר על פולחנה ועל מטולה״ – על פי ה׳ פקד אותם ביד משה, איש איש על עבודתו ועל משאו. כל אחד יודע את מקומו – ואף אחד לא מיותר.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-2": {
+      "onkelosExplanation": {
+        "draft": "״וישלחון מן משריתא כל דסגיר וכל דדאב וכל דמסאב לטמי נפשא״ – וישלחו מן המחנה כל צרוע וכל זב וכל טמא לנפש.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-3": {
+      "onkelosExplanation": {
+        "draft": "״ולא יסאבון ית משריתהון די שכינתי שריא ביניהון״ – ולא יטמאו את מחניהם אשר אני שוכן בתוכם. אונקלוס: ״די שכינתי שריא ביניהון״ – ששכינתי שורה ביניהם. המחנה כולו הוא מקום קדוש, כי ה׳ גר בו.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-4": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו כן בני ישראל... כן עבדו בני ישראל״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-5": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-6": {
+      "onkelosExplanation": {
+        "draft": "״גבר או אתתא ארי יעבדון מכל חובי אנשא לשקרא שקר קדם יי״ – איש או אישה כי יעשו מכל חטאות האדם למעול מעל בה׳. אונקלוס: ״לשקרא שקר קדם יי״ – לשקר שקר לפני ה׳. מי שגוזל אדם – בוגד גם בה׳.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-7": {
+      "onkelosExplanation": {
+        "draft": "״ויודון ית חוביהון די עבדו ויתב ית חובתה ברישה וחמשה יוסף עלוהי״ – והתוודו את חטאתם אשר עשו, והשיב את אשמו בראשו וחמישיתו יוסף עליו. הרמב״ם לומד מכאן את מצוות הווידוי: תשובה אמיתית כוללת לומר בפה ״חטאתי״ – וגם להחזיר.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-8": {
+      "onkelosExplanation": {
+        "draft": "״ואם לית לגבר פריק לאתבא חובתא לה חובתא דמתב קדם יי לכהנא״ – ואם אין לאיש גואל להשיב האשם אליו – האשם המושב לה׳ לכהן. רש״י מסביר: מדובר בגר שמת בלי יורשים. גם כשאין למי להחזיר – החוב לא נמחק. הוא עובר לה׳.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-9": {
+      "onkelosExplanation": {
+        "draft": "״וכל אפרשותא לכל קודשיא דבני ישראל די יקרבון לכהנא דלה יהא״ – וכל תרומה... לו יהיה.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-10": {
+      "onkelosExplanation": {
+        "draft": "״וגבר ית מעשר קודשה דלה יהון גבר דיתן לכהנא דלה יהא״ – ואיש את קודשיו לו יהיו, איש אשר ייתן לכהן לו יהיה. רש״י מסביר: מי שנותן לכהן – לו יהיה ממון הרבה. מה שנותנים לא הולך לאיבוד.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-11": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-12": {
+      "onkelosExplanation": {
+        "draft": "״גבר גבר ארי תסטי אתתה ותשקר בה שקר״ – איש איש כי תשטה אשתו ומעלה בו מעל. אונקלוס: ״ותשקר בה שקר״ – ותשקר בו. ורש״י מקשר: מי שמעכב את מתנות הכהן, סופו שיצטרך לבוא אל הכהן בעניין קשה כזה.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-13": {
+      "onkelosExplanation": {
+        "draft": "״ויהי מכסא מעיני בעלה ומטמרא... וסהיד לית בה״ – ונעלם מעיני אישה ונסתרה... ועד אין בה. מצב של חשד בלי ראיות – אחד המצבים הקשים בחיי נישואים.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-14": {
+      "onkelosExplanation": {
+        "draft": "״ויעבר עלוהי רוח קנאה ויקני ית אתתה והיא מסאבא או... והיא לא מסאבא״ – ועבר עליו רוח קנאה... והיא נטמאה, או... והיא לא נטמאה. התורה מכירה בכך שהקנאה יכולה להיות מוצדקת – וגם לא.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-15": {
+      "onkelosExplanation": {
+        "draft": "״וייתי ית קרבנה עלה... קמחא שערין לא יריק עלוהי משחא ולא יתן עלוהי לבנתא״ – קמח שעורים, לא יצוק עליו שמן ולא ייתן לבונה. מנחה פשוטה, בלי שמן ובלי ריח טוב – כי זה רגע של צער.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-16": {
+      "onkelosExplanation": {
+        "draft": "״ויקרב יתה כהנא ויקימנה קדם יי״ – והקריב אותה הכהן והעמידה לפני ה׳.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-17": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא מי כיור במן דחסף ומן עפרא די יהי ביסודי משכנא״ – ולקח הכהן מים קדושים בכלי חרס, ומן העפר אשר יהיה בקרקע המשכן. אונקלוס: ״מי כיור״ – מי הכיור.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-18": {
+      "onkelosExplanation": {
+        "draft": "״ויפרע ית רישא דאתתא... ובידא דכהנא יהון מיא מריריא מלטטיא״ – ופרע את ראש האישה... וביד הכהן יהיו מי המרים המאררים.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-19": {
+      "onkelosExplanation": {
+        "draft": "״אם לא שכיב גבר יתיך... הוי זכאה ממיא מריריא מלטטיא האלין״ – אם לא שכב איש איתך... הינקי ממי המרים. אונקלוס: ״הוי זכאה״ – היי זכאית. הכהן פותח באפשרות שהיא חפה מפשע.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-20": {
+      "onkelosExplanation": {
+        "draft": "״ואת ארי סטית בר מבעליך״ – ואת כי שטית תחת אישך.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-21": {
+      "onkelosExplanation": {
+        "draft": "״ויומי כהנא ית אתתא במומתא דלוטא... יתן יי יתיך ללוט ולמומי בגו עמיך״ – והשביע הכהן את האישה בשבועת האלה.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-22": {
+      "onkelosExplanation": {
+        "draft": "״ויעלון מיא מלטטיא האלין במעיכי... ותימר אתתא אמן אמן״ – ואמרה האישה: אמן אמן.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-23": {
+      "onkelosExplanation": {
+        "draft": "״ויכתוב ית לוטיא האלין כהנא בספרא וימחוק למיא מריריא״ – וכתב את האלות האלה הכהן בספר, ומחה אל מי המרים. בתוך הכתב נמצא שם ה׳ – והוא נמחק במים. חז״ל לומדים מכאן: גדול השלום, שה׳ מוותר על כבוד שמו כדי להשכין שלום בין איש לאשתו.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-24": {
+      "onkelosExplanation": {
+        "draft": "״וישקי ית אתתא ית מיא מריריא מלטטיא״ – והשקה את האישה.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-25": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא מידא דאתתא ית מנחת קנאתא וירים ית מנחתא קדם יי״ – ולקח הכהן מיד האישה את מנחת הקנאות.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-26": {
+      "onkelosExplanation": {
+        "draft": "״ויקמוץ כהנא מן מנחתא ית אדכרתה ויסק למדבחא״ – וקמץ והקטיר.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-27": {
+      "onkelosExplanation": {
+        "draft": "״ותהי אם אסתאבת ושקרת שקר בבעלה... ותהי אתתא ללוט בגו עמה״ – והייתה אם נטמאה... והייתה האישה לאלה בקרב עמה.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-28": {
+      "onkelosExplanation": {
+        "draft": "״ואם לא אסתאבת אתתא ודכואה היא ותפוק זכאה ותעדי עדוי״ – ואם לא נטמאה האישה וטהורה היא – ונקתה ונזרעה זרע. אונקלוס: ״ותפוק זכאה״ – ותצא זכאית. מי שנחשדה לשווא – יוצאת עם ברכה.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-29": {
+      "onkelosExplanation": {
+        "draft": "״דא אוריתא דקנאתא״ – זאת תורת הקנאות.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-30": {
+      "onkelosExplanation": {
+        "draft": "״או גבר די תעבר עלוהי רוח קנאה... ויעבד לה כהנא ית כל אוריתא הדא״.",
+        "updatedAt": "2026-10-08T17:09:06.646Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-5-31": {
+      "onkelosExplanation": {
+        "draft": "״ויהי זכאה גברא מחובא ואתתא ההיא תקבל ית חובה״ – ונקה האיש מעוון, והאישה ההיא תישא את עוונה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-2": {
+      "onkelosExplanation": {
+        "draft": "״גבר או אתתא ארי יפרש למדר נדר נזירו למיזר קדם יי״ – איש או אישה כי יפליא לנדור נדר נזיר להזיר לה׳. רש״י מסביר: למה פרשת נזיר באה מיד אחרי סוטה? לומר לך שכל הרואה סוטה בקלקולה – יזיר עצמו מן היין. מי שראה לאן ההפקרות מובילה, בוחר לשים לעצמו גבול.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-3": {
+      "onkelosExplanation": {
+        "draft": "״מחמר חדת ועתיק ינזיר... וענבין רטיבין ויבשין לא ייכול״ – מיין ושכר יזיר... וענבים לחים ויבשים לא יאכל. אונקלוס: ״מחמר חדת ועתיק״ – מיין חדש וישן.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-4": {
+      "onkelosExplanation": {
+        "draft": "״כל יומי נזרה מכל דיתעבד מגפנא דחמרא מפורצנין ועד עצורין לא ייכול״ – מחרצנים ועד זג לא יאכל. אונקלוס: מהגרעינים ועד הקליפות.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-5": {
+      "onkelosExplanation": {
+        "draft": "״מספר לא יעבר על רישה... קדיש יהי מרבי פרוע שער רישה״ – תער לא יעבור על ראשו... קדוש יהיה, גדל פרע שער ראשו.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-6": {
+      "onkelosExplanation": {
+        "draft": "״כל יומין דינזר קדם יי על נפשא דמתא לא ייעול״ – כל ימי הזירו לה׳ על נפש מת לא יבוא.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-7": {
+      "onkelosExplanation": {
+        "draft": "״לאבוהי ולאמה לאחוהי ולאחתה לא יסתאב להון במותהון ארי כלילא דאלהה על רישה״ – לאביו ולאמו... לא ייטמא להם, כי נזר אלוהיו על ראשו. אונקלוס: ״כלילא דאלהה״ – כתר אלוהיו. השיער הארוך הוא כתר.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-8": {
+      "onkelosExplanation": {
+        "draft": "״כל יומי נזרה קדיש הוא קדם יי״ – כל ימי נזרו קדוש הוא לה׳. כל אדם יכול לבחור תקופה של קדושה – לא רק כהן.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-9": {
+      "onkelosExplanation": {
+        "draft": "״וארי ימות מתא עלוהי בתכף שלו ויסאב ריש נזרה״ – וכי ימות מת עליו בפתע פתאום. אונקלוס: ״בתכף שלו״ – בפתאומיות, בלי כוונה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-10": {
+      "onkelosExplanation": {
+        "draft": "״וביומא תמינאה ייתי תרתין שפנינין או תרין בני יונה״ – וביום השמיני יביא שתי תורים.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-11": {
+      "onkelosExplanation": {
+        "draft": "״ויכפר עלוהי מדחב על מתא ויקדש ית רישה ביומא ההוא״ – וכיפר עליו מאשר חטא על הנפש. אונקלוס: ״מדחב על מתא״ – על שנטמא למת. בגמרא יש דעה (רבי אלעזר הקפר) שהנזיר ״חטא על הנפש״ כי ציער את עצמו מן היין – אבל אונקלוס בוחר בפשט: ״הנפש״ היא המת.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-12": {
+      "onkelosExplanation": {
+        "draft": "״ויזר קדם יי ית יומי נזרה... ויומיא קדמאי יבטלון״ – והזיר לה׳ את ימי נזרו... והימים הראשונים ייפלו. מתחילים מחדש.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-13": {
+      "onkelosExplanation": {
+        "draft": "״ודא אוריתא דנזירא ביום משלם יומי נזרה״ – וזאת תורת הנזיר ביום מלאת ימי נזרו.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-14": {
+      "onkelosExplanation": {
+        "draft": "״ויקרב ית קרבנה קדם יי אמר... לעלתא ואמרתא... לחטאתא ודכר... לנכסת קודשיא״ – עולה, חטאת ושלמים.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-15": {
+      "onkelosExplanation": {
+        "draft": "״וסלא דפטריא סלתא גריצן דפילן במשח״ – וסל מצות.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-16": {
+      "onkelosExplanation": {
+        "draft": "״ויקרב כהנא קדם יי ויעבד ית חטאתה וית עלתה״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-17": {
+      "onkelosExplanation": {
+        "draft": "״וית דכרא יעבד נכסת קודשיא קדם יי על סלא דפטיריא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-18": {
+      "onkelosExplanation": {
+        "draft": "״ויגלח נזירא בתרע משכן זמנא ית ריש נזרה... ויתן על אשתא״ – וגילח הנזיר... ונתן על האש. השיער שגדל בקדושה – עולה על המזבח.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-19": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא ית דרעא בשלא מן דכרא... ויתן על ידי נזירא״ – ולקח הכהן את הזרוע בשלה מן האיל.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-20": {
+      "onkelosExplanation": {
+        "draft": "״וירים יתהון כהנא ארמא קדם יי... ובתר כן ישתי נזירא חמרא״ – ואחר ישתה הנזיר יין. הנזירות היא תקופה, לא דרך חיים קבועה. אחריה חוזרים – אבל אחרים.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-21": {
+      "onkelosExplanation": {
+        "draft": "״דא אוריתא דנזירא די ידר קרבנה... בר מדתדבק ידה״ – מלבד אשר תשיג ידו.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-22": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-23": {
+      "onkelosExplanation": {
+        "draft": "״כדין תברכון ית בני ישראל תימרון להון״ – כה תברכו את בני ישראל, אמור להם. ״אמור״ – רש״י מסביר: לא בחיפזון, אלא בכוונה ובלב שלם.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-24": {
+      "onkelosExplanation": {
+        "draft": "״יברכינך יי ויטרינך״ – יברכך ה׳ וישמרך. רש״י מסביר: יברכך – שיתברכו נכסיך; וישמרך – שלא יבואו עליך שודדים. ברכה צריכה גם שמירה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-25": {
+      "onkelosExplanation": {
+        "draft": "״ינהר יי שכנתה לותך וירחם יתך״ – יאר ה׳ פניו אליך ויחונך. אונקלוס: ״ינהר יי שכנתה לותך״ – יאיר ה׳ את שכינתו אליך. ״פנים״ של ה׳ הן השכינה, האור של הקרבה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-26": {
+      "onkelosExplanation": {
+        "draft": "״יסב יי אפה לותך וישוי לך שלם״ – ישא ה׳ פניו אליך וישם לך שלום. ״ישא פניו״ – יפנה את פניו אליך. והברכה נגמרת בשלום – כי שלום הוא הכלי שמחזיק את כל השאר.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-6-27": {
+      "onkelosExplanation": {
+        "draft": "״וישוון ית ברכת שמי על בני ישראל ואנא אברכנון״ – ושמו את שמי על בני ישראל ואני אברכם. אונקלוס: ״ית ברכת שמי״ – את ברכת שמי. הכוהנים הם רק צינור; הברכה עצמה באה מה׳.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-1": {
+      "onkelosExplanation": {
+        "draft": "״והוה ביומא דשיצי משה לאקמא ית משכנא ורבי יתה וקדיש יתה״ – ויהי ביום כלות משה להקים את המשכן, וימשח אותו ויקדש אותו. רש״י מביא: ״כלת״ – כמו כלה. יום הקמת המשכן היה כמו יום כניסת כלה לחופה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-2": {
+      "onkelosExplanation": {
+        "draft": "״וקריבו רברבי ישראל... אנון דקימין על מניניא״ – ויקריבו נשיאי ישראל... הם העומדים על הפקודים.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-3": {
+      "onkelosExplanation": {
+        "draft": "״ואיתיו ית קרבניהון קדם יי שית עגלן כד מחפין ותרי עשר תורין״ – ויביאו את קרבנם: שש עגלות צב ושנים עשר בקר. אונקלוס: ״כד מחפין״ – מכוסות. רש״י מסביר: הנשיאים, שבמלאכת המשכן חיכו ״להשלים״ והפסידו, למדו את הלקח – והפעם מיהרו להביא ראשונים.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-4": {
+      "onkelosExplanation": {
+        "draft": "״ואמר יי למשה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-5": {
+      "onkelosExplanation": {
+        "draft": "״קבל מנהון ויהון למפלח ית פולחן משכן זמנא״ – קח מאיתם והיו לעבוד את עבודת אוהל מועד.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-6": {
+      "onkelosExplanation": {
+        "draft": "״ונסיב משה ית עגלתא וית תורין ויהב יתהון ללואי״ – ויקח משה את העגלות ואת הבקר.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-7": {
+      "onkelosExplanation": {
+        "draft": "״ית תרתין עגלתא וית ארבעת תורי יהב לבני גרשון כמסת פולחנהון״ – שתי עגלות לבני גרשון, כפי עבודתם.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-8": {
+      "onkelosExplanation": {
+        "draft": "״וית ארבע עגלתא וית תמניא תורי יהב לבני מררי כמסת פולחנהון״ – ארבע עגלות לבני מררי. מי שנושא את הכבד – מקבל יותר עזרה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-9": {
+      "onkelosExplanation": {
+        "draft": "״ולבני קהת לא יהב ארי פולחן קודשא עליהון בכתפא נטלין״ – ולבני קהת לא נתן, כי עבודת הקודש עליהם, בכתף יישאו. את הקודש לא מעמיסים על עגלה – נושאים אותו על הכתף. כשדוד שכח את זה והעלה את הארון בעגלה, קרה האסון של עוזא.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-10": {
+      "onkelosExplanation": {
+        "draft": "״וקריבו רברביא ית חנכת מדבחא ביומא דרביו יתה״ – ויקריבו הנשיאים את חנוכת המזבח ביום המשח אותו.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-11": {
+      "onkelosExplanation": {
+        "draft": "״רבא חד ליומא רבא חד ליומא יקרבון ית קרבנהון״ – נשיא אחד ליום, נשיא אחד ליום. כל נשיא מקבל יום משלו. אף אחד לא נבלע בקבוצה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-12": {
+      "onkelosExplanation": {
+        "draft": "״והוה דמקרב ביומא קדמאה ית קרבנה נחשון בר עמינדב לשבטא דיהודה״ – ויהי המקריב ביום הראשון נחשון בן עמינדב למטה יהודה. יהודה, שהוביל בדגלים, פותח גם בחנוכה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-13": {
+      "onkelosExplanation": {
+        "draft": "״וקרבנה מגסתא דכסף חדא... מזרקא חד דכסף... מלן סלתא דפילא במשח למנחתא״ – וקרבנו קערת כסף אחת... מזרק אחד כסף... מלאים סולת בלולה בשמן למנחה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-14": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטורת בוסמיא״ – כף אחת עשרה זהב מלאה קטורת.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-15": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״ – פר אחד בן בקר, איל אחד, כבש אחד בן שנתו לעולה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-16": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״ – שעיר עזים אחד לחטאת.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-17": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא תורין תרין דכרין חמשא גדיי חמשא אמרין בני שתא חמשא דין קרבנא דנחשון בר עמינדב״ – ולזבח השלמים... זה קרבן נחשון בן עמינדב.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-18": {
+      "onkelosExplanation": {
+        "draft": "״ביומא תנינא קריב נתנאל בר צוער רבא דיששכר״ – ביום השני הקריב נתנאל בן צוער נשיא יששכר. רש״י מביא שנתנאל, משבט יששכר הלומד, הוא שנתן לנשיאים את העצה להביא קרבנות אלה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-19": {
+      "onkelosExplanation": {
+        "draft": "״קריב ית קרבנה מגסתא דכסף חדא... למנחתא״ – הקריב את קרבנו: קערת כסף אחת, בדיוק כמו נחשון.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-20": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטורת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-21": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-22": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-23": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן נתנאל בר צוער״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-24": {
+      "onkelosExplanation": {
+        "draft": "״ביומא תליתאה רבא לבני זבולן אליאב בר חלן״ – ביום השלישי נשיא לבני זבולון. זבולון, שתמך ביששכר, בא מיד אחריו.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-25": {
+      "onkelosExplanation": {
+        "draft": "״קרבנה מגסתא דכסף חדא... למנחתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-26": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטורת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-27": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-28": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-29": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן אליאב בר חלון״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-30": {
+      "onkelosExplanation": {
+        "draft": "״ביומא רביעאה רבא לבני ראובן אליצור בר שדיאור״ – ביום הרביעי נשיא לבני ראובן.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-31": {
+      "onkelosExplanation": {
+        "draft": "״קרבנה מגסתא דכסף חדא... למנחתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-32": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטורת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-33": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-34": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-35": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן אליצור בר שדיאור״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-36": {
+      "onkelosExplanation": {
+        "draft": "״ביומא חמישאה רבא לבני שמעון שלמיאל בר צורישדי״ – ביום החמישי נשיא לבני שמעון.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-37": {
+      "onkelosExplanation": {
+        "draft": "״קרבנה מגסתא דכסף חדא... למנחתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-38": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטרת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-39": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-40": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-41": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן שלמיאל בר צורישדי״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-42": {
+      "onkelosExplanation": {
+        "draft": "״ביומא שתיתאה רבא לבני גד אליסף בר דעואל״ – ביום השישי נשיא לבני גד.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-43": {
+      "onkelosExplanation": {
+        "draft": "״קרבנה מגסתא דכסף חדא... למנחתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-44": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטרת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-45": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-46": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-47": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן אליסף בר דעואל״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-48": {
+      "onkelosExplanation": {
+        "draft": "״ביומא שביעאה רבא לבני אפרים אלישמע בר עמיהוד״ – ביום השביעי נשיא לבני אפרים. חז״ל מספרים שהיה זה יום שבת – והנשיא הקריב בכל זאת, כי קרבן ציבור דוחה שבת.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-49": {
+      "onkelosExplanation": {
+        "draft": "״קרבנה מגסתא דכסף חדא... למנחתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-50": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטרת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-51": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-52": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-53": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן אלישמע בר עמיהוד״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-54": {
+      "onkelosExplanation": {
+        "draft": "״ביומא תמינאה רבא לבני מנשה גמליאל בר פדהצור״ – ביום השמיני נשיא לבני מנשה.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-55": {
+      "onkelosExplanation": {
+        "draft": "״קרבנה מגסתא דכסף חדא... למנחתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-56": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטרת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-57": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-58": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-59": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן גמליאל בר פדהצור״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-60": {
+      "onkelosExplanation": {
+        "draft": "״ביומא תשיעאה רבא לבני בנימן אבידן בר גדעני״ – ביום התשיעי נשיא לבני בנימין.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-61": {
+      "onkelosExplanation": {
+        "draft": "״קרבנה מגסתא דכסף חדא... למנחתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-62": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטרת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-63": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-64": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-65": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן אבידן בר גדעוני״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-66": {
+      "onkelosExplanation": {
+        "draft": "״ביומא עשיראה רבא לבני דן אחיעזר בר עמישדי״ – ביום העשירי נשיא לבני דן.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-67": {
+      "onkelosExplanation": {
+        "draft": "״קרבנה מגסתא דכסף חדא... למנחתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-68": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטרת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-69": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-70": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-71": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן אחיעזר בר עמישדי״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-72": {
+      "onkelosExplanation": {
+        "draft": "״ביומא חד עשר יומא רבא לבני אשר פגעיאל בר עכרן״ – ביום עשתי עשר יום נשיא לבני אשר.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-73": {
+      "onkelosExplanation": {
+        "draft": "״קרבנה מגסתא דכסף חדא... למנחתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-74": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטרת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-75": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-76": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-77": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן פגעיאל בר עכרן״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-78": {
+      "onkelosExplanation": {
+        "draft": "״ביומא תרי עשר יומא רבא לבני נפתלי אחירע בר עינן״ – ביום שנים עשר יום נשיא לבני נפתלי. האחרון – ובכל זאת, אותו כבוד בדיוק.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-79": {
+      "onkelosExplanation": {
+        "draft": "״קרבנה מגסתא דכסף חדא... למנחתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-80": {
+      "onkelosExplanation": {
+        "draft": "״בזיכא חדא מתקל עשר סלעין היא דדהב מליא קטרת בוסמיא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-81": {
+      "onkelosExplanation": {
+        "draft": "״תור חד בר תורי דכר חד אמר חד בר שתה לעלתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-82": {
+      "onkelosExplanation": {
+        "draft": "״צפיר בר עזין חד לחטאתא״.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-83": {
+      "onkelosExplanation": {
+        "draft": "״ולנכסת קודשיא... דין קרבן אחירע בר עינן״ – זה קרבן אחירע בן עינן. שתים עשרה פעמים אותם פסוקים, מילה במילה. התורה, שחוסכת כל אות, לא חוסכת כאן. הרמב״ן מסביר: כל נשיא קיבל כבוד משלו. גם מתנה זהה – כשהיא באה מאדם אחר, היא מתנה אחרת.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-84": {
+      "onkelosExplanation": {
+        "draft": "״דא חנכת מדבחא ביומא דרביו יתה מן רברבי ישראל מגיסי כספא תרתא עשרי״ – זאת חנוכת המזבח... קערות כסף שתים עשרה. ובסוף – הסכום. גם היחיד וגם הכלל נחשבים.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-85": {
+      "onkelosExplanation": {
+        "draft": "״כל כסף מניא תרין אלפין וארבע מאה בסלעי קודשא״ – כל כסף הכלים: אלפיים וארבע מאות.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-86": {
+      "onkelosExplanation": {
+        "draft": "״בזיכי דדהבא תרתי עשרי מלין קטרת בוסמיא... כל דהב בזיכיא מאה ועשרין״ – כפות זהב שתים עשרה... מאה ועשרים.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-87": {
+      "onkelosExplanation": {
+        "draft": "״כל תורי לעלתא תרי עשר תורין... וצפירי בר עזין תרי עשר לחטאתא״ – כל הבקר לעולה שנים עשר פרים.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-88": {
+      "onkelosExplanation": {
+        "draft": "״וכל תורי לנכסת קודשיא עשרין וארבעא תורין... דא חנכת מדבחא בתר דרביו יתה״ – זאת חנוכת המזבח אחרי המשח אותו.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-7-89": {
+      "onkelosExplanation": {
+        "draft": "״וכד עליל משה למשכן זמנא למללא עמה ושמע ית קלא דמתמלל עמה מעלוי כפרתא... מבין תרין כרוביא״ – ובבוא משה אל אוהל מועד לדבר איתו, וישמע את הקול מידבר אליו מעל הכפורת, מבין שני הכרובים. אונקלוס: ״דמתמלל״ – שמדבר, כמו בינו לבין עצמו. רש״י מסביר: כבוד המלך – הוא מדבר, ומשה שומע. אחרי כל הקרבנות – הדבר החשוב ביותר במשכן הוא הקול.",
+        "updatedAt": "2026-10-08T17:09:06.647Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}

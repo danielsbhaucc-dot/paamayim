@@ -1,0 +1,1074 @@
+{
+  "schemaVersion": 2,
+  "slug": "masei",
+  "meta": {
+    "slug": "masei",
+    "name": "מסעי",
+    "nameEn": "Masei",
+    "book": "Numbers",
+    "bookHe": "במדבר",
+    "range": "Numbers 33:1-36:13",
+    "rangeHe": "במדבר ל״ג:א׳–ל״ו:י״ג",
+    "verseCount": 132,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Numbers 33:1-33:10"
+      },
+      {
+        "n": 2,
+        "ref": "Numbers 33:11-33:49"
+      },
+      {
+        "n": 3,
+        "ref": "Numbers 33:50-34:15"
+      },
+      {
+        "n": 4,
+        "ref": "Numbers 34:16-34:29"
+      },
+      {
+        "n": 5,
+        "ref": "Numbers 35:1-35:8"
+      },
+      {
+        "n": 6,
+        "ref": "Numbers 35:9-35:34"
+      },
+      {
+        "n": 7,
+        "ref": "Numbers 36:1-36:13"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "Jeremiah 2:4-28, 3:4",
+        "refHe": "ירמיהו ב, ד–כח; ג, ד"
+      },
+      "sephardi": {
+        "ref": "Jeremiah 2:4-28, 4:1-2",
+        "refHe": "ירמיהו ב, ד–כח; ד, א–ב"
+      },
+      "sameForAll": false
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Numbers (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "במדבר לג, א – לו, יג"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "מסעי בני ישראל",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "רשימת המסעות ממצרים עד ערבות מואב. נקבעים גבולות הארץ, ערי הלוויים, וערי מקלט להורג בשוגג. הנחלה מחולקת למשפחות, ובנות צלפחד נישאות בתוך שבטן כדי שהנחלה תישאר.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "סופרים את כל התחנות שעבר העם, כמו יומן מסע. אחר כך מחלקים את הארץ, ויש ערים שאליהן אפשר לברוח אם קרה אסון בטעות.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "ירמיהו נזכר בחסד הנעורים, הליכת העם אחרי ה׳ במדבר. רשימת המסעות והזיכרון הם אותו סיפור.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T17:24:22.177Z",
+      "source": "import:content-writer",
+      "draft": "זו השנייה בשלוש הפטרות הפורענות: ״שמעו״ (ירמיהו ב, ד–כח, ובסיום אשכנזים מוסיפים ג, ד וספרדים ד, א–ב, כדי לסיים בנחמה). הפרשה מונה את כל מסעות המדבר ומזהירה: ״ולא תטמא את הארץ... אשר אני שוכן בתוכה״. בהפטרה ירמיהו מזכיר את אותה דרך: ״איה ה׳, המעלה אותנו מארץ מצרים, המוליך אותנו במדבר, בארץ ערבה ושוחה?״ ומיד הכאב: ״ואביא אתכם אל ארץ הכרמל... ותבואו ותטמאו את ארצי״. ה׳ שואל כמו אב פגוע: ״מה מצאו אבותיכם בי עוול?״, וזועק: ״אותי עזבו, מקור מים חיים, לחצוב להם בורות, בורות נשברים״. (ברוב השנים מסעי נקראת יחד עם מטות, וזו ההפטרה של שתיהן. כשחלה בשבת ראש חודש אב, מוסיפים פסוקים מהפטרת ראש חודש.)"
+    },
+    "haftaraConnections": {
+      "published": [
+        "מסעות",
+        "מדבר",
+        "גבולות הארץ"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "33:1",
+        "35:11"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "בפרשה התורה סופרת את כל המקומות שבהם עם ישראל עבר במדבר, וה׳ שמר עליהם בכל הדרך. בהפטרה ירמיהו אומר בעצב: ה׳ הוליך אתכם במדבר והביא אתכם לארץ טובה, ואתם שכחתם אותו. ה׳ הוא כמו מעיין של מים חיים, ואסור לעזוב אותו.",
+      "updatedAt": "2026-10-08T17:24:22.177Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "לזכור כל תחנה",
+          "text": "רש״י מביא משל לאב שחוזר עם בנו מהרופא ומונה: כאן ישנו, כאן הצטננו, כאן כאב לך הראש. ארבעים ושתיים תחנות, וכל אחת נכתבת – גם מרה, גם רפידים בלי מים, גם קברות התאווה. כל שלב בחיים, גם הקשה, הוא חלק מהדרך שמביאה אותנו הביתה."
+        },
+        {
+          "title": "עיר מקלט – גם לשוגג",
+          "text": "התורה דואגת גם למי שגרם מוות בשגגה: עיר מקלט, ושם שוכנים הלויים, אנשי התורה. אין עונש בלי משפט – ״עד עומדו לפני העדה למשפט״. וגם מי שטעה טעות נוראה הוא לא מופקר. חברה צודקת מבחינה בין לב רע לבין רגע של חוסר זהירות."
+        },
+        {
+          "title": "האחריות של המנהיג",
+          "text": "הגולה חוזר הביתה רק במות הכהן הגדול. רש״י מסביר שהכהן הגדול היה צריך להתפלל שלא יקרה אסון כזה בדורו. מנהיג אחראי לא רק למה שהוא עושה, אלא גם לאווירה, לתפילה ולזהירות של כל הציבור."
+        },
+        {
+          "title": "שני צדדים צודקים",
+          "text": "על בנות צלפחד ה׳ אמר ״כן דוברות״, ועל בני שבטן משה אמר ״כן מטה בני יוסף דוברים״. התורה לא בוחרת מנצח. היא מוצאת דרך שבה שני הצדדים נשמעים: הבנות בוחרות למי להינשא, והנחלה נשארת בשבט. מחלוקת אמיתית לשם שמיים נגמרת בפתרון שמכבד את כולם."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:24:22.177Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "ה׳ זוכר את כל הדרך",
+          "text": "התורה כתבה את כל 42 המקומות שבהם עם ישראל חנה במדבר. ה׳ זכר כל מקום, כמו אבא שזוכר כל רגע בטיול עם הילדים. ה׳ זוכר גם את הדרך שלי."
+        },
+        {
+          "title": "מקום בטוח",
+          "text": "התורה ציוותה לבנות ערי מקלט – מקומות בטוחים למי שפגע במישהו בלי כוונה. גם כשמישהו טועה, צריך לתת לו מקום בטוח ולהקשיב לו."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:24:22.177Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "numbers-33-1": {
+      "onkelosExplanation": {
+        "draft": "״אלין מטלני בני ישראל די נפקו מארעא דמצרים לחיליהון בידא דמשה ואהרן״ – אלה מסעי בני ישראל אשר יצאו מארץ מצרים. רש״י מביא משל: מלך שבנו חלה, והוליך אותו למקום רחוק לרפאו. בדרך חזרה, האב מונה: כאן ישנו, כאן הצטננו, כאן כאב לך הראש. ה׳ מונה איתנו את כל הדרך – כמו אב שזוכר כל תחנה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-2": {
+      "onkelosExplanation": {
+        "draft": "״וכתב משה ית מפקניהון למטלניהון על מימרא דיי ואלין מטלניהון למפקניהון״ – ויכתוב משה את מוצאיהם למסעיהם... ואלה מסעיהם למוצאיהם. הסדר מתהפך באמצע הפסוק. לפעמים נקודת היציאה קובעת את הדרך, ולפעמים הדרך מגלה מאיפה באנו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-3": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מרעמסס בירחא קדמאה... מבתר יומא דפסחא נפקו בני ישראל בריש גלי לעיני כל מצראי״ – ממחרת הפסח יצאו בני ישראל ביד רמה לעיני כל מצרים. אונקלוס: ״בריש גלי״ – בראש גלוי. לא בורחים בלילה – יוצאים בגאון, לאור היום.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-4": {
+      "onkelosExplanation": {
+        "draft": "״ומצראי מקברין ית די קטל יי בהון כל בוכרא ובטעותהון עבד יי דינין״ – ומצרים מקברים את אשר הכה ה׳ בהם כל בכור, ובאלוהיהם עשה ה׳ שפטים. אונקלוס: ״ובטעותהון״ – בטעויות שלהם. האלילים הם טעות.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-5": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו בני ישראל מרעמסס ושרו בסכת״ – ויחנו בסוכות.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-6": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מסכת ושרו באתם די בסטר מדברא״ – באיתם אשר בקצה המדבר.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-7": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מאתם ותב על פום חירתא״ – וישב על פי החירות. אונקלוס: ״פום חירתא״ – פי החירות.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-8": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מן פום חירתא ועברו בגו ימא למדברא... ושרו במרה״ – ויעברו בתוך הים המדברה. כל נס קריעת ים סוף – בשורה אחת. המסע ממשיך.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-9": {
+      "onkelosExplanation": {
+        "draft": "״ובאילם תרי עשר מבועין דמין ושבעין דקלין ושרו תמן״ – ובאילים שתים עשרה עינות מים ושבעים תמרים. אחרי מרה – אילים. אחרי המר – מנוחה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-10": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מאילם ושרו על ימא דסוף״ – ויחנו על ים סוף.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-11": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מימא דסוף ושרו במדברא דסין״ – במדבר סין.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-12": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו ממדברא דסין ושרו בדפקה״ – בדופקה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-13": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מדפקה ושרו באלוש״ – באלוש.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-14": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מאלוש ושרו ברפידם ולא הוה תמן מיא לעמא למשתי״ – ולא היה שם מים לעם לשתות. גם התחנות הקשות נכתבות.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-15": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מרפידם ושרו במדברא דסיני״ – ויחנו במדבר סיני. תחנה אחת בשורה – ובה ניתנה התורה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-16": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו ממדברא דסיני ושרו בקברי דמשאלי״ – בקברות התאווה. אונקלוס: ״קברי דמשאלי״ – קברי המבקשים, אלה שהתאוו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-17": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מקברי דמשאלי ושרו בחצרות״ – בחצרות.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-18": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מחצרת ושרו ברתמה״ – ברתמה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-19": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מרתמה ושרו ברמון פרץ״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-20": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מרמון פרץ ושרו בלבנה״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-21": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מלבנה ושרו ברסה״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-22": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מרסה ושרו בקהלתה״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-23": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מקהלתה ושרו בטורא דשפר״ – בהר שפר.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-24": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מטורא דשפר ושרו בחרדה״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-25": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מחרדה ושרו במקהלות״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-26": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו ממקהלות ושרו בתחת״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-27": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מתחת ושרו בתרח״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-28": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מתרח ושרו במתקה״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-29": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו ממתקה ושרו בחשמונה״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-30": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מחשמונה ושרו במוסרות״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-31": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו ממוסרות ושרו בבני יעקן״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-32": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מבני יעקן ושרו בחור הגדגד״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-33": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מחור הגדגד ושרו ביטבתה״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-34": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מיטבתה ושרו בעברנה״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-35": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מעברונה ושרו בעציון גבר״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-36": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מעציון גבר ושרו במדברא דצן היא רקם״ – במדבר צין היא קדש. אונקלוס: ״רקם״. רש״י מסביר: בכל שלושים ושמונה השנים שאחרי המרגלים נסעו רק כעשרים מסעות. גם בעונש – ה׳ חס עליהם ולא טלטל אותם.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-37": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מרקם ושרו בהור טורא בסיפי ארעא דאדום״ – בהור ההר בקצה ארץ אדום.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-38": {
+      "onkelosExplanation": {
+        "draft": "״וסלק אהרן כהנא להור טורא על מימרא דיי ומית תמן בשנת ארבעין... בירחא חמשאה בחד לירחא״ – וימת שם... בחודש החמישי באחד לחודש. זה היחיד שתאריך פטירתו מפורש בתורה – ראש חודש אב. אהרן, אוהב השלום, נפטר בחודש של החורבן – שבא בגלל שנאת חינם.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-39": {
+      "onkelosExplanation": {
+        "draft": "״ואהרן בר מאה ועשרין ותלת שנין כד מית בהור טורא״ – בן שלוש ועשרים ומאת שנה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-40": {
+      "onkelosExplanation": {
+        "draft": "״ושמע כנענאה מלכא דערד... במיתי בני ישראל״ – וישמע הכנעני מלך ערד. רש״י מסביר: הוא שמע שאהרן מת ושנסתלקו ענני הכבוד, וחשב שאפשר לתקוף.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-41": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מהור טורא ושרו בצלמונה״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-42": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מצלמונה ושרו בפונון״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-43": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מפונון ושרו באבות״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-44": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מאבות ושרו במגזת עבראי בתחום מואב״ – בעיי העברים בגבול מואב.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-45": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו ממגזתא ושרו בדיבון גד״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-46": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מדיבון גד ושרו בעלמון דבלתימה״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-47": {
+      "onkelosExplanation": {
+        "draft": "״ושרו בטורי דעבראי דקדם נבו״ – בהרי העברים לפני נבו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-48": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו מטורי דעבראי ושרו במישריא דמואב על ירדנא דירחו״ – בערבות מואב על ירדן ירחו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-49": {
+      "onkelosExplanation": {
+        "draft": "״ושרו על ירדנא מבית ישימות עד מישר שטין במישריא דמואב״ – עד אבל השיטים. ארבעים ושתיים תחנות – והמסע הגיע אל הסף.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-50": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה במישריא דמואב על ירדנא דירחו למימר״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-51": {
+      "onkelosExplanation": {
+        "draft": "״ארי אתון עברין ית ירדנא לארעא דכנען״ – כי אתם עוברים את הירדן.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-52": {
+      "onkelosExplanation": {
+        "draft": "״ותתרכון ית כל יתבי ארעא... ותבדון ית כל בית סגדתהון וית כל צלמי מתכתהון תבדון״ – והורשתם... ואיבדתם את כל משכיותם. אונקלוס: ״בית סגדתהון״ – בתי ההשתחוויה שלהם.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-53": {
+      "onkelosExplanation": {
+        "draft": "״ותתרכון ית יתבי ארעא ותיתבון בה ארי לכון יהבית ית ארעא למירת יתה״ – והורשתם את הארץ וישבתם בה, כי לכם נתתי את הארץ לרשת אותה. הרמב״ן מונה מכאן מצוות עשה: לרשת את הארץ ולשבת בה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-54": {
+      "onkelosExplanation": {
+        "draft": "״ותחסנון ית ארעא בעדבא לזרעיתכון...״ – והתנחלתם את הארץ בגורל.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-55": {
+      "onkelosExplanation": {
+        "draft": "״ויהי די תשארון מנהון לסיען נטלן זין לקבליכון ולמשרין מקפנכון״ – והיה אשר תותירו מהם – לשיכים בעיניכם ולצנינים בצדיכם. אונקלוס מפרש את הדימוי: לגייסות נושאי נשק מולכם, ולמחנות המקיפים אתכם.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-33-56": {
+      "onkelosExplanation": {
+        "draft": "״ויהי כמא די חשבית למעבד להון אעבד לכון״ – כאשר דימיתי לעשות להם אעשה לכם. הארץ לא מחזיקה בה מי שהולך בדרכי מי שהיה בה לפניו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-2": {
+      "onkelosExplanation": {
+        "draft": "״ארי אתון עאלין לארעא דכנען דא ארעא די תתפלג לכון באחסנא ארעא דכנען לתחומאה״ – זאת הארץ אשר תיפול לכם בנחלה, ארץ כנען לגבולותיה. רש״י מסביר: מצוות רבות נוהגות רק בארץ, ולכן צריך לדעת את גבולותיה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-3": {
+      "onkelosExplanation": {
+        "draft": "״ויהי לכון רוח דרומא ממדברא דצן... מסיפי ימא דמלחא קדומא״ – והיה לכם פאת נגב... מקצה ים המלח קדמה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-4": {
+      "onkelosExplanation": {
+        "draft": "״ויסחר לכון תחומא מדרומא למסקנא דעקרבים... לרקם גיאה״ – ונסב לכם הגבול מנגב למעלה עקרבים.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-5": {
+      "onkelosExplanation": {
+        "draft": "״ויסחר תחומא מעצמון לנחלא דמצרים ויהון מפקנוהי לימא״ – נחלה מצרים.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-6": {
+      "onkelosExplanation": {
+        "draft": "״ותחום מערבא ויהי לכון ימא רבא״ – וגבול ים והיה לכם הים הגדול.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-7": {
+      "onkelosExplanation": {
+        "draft": "״ודין יהי לכון תחום צפונא מן ימא רבא תכונון לכון להור טורא״ – מן הים הגדול תתאו לכם הור ההר.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-8": {
+      "onkelosExplanation": {
+        "draft": "״מהור טורא תכונון למטי חמת ויהון מפקנוהי דתחומא לצדד״ – לבוא חמת.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-9": {
+      "onkelosExplanation": {
+        "draft": "״ויפוק תחומא לזפרון ויהון מפקנוהי לחצר עינן״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-10": {
+      "onkelosExplanation": {
+        "draft": "״ותכונון לכון לתחום קדומא מחצר עינן לשפם״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-11": {
+      "onkelosExplanation": {
+        "draft": "״ויחות תחומא משפם לרבלה... וימטי על כיף ים גנוסר קדומא״ – על כתף ים כנרת קדמה. אונקלוס: ״ים גנוסר״ – השם שבו נקראה הכנרת בימי חז״ל.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-12": {
+      "onkelosExplanation": {
+        "draft": "״ויחות תחומא לירדנא ויהון מפקנוהי לימא דמלחא דא תהי לכון ארעא לתחומאה סחור סחור״ – זאת תהיה לכם הארץ לגבולותיה סביב. כל גבול שמו – הארץ מוגדרת, מוכרת ואהובה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-13": {
+      "onkelosExplanation": {
+        "draft": "״דא ארעא דתתחסנון יתה בעדבא די פקיד יי למתן לתשעת שבטין ופלגות שבטא״ – לתשעת המטות וחצי המטה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-14": {
+      "onkelosExplanation": {
+        "draft": "״ארי קבילו שבטא דבני ראובן... ושבטא דבני גד... ופלגות שבטא דמנשה קבילו אחסנתהון״ – כי לקחו מטה בני הראובני.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-15": {
+      "onkelosExplanation": {
+        "draft": "״תרין שבטין ופלגות שבטא קבילו אחסנתהון מעברא לירדנא דירחו קדומא מדינחא״ – מעבר לירדן ירחו, קדמה מזרחה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-16": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-17": {
+      "onkelosExplanation": {
+        "draft": "״אלין שמהת גבריא די יחסנון לכון ית ארעא אלעזר כהנא ויהושע בר נון״ – אלעזר הכהן ויהושע בן נון. הכהן והמנהיג – יחד.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-18": {
+      "onkelosExplanation": {
+        "draft": "״ורבא חד רבא חד משבטא תסבון לאחסנא ית ארעא״ – ונשיא אחד, נשיא אחד ממטה. כל שבט מיוצג – כך חלוקה מתקבלת כצודקת.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-19": {
+      "onkelosExplanation": {
+        "draft": "״לשבטא דיהודה כלב בר יפנה״ – כלב, שלפני ארבעים שנה עמד מול המרגלים, הוא עכשיו מחלק את הארץ.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-20": {
+      "onkelosExplanation": {
+        "draft": "״ולשבטא דבני שמעון שמואל בר עמיהוד״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-21": {
+      "onkelosExplanation": {
+        "draft": "״לשבטא דבנימן אלידד בר כסלון״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-22": {
+      "onkelosExplanation": {
+        "draft": "״ולשבטא דבני דן רבא בקי בר יגלי״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-23": {
+      "onkelosExplanation": {
+        "draft": "״לבני יוסף לשבטא דבני מנשה רבא חניאל בר אפוד״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-24": {
+      "onkelosExplanation": {
+        "draft": "״ולשבטא דבני אפרים רבא קמואל בר שפטן״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-25": {
+      "onkelosExplanation": {
+        "draft": "״ולשבטא דבני זבולן רבא אליצפן בר פרנך״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-26": {
+      "onkelosExplanation": {
+        "draft": "״ולשבטא דבני יששכר רבא פלטיאל בר עזן״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-27": {
+      "onkelosExplanation": {
+        "draft": "״ולשבטא דבני אשר רבא אחיהוד בר שלמי״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-28": {
+      "onkelosExplanation": {
+        "draft": "״ולשבטא דבני נפתלי רבא פדהאל בר עמיהוד״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-34-29": {
+      "onkelosExplanation": {
+        "draft": "״אלין די פקיד יי לאחסנא ית בני ישראל בארעא דכנען״ – אלה אשר ציווה ה׳ לנחל את בני ישראל.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה במישריא דמואב על ירדנא דיריחו למימר״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-2": {
+      "onkelosExplanation": {
+        "draft": "״ויתנון ללואי מאחסנת אחודתהון קרוין למתב ורוח לקרויא סחרניהון״ – ונתנו ללויים... ערים לשבת, ומגרש לערים סביבותיהם. אונקלוס: ״רוח״ – מרווח, שטח פתוח. הלויים, שאין להם נחלה, מפוזרים בכל הארץ – כדי שהתורה תהיה קרובה לכל אחד.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-3": {
+      "onkelosExplanation": {
+        "draft": "״ויהון קרויא להון למתב ורוחיהון יהון לבעירהון ולקניניהון ולכל חותהון״ – ומגרשיהם יהיו לבהמתם ולרכושם ולכל חייתם.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-4": {
+      "onkelosExplanation": {
+        "draft": "״ורוחי קרויא... מכותל קרתא ולברא אלף אמין סחור סחור״ – מקיר העיר וחוצה אלף אמה סביב. גם לעיר צריך מקום לנשום.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-5": {
+      "onkelosExplanation": {
+        "draft": "״ותמשחון מברא לקרתא ית רוח קדומא תרין אלפין באמין...״ – אלפיים באמה. מכאן לומדים חז״ל את ״תחום שבת״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-6": {
+      "onkelosExplanation": {
+        "draft": "״ית שית קרוי שזבותא די תתנון למערק תמן קטולא ועליהון תתנון ארבעין ותרתין קרוין״ – שש ערי המקלט... ועליהם תיתנו ארבעים ושתיים עיר. ערי המקלט הן ערי הלויים – מי שנמלט מגיע למקום של תורה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-7": {
+      "onkelosExplanation": {
+        "draft": "״כל קרויא די תתנון ללואי ארבעין ותמני קרוין״ – ארבעים ושמונה עיר.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-8": {
+      "onkelosExplanation": {
+        "draft": "״מן סגיאי תסגון ומן זעירי תזעירון גבר כפום אחסנתה״ – מאת הרב תרבו ומאת המעט תמעיטו. כל אחד נותן לפי מה שיש לו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-9": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-10": {
+      "onkelosExplanation": {
+        "draft": "״ארי אתון עברין ית ירדנא לארעא דכנען״.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-11": {
+      "onkelosExplanation": {
+        "draft": "״ותזמנון לכון קרוין קרוי שזבותא יהוין לכון ויערוק לתמן קטולא דיקטול נפשא בשלו״ – והקריתם לכם ערים, ערי מקלט תהיינה לכם, ונס שמה רוצח מכה נפש בשגגה. אונקלוס: ״קרוי שזבותא״ – ערי הצלה. גם מי שגרם מוות בשגגה – לא מופקר.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-12": {
+      "onkelosExplanation": {
+        "draft": "״ויהון לכון קרויא לשזבא מגאל דמא ולא ימות קטולא עד דיקום קדם כנשתא לדינא״ – ולא ימות הרוצח עד עומדו לפני העדה למשפט. אין עונש בלי משפט.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-13": {
+      "onkelosExplanation": {
+        "draft": "״וקרויא די תתנון שית קרוי שזבותא יהוין לכון״ – שש ערי מקלט.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-14": {
+      "onkelosExplanation": {
+        "draft": "״ית תלת קרויא תתנון מעברא לירדנא וית תלת קרויא תתנון בארעא דכנען״ – שלוש מעבר לירדן ושלוש בארץ כנען. רש״י מסביר: אף שבעבר הירדן היו רק שניים וחצי שבטים – הרוצחים בגלעד היו רבים.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-15": {
+      "onkelosExplanation": {
+        "draft": "״לבני ישראל ולגיוריא ולתותביא דביניכון יהוין שית קרויא האלין לשזבא״ – לבני ישראל ולגר ולתושב בתוכם.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-16": {
+      "onkelosExplanation": {
+        "draft": "״ואם במאן דפרזלא מחהי וקטלה קטולא הוא אתקטלא יתקטל קטולא״ – ואם בכלי ברזל הכהו וימת – רוצח הוא.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-17": {
+      "onkelosExplanation": {
+        "draft": "״ואם באבנא דמתנסבא בידא דהיא כמסת די ימות בה״ – ואם באבן יד אשר ימות בה. אונקלוס: ״כמסת די ימות בה״ – בשיעור שאפשר למות ממנו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-18": {
+      "onkelosExplanation": {
+        "draft": "״או במאן דעא דמתנסב בידא דהיא כמסת די ימות בה״ – או בכלי עץ יד.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-19": {
+      "onkelosExplanation": {
+        "draft": "״גאל דמא הוא יקטול ית קטולא כד אתחיב לה מן דינא״ – גואל הדם הוא ימית את הרוצח. אונקלוס מוסיף: ״כד אתחיב לה מן דינא״ – כשנתחייב לו מן הדין. לא נקמה פרטית – רק אחרי משפט.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-20": {
+      "onkelosExplanation": {
+        "draft": "״ואם בסנאה דחהי או רמא עלוהי בכמנא וקטלה״ – ואם בשנאה יהדפנו, או השליך עליו בצדייה. אונקלוס: ״בכמנא״ – במארב.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-21": {
+      "onkelosExplanation": {
+        "draft": "״או בדבבו מחהי בידה וקטלה... גאל דמא יקטול ית קטולא כד אתחיב ליה מן דינא״ – או באיבה הכהו בידו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-22": {
+      "onkelosExplanation": {
+        "draft": "״ואם בתכיף בלא דבבו דחהי או רמא עלוהי כל מאן בלא כמן ליה״ – ואם בפתע בלא איבה הדפו. אונקלוס: ״בתכיף״ – פתאום.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-23": {
+      "onkelosExplanation": {
+        "draft": "״או בכל אבנא... בלא חזי ורמא עלוהי וקטלה והוא לא סני ליה ולא תבע בישתיה״ – בלא ראות... והוא לא אויב לו ולא מבקש רעתו. ההבדל בין רוצח לשוגג – בלב.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-24": {
+      "onkelosExplanation": {
+        "draft": "״וידונון כנשתא בין מחיא ובין גאל דמא על דיניא האלין״ – ושפטו העדה בין המכה ובין גואל הדם.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-25": {
+      "onkelosExplanation": {
+        "draft": "״וישזבון כנשתא ית קטולא מיד גאל דמא... ויתב בה עד דימות כהנא רבא״ – והצילו העדה... וישב בה עד מות הכהן הגדול. רש״י מסביר: הכהן הגדול היה צריך להתפלל שלא יקרה אסון כזה בדורו. והמשנה (מכות) מספרת שאמהות הכהנים היו מביאות מזון ובגדים לגולים, כדי שלא יתפללו על מות בניהן. האחריות של מנהיג – גם על מה שקורה בשגגה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-26": {
+      "onkelosExplanation": {
+        "draft": "״ואם מפק יפוק קטולא ית תחום קרית שזבותה״ – ואם יצא יצא הרוצח את גבול עיר מקלטו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-27": {
+      "onkelosExplanation": {
+        "draft": "״וישכח יתה גאל דמא מברא לתחום קרית שזבותה ויקטול גאל דמא ית קטולא לית לה דמא״ – אין לו דם.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-28": {
+      "onkelosExplanation": {
+        "draft": "״ארי בקרית שזבותה יתב עד דימות כהנא רבא ובתר דימות כהנא רבא יתוב קטולא לארע אחסנתה״ – ואחרי מות הכהן הגדול ישוב הרוצח אל ארץ אחוזתו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-29": {
+      "onkelosExplanation": {
+        "draft": "״ויהון אלין לכון לגזרת דין לדריכון״ – לחוקת משפט לדורותיכם.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-30": {
+      "onkelosExplanation": {
+        "draft": "״כל דיקטול נפשא לפום סהדין יקטול ית קטולא וסהיד חד לא יסהד באנש למקטל״ – לפי עדים ירצח את הרוצח, ועד אחד לא יענה בנפש למות.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-31": {
+      "onkelosExplanation": {
+        "draft": "״ולא תקבלון ממון על אנש קטול די הוא חיב למקטל״ – ולא תקחו כופר לנפש רוצח. אונקלוס: ״ממון״ – כסף. חיי אדם אינם נקנים בכסף.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-32": {
+      "onkelosExplanation": {
+        "draft": "״ולא תקבלון ממון למערוק לקרית שזבותה למתוב למתב בארעא״ – ולא תקחו כופר לנוס.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-33": {
+      "onkelosExplanation": {
+        "draft": "״ולא תחיבון ית ארעא די אתון בה ארי דמא הוא מחיב ית ארעא״ – ולא תחניפו את הארץ, כי הדם הוא יחניף את הארץ. אונקלוס: ״לא תחיבון״ – לא תחייבו, לא תטמאו באשמה. דם נקי שנשפך פוגע בארץ עצמה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-35-34": {
+      "onkelosExplanation": {
+        "draft": "״ולא תסאבון ית ארעא די אתון יתבין בה די שכנתי שריא בגוה ארי אנא יי דשכנתי שריא בגו בני ישראל״ – ולא תטמא את הארץ... אשר אני שוכן בתוכה, כי אני ה׳ שוכן בתוך בני ישראל. אונקלוס: ״שכנתי שריא״ – שכינתי שורה. רש״י מסביר: אפילו כשהם טמאים – השכינה ביניהם.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-1": {
+      "onkelosExplanation": {
+        "draft": "״וקריבו רישי אבהתא לזרעית בני גלעד בר מכיר בר מנשה״ – ויקרבו ראשי האבות למשפחת בני גלעד. עכשיו בני השבט באים עם שאלה – וגם להם מגיע לשמוע תשובה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-2": {
+      "onkelosExplanation": {
+        "draft": "״ורבוני אתפקד במימרא דיי למתן ית אחסנת צלפחד אחונא לבנתה״ – ואדוני צווה בה׳ לתת את נחלת צלפחד אחינו לבנותיו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-3": {
+      "onkelosExplanation": {
+        "draft": "״ויהוין לחד מבני שבטיא דבני ישראל לנשין ותתמנע אחסנתהון מאחסנת אבהתנא״ – והיו לאחד מבני שבטי בני ישראל לנשים, ונגרעה נחלתן מנחלת אבותינו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-4": {
+      "onkelosExplanation": {
+        "draft": "״ואם יהי יובלא לבני ישראל ותתוסף אחסנתהון על אחסנת שבטא״ – ואם יהיה היובל לבני ישראל.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-5": {
+      "onkelosExplanation": {
+        "draft": "״ופקיד משה ית בני ישראל על מימרא דיי למימר יאות שבטא דבני יוסף ממללין״ – כן מטה בני יוסף דוברים. אונקלוס: ״יאות״ – בדיוק כמו שנאמר על בנות צלפחד. גם הבנות צודקות, וגם השבט צודק. התורה מוצאת דרך שבה שניהם נשמעים.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-6": {
+      "onkelosExplanation": {
+        "draft": "״לדתקין בעיניהון תהוין לנשין ברם לזרעית שבטא דאבוהן תהוין לנשין״ – לטוב בעיניהם תהיינה לנשים, אך למשפחת מטה אביהם. הבחירה נשארת שלהן.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-7": {
+      "onkelosExplanation": {
+        "draft": "״ולא תסחר אחסנא לבני ישראל משבטא לשבטא ארי גבר באחסנת שבטא דאבהתוהי ידבקון בני ישראל״ – ולא תיסוב נחלה... כי איש בנחלת מטה אבותיו ידבקו.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-8": {
+      "onkelosExplanation": {
+        "draft": "״וכל ברתא ירתת אחסנא... לחד מזרעית שבטא דאבוהא תהי לאנתו״ – וכל בת יורשת נחלה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-9": {
+      "onkelosExplanation": {
+        "draft": "״ולא תסחר אחסנא משבטא לשבטא אוחרנא״ – ולא תיסוב נחלה ממטה למטה אחר.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-10": {
+      "onkelosExplanation": {
+        "draft": "״כמא די פקיד יי ית משה כן עבדו בנת צלפחד״ – כאשר ציווה ה׳ את משה כן עשו בנות צלפחד. מי שביקשו את נחלתן – גם מקבלות את גבולותיה.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-11": {
+      "onkelosExplanation": {
+        "draft": "״והואה מחלה תרצה וחגלה ומלכה ונעה בנת צלפחד לבני אחי אבוהן לנשין״ – ותהיינה מחלה, תרצה וחגלה ומלכה ונועה. רש״י מסביר: כאן הן נמנות לפי גילן, ובשאר המקומות – לפי חוכמתן. כל סדר מכבד אותן באופן אחר.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-12": {
+      "onkelosExplanation": {
+        "draft": "״מזרעית בני מנשה בר יוסף הואה לנשין והות אחסנתהן על שבטא זרעית אבוהן״ – ותהי נחלתן על מטה משפחת אביהן.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-36-13": {
+      "onkelosExplanation": {
+        "draft": "״אלין פקודיא ודיניא די פקיד יי בידא דמשה לות בני ישראל במישריא דמואב על ירדנא דיריחו״ – אלה המצוות והמשפטים... בערבות מואב על ירדן ירחו. ספר במדבר נגמר על שפת הירדן – בדיוק במקום שבו מתחיל ספר דברים. חזק חזק ונתחזק.",
+        "updatedAt": "2026-10-08T17:24:22.177Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}

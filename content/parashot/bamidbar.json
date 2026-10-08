@@ -1,0 +1,1263 @@
+{
+  "schemaVersion": 2,
+  "slug": "bamidbar",
+  "meta": {
+    "slug": "bamidbar",
+    "name": "במדבר",
+    "nameEn": "Bamidbar",
+    "book": "Numbers",
+    "bookHe": "במדבר",
+    "range": "Numbers 1:1-4:20",
+    "rangeHe": "במדבר א׳:א׳–ד׳:כ׳",
+    "verseCount": 159,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Numbers 1:1-1:19"
+      },
+      {
+        "n": 2,
+        "ref": "Numbers 1:20-1:54"
+      },
+      {
+        "n": 3,
+        "ref": "Numbers 2:1-2:34"
+      },
+      {
+        "n": 4,
+        "ref": "Numbers 3:1-3:13"
+      },
+      {
+        "n": 5,
+        "ref": "Numbers 3:14-3:39"
+      },
+      {
+        "n": 6,
+        "ref": "Numbers 3:40-3:51"
+      },
+      {
+        "n": 7,
+        "ref": "Numbers 4:1-4:20"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "Hosea 2:1-22",
+        "refHe": "הושע ב, א–כב"
+      },
+      "sephardi": {
+        "ref": "Hosea 2:1-22",
+        "refHe": "הושע ב, א–כב"
+      },
+      "sameForAll": true
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Numbers (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "במדבר א, א – ד, כ"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "מפקד במדבר",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "במדבר סיני נמנים ישראל למשפחות, כל שבט עם דגל ומחנה. הלוויים נמנים בנפרד, במקום הבכורות, ונושאים את המשכן. המחנה הוא סדר: מי הולך ראשון, ומי שומר.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "סופרים את כולם במדבר, וכל משפחה ישנה ליד הדגל שלה. יש סדר במחנה, כמו מעגל סביב האוהל.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "הושע אומר ״והיה מספר בני ישראל כחול הים״. מפקד ומספר, ואהבה שלא תימחק — מול המניין שבפרשה.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T17:09:06.596Z",
+      "source": "import:content-writer",
+      "draft": "הפרשה פותחת במפקד גדול במדבר סיני – כל אחד נספר בשמו. ההפטרה (הושע ב, א–כב; אשכנזים וספרדים קוראים אותה) פותחת בדיוק במספר: ״והיה מספר בני ישראל כחול הים אשר לא יימד ולא ייספר״. הושע מתאר את הקשר בין ה׳ לעמו כמו נישואים שנסדקו – ובכל זאת ה׳ אומר: ״הנה אנכי מפתיה, והלכתיה המדבר, ודיברתי על ליבה״. המדבר, המקום של הפרשה, הוא מקום של אהבה ראשונה. ההפטרה מסתיימת במילים שאומרים בכל בוקר בכריכת התפילין: ״וארשתיך לי לעולם... וארשתיך לי באמונה, וידעת את ה׳״. (בחלק מהשנים במדבר חלה בערב ראש חודש סיוון, ואז קוראים את הפטרת ״מחר חודש״.)"
+    },
+    "haftaraConnections": {
+      "published": [
+        "מניין",
+        "דגלים",
+        "עם במדבר"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "1:1",
+        "2:2"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "בפרשה ה׳ סופר את בני ישראל במדבר, כי כל אחד חשוב לו. בהפטרה הנביא הושע אומר שיום אחד יהיו בני ישראל רבים כמו החול שבים, שאי אפשר לספור. וה׳ מבטיח לעם: אני אוהב אתכם לתמיד.",
+      "updatedAt": "2026-10-08T17:09:06.596Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "נספרים בשם",
+          "text": "המפקד במדבר הוא ״במספר שמות״. רש״י מסביר: מתוך חיבה ה׳ מונה אותם שוב ושוב. בתוך שש מאות אלף איש, אף אחד לא נעלם בהמון. גם בעולם של מספרים, נתונים וסטטיסטיקות – כל אדם הוא שם, סיפור ופנים."
+        },
+        {
+          "title": "להיות כמו מדבר",
+          "text": "למה ניתנה התורה דווקא במדבר? המדרש עונה: מי שלא עושה את עצמו כמדבר, פתוח והפקר לכל – לא יכול לקבל את התורה. לפעמים צריך לפנות מקום בלב, לוותר על גאווה ועל ״כבר יודע״, כדי שמשהו חדש ייכנס."
+        },
+        {
+          "title": "דגל משלך, מרכז משותף",
+          "text": "כל שבט חונה תחת דגל משלו, בצבע משלו – וכולם פונים אל המשכן שבמרכז. אחדות אינה העלמה של ההבדלים; היא הסכמה על המרכז. משפחה, קהילה ועם צריכים גם צבעים שונים וגם לב משותף."
+        },
+        {
+          "title": "מי שמלמד – כאילו הוליד",
+          "text": "״ואלה תולדות אהרן ומשה״ – אבל רק בני אהרן מוזכרים. רש״י מסביר: משה לימד אותם תורה, ומי שמלמד את בן חברו תורה, כאילו ילד אותו. מורים, מדריכים וחברים שמלמדים – כולם הורים במובן עמוק. מה שאתה נותן למישהו בלימוד, חי בו הלאה."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.596Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "כל אחד חשוב",
+          "text": "ה׳ ספר את כל בני ישראל, אחד אחד, כי כל אחד חשוב לו. גם אני חשוב – וגם כל ילד בכיתה שלי."
+        },
+        {
+          "title": "מי שהולך אחרון",
+          "text": "שבט דן הלך אחרון, ודאג לאסוף את מה שאחרים איבדו בדרך. גם אני יכול לשים לב למי שנשאר מאחור – ולעזור לו."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.596Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "numbers-1-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה במדברא דסיני במשכן זמנא בחד לירחא תנינא בשתא תניתא״ – וידבר ה׳ אל משה במדבר סיני באוהל מועד, באחד לחודש השני בשנה השנית. המדרש שואל: למה ניתנה התורה דווקא במדבר? כי מי שלא עושה את עצמו הפקר כמדבר – אינו יכול לקנות את התורה. ספר שלם על המסע – מתחיל במקום ריק ופתוח.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-2": {
+      "onkelosExplanation": {
+        "draft": "״קבילו ית חשבן כל כנשתא דבני ישראל... במנין שמהן כל דכורא לגלגלתהון״ – שאו את ראש כל עדת בני ישראל... במספר שמות כל זכר לגולגלותם. רש״י מסביר: מתוך חיבתם לפניו – מונה אותם כל שעה. ו״במספר שמות״ – כל אחד נספר בשמו, לא כמספר.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-3": {
+      "onkelosExplanation": {
+        "draft": "״מבר עשרין שנין ולעלא כל נפק חילא בישראל תמנון יתהון לחיליהון את ואהרן״ – מבן עשרים שנה ומעלה, כל יוצא צבא בישראל. העם מתארגן למסע אל הארץ.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-4": {
+      "onkelosExplanation": {
+        "draft": "״ועמכון יהון גברא גברא לשבטא גבר ריש לבית אבהתוהי הוא״ – ואיתכם יהיו איש איש למטה. כל שבט נספר בידי ראש משלו.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-5": {
+      "onkelosExplanation": {
+        "draft": "״ואלין שמהת גבריא די יקומון עמכון לראובן אליצור בר שדיאור״ – ואלה שמות האנשים: לראובן אליצור בן שדיאור.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-6": {
+      "onkelosExplanation": {
+        "draft": "״לשמעון שלמיאל בר צורישדי״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-7": {
+      "onkelosExplanation": {
+        "draft": "״ליהודה נחשון בר עמינדב״ – נחשון, שחז״ל מספרים שקפץ ראשון לים סוף.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-8": {
+      "onkelosExplanation": {
+        "draft": "״ליששכר נתנאל בר צוער״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-9": {
+      "onkelosExplanation": {
+        "draft": "״לזבולן אליאב בר חלן״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-10": {
+      "onkelosExplanation": {
+        "draft": "״לבני יוסף לאפרים אלישמע בר עמיהוד למנשה גמליאל בר פדהצור״ – יוסף מקבל שני שבטים, כמו שיעקב הבטיח.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-11": {
+      "onkelosExplanation": {
+        "draft": "״לבנימן אבידן בר גדעני״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-12": {
+      "onkelosExplanation": {
+        "draft": "״לדן אחיעזר בר עמישדי״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-13": {
+      "onkelosExplanation": {
+        "draft": "״לאשר פגעיאל בר עכרן״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-14": {
+      "onkelosExplanation": {
+        "draft": "״לגד אליסף בר דעואל״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-15": {
+      "onkelosExplanation": {
+        "draft": "״לנפתלי אחירע בר עינן״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-16": {
+      "onkelosExplanation": {
+        "draft": "״אלין מערעי כנשתא רברבי שבטי אבהתהון רישי אלפיא דישראל אנון״ – אלה קרואי העדה, נשיאי מטות אבותם. אונקלוס: ״מערעי כנשתא״ – הנקראים של הקהל, מי שמזמנים לכל עניין חשוב.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-17": {
+      "onkelosExplanation": {
+        "draft": "״ודבר משה ואהרן ית גבריא האלין די אתפרשו בשמהן״ – ויקח משה ואהרן את האנשים האלה אשר ניקבו בשמות.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-18": {
+      "onkelosExplanation": {
+        "draft": "״ואתיחסו על זרעיתהון לבית אבהתהון במנין שמהן״ – ויתיילדו על משפחותם. אונקלוס: ״ואתיחסו״ – והתייחסו. כל אחד הראה מאיזו משפחה הוא בא. לדעת מאיפה באת – זה חלק מלדעת לאן אתה הולך.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-19": {
+      "onkelosExplanation": {
+        "draft": "״כמא די פקד יי ית משה ומננון במדברא דסיני״ – כאשר ציווה ה׳ את משה, ויפקדם במדבר סיני.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-20": {
+      "onkelosExplanation": {
+        "draft": "״והוו בני ראובן בוכרא דישראל תולדתהון לזרעיתהון... כל נפק חילא״ – ויהיו בני ראובן בכור ישראל.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-21": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דראובן ארבעין ושתא אלפין וחמש מאה״ – פקודיהם למטה ראובן: ארבעים ושישה אלף וחמש מאות.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-22": {
+      "onkelosExplanation": {
+        "draft": "״לבני שמעון תולדתהון לזרעיתהון״ – לבני שמעון.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-23": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דשמעון חמשין ותשע אלפין ותלת מאה״ – חמישים ותשעה אלף ושלוש מאות.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-24": {
+      "onkelosExplanation": {
+        "draft": "״לבני גד תולדתהון לזרעיתהון״ – לבני גד.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-25": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דגד ארבעין וחמשא אלפין ושית מאה וחמשין״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-26": {
+      "onkelosExplanation": {
+        "draft": "״לבני יהודה תולדתהון לזרעיתהון״ – לבני יהודה.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-27": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דיהודה שבעין וארבעא אלפין ושית מאה״ – יהודה, השבט הגדול ביותר.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-28": {
+      "onkelosExplanation": {
+        "draft": "״לבני יששכר תולדתהון לזרעיתהון״ – לבני יששכר.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-29": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דיששכר חמשין וארבעא אלפין וארבע מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-30": {
+      "onkelosExplanation": {
+        "draft": "״לבני זבולן תולדתהון לזרעיתהון״ – לבני זבולון.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-31": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דזבולן חמשין ושבע אלפין וארבע מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-32": {
+      "onkelosExplanation": {
+        "draft": "״לבני יוסף לבני אפרים תולדתהון לזרעיתהון״ – לבני יוסף, לבני אפרים.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-33": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דאפרים ארבעין אלפין וחמש מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-34": {
+      "onkelosExplanation": {
+        "draft": "״לבני מנשה תולדתהון לזרעיתהון״ – לבני מנשה.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-35": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דמנשה תלתין ותרין אלפין ומאתן״ – אפרים הצעיר גדול ממנשה, כמו שיעקב ראה בברכתו.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-36": {
+      "onkelosExplanation": {
+        "draft": "״לבני בנימן תולדתהון לזרעיתהון״ – לבני בנימין.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-37": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דבנימן תלתין וחמשא אלפין וארבע מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-38": {
+      "onkelosExplanation": {
+        "draft": "״לבני דן תולדתהון לזרעיתהון״ – לבני דן.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-39": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דדן שתין ותרין אלפין ושבע מאה״ – דן, שהיה לו בן אחד בלבד – חושים – נעשה השבט השני בגודלו. מהתחלה קטנה יכולה לצמוח משפחה גדולה.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-40": {
+      "onkelosExplanation": {
+        "draft": "״לבני אשר תולדתהון לזרעיתהון״ – לבני אשר.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-41": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דאשר ארבעין וחד אלפין וחמש מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-42": {
+      "onkelosExplanation": {
+        "draft": "״בני נפתלי תולדתהון לזרעיתהון״ – בני נפתלי.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-43": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון לשבטא דנפתלי חמשין ותלתא אלפין וארבע מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-44": {
+      "onkelosExplanation": {
+        "draft": "״אלין מניניא די מנא משה ואהרן ורברבי ישראל תרי עשר גברין״ – אלה הפקודים אשר פקד משה ואהרן ונשיאי ישראל, שנים עשר איש.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-45": {
+      "onkelosExplanation": {
+        "draft": "״והוו כל מניני בני ישראל... כל נפק חילא בישראל״ – ויהיו כל פקודי בני ישראל.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-46": {
+      "onkelosExplanation": {
+        "draft": "״והוו כל מניניא שית מאה ותלתא אלפין וחמש מאה וחמשין״ – שש מאות ושלושה אלף וחמש מאות וחמישים. בדיוק המספר של מחצית השקל בבניית המשכן. העם לא השתנה – הוא רק התארגן.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-47": {
+      "onkelosExplanation": {
+        "draft": "״ולואי לשבטא דאבהתהון לא אתמניאו ביניהון״ – והלויים למטה אבותם לא התפקדו בתוכם.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-48": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-49": {
+      "onkelosExplanation": {
+        "draft": "״ברם ית שבטא דלוי לא תמני וית חשבנהון לא תקבל בגו בני ישראל״ – אך את מטה לוי לא תפקוד. רש״י מסביר: כדאי הוא ״לגיון של מלך״ להימנות לבדו. ועוד: ה׳ ראה שהנספרים מבן עשרים ימותו במדבר – ולא רצה שהלויים, שלא חטאו בעגל, ייכללו בגזירה.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-50": {
+      "onkelosExplanation": {
+        "draft": "״ואת מני ית לואי על משכנא דסהדותא... וסחור סחור למשכנא ישרון״ – ואתה הפקד את הלויים על משכן העדות... וסביב למשכן יחנו.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-51": {
+      "onkelosExplanation": {
+        "draft": "״ובמטל משכנא יפרקון יתה לואי ובמשרי משכנא יקימון יתה לואי״ – ובנסוע המשכן יורידו אותו הלויים, ובחנות המשכן יקימו אותו.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-52": {
+      "onkelosExplanation": {
+        "draft": "״וישרון בני ישראל גבר על משרוהי וגבר על טקסה לחיליהון״ – וחנו בני ישראל איש על מחנהו ואיש על דגלו.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-53": {
+      "onkelosExplanation": {
+        "draft": "״ולואי ישרון סחור סחור למשכנא דסהדותא ולא יהי רוגזא על כנשתא״ – והלויים יחנו סביב, ולא יהיה קצף על עדת בני ישראל. הלויים הם חיץ מגן – הם שומרים על העם מפני קרבה שאינה במקומה.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-1-54": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו בני ישראל ככל די פקיד יי ית משה כן עבדו״ – ויעשו בני ישראל ככל אשר ציווה ה׳.",
+        "updatedAt": "2026-10-08T17:09:06.596Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה ועם אהרן למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-2": {
+      "onkelosExplanation": {
+        "draft": "״גבר על טקסה באתון לבית אבהתהון ישרון בני ישראל מלקבל סחור סחור למשכן זמנא ישרון״ – איש על דגלו באותות לבית אבותם יחנו, מנגד סביב לאוהל מועד. רש״י מסביר: לכל שבט היה דגל בצבע האבן שלו בחושן. כל שבט שומר על הצבע שלו – וכולם פונים אל אותו מרכז.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-3": {
+      "onkelosExplanation": {
+        "draft": "״ודי שרן קדומא מדינחא טקס משרית יהודה לחיליהון״ – והחונים קדמה מזרחה – דגל מחנה יהודה. יהודה, שבט המלכות, פונה לזריחה ומוביל.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-4": {
+      "onkelosExplanation": {
+        "draft": "״וחיליה ומניניהון שבעין וארבעא אלפין ושית מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-5": {
+      "onkelosExplanation": {
+        "draft": "״ודי שרן סמיכין עלוהי שבטא דיששכר״ – והחונים עליו מטה יששכר.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-6": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומנינוהי חמשין וארבעא אלפין וארבע מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-7": {
+      "onkelosExplanation": {
+        "draft": "״שבטא דזבולן ורבא לבני זבולן אליאב בר חלון״ – מטה זבולון.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-8": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומנינוהי חמשין ושבעא אלפין וארבע מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-9": {
+      "onkelosExplanation": {
+        "draft": "״כל מניניא למשרית יהודה... בקדמיתא נטלין״ – כל הפקודים למחנה יהודה... ראשונה ייסעו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-10": {
+      "onkelosExplanation": {
+        "draft": "״טקס משרית ראובן דרומא לחיליהון״ – דגל מחנה ראובן תימנה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-11": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומנינוהי ארבעין ושתא אלפין וחמש מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-12": {
+      "onkelosExplanation": {
+        "draft": "״ודי שרן סמיכין עלוהי שבטא דשמעון״ – והחונים עליו מטה שמעון.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-13": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומניניהון חמשין ותשע אלפין ותלת מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-14": {
+      "onkelosExplanation": {
+        "draft": "״ושבטא דגד ורבא לבני גד אליסף בר רעואל״ – ומטה גד.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-15": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומניניהון ארבעין וחמשא אלפין ושית מאה וחמשין״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-16": {
+      "onkelosExplanation": {
+        "draft": "״כל מניניא למשרית ראובן... בתניתא נטלין״ – ושניים ייסעו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-17": {
+      "onkelosExplanation": {
+        "draft": "״ונטל משכן זמנא משרית לואי בגו משריתא כמא דשרן כן נטלין״ – ונסע אוהל מועד, מחנה הלויים, בתוך המחנות. כאשר יחנו כן ייסעו. גם בתנועה – המשכן נשאר במרכז.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-18": {
+      "onkelosExplanation": {
+        "draft": "״טקס משרית אפרים לחיליהון מערבא״ – דגל מחנה אפרים ימה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-19": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומניניהון ארבעין אלפין וחמש מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-20": {
+      "onkelosExplanation": {
+        "draft": "״ודסמיכין עלוהי שבטא דמנשה״ – ועליו מטה מנשה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-21": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומניניהון תלתין ותרין אלפין ומאתן״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-22": {
+      "onkelosExplanation": {
+        "draft": "״ושבטא דבנימן ורבא לבני בנימן אבידן בר גדעוני״ – ומטה בנימין. בני רחל יחד.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-23": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומניניהון תלתין וחמשא אלפין וארבע מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-24": {
+      "onkelosExplanation": {
+        "draft": "״כל מניניא למשרית אפרים... בתליתתא נטלין״ – ושלישים ייסעו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-25": {
+      "onkelosExplanation": {
+        "draft": "״טקס משרית דן צפונא לחיליהון״ – דגל מחנה דן צפונה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-26": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומניניהון שתין ותרין אלפין ושבע מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-27": {
+      "onkelosExplanation": {
+        "draft": "״ודי שרן סמכין עלוהי שבטא דאשר״ – והחונים עליו מטה אשר.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-28": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומניניהון ארבעין וחד אלפין וחמש מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-29": {
+      "onkelosExplanation": {
+        "draft": "״ושבטא דנפתלי ורבא לבני נפתלי אחירע בר עינן״ – ומטה נפתלי.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-30": {
+      "onkelosExplanation": {
+        "draft": "״וחילה ומניניהון חמשין ותלתא אלפין וארבע מאה״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-31": {
+      "onkelosExplanation": {
+        "draft": "״כל מניניא למשרית דן... בבתרתא נטלין לטקסיהון״ – באחרונה ייסעו. רש״י מסביר שמחנה דן היה ״מאסף לכל המחנות״ – אוסף כל מה שאבד לאחרים בדרך. לפעמים התפקיד החשוב ביותר הוא ללכת אחרון ולדאוג שאף אחד לא נשאר מאחור.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-32": {
+      "onkelosExplanation": {
+        "draft": "״אלין מניני בני ישראל לבית אבהתהון... שית מאה ותלתא אלפין וחמש מאה וחמשין״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-33": {
+      "onkelosExplanation": {
+        "draft": "״ולואי לא אתמניאו בגו בני ישראל״ – והלויים לא התפקדו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-2-34": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו בני ישראל ככל די פקיד יי... כן שרן לטקסיהון וכן נטלין״ – כן חנו לדגליהם וכן נסעו. סדר הוא לא כפייה; הוא מה שמאפשר להמון לנוע יחד.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-1": {
+      "onkelosExplanation": {
+        "draft": "״ואלין תולדת אהרן ומשה ביומא דמליל יי עם משה בטורא דסיני״ – ואלה תולדות אהרן ומשה. אבל הפסוקים מונים רק את בני אהרן. רש״י מסביר: הם נקראים גם ״תולדות משה״ כי הוא לימד אותם תורה – ומי שמלמד את בן חברו תורה, מעלה עליו הכתוב כאילו ילדו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-2": {
+      "onkelosExplanation": {
+        "draft": "״ואלין שמהת בני אהרן בוכרא נדב ואביהוא אלעזר ואיתמר״ – ואלה שמות בני אהרן.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-3": {
+      "onkelosExplanation": {
+        "draft": "״אלין שמהת בני אהרן כהניא דאתרביאו״ – הכוהנים המשוחים.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-4": {
+      "onkelosExplanation": {
+        "draft": "״ומית נדב ואביהוא קדם יי בקרוביהון אשתא נוכריתא... ובנין לא הוו להון״ – וימת נדב ואביהוא לפני ה׳ בהקריבם אש זרה... ובנים לא היו להם. גם במפקד – זוכרים את מי שאיננו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-5": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-6": {
+      "onkelosExplanation": {
+        "draft": "״קרב ית שבטא דלוי ותקים יתה קדם אהרן כהנא וישמשון יתה״ – הקרב את מטה לוי והעמדת אותו לפני אהרן הכהן ושירתו אותו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-7": {
+      "onkelosExplanation": {
+        "draft": "״ויטרון ית מטרתה וית מטרת כל כנשתא קדם משכן זמנא״ – ושמרו את משמרתו ואת משמרת כל העדה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-8": {
+      "onkelosExplanation": {
+        "draft": "״ויטרון ית כל מאני משכן זמנא וית מטרת בני ישראל״ – ושמרו את כל כלי אוהל מועד.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-9": {
+      "onkelosExplanation": {
+        "draft": "״ותתן ית לואי לאהרן ולבנוהי מסירין יהיבין אנון לה״ – ונתת את הלויים לאהרן ולבניו, נתונים נתונים הם לו. אונקלוס: ״מסירין יהיבין״ – מסורים ונתונים. מסירות מלאה לתפקיד.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-10": {
+      "onkelosExplanation": {
+        "draft": "״וית אהרן וית בנוהי תמני ויטרון ית כהנתהון״ – ואת אהרן ואת בניו תפקוד, ושמרו את כהונתם.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-11": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-12": {
+      "onkelosExplanation": {
+        "draft": "״ואנא הא קרבית ית לואי מגו בני ישראל חלף כל בוכרא״ – ואני הנה לקחתי את הלויים תחת כל בכור. אונקלוס: ״קרבית״ – קירבתי. רש״י מסביר: העבודה הייתה של הבכורות, וכשחטאו בעגל – עברה ללויים, שלא חטאו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-13": {
+      "onkelosExplanation": {
+        "draft": "״ארי דילי כל בוכרא ביומא דקטלית כל בוכרא בארעא דמצרים״ – כי לי כל בכור, ביום הכותי כל בכור בארץ מצרים.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-14": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה במדברא דסיני למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-15": {
+      "onkelosExplanation": {
+        "draft": "״מני ית בני לוי... כל דכורא מבר ירחא ולעלא תמננון״ – פקוד את בני לוי... כל זכר מבן חודש ומעלה. את שאר השבטים סופרים מגיל עשרים; את הלויים – מגיל חודש. השייכות לעבודה מתחילה מהלידה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-16": {
+      "onkelosExplanation": {
+        "draft": "״ומנא יתהון משה על מימרא דיי כמא דאתפקד״ – ויפקוד אותם משה על פי ה׳. רש״י מביא: משה שאל איך ייכנס לאוהלים לספור תינוקות. ה׳ אמר לו: אתה עשה את שלך, ואני אעשה את שלי – משה עמד בפתח, וקול יצא מן האוהל ואמר כמה תינוקות יש שם.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-17": {
+      "onkelosExplanation": {
+        "draft": "״והוו אלין בני לוי בשמהתהון גרשון וקהת ומררי״ – ויהיו אלה בני לוי בשמותם.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-18": {
+      "onkelosExplanation": {
+        "draft": "״ואלין שמהת בני גרשון לזרעיתהון לבני ושמעי״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-19": {
+      "onkelosExplanation": {
+        "draft": "״ובני קהת לזרעיתהון עמרם ויצהר חברון ועזיאל״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-20": {
+      "onkelosExplanation": {
+        "draft": "״ובני מררי לזרעיתהון מחלי ומושי״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-21": {
+      "onkelosExplanation": {
+        "draft": "״לגרשון זרעית לבני וזרעית שמעי״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-22": {
+      "onkelosExplanation": {
+        "draft": "״מניניהון... שבעא אלפין וחמש מאה״ – שבעת אלפים וחמש מאות.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-23": {
+      "onkelosExplanation": {
+        "draft": "״זרעית גרשון אחורי משכנא ישרון מערבא״ – משפחות הגרשוני אחרי המשכן יחנו ימה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-24": {
+      "onkelosExplanation": {
+        "draft": "״ורב בית אבא לבית גרשון אליסף בר לאל״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-25": {
+      "onkelosExplanation": {
+        "draft": "״ומטרת בני גרשון במשכן זמנא משכנא ופרסא חופאה״ – ומשמרת בני גרשון: המשכן, האוהל, מכסהו. היריעות והמסכים – הבד של הבית.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-26": {
+      "onkelosExplanation": {
+        "draft": "״וסרדי דדרתא וית פרסא דתרע דרתא״ – וקלעי החצר.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-27": {
+      "onkelosExplanation": {
+        "draft": "״ולקהת זרעית עמרם וזרעית יצהר וזרעית חברון וזרעית עזיאל״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-28": {
+      "onkelosExplanation": {
+        "draft": "״במנין כל דכורא מבר ירחא ולעלא תמניא אלפין ושית מאה נטרי מטרתא דקודשא״ – שומרי משמרת הקודש.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-29": {
+      "onkelosExplanation": {
+        "draft": "״זרעית בני קהת ישרון על צדא דמשכנא דרומא״ – משפחות בני קהת יחנו על ירך המשכן תימנה. רש״י מביא: לידם חנה ראובן – ולכן קורח, מבני קהת, משך איתו את דתן ואבירם מראובן. ״אוי לרשע, אוי לשכנו״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-30": {
+      "onkelosExplanation": {
+        "draft": "״ורב בית אבא לזרעית קהת אליצפן בר עזיאל״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-31": {
+      "onkelosExplanation": {
+        "draft": "״ומטרתהון ארונא ופתורא ומנרתא ומדבחיא ומני קודשא״ – ומשמרתם: הארון, השולחן, המנורה והמזבחות.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-32": {
+      "onkelosExplanation": {
+        "draft": "״ואמרכלא דממנא על רברבי לואי אלעזר בר אהרן כהנא״ – ונשיא נשיאי הלוי – אלעזר בן אהרן. אונקלוס: ״אמרכלא״ – הממונה, המפקח.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-33": {
+      "onkelosExplanation": {
+        "draft": "״למררי זרעית מחלי וזרעית מושי״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-34": {
+      "onkelosExplanation": {
+        "draft": "״ומניניהון... שתא אלפין ומאתן״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-35": {
+      "onkelosExplanation": {
+        "draft": "״ורב בית אבא לזרעית מררי צוריאל בר אביחיל על צדא דמשכנא ישרון צפונא״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-36": {
+      "onkelosExplanation": {
+        "draft": "״ודי מסיר למטרת בני מררי דפי משכנא ועברוהי ועמודוהי וסמכוהי״ – ופקודת משמרת בני מררי: קרשי המשכן ובריחיו ועמודיו ואדניו. השלד הכבד – גם הוא קודש.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-37": {
+      "onkelosExplanation": {
+        "draft": "״ועמודי דדרתא סחור סחור וסמכיהון וסכיהון ואטוניהון״ – ועמודי החצר, אדניהם, יתדותם ומיתריהם. גם יתד קטנה מקבלת שומר.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-38": {
+      "onkelosExplanation": {
+        "draft": "״ודי שרן קדם משכנא קדומא... משה ואהרן ובנוהי נטרין מטרת מקדשא״ – והחונים לפני המשכן קדמה – משה ואהרן ובניו. רש״י מביא: לידם חנה מחנה יהודה, ושבטי יהודה, יששכר וזבולון נעשו גדולים בתורה. ״טוב לצדיק, טוב לשכנו״. הסביבה מעצבת.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-39": {
+      "onkelosExplanation": {
+        "draft": "״כל מניני לואי... עשרין ותרין אלפין״ – כל פקודי הלויים: עשרים ושניים אלף.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-40": {
+      "onkelosExplanation": {
+        "draft": "״מני כל בוכריא דכריא לבני ישראל מבר ירחא ולעלא״ – פקוד כל בכור זכר לבני ישראל.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-41": {
+      "onkelosExplanation": {
+        "draft": "״ותקרב ית לואי קדמי אנא יי חלף כל בוכרא״ – ולקחת את הלויים לי תחת כל בכור.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-42": {
+      "onkelosExplanation": {
+        "draft": "״ומנא משה... ית כל בוכרא בבני ישראל״ – ויפקוד משה את כל הבכורים.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-43": {
+      "onkelosExplanation": {
+        "draft": "״והוו כל בוכריא דכריא... עשרין ותרין אלפין מאתן ושבעין ותלתא״ – עשרים ושניים אלף מאתיים שבעים ושלושה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-44": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-45": {
+      "onkelosExplanation": {
+        "draft": "״קרב ית לואי חלף כל בוכרא בבני ישראל״ – קח את הלויים תחת כל בכור.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-46": {
+      "onkelosExplanation": {
+        "draft": "״וית פורקן מאתן ושבעין ותלתא דיתירין על לואי״ – ואת פדויי השלושה והשבעים והמאתיים העודפים.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-47": {
+      "onkelosExplanation": {
+        "draft": "״ותסב חמש חמש סלעין לגלגלתא״ – ולקחת חמישה חמישה שקלים לגולגולת. רש״י מביא שמשה עשה גורל עם פתקים, כדי שאף בכור לא ירגיש שבחרו בו לשלם. גם בחלוקה טכנית – שומרים על כבוד אנשים.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-48": {
+      "onkelosExplanation": {
+        "draft": "״ותתן כספא לאהרן ולבנוהי פרקן דיתירין בהון״ – ונתת את הכסף לאהרן ולבניו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-49": {
+      "onkelosExplanation": {
+        "draft": "״ונסיב משה ית כסף פורקנא״ – ויקח משה את כסף הפדיום.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-50": {
+      "onkelosExplanation": {
+        "draft": "״אלף ותלת מאה ושתין וחמש סלעין בסלעי קודשא״ – אלף ושלוש מאות שישים וחמישה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-3-51": {
+      "onkelosExplanation": {
+        "draft": "״ויהב משה ית כסף פריקיא לאהרן ולבנוהי על מימרא דיי״ – ויתן משה את כסף הפדויים לאהרן ולבניו. מכאן מצוות פדיון הבן.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה ועם אהרן למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-2": {
+      "onkelosExplanation": {
+        "draft": "״קבילו ית חשבן בני קהת מגו בני לוי״ – נשוא את ראש בני קהת מתוך בני לוי. גרשון הוא הבכור – אבל קהת נמנה ראשון, כי הוא נושא את הארון. הכבוד הולך אחרי התורה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-3": {
+      "onkelosExplanation": {
+        "draft": "״מבר תלתין שנין ולעלא ועד בר חמשין שנין כל דאתי לחילא״ – מבן שלושים שנה ועד בן חמישים, כל בא לצבא. אונקלוס: ״לחילא״ – לחיל. עבודת הקודש היא כמו שירות צבאי – מסירות ומשמעת.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-4": {
+      "onkelosExplanation": {
+        "draft": "״דין פולחן בני קהת במשכן זמנא קודש קודשיא״ – זאת עבודת בני קהת באוהל מועד – קודש הקודשים.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-5": {
+      "onkelosExplanation": {
+        "draft": "״וייעול אהרן ובנוהי במטל משריתא ויפרקון ית פרכתא דפרסא ויכסון בה ית ארונא״ – ובא אהרן ובניו בנסוע המחנה, והורידו את פרוכת המסך וכיסו בה את ארון העדות. הארון מכוסה בפרוכת שהסתירה אותו מלכתחילה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-6": {
+      "onkelosExplanation": {
+        "draft": "״ויתנון עלוהי חופאה דמשך ססגונא ויפרסון לבוש גמיר תכלא מלעלא״ – ונתנו עליו כסוי עור תחש, ופרשו בגד כליל תכלת מלמעלה. רק הארון מכוסה בתכלת מבחוץ – כדי שכולם יידעו מה הולך בראש.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-7": {
+      "onkelosExplanation": {
+        "draft": "״ועל פתורא דלחם אפיא יפרסון לבוש תכלא... ולחמא תדירא עלוהי יהי״ – ועל שולחן הפנים... ולחם התמיד עליו יהיה. גם במסע – הלחם לא יורד מהשולחן.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-8": {
+      "onkelosExplanation": {
+        "draft": "״ויפרסון עליהון לבוש צבע זהורי ויכסון יתה בחופאה דמשך ססגונא״ – ופרשו עליהם בגד תולעת שני.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-9": {
+      "onkelosExplanation": {
+        "draft": "״ויסבון לבוש תכלא ויכסון ית מנרתא דאנהורי״ – ולקחו בגד תכלת וכיסו את מנורת המאור.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-10": {
+      "onkelosExplanation": {
+        "draft": "״ויתנון יתה וית כל מנהא לחופאה דמשך ססגונא ויתנון על אריחא״ – ונתנו אותה על המוט.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-11": {
+      "onkelosExplanation": {
+        "draft": "״ועל מדבחא דדהבא יפרסון לבוש תכלא״ – ועל מזבח הזהב יפרשו בגד תכלת.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-12": {
+      "onkelosExplanation": {
+        "draft": "״ויסבון ית כל מני שמושא״ – ולקחו את כל כלי השרת.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-13": {
+      "onkelosExplanation": {
+        "draft": "״ויספון ית קטמא דמדבחא ויפרסון עלוהי לבוש ארגון״ – ודישנו את המזבח ופרשו עליו בגד ארגמן.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-14": {
+      "onkelosExplanation": {
+        "draft": "״ויתנון עלוהי ית כל מנוהי״ – ונתנו עליו את כל כליו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-15": {
+      "onkelosExplanation": {
+        "draft": "״ובתר כן יעלון בני קהת למטל ולא יקרבון לקודשא ולא ימותון״ – ואחרי כן יבואו בני קהת לשאת, ולא ייגעו אל הקודש ומתו. נושאים את הקודש – בלי לגעת בו.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-16": {
+      "onkelosExplanation": {
+        "draft": "״ודי מסיר לאלעזר בר אהרן כהנא משחא דאנהרותא וקטורת בוסמיא״ – ופקודת אלעזר בן אהרן הכהן: שמן המאור וקטורת הסמים. אלעזר נושא בעצמו את הדברים העדינים ביותר.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-17": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה ועם אהרן למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-18": {
+      "onkelosExplanation": {
+        "draft": "״לא תשיצון ית שבטא זרעית קהת מגו לואי״ – אל תכריתו את שבט משפחות הקהתי מתוך הלויים. ה׳ מטיל על משה ואהרן אחריות על חייהם של בני קהת: אם לא תכסו כראוי – אתם אחראים.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-19": {
+      "onkelosExplanation": {
+        "draft": "״ודא עבידו להון ויחון ולא ימותון... אהרן ובנוהי יעלון וימנון יתהון גבר גבר על פלחנה ולמטולה״ – וזאת עשו להם וחיו ולא ימותו... אהרן ובניו יבואו ושמו אותם איש איש על עבודתו ואל משאו. כל אחד יודע בדיוק מה המשא שלו. בהירות היא הגנה.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    },
+    "numbers-4-20": {
+      "onkelosExplanation": {
+        "draft": "״ולא יעלון למחזי כד מכסן ית מני קודשא ולא ימותון״ – ולא יבואו לראות כבלע את הקודש ומתו. אונקלוס: ״כד מכסן״ – כשמכסים את כלי הקודש. יש רגעים של קדושה שאינם לעיני כול. הפרשה נגמרת בצניעות של הקודש.",
+        "updatedAt": "2026-10-08T17:09:06.597Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}

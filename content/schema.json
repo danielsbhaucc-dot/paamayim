@@ -1,0 +1,167 @@
+{
+  "$comment": "סכמת התוכן היחידה. הוספת סוג תוכן = הוספת שדה אחד כאן. האדמין מצייר טפסים מהקובץ הזה, וסקריפט הבנייה מייצא רק ערכים שפורסמו.",
+  "schemaVersion": 2,
+  "variants": {
+    "adult": { "label": "מבוגר" },
+    "child": { "label": "ילד/ה" }
+  },
+  "sections": [
+    { "key": "explanation", "label": "הסבר הפרשה", "icon": "sparkles" },
+    { "key": "story", "label": "סיפור", "icon": "book" },
+    { "key": "haftara", "label": "הפטרה", "icon": "sunrise" },
+    { "key": "onkelos", "label": "אונקלוס", "icon": "languages" },
+    { "key": "lessons", "label": "לקחים לחיים", "icon": "sprout" },
+    { "key": "chidushim", "label": "חידושים", "icon": "lightbulb" },
+    { "key": "kids", "label": "ילדים", "icon": "smile" },
+    { "key": "images", "label": "תמונות", "icon": "image" }
+  ],
+  "fields": [
+    {
+      "key": "explanation",
+      "label": "הסבר הפרשה",
+      "type": "longtext",
+      "scope": "parasha",
+      "section": "explanation",
+      "variants": ["adult", "child"],
+      "ai": "explanation",
+      "help": "פתיחה יפה לפרשה: על מה היא, מה הלב שלה, ולמה זה נוגע בנו. 4–7 משפטים."
+    },
+    {
+      "key": "storyTitle",
+      "label": "כותרת הסיפור",
+      "type": "text",
+      "scope": "parasha",
+      "section": "story",
+      "help": "כותרת קצרה (3–6 מילים)."
+    },
+    {
+      "key": "story",
+      "label": "סיפור הפרשה",
+      "type": "longtext",
+      "scope": "parasha",
+      "section": "story",
+      "variants": ["adult", "child"],
+      "ai": "story"
+    },
+    {
+      "key": "storyAnchors",
+      "label": "פסוקים שהסיפור נשען עליהם",
+      "type": "stringList",
+      "scope": "parasha",
+      "section": "story",
+      "help": "פרק:פסוק בתוך ספר הפרשה, למשל 1:3"
+    },
+    {
+      "key": "haftaraStory",
+      "label": "מה מסופר בהפטרה",
+      "type": "longtext",
+      "scope": "parasha",
+      "section": "haftara",
+      "variants": ["adult", "child"],
+      "ai": "haftaraStory"
+    },
+    {
+      "key": "whyThisHaftara",
+      "label": "למה קוראים דווקא את ההפטרה הזו?",
+      "type": "longtext",
+      "scope": "parasha",
+      "section": "haftara",
+      "variants": ["adult", "child"],
+      "ai": "whyThisHaftara"
+    },
+    {
+      "key": "haftaraConnections",
+      "label": "נקודות חיבור לפרשה",
+      "type": "stringList",
+      "scope": "parasha",
+      "section": "haftara"
+    },
+    {
+      "key": "onkelosExplanation",
+      "label": "מה אונקלוס עושה כאן",
+      "type": "longtext",
+      "scope": "verse",
+      "section": "onkelos",
+      "ai": "onkelos",
+      "help": "1–3 משפטים פשוטים: מה אונקלוס עשה בפסוק ולמה."
+    },
+    {
+      "key": "onkelosNote",
+      "label": "הערה מובנית (מהגרסה הקודמת)",
+      "type": "group",
+      "scope": "verse",
+      "section": "onkelos",
+      "legacy": true,
+      "subfields": [
+        { "key": "plain", "label": "הפסוק אומר", "type": "text" },
+        { "key": "did", "label": "אונקלוס עושה", "type": "text" },
+        { "key": "why", "label": "למה", "type": "text" }
+      ]
+    },
+    {
+      "key": "lifeLessons",
+      "label": "מה אפשר לקחת לחיים",
+      "type": "list",
+      "scope": "parasha",
+      "section": "lessons",
+      "variants": ["adult", "child"],
+      "min": 3,
+      "max": 4,
+      "item": [
+        { "key": "title", "label": "כותרת", "type": "text" },
+        { "key": "text", "label": "2–3 משפטים", "type": "longtext" }
+      ],
+      "ai": "lifeLessons"
+    },
+    {
+      "key": "chidushim",
+      "label": "חידושים",
+      "type": "list",
+      "scope": "parasha",
+      "section": "chidushim",
+      "item": [
+        { "key": "title", "label": "כותרת", "type": "text" },
+        { "key": "text", "label": "החידוש", "type": "longtext" },
+        { "key": "verse", "label": "פסוק (פרק:פסוק, לא חובה)", "type": "text" },
+        { "key": "source", "label": "מקור (רק אם בטוח)", "type": "text" }
+      ],
+      "ai": "chidushim",
+      "help": "חידוש שקשור לפסוק יופיע במסך הקריאה מתחת ל״מה אונקלוס עשה כאן״."
+    },
+    {
+      "key": "kids",
+      "label": "תוכן לילדים",
+      "type": "list",
+      "scope": "parasha",
+      "section": "kids",
+      "item": [
+        { "key": "title", "label": "כותרת", "type": "text" },
+        { "key": "text", "label": "תוכן", "type": "longtext" }
+      ],
+      "ai": "kids",
+      "help": "שאלות לשולחן השבת, חידה, פעילות קטנה."
+    },
+    {
+      "key": "heroImage",
+      "label": "תמונת באנר לבית",
+      "type": "image",
+      "scope": "parasha",
+      "section": "images"
+    },
+    {
+      "key": "storyImage",
+      "label": "איור לסיפור",
+      "type": "image",
+      "scope": "parasha",
+      "section": "images",
+      "variants": ["adult", "child"]
+    },
+    {
+      "key": "haftaraImage",
+      "label": "איור להפטרה",
+      "type": "image",
+      "scope": "parasha",
+      "section": "images"
+    }
+  ]
+}

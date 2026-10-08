@@ -1,0 +1,780 @@
+{
+  "schemaVersion": 2,
+  "slug": "metzora",
+  "meta": {
+    "slug": "metzora",
+    "name": "מצרע",
+    "nameEn": "Metzora",
+    "book": "Leviticus",
+    "bookHe": "ויקרא",
+    "range": "Leviticus 14:1-15:33",
+    "rangeHe": "ויקרא י״ד:א׳–ט״ו:ל״ג",
+    "verseCount": 90,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Leviticus 14:1-14:12"
+      },
+      {
+        "n": 2,
+        "ref": "Leviticus 14:13-14:20"
+      },
+      {
+        "n": 3,
+        "ref": "Leviticus 14:21-14:32"
+      },
+      {
+        "n": 4,
+        "ref": "Leviticus 14:33-14:53"
+      },
+      {
+        "n": 5,
+        "ref": "Leviticus 14:54-15:15"
+      },
+      {
+        "n": 6,
+        "ref": "Leviticus 15:16-15:28"
+      },
+      {
+        "n": 7,
+        "ref": "Leviticus 15:29-15:33"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "II Kings 7:3-20",
+        "refHe": "מלכים ב׳ ז, ג–כ"
+      },
+      "sephardi": {
+        "ref": "II Kings 7:3-20",
+        "refHe": "מלכים ב׳ ז, ג–כ"
+      },
+      "sameForAll": true
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Leviticus (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "ויקרא יד, א – טו, לג"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "טהרת המצורע",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "מי שהחלים מביא שתי ציפורים, עץ ארז, ושני תולעת. אחת משתלחת אל השדה. אחר כך נגעי בתים: גם בית יכול להיסגר ולהיפתח מחדש. הטהרה היא תהליך, לא רגע.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "כשמישהו מחלים, הכהן עושה טקס עם ציפור שחוזרת אל השדה. גם בית עם כתמים על הקיר אפשר לנקות ולפתוח שוב.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "ארבעה מצורעים בשער שומרון מגלים שהאויב ברח, והעיר ניצלת. מצורעים, שהפרשה מרחיקה, נעשים בנבואה מי שמביאים בשורה.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T17:09:06.637Z",
+      "source": "import:content-writer",
+      "draft": "הפרשה מתארת את טהרת המצורע – מי שישב לבד מחוץ למחנה וחוזר אל העם. ההפטרה (מלכים ב ז, ג–כ) מספרת על ארבעה אנשים מצורעים שיושבים בפתח שער שומרון בזמן מצור ורעב נורא. מתוך ייאוש הם הולכים למחנה ארם – ומגלים שה׳ הבריח את האויב, והמחנה מלא אוכל ושלל. הם מתחילים לאכול, ופתאום עוצרים: ״לא כן אנחנו עושים, היום הזה יום בשורה הוא ואנחנו מחשים״. דווקא המנודים, אלה שהעיר דחתה, מביאים לה את ההצלה. חז״ל מזהים אותם עם גחזי ובניו. (ברוב השנים מצורע נקראת יחד עם תזריע, ואז קוראים את ההפטרה הזו; לפעמים היא חלה בשבת הגדול או בשבת ראש חודש, ואז קוראים הפטרה מיוחדת.)"
+    },
+    "haftaraConnections": {
+      "published": [
+        "מצורע",
+        "שער העיר",
+        "מי שבחוץ מביא בשורה"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "14:1",
+        "14:7"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "בפרשה לומדים איך מי שהיה חולה בצרעת חוזר אל המחנה. בהפטרה ארבעה מצורעים שישבו מחוץ לעיר מגלים שהאויב ברח והשאיר אוכל. הם לא שומרים את זה לעצמם – הם רצים לספר לכל העיר, והעיר ניצלת מהרעב.",
+      "updatedAt": "2026-10-08T17:09:06.637Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "מהארז אל האזוב",
+          "text": "בטהרת המצורע מביאים עץ ארז – הגבוה שבעצים – ואזוב, הנמוך שבצמחים. רש״י מסביר: הנגע בא על גסות רוח, והתיקון הוא להשפיל עצמו כאזוב. הדרך חזרה מהבדידות עוברת דרך ענווה: לרדת מהעץ הגבוה, ולראות שוב את האנשים שסביבך."
+        },
+        {
+          "title": "מבודד שהופך לכהן",
+          "text": "ביום טהרתו, המצורע מקבל דם ושמן על האוזן, על היד ועל הרגל – בדיוק כמו הכהנים בחנוכת המשכן. מי שישב לבד מחוץ למחנה לא חוזר כ״סוג ב׳״. הוא חוזר מקודש. התשובה לא רק מוחקת את העבר; היא מרוממת."
+        },
+        {
+          "title": "כנגע – ולא נגע",
+          "text": "בעל הבית אומר לכהן ״כנגע נראה לי בבית״ – לא ״נגע״. רש״י מלמד: גם מי שבטוח לא פוסק לבד. ולפני שהכהן נכנס, מפנים את הכלים כדי לא לגרום הפסד. התורה מלמדת זהירות בהכרזות, ורגישות לרכוש ולכבוד של אדם – גם בשעת משבר."
+        },
+        {
+          "title": "יום בשורה",
+          "text": "ארבעת המצורעים בהפטרה יכלו לאכול ולשתוק – הרי העיר דחתה אותם. אבל הם אמרו: ״היום הזה יום בשורה הוא ואנחנו מחשים״. מי שמצא טוב חייב לשתף. ולפעמים דווקא האנשים שבשוליים הם אלה שמביאים את הישועה."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.637Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "הציפור עפה לחופשי",
+          "text": "כשהמצורע נטהר, הכהן שחרר ציפור לעוף בשדה. זה סימן שהאדם חוזר להיות חופשי ושמח, עם כולם. כשמישהו חוזר אחרי שהיה לבד, אני יכול לקבל אותו בשמחה."
+        },
+        {
+          "title": "לספר בשורה טובה",
+          "text": "המצורעים בהפטרה מצאו אוכל ולא שמרו אותו לעצמם – הם רצו לספר לכל העיר. כשיש לי משהו טוב, אני יכול לשתף אחרים."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.637Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "leviticus-14-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-2": {
+      "onkelosExplanation": {
+        "draft": "״דא תהי אוריתא דסגירא ביומא דדכותה״ – זאת תהיה תורת המצורע ביום טהרתו. פרשת מצורע לא מתחילה במחלה – אלא ביום הטהרה. התורה מסתכלת אל הדרך חזרה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-3": {
+      "onkelosExplanation": {
+        "draft": "״ויפוק כהנא למברא למשריתא ויחזי כהנא והא אתסי מכתש סגירותא״ – ויצא הכהן אל מחוץ למחנה, והנה נרפא הנגע. המצורע לא יכול להיכנס – אז הכהן יוצא אליו. מי שבחוץ צריך שמישהו יבוא לקראתו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-4": {
+      "onkelosExplanation": {
+        "draft": "״ויסב למדכי תרתין צפרין חיין דכין ואעא דארזא וצבע זהורי ואזובא״ – ולקח למיטהר שתי ציפורים חיות טהורות, עץ ארז, שני תולעת ואזוב. רש״י מסביר: ציפורים – כי הנגע בא על פטפוט דברים, והציפורים מצייצות; ארז – על גסות הרוח; ותולעת ואזוב – להשפיל עצמו כתולעת וכאזוב. מהארז הגבוה אל האזוב הנמוך – זו דרך התיקון.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-5": {
+      "onkelosExplanation": {
+        "draft": "״ויכוס ית צפרא חדא למאן דחסף על מי מבוע״ – ושחט את הציפור האחת אל כלי חרס על מים חיים. אונקלוס: ״מי מבוע״ – מי מעיין, מים שנובעים ולא עומדים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-6": {
+      "onkelosExplanation": {
+        "draft": "״ית צפרא חיתא יסב יתה... ויטבול יתהון וית צפרא חיתא בדמא דצפרא דנכיסא״ – את הציפור החיה יטבול בדם הציפור השחוטה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-7": {
+      "onkelosExplanation": {
+        "draft": "״וידי על דמדכי... שבע זמנין וידכנה וישלח ית צפרא חיתא על אפי חקלא״ – והזה על המיטהר שבע פעמים וטיהרו, ושילח את הציפור החיה על פני השדה. הציפור עפה לחופשי – כמו האדם שיוצא מהבידוד שלו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-8": {
+      "onkelosExplanation": {
+        "draft": "״ויגלח ית כל שערה ויסחי במיא וידכי ובתר כן יעול למשריתא ויתב מברא למשכנה שבעת יומין״ – ואחר יבוא אל המחנה, וישב מחוץ לאוהלו שבעת ימים. החזרה הדרגתית: קודם המחנה, אחר כך הבית.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-9": {
+      "onkelosExplanation": {
+        "draft": "״ויהי ביומא שביעאה יגלח ית כל שערה ית רישה וית דקנה וית גביני עינוהי״ – יגלח את כל שערו, ראשו וזקנו וגבות עיניו. כמו תינוק שנולד מחדש.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-10": {
+      "onkelosExplanation": {
+        "draft": "״וביומא תמינאה יסב תרין אמרין שלמין ואמרתא חדא״ – וביום השמיני ייקח שני כבשים וכבשה אחת. שוב היום השמיני – יום של התחלה חדשה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-11": {
+      "onkelosExplanation": {
+        "draft": "״ויקים כהנא דמדכי ית גברא דמדכי... בתרע משכן זמנא״ – והעמיד הכהן המטהר את האיש המיטהר לפני ה׳ פתח אוהל מועד. מי שישב מחוץ למחנה עומד עכשיו בפתח המשכן.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-12": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא ית אמרא חדא ויקרב יתיה לאשמא״ – ולקח את הכבש האחד והקריבו לאשם.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-13": {
+      "onkelosExplanation": {
+        "draft": "״ויכוס ית אמרא באתר די יכוס ית חטאתא וית עלתא באתר קדיש״ – ושחט את הכבש במקום אשר ישחט את החטאת ואת העולה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-14": {
+      "onkelosExplanation": {
+        "draft": "״ויתן כהנא על רום אודנא דמדכי דימינא ועל אליון ידה דימינא ועל אליון רגלה דימינא״ – ונתן על תנוך אוזן המיטהר, על בוהן ידו ועל בוהן רגלו. בדיוק כמו בחנוכת הכהנים. מי שהיה מבודד מכולם – מתקדש כמו כהן.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-15": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא מלגא דמשחא ויריק על ידא דכהנא דשמאלא״ – ולקח מלוג השמן ויצק על כף הכהן השמאלית.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-16": {
+      "onkelosExplanation": {
+        "draft": "״וידי מן משחא באצבעה שבע זמנין קדם יי״ – והזה מן השמן שבע פעמים לפני ה׳.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-17": {
+      "onkelosExplanation": {
+        "draft": "״ומשאר משחא די על ידה יתן... על דמא דאשמא״ – ומיתר השמן ייתן על דם האשם.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-18": {
+      "onkelosExplanation": {
+        "draft": "״ודאשתאר במשחא די על ידא דכהנא יתן על רישא דמדכי״ – והנותר בשמן ייתן על ראש המיטהר. שמן על הראש – כמו משיחה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-19": {
+      "onkelosExplanation": {
+        "draft": "״ויעבד כהנא ית חטאתא ויכפר על דמדכי מסובתה״ – ועשה הכהן את החטאת וכיפר על המיטהר מטומאתו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-20": {
+      "onkelosExplanation": {
+        "draft": "״ויסק כהנא ית עלתא וית מנחתא למדבחא ויכפר עלוהי כהנא וידכי״ – וכיפר עליו הכהן, וטהר.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-21": {
+      "onkelosExplanation": {
+        "draft": "״ואם מסכן הוא ולית ידה מדבקא ויסב אמר חד אשמא״ – ואם דל הוא ואין ידו משגת – כבש אחד אשם. אונקלוס: ״לית ידה מדבקא״ – ידו לא מגיעה. גם לעני יש דרך לחזור.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-22": {
+      "onkelosExplanation": {
+        "draft": "״ותרתין שפנינין או תרין בני יונה די תדבק ידה״ – ושתי תורים או שני בני יונה, אשר תשיג ידו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-23": {
+      "onkelosExplanation": {
+        "draft": "״וייתי יתהון ביומא תמינאה לדכיותה לות כהנא״ – והביא אותם ביום השמיני לטהרתו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-24": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא ית אמרא דאשמא וית לגא דמשחא וירים יתהון״ – והניף אותם הכהן.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-25": {
+      "onkelosExplanation": {
+        "draft": "״ויכוס ית אמרא דאשמא... ויתן על רום אודנא דמדכי דימינא״ – ושחט ונתן על תנוך האוזן. העני מקבל בדיוק את אותו כבוד.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-26": {
+      "onkelosExplanation": {
+        "draft": "״ומן משחא יריק כהנא על ידא דכהנא דשמאלא״ – ומן השמן יצוק.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-27": {
+      "onkelosExplanation": {
+        "draft": "״וידי כהנא באצבעה דימינא מן משחא... שבע זמנין קדם יי״ – והזה שבע פעמים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-28": {
+      "onkelosExplanation": {
+        "draft": "״ויתן כהנא מן משחא... על אתר דמא דאשמא״ – על מקום דם האשם.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-29": {
+      "onkelosExplanation": {
+        "draft": "״ודישתאר מן משחא... יתן על רישא דמדכי לכפרא עלוהי״ – והנותר על ראש המיטהר.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-30": {
+      "onkelosExplanation": {
+        "draft": "״ויעבד ית חד מן שפניניא או מן בני יונה מדי תדבק ידה״ – ועשה את האחד מן התורים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-31": {
+      "onkelosExplanation": {
+        "draft": "״ית חד חטאתא וית חד עלתא על מנחתא ויכפר כהנא על דמדכי״ – אחד חטאת ואחד עולה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-32": {
+      "onkelosExplanation": {
+        "draft": "״דא אוריתא די בה מכתש סגירו די לא תדבק ידה בדכותה״ – זאת תורת אשר בו נגע צרעת, אשר לא תשיג ידו בטהרתו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-33": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה ועם אהרן למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-34": {
+      "onkelosExplanation": {
+        "draft": "״ארי תעלון לארעא דכנען... ואתן מכתש סגירו בבית ארעא אחסנתכון״ – כי תבואו אל ארץ כנען... ונתתי נגע צרעת בבית ארץ אחוזתכם. רש״י מביא: זו בשורה – האמורים הטמינו מטמוניות זהב בקירות בתיהם, ובזכות הנגע ינתצו את הבית וימצאו אותן. גם מכה יכולה להיות פתח לאוצר.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-35": {
+      "onkelosExplanation": {
+        "draft": "״וייתי די דילה ביתא ויחוי לכהנא למימר כמכתשא אתחזי לי בביתא״ – ובא אשר לו הבית והגיד לכהן לאמור: כנגע נראה לי בבית. רש״י מסביר: גם תלמיד חכם שיודע שזה נגע, לא יפסוק ״נגע״, אלא יאמר ״כנגע״. לא קובעים טומאה לבד – ולא מכריזים לפני הזמן.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-36": {
+      "onkelosExplanation": {
+        "draft": "״ויפקד כהנא ויפנון ית ביתא עד לא יעול כהנא... ולא יסתאב כל די בביתא״ – וציווה הכהן ופינו את הבית לפני שיבוא הכהן, ולא ייטמא כל אשר בבית. רש״י מסביר: התורה חסה על ממונם של ישראל, אפילו על כלי חרס פשוטים. גם כשמדובר בנגע, התורה דואגת לא לגרום הפסד מיותר.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-37": {
+      "onkelosExplanation": {
+        "draft": "״והא מכתשא בכתלי ביתא פחתין ירקן או סמקן״ – והנה הנגע בקירות הבית, שקערורות ירקרקות או אדמדמות.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-38": {
+      "onkelosExplanation": {
+        "draft": "״ויפוק כהנא מן ביתא לתרע ביתא ויסגר ית ביתא שבעא יומין״ – ויצא הכהן אל פתח הבית והסגיר את הבית שבעת ימים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-39": {
+      "onkelosExplanation": {
+        "draft": "״ויתוב כהנא ביומא שביעאה ויחזי והא אוסף מכתשא״ – ושב הכהן ביום השביעי.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-40": {
+      "onkelosExplanation": {
+        "draft": "״וישלפון ית אבניא די בהון מכתשא וירמון יתהון למברא לקרתא״ – וחילצו את האבנים אשר בהן הנגע. מוציאים רק את האבנים הפגועות – לא הורסים מיד הכול.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-41": {
+      "onkelosExplanation": {
+        "draft": "״וית ביתא יקלפון מגיו סחור סחור״ – ואת הבית יקציעו מבית סביב.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-42": {
+      "onkelosExplanation": {
+        "draft": "״ויסבון אבניא אחרנין וייתון באתר אבניא״ – ולקחו אבנים אחרות והביאו תחת האבנים. מחליפים את הרע בטוב – ובונים מחדש.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-43": {
+      "onkelosExplanation": {
+        "draft": "״ואם יתוב מכתשא ויסגי בביתא״ – ואם ישוב הנגע ופרח בבית.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-44": {
+      "onkelosExplanation": {
+        "draft": "״סגירות מחסרא היא בביתא מסאב הוא״ – צרעת ממארת היא בבית.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-45": {
+      "onkelosExplanation": {
+        "draft": "״ויתרע ית ביתא ית אבנוהי וית אעוהי וית כל עפר ביתא״ – ונתץ את הבית, את אבניו ואת עציו. לפעמים אין ברירה אלא לבנות מההתחלה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-46": {
+      "onkelosExplanation": {
+        "draft": "״ודייעול לביתא כל יומין דיסגר יתה יהי מסאב עד רמשא״ – והבא אל הבית כל ימי הסגירו יטמא עד הערב.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-47": {
+      "onkelosExplanation": {
+        "draft": "״ודישכוב בביתא יצבע ית לבושוהי״ – והשוכב בבית יכבס בגדיו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-48": {
+      "onkelosExplanation": {
+        "draft": "״וידכי כהנא ית ביתא ארי אתסי מכתשא״ – וטיהר הכהן את הבית, כי נרפא הנגע. אונקלוס: ״אתסי״ – נרפא. גם בית יכול להירפא.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-49": {
+      "onkelosExplanation": {
+        "draft": "״ויסב לדכאה ית ביתא תרתין צפרין ואעא דארזא וצבע זהורי ואזובא״ – ולקח לחטא את הבית שתי ציפורים, עץ ארז, שני תולעת ואזוב.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-50": {
+      "onkelosExplanation": {
+        "draft": "״ויכוס ית צפרא חדא למאן דחסף על מי מבוע״ – ושחט את הציפור האחת.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-51": {
+      "onkelosExplanation": {
+        "draft": "״וידי לביתא שבע זמנין״ – והזה אל הבית שבע פעמים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-52": {
+      "onkelosExplanation": {
+        "draft": "״וידכי ית ביתא בדמא דצפרא ובמי מבוע״ – וחיטא את הבית.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-53": {
+      "onkelosExplanation": {
+        "draft": "״וישלח ית צפרא חיתא למברא לקרתא לאפי חקלא ויכפר על ביתא וידכי״ – ושילח את הציפור החיה, וכיפר על הבית וטהר.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-54": {
+      "onkelosExplanation": {
+        "draft": "״דא אוריתא לכל מכתש סגירותא ולנתקא״ – זאת התורה לכל נגע הצרעת ולנתק.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-55": {
+      "onkelosExplanation": {
+        "draft": "״ולסגירות לבושא ולביתא״ – ולצרעת הבגד ולבית.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-56": {
+      "onkelosExplanation": {
+        "draft": "״ולעמקא ולעדיא ולבהרא״ – ולשאת ולספחת ולבהרת.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-14-57": {
+      "onkelosExplanation": {
+        "draft": "״לאלפא ביומא מסאבא וביומא דכיא״ – להורות ביום הטמא וביום הטהור. אונקלוס: ״לאלפא״ – ללמד. כל הדינים האלה הם הוראה – לדעת מתי סוגרים ומתי פותחים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה ועם אהרן למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-2": {
+      "onkelosExplanation": {
+        "draft": "״גבר גבר ארי יהי דאיב מבשרה דובה מסאב הוא״ – איש איש כי יהיה זב מבשרו. התורה מדברת על הגוף בפשטות ובצניעות. שום חלק מהחיים אינו מחוץ לקדושה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-3": {
+      "onkelosExplanation": {
+        "draft": "״ודא תהי סובתה בדובה״ – וזאת תהיה טומאתו בזובו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-4": {
+      "onkelosExplanation": {
+        "draft": "״כל משכבא די ישכוב עלוהי דובנא יהי מסאב״ – כל המשכב אשר ישכב עליו הזב יטמא.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-5": {
+      "onkelosExplanation": {
+        "draft": "״וגבר די יקרב במשכבה יצבע לבושוהי ויסחי במיא״ – ואיש אשר ייגע במשכבו יכבס בגדיו וירחץ במים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-6": {
+      "onkelosExplanation": {
+        "draft": "״ודייתב על מנא דייתב עלוהי דובנא״ – והיושב על הכלי.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-7": {
+      "onkelosExplanation": {
+        "draft": "״ודיקרב בבסר דובנא״ – והנוגע בבשר הזב.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-8": {
+      "onkelosExplanation": {
+        "draft": "״וארי ירוק דובנא בדכיא״ – וכי ירוק הזב בטהור.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-9": {
+      "onkelosExplanation": {
+        "draft": "״וכל מרכבא די ירכוב עלוהי דובנא יהי מסאב״ – וכל המרכב.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-10": {
+      "onkelosExplanation": {
+        "draft": "״וכל דיקרב בכל די יהי תחותוהי״ – וכל הנוגע בכל אשר יהיה תחתיו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-11": {
+      "onkelosExplanation": {
+        "draft": "״וכל די יקרב בה דובנא וידוהי לא שטף במיא״ – וכל אשר ייגע בו הזב, וידיו לא שטף במים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-12": {
+      "onkelosExplanation": {
+        "draft": "״ומאן דחסף די יקרב בה דובנא יתבר וכל מאן דאע ישתטף במיא״ – וכלי חרס יישבר, וכלי עץ יישטף במים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-13": {
+      "onkelosExplanation": {
+        "draft": "״וימני לה שבעת יומין לדכותה... ויסחי בשרה במי מבוע וידכי״ – וספר לו שבעת ימים לטהרתו, ורחץ בשרו במים חיים. אונקלוס: ״במי מבוע״ – במי מעיין. הטהרה באה ממים חיים ונובעים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-14": {
+      "onkelosExplanation": {
+        "draft": "״וביומא תמינאה יסב לה תרתין שפנינין״ – וביום השמיני ייקח שתי תורים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-15": {
+      "onkelosExplanation": {
+        "draft": "״ויעבד יתהון כהנא חד חטאתא וחד עלתא ויכפר עלוהי״ – אחד חטאת ואחד עולה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-16": {
+      "onkelosExplanation": {
+        "draft": "״וגבר ארי תפוק מנה שכבת זרעא ויסחי במיא״ – ואיש כי תצא ממנו שכבת זרע – ירחץ במים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-17": {
+      "onkelosExplanation": {
+        "draft": "״וכל לבוש וכל משך... ויצטבע במיא״ – וכל בגד וכל עור – יכובס במים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-18": {
+      "onkelosExplanation": {
+        "draft": "״ויסחון במיא ויסאבון עד רמשא״ – ורחצו במים וטמאו עד הערב.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-19": {
+      "onkelosExplanation": {
+        "draft": "״ואתתא ארי תהי דיבא... שבעא יומין תהי ברחוקה״ – ואישה כי תהיה זבה, שבעת ימים תהיה בנידתה. אונקלוס: ״ברחוקה״ – בריחוקה. זמן של מרחק – שאחריו חוזרים זה אל זה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-20": {
+      "onkelosExplanation": {
+        "draft": "״וכל די תשכוב עלוהי ברחוקה יהי מסאב״ – וכל אשר תשכב עליו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-21": {
+      "onkelosExplanation": {
+        "draft": "״וכל דיקרב במשכבה יצבע לבושוהי״ – וכל הנוגע במשכבה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-22": {
+      "onkelosExplanation": {
+        "draft": "״וכל דיקרב בכל מנא די תיתב עלוהי״ – וכל הנוגע בכלי.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-23": {
+      "onkelosExplanation": {
+        "draft": "״ואם על משכבא הוא... יהי מסאב עד רמשא״ – יטמא עד הערב.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-24": {
+      "onkelosExplanation": {
+        "draft": "״ואם משכב ישכוב גבר יתה... ויהי מסאב שבעת יומין״ – ויטמא שבעת ימים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-25": {
+      "onkelosExplanation": {
+        "draft": "״ואתתא ארי ידוב דוב דמה יומין סגיאין בלא עדן רחוקה״ – ואישה כי יזוב זוב דמה ימים רבים שלא בעת נידתה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-26": {
+      "onkelosExplanation": {
+        "draft": "״כל משכבא די תשכוב עלוהי כל יומי דובה״ – כל המשכב.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-27": {
+      "onkelosExplanation": {
+        "draft": "״וכל דיקרב בהון יהי מסאב״ – וכל הנוגע בם יטמא.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-28": {
+      "onkelosExplanation": {
+        "draft": "״ואם דכיאת מדובה ותמני לה שבעת יומין ובתר כן תדכי״ – ואם טהרה מזובה, וספרה לה שבעת ימים, ואחר תטהר. ספירה של שבעה ימים נקיים – זמן של המתנה וציפייה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-29": {
+      "onkelosExplanation": {
+        "draft": "״וביומא תמינאה תסב לה תרתין שפנינין״ – וביום השמיני תיקח לה שתי תורים.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-30": {
+      "onkelosExplanation": {
+        "draft": "״ויכפר עלה כהנא קדם יי מדוב סובתה״ – וכיפר עליה הכהן.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-31": {
+      "onkelosExplanation": {
+        "draft": "״ותפרשון ית בני ישראל מסואבתהון ולא ימותון בסואבתהון בסאבהון ית משכני די ביניהון״ – והזהרתם את בני ישראל מטומאתם, ולא ימותו בטמאם את משכני אשר בתוכם. ״משכני די ביניהון״ – המשכן נמצא בתוך המחנה, בין האנשים. לכן כל אחד אחראי לשמור על הקדושה סביבו.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-32": {
+      "onkelosExplanation": {
+        "draft": "״דא אוריתא דדובנא״ – זאת תורת הזב.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-15-33": {
+      "onkelosExplanation": {
+        "draft": "״ולדסובתה ברחוקה... ולגבר די ישכוב עם מסאבא״ – והדווה בנידתה. כל מצבי הגוף מקבלים כאן הדרכה – ולכל אחד יש דרך לטהרה.",
+        "updatedAt": "2026-10-08T17:09:06.637Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}

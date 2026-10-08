@@ -1,0 +1,1184 @@
+{
+  "schemaVersion": 2,
+  "slug": "miketz",
+  "meta": {
+    "slug": "miketz",
+    "name": "מקץ",
+    "nameEn": "Miketz",
+    "book": "Genesis",
+    "bookHe": "בראשית",
+    "range": "Genesis 41:1-44:17",
+    "rangeHe": "בראשית מ״א:א׳–מ״ד:י״ז",
+    "verseCount": 146,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Genesis 41:1-41:14"
+      },
+      {
+        "n": 2,
+        "ref": "Genesis 41:15-41:38"
+      },
+      {
+        "n": 3,
+        "ref": "Genesis 41:39-41:52"
+      },
+      {
+        "n": 4,
+        "ref": "Genesis 41:53-42:18"
+      },
+      {
+        "n": 5,
+        "ref": "Genesis 42:19-43:15"
+      },
+      {
+        "n": 6,
+        "ref": "Genesis 43:16-43:29"
+      },
+      {
+        "n": 7,
+        "ref": "Genesis 43:30-44:17"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "I Kings 3:15-4:1",
+        "refHe": "מלכים א׳ ג, טו – ד, א"
+      },
+      "sephardi": {
+        "ref": "I Kings 3:15-4:1",
+        "refHe": "מלכים א׳ ג, טו – ד, א"
+      },
+      "sameForAll": true
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Genesis (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "בראשית מא, א – מד, יז"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "חלומות פרעה",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "פרעה חולם על שבע פרות ושבע שיבולים. יוסף עולה מן הבור, מפרש רעב אחרי שובע, ונעשה המשנה למלך. האחים יורדים למצרים, יוסף מכיר אותם והם לא אותו, וגביע הכסף נמצא באמתחת בנימין.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "למלך מצרים יש חלום מוזר, ויוסף מסביר אותו: קודם יהיה הרבה אוכל, ואחר כך רעב. יוסף שומר אוכל, והאחים באים לקנות לחם ולא מכירים אותו.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "שלמה חולם בגבעון, וה׳ נותן לו לב שומע. כמו יוסף, החלום הופך לחכמה של הנהגה.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:25.946Z",
+      "source": "import:content-writer",
+      "draft": "ההפטרה הרגילה של מקץ היא משפט שלמה (מלכים א ג, טו – ד, א): שתי נשים, תינוק אחד, ומלך צעיר שצריך לגלות את האמת. היא פותחת במילים ״ויקץ שלמה והנה חלום״ – כמעט כמו בפרשה, ״וייקץ פרעה והנה חלום״. בשני הסיפורים חלום פותח פתח לחוכמה שמאת ה׳: ליוסף ניתנה חוכמה לפתור חלומות ולהציל ארץ מרעב, ולשלמה ניתנה ״חכמת אלהים בקרבו לעשות משפט״. ושני הסיפורים בוחנים לב של אחים ושל אם: יוסף בוחן אם אחיו ינטשו את בנימין, ושלמה מגלה את האם האמיתית לפי מי שמוכנה לוותר כדי שהילד יחיה. (ברוב השנים פרשת מקץ חלה בשבת חנוכה, ואז קוראים במקומה את הפטרת חנוכה מזכריה.)"
+    },
+    "haftaraConnections": {
+      "published": [
+        "חלום של מלך",
+        "חכמה שמנהיגה",
+        "רעב ולחם"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "41:1",
+        "41:39"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "haftaraStory.adult": {
+      "published": "שלמה המלך מתעורר מחלום שבו ביקש מה׳ ״לב שמע לשפט את עמך״. מיד אחר כך באות לפניו שתי נשים עם תינוק אחד, וכל אחת טוענת שהוא שלה. שלמה אומר ״גזרו את הילד החי לשנים״, והאם האמיתית מוותרת כדי להציל אותו. ״וייראו מפני המלך, כי ראו כי חכמת אלהים בקרבו לעשות משפט״.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "haftaraStory.child": {
+      "published": "שלמה המלך חלם חלום וביקש מה׳ חוכמה. אחר כך באו שתי נשים שרבו על תינוק, ושלמה הבין בחוכמה מי האמא האמיתית. כמו יוסף בפרשה, גם שלמה מקבל חלום וחוכמה מה׳.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "בפרשה פרעה מתעורר מחלום, ויוסף מבין מה החלום אומר בחוכמה שה׳ נתן לו. בהפטרה גם שלמה המלך מתעורר מחלום, וה׳ נותן לו חוכמה לגלות מי האמא האמיתית של תינוק. כשה׳ נותן חוכמה, משתמשים בה כדי לעזור לאנשים.",
+      "updatedAt": "2026-10-08T16:42:25.946Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "לא מחוכמתי – מאת ה׳",
+          "text": "בפעם הראשונה שיוסף עומד לפני פרעה, הוא היה יכול להרשים בכישרון שלו. הוא בחר לומר: ״בלעדי, אלהים יענה את שלום פרעה״. מי שזוכר מאיפה באים הכישרונות שלו, לא מאבד את עצמו גם בשיא ההצלחה."
+        },
+        {
+          "title": "לחסוך בשנים הטובות",
+          "text": "יוסף אסף תבואה בשנות השובע, כשאף אחד לא הרגיש צורך. התוכנית הזו הצילה ארצות שלמות מרעב. בכסף, בבריאות ובקשרים – מה שבונים בימים הטובים הוא מה שמחזיק אותנו בימים הקשים."
+        },
+        {
+          "title": "תשובה מתחילה במשפט אחד",
+          "text": "אחרי יותר מעשרים שנה, האחים אומרים: ״אבל אשמים אנחנו על אחינו... ולא שמענו״. כל התיקון שבא אחר כך התחיל ברגע הזה של אמת. לפעמים צריך רק להפסיק להצדיק את עצמנו, ולומר בפשטות: טעינו."
+        },
+        {
+          "title": "ערב לאחי",
+          "text": "יהודה אמר לאביו ״אנכי אערבנו, מידי תבקשנו״, ולקח על עצמו אחריות מלאה על בנימין. אחריות אמיתית היא לא רק לא לפגוע, אלא להתחייב לשמור על האחר – גם כשזה עולה לנו ביוקר."
+        }
+      ],
+      "updatedAt": "2026-10-08T16:42:25.946Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "חוכמה מה׳",
+          "text": "יוסף אמר לפרעה שהפתרון לחלום בא מה׳, לא ממנו. כשאני מצליח במשהו, אני יכול להגיד תודה לה׳ על הכוחות שנתן לי."
+        },
+        {
+          "title": "לא נוטשים אח",
+          "text": "כשהגביע נמצא אצל בנימין, כל האחים חזרו איתו ולא השאירו אותו לבד. גם אני לא משאיר חבר לבד כשקשה לו."
+        }
+      ],
+      "updatedAt": "2026-10-08T16:42:25.946Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "genesis-41-1": {
+      "onkelosExplanation": {
+        "draft": "״והוה מסוף תרתין שנין״ – שנתיים שלמות אחרי ששר המשקים שכח. ויוסף יושב בכלא ומחכה. ואז, בלילה אחד, פרעה חולם.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-2": {
+      "onkelosExplanation": {
+        "draft": "״שבע תורן שפירן למחזי ופטימן בשר״ – שבע פרות יפות ושמנות עולות מן היאור, הנהר שממנו חיה כל מצרים.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-3": {
+      "onkelosExplanation": {
+        "draft": "״שבע תורן אחרנין... בישן למחזי וחסירן בשר״ – ואחריהן שבע פרות רזות ומכוערות, ״וקמן לקבליהון״ – עומדות מולן. הטוב והרע עומדים זה מול זה.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-4": {
+      "onkelosExplanation": {
+        "draft": "״ואכלן תורתא בישן... ית שבע תורתא שפירן״. הרזות אוכלות את השמנות. ״ואתער פרעה״ – והוא מתעורר מבוהל.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-5": {
+      "onkelosExplanation": {
+        "draft": "״והא שבע שבליא סלקן בקניא חד פטימן וטבן״ – חלום שני, אותו מסר בתמונה אחרת.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-6": {
+      "onkelosExplanation": {
+        "draft": "״שבע שבליא לקין ושקיפן קדום״ – שבלים דקות, שדופות ברוח קדים, רוח מזרחית חמה ויבשה.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-7": {
+      "onkelosExplanation": {
+        "draft": "״ובלעא שבליא לקיתא ית שבע שבליא פטימתא״. ״והא חלמא״ – והנה זה רק חלום. אבל הוא לא יכול להירגע.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-8": {
+      "onkelosExplanation": {
+        "draft": "״ומטרפא רוחה״ – רוחו נטרפה, נסערה. ״חרשי מצרים״ – החרטומים, ״ולית דפשר יתהון לפרעה״. רש״י מביא שהם פתרו, אבל לא באופן שנכנס ללבו. פתרון אמיתי מרגישים בלב.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-9": {
+      "onkelosExplanation": {
+        "draft": "״ית סרחני אנא מדכר יומא דין״ – את חטאי אני מזכיר היום. שר המשקים נזכר סוף סוף. לפעמים הזיכרון מגיע רק כשהוא משרת אותנו.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-10": {
+      "onkelosExplanation": {
+        "draft": "״פרעה רגז על עבדוהי״ – שר המשקים מספר בזהירות. הוא מזכיר לפרעה את הכעס הישן, בעדינות.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-11": {
+      "onkelosExplanation": {
+        "draft": "״גבר כפשרן חלמה חלמנא״ – כל אחד חלם חלום שמתאים לפתרונו.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-12": {
+      "onkelosExplanation": {
+        "draft": "״עולם עבראה עבדא לרב קטוליא״ – נער, עברי, עבד. רש״י מסביר שבכל מילה שר המשקים מקטין את יוסף. גם כשהוא מזכיר אותו, הוא לא נותן לו כבוד.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-13": {
+      "onkelosExplanation": {
+        "draft": "״כמא די פשר לנא כן הוה״ – כמו שפתר, כך היה. האמת של יוסף מדברת בשבילו.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-14": {
+      "onkelosExplanation": {
+        "draft": "״וארהטוהי מן בית אסירי״ – ממהרים להוציא אותו. ״וספר ושני כסותה״ – מסתפר ומחליף בגדים. בבוקר אסיר בבור, ובצהריים עומד לפני המלך. ישועת ה׳ באה כהרף עין.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-15": {
+      "onkelosExplanation": {
+        "draft": "״ואנא שמעית עלך למימר דאת שמע חלמא למפשר יתה״ – שמעתי עליך שאתה יודע לפתור חלומות. זו ההזדמנות של חייו.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-16": {
+      "onkelosExplanation": {
+        "draft": "״בלעדי״ – אונקלוס: ״בר מן חכמתי אלהן מן קדם יי״, לא מחכמתי, אלא מאת ה׳. ברגע שהכי קל לקחת קרדיט, יוסף נותן אותו לה׳.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-17": {
+      "onkelosExplanation": {
+        "draft": "״בחלמי הא אנא קאם על כיף נהרא״. פרעה מתחיל לספר.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-18": {
+      "onkelosExplanation": {
+        "draft": "״שבע תורן פטימן בשר ושפירן למחזי״ – הפרות היפות.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-19": {
+      "onkelosExplanation": {
+        "draft": "פרעה מוסיף מה שלא נאמר קודם: ״לא חזתי כותהן בכל ארעא דמצרים לבישו״ – לא ראיתי כמותן ברוע. הוא מספר גם את הפחד שלו.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-20": {
+      "onkelosExplanation": {
+        "draft": "״ואכלן תורתא חסיכתא ובישתא״ – הרזות אוכלות את השמנות.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-21": {
+      "onkelosExplanation": {
+        "draft": "״ועלא למעיהן ולא אתידע ארי עלו למעיהן״ – נכנסו לבטנן, ולא היה ניכר. רעב שבולע את השובע ולא משאיר זכר.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-22": {
+      "onkelosExplanation": {
+        "draft": "״שבע שבליא סלקן בקניא חד מלין וטבן״.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-23": {
+      "onkelosExplanation": {
+        "draft": "״שבע שבליא נצן לקין שקיפן קדום״ – שבלים צנומות ושדופות.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-24": {
+      "onkelosExplanation": {
+        "draft": "״ואמרית לחרשיא ולית די מחוי לי״ – אמרתי לחרטומים, ואין מי שיגיד לי. גם למלך הגדול בעולם אין כל התשובות.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-25": {
+      "onkelosExplanation": {
+        "draft": "״חלמא דפרעה חד הוא״ – החלום אחד. ״ית די יי עתיד למעבד חוי לפרעה״ – אונקלוס: את מה שה׳ עתיד לעשות, הגיד לפרעה. יוסף מעמיד את ה׳ במרכז, גם מול מלך עובד אלילים.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-26": {
+      "onkelosExplanation": {
+        "draft": "״שבע תורתא טבתא שבע שנין אנון״ – שבע הפרות הטובות הן שבע שנים.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-27": {
+      "onkelosExplanation": {
+        "draft": "״יהוין שבע שני כפנא״ – יהיו שבע שנות רעב. יוסף אומר את האמת הקשה בלי לייפות.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-28": {
+      "onkelosExplanation": {
+        "draft": "״די יי עתיד למעבד אחזי לפרעה״ – ה׳ הראה לך. שוב ושוב יוסף אומר: לא אני.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-29": {
+      "onkelosExplanation": {
+        "draft": "״הא שבע שנין אתין שובעא רבא״ – שובע גדול. אבל השובע הוא רק ההתחלה.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-30": {
+      "onkelosExplanation": {
+        "draft": "״ויתנשי כל שובעא״ – וכל השובע יישכח. רעב קשה יכול למחוק את זכרון כל הטוב שהיה. כך גם בחיים: כאב גדול גורם לשכוח את הברכות.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-31": {
+      "onkelosExplanation": {
+        "draft": "״ולא יתידע שובעא בארעא מן קדם כפנא ההוא״ – לא ייוודע השובע, ״ארי תקיף הוא לחדא״.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-32": {
+      "onkelosExplanation": {
+        "draft": "״ועל דאתנית חלמא... תרתין זמנין״ – החלום חזר פעמיים, ״ארי תקין פתגמא מן קדם יי ואוחי יי למעבדה״ – הדבר נכון וה׳ ממהר לעשותו.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-33": {
+      "onkelosExplanation": {
+        "draft": "״יחזי פרעה גבר סוכלתן וחכים״ – יוסף לא רק פותר, הוא גם מציע פתרון. אדם חכם לא רק מזהה בעיה – הוא מראה את הדרך.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-34": {
+      "onkelosExplanation": {
+        "draft": "״וימני מהימנין על ארעא״ – ימנה פקידים נאמנים. ״ויזרז ית ארעא״ – יכין את הארץ. כדי לעבור משבר צריך אנשים שאפשר לסמוך עליהם.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-35": {
+      "onkelosExplanation": {
+        "draft": "״ויצברון עיבורא... ויטרון״ – יאספו את התבואה וישמרו. לחסוך בימים הטובים בשביל הימים הקשים.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-36": {
+      "onkelosExplanation": {
+        "draft": "״ויהי עיבורא גניז... ולא תשתיצי עמא דארעא בכפנא״ – כדי שהעם לא יכלה ברעב. התכנון של יוסף נועד להציל חיים.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-37": {
+      "onkelosExplanation": {
+        "draft": "״ושפר פתגמא בעיני פרעה ובעיני כל עבדוהי״.",
+        "updatedAt": "2026-10-08T16:42:25.946Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-38": {
+      "onkelosExplanation": {
+        "draft": "״גבר די רוח נבואה מן קדם יי בה״ – אונקלוס: איש שרוח נבואה מאת ה׳ בו. גם פרעה מזהה שיש ביוסף משהו שאינו רק שכל.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-39": {
+      "onkelosExplanation": {
+        "draft": "״לית סכלתן וחכים כותך״ – אין נבון וחכם כמוך. יוסף הציע לחפש ״גבר סוכלתן וחכים״, ופרעה אומר: אתה הוא.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-40": {
+      "onkelosExplanation": {
+        "draft": "״ועל מימרך יתזן כל עמי״ – על פי דברך יקבל כל עמי את מזונו. ״לחוד כרסי מלכותא״ – רק בכיסא המלכות אהיה גדול ממך.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-41": {
+      "onkelosExplanation": {
+        "draft": "״חזי מניתי יתך על כל ארעא דמצרים״. מעבד אסיר – לשליט על כל מצרים, ביום אחד.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-42": {
+      "onkelosExplanation": {
+        "draft": "טבעת, ״לבושין דבוץ״ ו״מניכא דדהבא״. יוסף, שהופשט פעמיים מבגדיו, מלובש עכשיו בבגדי מלכות.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-43": {
+      "onkelosExplanation": {
+        "draft": "״אברך״ – אונקלוס: ״דין אבא למלכא״, זה אב למלך. יוסף, שהתייתם מאביו, נעשה ״אב״ – יועץ ומדריך – למלך.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-44": {
+      "onkelosExplanation": {
+        "draft": "אונקלוס מפרש: ״לא ירים גבר ית ידה למיחד זין וית רגלה למרכב על סוסיא״ – בלעדיך איש לא ירים יד לאחוז נשק ולא רגל לרכב על סוס. כל הכוח של מצרים נמסר לידיו.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-45": {
+      "onkelosExplanation": {
+        "draft": "״צפנת פענח״ – אונקלוס: ״גברא דמטמרן גלין לה״, איש שהנסתרות גלויות לו. ופרעה נותן לו לאישה את אסנת בת ״רבא דאון״, אחד מגדולי העיר און.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-46": {
+      "onkelosExplanation": {
+        "draft": "״ויוסף בר תלתין שנין כד קם קדם פרעה״. בן שבע עשרה נמכר, בן שלושים עומד לפני פרעה. שלוש עשרה שנים של בור, עבדות וכלא – לא היו לשווא.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-47": {
+      "onkelosExplanation": {
+        "draft": "״וכנשו דירי ארעא... עיבורא לאוצרין״ – הארץ נותנת בשפע, ואוספים לאוצרות.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-48": {
+      "onkelosExplanation": {
+        "draft": "״עיבור חקל קרתא די בסחרנהא יהב בגוה״ – התבואה של כל עיר נשמרת בתוכה, קרוב לאנשים שיצטרכו אותה.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-49": {
+      "onkelosExplanation": {
+        "draft": "״עד די פסק לממני ארי לית מנין״ – עד שהפסיקו לספור. השפע היה גדול מכל חשבון.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-50": {
+      "onkelosExplanation": {
+        "draft": "״וליוסף אתיליד תרתין בנין עד לא עלת שתא דכפנא״. לפני הרעב, יוסף זוכה לבנות בית.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-51": {
+      "onkelosExplanation": {
+        "draft": "״ארי אנשיני יי ית כל עמלי וית כל בית אבא״ – ה׳ השכיח ממני את כל עמלי ואת בית אבי. אבל הוא קורא לבנו על שם השכחה – וכך דווקא זוכר. יש כאבים שלא שוכחים; לומדים לחיות לצדם.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-52": {
+      "onkelosExplanation": {
+        "draft": "״ארי אפשני יי בארע שעבודי״ – ה׳ הפרה אותי בארץ שעבודי. אונקלוס מתרגם ״עניי״ – שעבודי. דווקא במקום הסבל צמחו הפירות.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-53": {
+      "onkelosExplanation": {
+        "draft": "״ושלימת שבע שני שובעא״. השנים הטובות נגמרו, כמו שנאמר.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-54": {
+      "onkelosExplanation": {
+        "draft": "״והוה כפנא בכל ארעתא ובכל ארעא דמצרים הוה לחמא״. בזכות אדם אחד שחשב קדימה, יש לחם.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-55": {
+      "onkelosExplanation": {
+        "draft": "״איזילו לות יוסף די יימר לכון תעבדון״ – לכו אל יוסף, מה שיאמר לכם תעשו. פרעה סומך עליו לגמרי.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-56": {
+      "onkelosExplanation": {
+        "draft": "״ופתח יוסף ית כל די בהון עיבורא״ – יוסף פותח את האוצרות. מה שנאסף בסבלנות, ניתן עכשיו בעת צרה.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-41-57": {
+      "onkelosExplanation": {
+        "draft": "״וכל דירי ארעא עלו למצרים למזבן עיבורא מן יוסף״. כל העולם בא – ובהם גם אחיו.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-1": {
+      "onkelosExplanation": {
+        "draft": "״למא תתחזון?״ – למה תתראו? רש״י מסביר: למה תיראו כשבעים בעיני השכנים, כשאין לכם לחם? יעקב מעיר את בניו לפעול.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-2": {
+      "onkelosExplanation": {
+        "draft": "״חותו תמן וזבונו לנא מתמן ונחי ולא נמות״. ״רדו״ – והירידה הזו תוביל את כל המשפחה למצרים.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-3": {
+      "onkelosExplanation": {
+        "draft": "״ונחתו אחי יוסף עסרא״. רש״י מסביר: הם נקראים ״אחי יוסף״ כי התחרטו על מכירתו, ונתנו לבם לנהוג בו באחווה.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-4": {
+      "onkelosExplanation": {
+        "draft": "״דלמא יערענה מותא״ – פן יקרה לו מוות. יעקב, שאיבד את יוסף, שומר על בנימין מכל משמר. הלב הפגוע מפחד לאבד שוב.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-5": {
+      "onkelosExplanation": {
+        "draft": "״ואתו בני ישראל למזבן עיבורא בגו עליא״ – בתוך הבאים. רש״י מביא שנכנסו בשערים שונים, כדי לא למשוך תשומת לב.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-6": {
+      "onkelosExplanation": {
+        "draft": "״וסגידו לה על אפיהון על ארעא״. החלום על האלומות מתגשם, בדיוק בגלל תבואה.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-7": {
+      "onkelosExplanation": {
+        "draft": "״ויתנכר אליהם״ – אונקלוס: ״וחשיב מה דמליל להון״, חשב מה לדבר איתם. יוסף לא פועל מתוך נקמה, אלא חושב כל מילה. הוא מתכנן דרך להחזיר את אחיו אליו.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-8": {
+      "onkelosExplanation": {
+        "draft": "״ואשתמודע יוסף ית אחוהי ואנון לא אשתמודעוהי״. רש״י מסביר שכשעזבם היה בלי זקן, ועכשיו יש לו זקן. הוא מכיר אותם – והם לא מכירים אותו.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-9": {
+      "onkelosExplanation": {
+        "draft": "״ודכיר יוסף ית חלמיא״ – יוסף נזכר בחלומות. ״למחזי ית בדקא דארעא״ – לראות את הפרצות של הארץ. הוא מאשים אותם בריגול, כדי לבדוק את לבם.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-10": {
+      "onkelosExplanation": {
+        "draft": "״לא רבוני ועבדיך עלו למזבן עיבורא״ – לא, אדוני. אלה שאמרו ״המלך תמלך עלינו?״ קוראים לו עכשיו ״אדוני״.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-11": {
+      "onkelosExplanation": {
+        "draft": "״כלנא בני גברא חד נחנא כיוני אנחנא״ – כולנו בני איש אחד, ישרים אנחנו. משפט שנאמר בגאווה, ומסתיר עוול ישן.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-12": {
+      "onkelosExplanation": {
+        "draft": "״לא ארי בדקא דארעא אתיתון למחזי״. יוסף לוחץ, כדי לראות מה ייצא מהם.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-13": {
+      "onkelosExplanation": {
+        "draft": "״תרין עשר עבדיך אחין אנחנא... וחד ליתוהי״ – שנים עשר אחים, ואחד איננו. הם מספרים על יוסף – ליוסף.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-14": {
+      "onkelosExplanation": {
+        "draft": "״אלילי אתון״ – מרגלים אתם. יוסף ממשיך במבחן.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-15": {
+      "onkelosExplanation": {
+        "draft": "״בדא תתבחרון״ – בזה תיבחנו: אם יבוא אחיכם הקטן. האם יחזרו בשביל בנימין, הבן השני של רחל?",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-16": {
+      "onkelosExplanation": {
+        "draft": "״ויתבחרון פתגמיכון הקשוט אתון אמרין״ – ייבחנו דבריכם, האם אמת אתם אומרים.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-17": {
+      "onkelosExplanation": {
+        "draft": "״וכנש יתהון לבית מטרא תלתא יומין״. שלושה ימים במעצר. מי שהשליכו את אחיהם לבור, מרגישים עכשיו מה זה להיות כלוא.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-18": {
+      "onkelosExplanation": {
+        "draft": "״דא עבידו ואתקימו מן קדם יי אנא דחל״ – את ה׳ אני ירא. השליט המצרי מדבר כמו אחד מבית אברהם. רמז ראשון.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-19": {
+      "onkelosExplanation": {
+        "draft": "״איזילו אובילו עיבורא דחסיר בבתיכון״ – הביאו את המזון שחסר בבתיכם. גם במבחן, יוסף זוכר את הרעב של הילדים בבית.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-20": {
+      "onkelosExplanation": {
+        "draft": "״ויתהמנון פתגמיכון ולא תמותון״.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-21": {
+      "onkelosExplanation": {
+        "draft": "״בקושטא חיבין אנחנא על אחונא די חזינא עקת נפשה כד הוה מתחנן לנא ולא קבלנא מנה״ – באמת אשמים אנחנו: ראינו את צרת נפשו כשהתחנן, ולא שמענו. כאן מתחילה התשובה. ורק כאן אנחנו לומדים שיוסף התחנן מתוך הבור.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-22": {
+      "onkelosExplanation": {
+        "draft": "״לא תחובון בעולימא ולא קבלתון ואף דמה הא מתבעי״ – אמרתי לכם: אל תחטאו בילד. כאב ישן מתפרץ אחרי יותר מעשרים שנה.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-23": {
+      "onkelosExplanation": {
+        "draft": "״ארי מתרגמן הוה ביניהון״ – כי המתורגמן היה ביניהם. הם לא ידעו שיוסף מבין כל מילה. רש״י מסביר שהמתורגמן היה מנשה בנו.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-24": {
+      "onkelosExplanation": {
+        "draft": "״ואסתחר מעלויהון ובכא״ – יוסף מסתובב ובוכה. הוא שומע את החרטה שחיכה לה שנים. ואז לוקח את שמעון – ורש״י מביא שזה שמעון שהשליך אותו לבור.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-25": {
+      "onkelosExplanation": {
+        "draft": "״ולאתבא כספיהון גבר לסקה ולמתן להון זודין לארחא״ – יוסף מחזיר להם את הכסף ונותן צידה לדרך. מאחורי הפנים הקשות יש לב שדואג.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-26": {
+      "onkelosExplanation": {
+        "draft": "״ונטלו ית עיבורהון על חמריהון ואזלו מתמן״.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-27": {
+      "onkelosExplanation": {
+        "draft": "״וחזא ית כספה והא הוא בפום טוענה״ – הכסף בפי השק.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-28": {
+      "onkelosExplanation": {
+        "draft": "״ונפק מדע לבהון״ – לבם יצא מהם. ״מה דא עבד יי לנא?״ – מה זאת עשה ה׳ לנו? לראשונה הם רואים בכל דבר את יד ה׳ ואת החשבון על העבר.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-29": {
+      "onkelosExplanation": {
+        "draft": "״וחויו לה ית כל דערעא יתהון״ – הם מספרים לאביהם הכול.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-30": {
+      "onkelosExplanation": {
+        "draft": "״מליל גברא רבונא דארעא עמנא קשין״ – האיש, אדון הארץ, דיבר איתנו קשות.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-31": {
+      "onkelosExplanation": {
+        "draft": "״כיוני אנחנא לא הוינא אלילי״ – ישרים אנחנו.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-32": {
+      "onkelosExplanation": {
+        "draft": "״חד ליתוהי וזעירא יומא דין עם אבונא״ – אחד איננו. מול אביהם, המילים האלה כואבות שבעתיים.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-33": {
+      "onkelosExplanation": {
+        "draft": "״אחוכון חד שבוקו לותי״ – השאירו אחד מכם.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-34": {
+      "onkelosExplanation": {
+        "draft": "״ית אחוכון אתן לכון וית ארעא תעבדון בה סחורתא״. הדרך לשחרור שמעון עוברת דרך בנימין.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-35": {
+      "onkelosExplanation": {
+        "draft": "״והא גבר צריר כספה בסקה... ודחילו״. כשהם רואים את הכסף מול אביהם, הפחד גדל.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-36": {
+      "onkelosExplanation": {
+        "draft": "״יתי אתכלתון״ – אותי שכלתם. ״יוסף ליתוהי ושמעון... ליתוהי וית בנימן תדברון״. ״עלי הוו כלהון״ – הכול נופל עליי. זעקה של אב שכבר אין לו כוח לאבד.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-37": {
+      "onkelosExplanation": {
+        "draft": "ראובן מציע: ״ית תרין בני תמית״ – את שני בניי תמית אם לא אחזיר אותו. רש״י מביא שיעקב לא קיבל: וכי בניך הם ולא בניי? כוונה טובה, מילים לא נכונות.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-42-38": {
+      "onkelosExplanation": {
+        "draft": "״ותחתון ית שיבתי בדוונא לשאול״ – תורידו את שיבתי ביגון לשאול. יעקב מסרב, וכל המשפחה תקועה.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-1": {
+      "onkelosExplanation": {
+        "draft": "״וכפנא תקיף בארעא״ – והרעב כבד. לפעמים המציאות מכריחה אותנו להחליט.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-2": {
+      "onkelosExplanation": {
+        "draft": "״תובו זבונו לנא זעיר עיבורא״ – שובו וקנו מעט אוכל. יעקב מנסה לדחות את ההחלטה הקשה.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-3": {
+      "onkelosExplanation": {
+        "draft": "״אסהדא אסהד בנא גברא... לא תחזון אפי אלהין כד אחוכון עמכון״ – יהודה מדבר. הוא אומר את האמת כמו שהיא.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-4": {
+      "onkelosExplanation": {
+        "draft": "״אם איתך משלח ית אחונא עמנא ניחות״.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-5": {
+      "onkelosExplanation": {
+        "draft": "״ואם ליתך משלח לא ניחות״ – בלי בנימין, אין טעם לרדת.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-6": {
+      "onkelosExplanation": {
+        "draft": "״למה אבאשתון לי״ – למה הרעתם לי? אב כואב מחפש במי לתלות.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-7": {
+      "onkelosExplanation": {
+        "draft": "״המדע הוינא ידעין ארי יימר אוחיתו ית אחוכון?״ – האם יכולנו לדעת? הם עונים ביושר.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-8": {
+      "onkelosExplanation": {
+        "draft": "״שלח עולימא עמי... וניחי ולא נמות אף אנחנא אף את אף טפלנא״ – כדי שנחיה כולנו, גם הילדים. יהודה מראה לאביו את התמונה כולה.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-9": {
+      "onkelosExplanation": {
+        "draft": "״אנא מערבנא בה מן ידי תבענה״ – אני ערב לו, ממני תבקש אותו. ״ואהי חטי לך כל יומיא״ – רש״י מסביר: גם בעולם הבא. יהודה, שאמר פעם ״מה בצע״, לוקח עכשיו אחריות מלאה על אחיו.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-10": {
+      "onkelosExplanation": {
+        "draft": "״ארי אלולפון בדא אתעכבנא ארי כען תבנא דנן תרתין זמנין״ – לולא התמהמהנו, היינו כבר חוזרים פעמיים. לפעמים ההיסוס עולה יותר מההחלטה.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-11": {
+      "onkelosExplanation": {
+        "draft": "״סיבו מדמשבח בארעא״ – קחו ממה שהארץ משתבחת בו. כמו מול עשו, יעקב שולח מנחה, ואחר כך יתפלל. הניסיון שלו מלמד אותו מה לעשות.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-12": {
+      "onkelosExplanation": {
+        "draft": "״וכספא על חד תרין סיבו״ – קחו כסף כפול, והחזירו את הכסף שנמצא, ״מאים שלו הוא״ – אולי טעות היא. יושר בתוך פחד ורעב.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-13": {
+      "onkelosExplanation": {
+        "draft": "״וית אחוכון דברו״ – ואת אחיכם קחו. המשפט הקשה ביותר נאמר בקצרה.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-14": {
+      "onkelosExplanation": {
+        "draft": "״ואל שדי יתן לכון רחמין קדם גברא״ – תפילה של אב. ״ואנא כמא דאתכלית תכלית״ – ואני, כאשר שכלתי שכלתי. מסירות מלאה של מי שעשה את כל מה שיכול.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-15": {
+      "onkelosExplanation": {
+        "draft": "״ודברו ית בנימן וקמו ונחתו למצרים וקמו קדם יוסף״.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-16": {
+      "onkelosExplanation": {
+        "draft": "״וחזא יוסף עמהון ית בנימין״ – יוסף רואה את אחיו בן אמו, ומיד מזמין אותם לסעוד אצלו.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-17": {
+      "onkelosExplanation": {
+        "draft": "״ואעיל גברא ית גבריא לבית יוסף״.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-18": {
+      "onkelosExplanation": {
+        "draft": "״לאתרברבא עלנא ולאסתקפא עלנא ולמקני יתנא לעבדין״ – הם מפחדים שיהפכו לעבדים. מי שמכר אח לעבדות, מפחד עכשיו מאותו גורל.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-19": {
+      "onkelosExplanation": {
+        "draft": "״ומלילו עמה בתרע ביתא״ – בפתח הבית, לפני שנכנסים, הם ממהרים להסביר.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-20": {
+      "onkelosExplanation": {
+        "draft": "״בי אדני״ – אונקלוס: ״בבעו רבוני״, בבקשה אדוני.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-21": {
+      "onkelosExplanation": {
+        "draft": "״ואתיבנא יתה בידנא״ – והחזרנו אותו. הם מספרים את האמת עד הפרט האחרון.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-22": {
+      "onkelosExplanation": {
+        "draft": "״לא ידענא מן שוי כספנא בטועננא״ – לא ידענו מי שם.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-23": {
+      "onkelosExplanation": {
+        "draft": "״שלם לכון לא תדחלון אלהכון ואלהא דאבוכון יהב לכון סימא״ – שלום לכם, אל תפחדו, אלהיכם נתן לכם. ״ואפיק לותהון ית שמעון״. עכשיו המשפחה שוב שלמה – כמעט.",
+        "updatedAt": "2026-10-08T16:42:25.947Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-24": {
+      "onkelosExplanation": {
+        "draft": "״ויהב מיא ואסחו רגליהון״ – מים לרחוץ רגליים, כמו באוהל של אברהם. בבית יוסף שורה הכנסת האורחים של בית אבא.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-25": {
+      "onkelosExplanation": {
+        "draft": "״ואתקינו ית תקרבתא עד דעל יוסף בשירותא״ – מכינים את המנחה.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-26": {
+      "onkelosExplanation": {
+        "draft": "״וסגידו לה לארעא״. שוב משתחווים, והפעם אחד עשר אחים – כמו בחלום.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-27": {
+      "onkelosExplanation": {
+        "draft": "״השלם אבוכון סבא די אמרתון העד כען קים?״ – השאלה הראשונה של יוסף היא על אבא. כל השנים, הלב שלו שם.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-28": {
+      "onkelosExplanation": {
+        "draft": "״שלם לעבדך לאבונא עד כען קים״ – אבא חי. יוסף שומע את המילים שחיכה להן.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-29": {
+      "onkelosExplanation": {
+        "draft": "״וחזא ית בנימין אחוהי בר אמה״ – בן אמו. ״מן קדם יי יתרחם עלך ברי״ – אונקלוס: רחמים מאת ה׳ יהיו עליך, בני. אח מברך אח בלב מלא.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-30": {
+      "onkelosExplanation": {
+        "draft": "״ארי אתגוללו רחמוהי על אחוהי ובעא למבכי״ – רחמיו התגלגלו בתוכו. הוא נכנס לחדר ובוכה שם. גבר חזק שליט במצרים – ובוכה בסתר על אחיו הקטן.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-31": {
+      "onkelosExplanation": {
+        "draft": "״ואסחי אפוהי ונפק ואתחסין״ – רחץ פניו, יצא והתאפק. לפעמים אהבה גדולה דורשת להתאפק, עד שיגיע הרגע הנכון.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-32": {
+      "onkelosExplanation": {
+        "draft": "״כי תועבה הוא למצרים״ – אונקלוס מסביר: ״ארי בעירא דמצראי דחלין לה עבראי אכלין״ – את הבהמות שהמצרים עובדים, העברים אוכלים. לכן לא ישבו יחד לאכול.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-33": {
+      "onkelosExplanation": {
+        "draft": "״רבא כרביותה וזעירא כזערותה ותמהו גבריא״ – הם הושבו לפי סדר הגיל, ותמהו. רש״י מביא שיוסף הקיש בגביע וקרא לכל אחד לפי סדר לידתו. מי יודע את כל זה?",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-43-34": {
+      "onkelosExplanation": {
+        "draft": "״וסגי חלקא דבנימן... חמשא חלקין״ – לבנימין פי חמישה. מבחן שקט: האם יקנאו בבן של רחל כמו שקינאו פעם? ״ושתיאו ורויאו עמה״ – רש״י מביא שמאז מכירת יוסף לא שתו יין, ועכשיו שתו.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-1": {
+      "onkelosExplanation": {
+        "draft": "״מלי ית טועני גבריא עיבורא... ושוי כסף גבר בפום טוענה״. המבחן האחרון מתחיל.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-2": {
+      "onkelosExplanation": {
+        "draft": "״וית כלידי כלידא דכספא תשוי בפום טוענא דזעירא״ – את הגביע שלי שים בשק של הקטן.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-3": {
+      "onkelosExplanation": {
+        "draft": "״צפרא נהר וגבריא אתפטרו״ – בבוקר הם יוצאים, בטוחים שהכול מאחוריהם.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-4": {
+      "onkelosExplanation": {
+        "draft": "״למה שלמתון בישא חלף טבתא?״ – למה שילמתם רעה תחת טובה? שאלה שאולי האחים שאלו את עצמם על מה שעשו ליוסף.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-5": {
+      "onkelosExplanation": {
+        "draft": "״והוא נחש ינחש בו״ – אונקלוס: ״והוא בדקא מבדק בה״, בודק ומנסה בו. אונקלוס מרחיק את יוסף מכישוף.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-6": {
+      "onkelosExplanation": {
+        "draft": "״ואדביקנון ומליל עמהון ית פתגמיא האלין״.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-7": {
+      "onkelosExplanation": {
+        "draft": "״חס לעבדיך מלמעבד כפתגמא הדין״ – חלילה לנו. הם יודעים שהם חפים מפשע.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-8": {
+      "onkelosExplanation": {
+        "draft": "״הא כספא די אשכחנא... אתיבנוהי לך״ – הנה החזרנו את הכסף, ואיך נגנוב? רש״י מביא שזה אחד מעשרה קל וחומר שבתורה.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-9": {
+      "onkelosExplanation": {
+        "draft": "״די ישתכח עמה מעבדיך ומית״ – מי שיימצא אצלו – ימות. כמו יעקב מול לבן, הם נשבעים מתוך ביטחון, בלי לדעת מה מסתתר בשקים.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-10": {
+      "onkelosExplanation": {
+        "draft": "״יהי לי עבדא ואתון תהון זכאין״ – רק הוא יהיה עבד, ואתם חופשיים. המבחן מתחדד: האם ינטשו את האח?",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-11": {
+      "onkelosExplanation": {
+        "draft": "״ואוחיאו ואוחיתו גבר ית טוענה לארעא״ – כל אחד ממהר לפתוח את שקו.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-12": {
+      "onkelosExplanation": {
+        "draft": "״ברבא שרי ובזעירא שצי״ – מהגדול התחיל ובקטן כילה. ״ואשתכח כלידא בטוענא דבנימן״. הלב נעצר.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-13": {
+      "onkelosExplanation": {
+        "draft": "״ובזעו לבושיהון״ – קרעו את בגדיהם. פעם גרמו לאביהם לקרוע את בגדיו על יוסף, ועכשיו הם קורעים בגדים על בנימין. ״ותבו לקרתא״ – וכולם חוזרים. איש לא נוטש את האח.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-14": {
+      "onkelosExplanation": {
+        "draft": "״ועל יהודה ואחוהי לבית יוסף״ – יהודה בראש. רש״י מסביר: כי הוא היה הערב. ״ונפלו קדמוהי לארעא״.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-15": {
+      "onkelosExplanation": {
+        "draft": "״הלא ידעתון ארי בדקא מבדק גברא די כותי״ – יוסף ממשיך במסווה.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-16": {
+      "onkelosExplanation": {
+        "draft": "״מה נימר... ומה נזכי מן קדם יי אשתכח ית חובא דעבדיך״ – ה׳ מצא את עוון עבדיך. רש״י מסביר: הם ידעו שלא גנבו, אבל הבינו שזה עונש מה׳ על חטא ישן. יהודה לא מתווכח – הוא מקבל את הדין על כולם.",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    },
+    "genesis-44-17": {
+      "onkelosExplanation": {
+        "draft": "״ואתון סקו לשלם לות אבוכון״ – ואתם עלו לשלום אל אביכם. זה הנסיון הגדול: אפשר לחזור הביתה ולהשאיר את בנו של רחל, כמו אז. הפרשה נעצרת כאן, בשאלה – מה יעשו האחים?",
+        "updatedAt": "2026-10-08T16:42:25.948Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}

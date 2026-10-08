@@ -1,0 +1,787 @@
+{
+  "schemaVersion": 2,
+  "slug": "shmini",
+  "meta": {
+    "slug": "shmini",
+    "name": "שמיני",
+    "nameEn": "Shmini",
+    "book": "Leviticus",
+    "bookHe": "ויקרא",
+    "range": "Leviticus 9:1-11:47",
+    "rangeHe": "ויקרא ט׳:א׳–י״א:מ״ז",
+    "verseCount": 91,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Leviticus 9:1-9:16"
+      },
+      {
+        "n": 2,
+        "ref": "Leviticus 9:17-9:23"
+      },
+      {
+        "n": 3,
+        "ref": "Leviticus 9:24-10:11"
+      },
+      {
+        "n": 4,
+        "ref": "Leviticus 10:12-10:15"
+      },
+      {
+        "n": 5,
+        "ref": "Leviticus 10:16-10:20"
+      },
+      {
+        "n": 6,
+        "ref": "Leviticus 11:1-11:32"
+      },
+      {
+        "n": 7,
+        "ref": "Leviticus 11:33-11:47"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "II Samuel 6:1-7:17",
+        "refHe": "שמואל ב׳ ו, א – ז, יז"
+      },
+      "sephardi": {
+        "ref": "II Samuel 6:1-19",
+        "refHe": "שמואל ב׳ ו, א–יט"
+      },
+      "sameForAll": false
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Leviticus (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "ויקרא ט, א – יא, מז"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "יום השמיני",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "ביום השמיני אהרן מברך, ואש יורדת מן השמיים. נדב ואביהוא מקריבים אש זרה ומתים. אחר כך דיני מאכלות: מה טהור ומה טמא, כדי שהמחנה יישאר מקום שאפשר לשכון בו.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "ביום חגיגי אש יורדת מהשמיים, וכולם שמחים. ואז קורה אסון לשני בני אהרן. אחר כך לומדים אילו בעלי חיים מותר לאכול.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "דוד מביא את הארון בשמחה, ועוזה נפגע כי נגע בו. שמחה וגבול, כמו ביום השמיני.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T17:09:06.662Z",
+      "source": "import:content-writer",
+      "draft": "הפרשה מספרת על היום הגדול של חנוכת המשכן, שבו השמחה נקטעה פתאום במות נדב ואביהוא, שהקריבו ״אש זרה אשר לא ציווה״. ההפטרה (שמואל ב ו–ז) מספרת על יום דומה: דוד מעלה את ארון ה׳ לירושלים בשמחה גדולה, ועוזא נוגע בארון כדי לייצב אותו – ומת במקום. בשני המקרים לומדים שקרבה לקודש דורשת יראה ודיוק, ולא רק התלהבות. ובשניהם השמחה חוזרת: דוד מעלה את הארון שוב ״ומכרכר בכל עוז לפני ה׳״. האשכנזים ממשיכים עד ז, יז – הבטחת ה׳ לבית דוד; הספרדים מסיימים בו, יט. (בחלק מהשנים פרשת שמיני חלה בשבת פרה, בשבת החודש או בערב ראש חודש, ואז קוראים הפטרה מיוחדת.)"
+    },
+    "haftaraConnections": {
+      "published": [
+        "שמחה וגבול",
+        "אש",
+        "קדושה שדורשת זהירות"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "9:1",
+        "10:1"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "בפרשה בני אהרן מתקרבים לה׳ בדרך שה׳ לא ביקש, ומתים. בהפטרה, כשדוד המלך מביא את ארון ה׳ לירושלים, עוזא נוגע בארון ומת. אבל אחר כך דוד מביא את הארון שוב, ורוקד לפניו בשמחה גדולה. לקודש מתקרבים בשמחה – וגם בכבוד.",
+      "updatedAt": "2026-10-08T17:09:06.662Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "לכך נבחרת",
+          "text": "אהרן פחד לגשת למזבח – אולי בגלל העגל, אולי בגלל גודל הרגע. ומשה אמר לו: למה אתה בוש? לכך נבחרת. מי שמרגיש את כובד האחריות הוא לא הלא־מתאים; לפעמים הוא בדיוק המתאים. הענווה אינה סיבה לברוח; היא הכלי."
+        },
+        {
+          "title": "וידום אהרן",
+          "text": "ביום השמחה הגדול ביותר אהרן איבד שני בנים. הוא לא צעק, לא שאל ולא התווכח. הוא שתק. יש כאב שאין לו מילים, ויש אמונה שמתבטאת דווקא בשתיקה. ורש״י מלמד שבשכר שתיקתו ה׳ דיבר אליו לבדו. ולידו, כל בית ישראל בכה בשבילו."
+        },
+        {
+          "title": "לא בוש לומר לא שמעתי",
+          "text": "משה כעס על בני אהרן, ואהרן הסביר בעדינות למה נהגו כך. ״וישמע משה וייטב בעיניו״. רש״י מסביר: הודה ולא בוש לומר ״לא שמעתי״. אם משה רבנו יכול להגיד ״צדקת, טעיתי״ – כל אחד מאיתנו יכול."
+        },
+        {
+          "title": "קדושה היא עלייה",
+          "text": "דיני הכשרות נגמרים במילים ״כי אני ה׳ המעלה אתכם מארץ מצרים״. רש״י מסביר: לא ״הוצאתי״ אלא ״המעלה״. להבחין בין מה שמותר למה שאסור – בצלחת, בדיבור, במעשים – זו לא הגבלה. זו עלייה. אדם נעשה קדוש דרך הבחירות הקטנות של כל יום."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.662Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "אהרן מברך",
+          "text": "כשאהרן סיים את העבודה, הדבר הראשון שעשה היה להרים ידיים ולברך את העם. גם אני יכול לברך – להגיד לחבר, לאחות או להורים מילה טובה."
+        },
+        {
+          "title": "סימנים בחוץ ובפנים",
+          "text": "החזיר מראה לכולם את הפרסות השסועות, אבל אין לו את הסימן שבפנים. אדם טוב הוא טוב גם במה שרואים וגם במה שלא רואים."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.662Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "leviticus-9-1": {
+      "onkelosExplanation": {
+        "draft": "״והוה ביומא תמינאה קרא משה לאהרן ולבנוהי ולסבי ישראל״ – ויהי ביום השמיני. אחרי שבעת ימי ההכנה – היום שבו המשכן מתחיל לפעול באמת. הגמרא (שבת) מספרת שהיום הזה, ראש חודש ניסן, ״נטל עשר עטרות״. אחרי שבע של הכנה, השמיני הוא מעבר לטבע.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-2": {
+      "onkelosExplanation": {
+        "draft": "״סב לך עגל בר תורי לחטאתא״ – קח לך עגל בן בקר לחטאת. רש״י מסביר: עגל – להודיע שה׳ מכפר לו על מעשה העגל. אהרן מתחיל את כהונתו בדיוק במקום שבו נפל.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-3": {
+      "onkelosExplanation": {
+        "draft": "״סבו צפיר בר עזין לחטאתא ועגל ואמר״ – קחו שעיר עזים לחטאת, ועגל וכבש לעולה.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-4": {
+      "onkelosExplanation": {
+        "draft": "״ארי יומא דין יקרא דיי מתגלי לכון״ – כי היום ה׳ נראה אליכם. אונקלוס: ״יקרא דיי מתגלי״ – כבוד ה׳ נגלה. את ה׳ עצמו אי אפשר לראות; מה שנגלה הוא כבודו.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-5": {
+      "onkelosExplanation": {
+        "draft": "״וקריבו כל כנישתא וקמו קדם יי״ – ויקרבו כל העדה ויעמדו לפני ה׳.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-6": {
+      "onkelosExplanation": {
+        "draft": "״דין פתגמא די פקיד יי תעבדון ויתגלי לכון יקרא דיי״ – זה הדבר אשר ציווה ה׳ תעשו, ויירא אליכם כבוד ה׳. הכבוד לא מגיע מהתלהבות לבד; הוא מגיע כשעושים את מה שה׳ ביקש.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-7": {
+      "onkelosExplanation": {
+        "draft": "״ואמר משה לאהרן קרב למדבחא״ – קרב אל המזבח. רש״י מביא: אהרן היה בוש וירא לגשת. אמר לו משה: למה אתה בוש? לכך נבחרת. מי שמרגיש את כובד התפקיד – הוא בדיוק מי שמתאים לו.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-8": {
+      "onkelosExplanation": {
+        "draft": "״וקרב אהרן למדבחא ונכס ית עגלא דחטאתא די לה״ – ויקרב אהרן וישחט את עגל החטאת אשר לו.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-9": {
+      "onkelosExplanation": {
+        "draft": "״וקריבו בני אהרן ית דמא לה וטבל אצבעה בדמא״ – ויקריבו בני אהרן את הדם, ויטבול אצבעו.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-10": {
+      "onkelosExplanation": {
+        "draft": "״וית תרבא וית כליתא... אסק למדבחא״ – ואת החלב והכליות הקטיר.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-11": {
+      "onkelosExplanation": {
+        "draft": "״וית בשרא וית משכא אוקיד בנורא מברא למשריתא״ – ואת הבשר ואת העור שרף מחוץ למחנה.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-12": {
+      "onkelosExplanation": {
+        "draft": "״ונכס ית עלתא... וזרקה על מדבחא סחור סחור״ – וישחט את העולה.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-13": {
+      "onkelosExplanation": {
+        "draft": "״וית עלתא אמטיאו לה לאברהא״ – ואת העולה המציאו אליו לנתחיה.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-14": {
+      "onkelosExplanation": {
+        "draft": "״וחליל ית גוא וית כרעיא ואסק על עלתא״ – וירחץ את הקרב ואת הכרעיים.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-15": {
+      "onkelosExplanation": {
+        "draft": "״וקרב ית קרבן עמא... וכפר בדמה כקדמאה״ – ויקרב את קרבן העם, ויחטאהו כראשון. קודם על עצמו – אחר כך על העם.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-16": {
+      "onkelosExplanation": {
+        "draft": "״וקרב ית עלתא ועבדה כדחזי״ – ויעשה אותה כמשפט.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-17": {
+      "onkelosExplanation": {
+        "draft": "״וקריב ית מנחתא ומלא ידה מנה... בר מעלת צפרא״ – ויקרב את המנחה, מלבד עולת הבוקר. גם ביום הגדול – הקרבן היומי לא נדחה.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-18": {
+      "onkelosExplanation": {
+        "draft": "״ונכס ית תורא וית דכרא נכסת קודשיא די לעמא״ – וישחט את השור ואת האיל, זבח השלמים אשר לעם.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-19": {
+      "onkelosExplanation": {
+        "draft": "״וית תרביא מן תורא ומן דכרא אליתא וחפי גוא״ – ואת החלבים.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-20": {
+      "onkelosExplanation": {
+        "draft": "״ושויאו ית תרביא על חדותא ואסק תרביא למדבחא״ – וישימו את החלבים על החזות.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-21": {
+      "onkelosExplanation": {
+        "draft": "״וית חדותא וית שוקא דימינא ארים אהרן ארמא קדם יי״ – ואת החזות ואת שוק הימין הניף אהרן תנופה.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-22": {
+      "onkelosExplanation": {
+        "draft": "״וארם אהרן ית ידוהי על עמא וברכנון״ – וישא אהרן את ידיו אל העם ויברכם. רש״י מסביר: בברכת כוהנים – ״יברכך... יאר... ישא״. הדבר הראשון שהכהן עושה אחרי העבודה הוא לברך.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-23": {
+      "onkelosExplanation": {
+        "draft": "״ועל משה ואהרן למשכן זמנא ונפקו ובריכו ית עמא ואתגלי יקרא דיי לכל עמא״ – ויבוא משה ואהרן אל אוהל מועד, ויצאו ויברכו את העם, ויירא כבוד ה׳ אל כל העם. רש״י מביא: כשאהרן ראה שהשכינה לא ירדה, הוא הצטער וחשב שזה בגללו. משה נכנס איתו, והתפללו יחד – ואז הכבוד נגלה.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-9-24": {
+      "onkelosExplanation": {
+        "draft": "״ונפקת אשתא מן קדם יי ואכלת על מדבחא... וחזא כל עמא ושבחו ונפלו על אפיהון״ – ותצא אש מלפני ה׳ ותאכל על המזבח, וירא כל העם וירונו ויפלו על פניהם. אונקלוס: ״ושבחו״ – ושיבחו. הרינה היא שבח. האש מן השמיים – תשובה לכל הבנייה.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-1": {
+      "onkelosExplanation": {
+        "draft": "״ונסיבו בני אהרן נדב ואביהוא... וקריבו קדם יי אשתא נוכריתא די לא פקיד יתהון״ – ויקריבו לפני ה׳ אש זרה אשר לא ציווה אותם. ״אשתא נוכריתא״ – אש זרה. ובאותו יום שבו עשו הכול ״כאשר ציווה ה׳״, הם הביאו משהו ״אשר לא ציווה״.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-2": {
+      "onkelosExplanation": {
+        "draft": "״ונפקת אשתא מן קדם יי ואכלת יתהון ומיתו קדם יי״ – ותצא אש מלפני ה׳ ותאכל אותם, וימותו לפני ה׳. אותה אש בדיוק שקיבלה את הקרבנות. השמחה הגדולה הופכת באותו רגע לאבל.",
+        "updatedAt": "2026-10-08T17:09:06.662Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-3": {
+      "onkelosExplanation": {
+        "draft": "״בקריבי אתקדש ועל אפי כל עמא אתיקר ושתיק אהרן״ – בקרוביי אקדש ועל פני כל העם אכבד, וידום אהרן. רש״י מביא את דברי משה: ידעתי שהבית יתקדש במיודעיו של מקום, וחשבתי שבי או בך; עכשיו אני רואה שהם גדולים ממני וממך. ואהרן שתק. אין כאן מילים – יש שתיקה של אבא שמקבל.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-4": {
+      "onkelosExplanation": {
+        "draft": "״קריבו טולו ית אחיכון מן קדם אפי קודשא למברא למשריתא״ – קרבו, שאו את אחיכם מאת פני הקודש אל מחוץ למחנה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-5": {
+      "onkelosExplanation": {
+        "draft": "״ונטלנון בכתניהון למברא למשריתא״ – וישאום בכותנותם. הם יצאו מן העולם בבגדי הכהונה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-6": {
+      "onkelosExplanation": {
+        "draft": "״רישיכון לא תרבון פרוע... ואחיכון כל בית ישראל יבכון ית יקדתא״ – ראשיכם אל תפרעו, ואחיכם כל בית ישראל יבכו את השריפה. הכהנים ממשיכים לשרת – ואת האבל העם לוקח על עצמו. כשמישהו לא יכול לבכות, אחרים בוכים בשבילו.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-7": {
+      "onkelosExplanation": {
+        "draft": "״ארי משח רבותא דיי עליכון ועבדו כפתגמא דמשה״ – כי שמן משחת ה׳ עליכם, ויעשו כדבר משה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-8": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם אהרן למימר״ – וידבר ה׳ אל אהרן. רש״י מסביר: בשכר שתיקתו זכה אהרן שה׳ דיבר אליו לבדו. השתיקה נענתה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-9": {
+      "onkelosExplanation": {
+        "draft": "״חמר ומרוי לא תשתי את ובניך עמך במעלכון למשכן זמנא״ – יין ושכר אל תשת. רש״י מביא שיש אומרים שנדב ואביהוא נכנסו שתויי יין. לעבודת ה׳ באים צלולים.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-10": {
+      "onkelosExplanation": {
+        "draft": "״ולאפרשא בין קודשא ובין חלא ובין מסאבא ובין דכיא״ – ולהבדיל בין הקודש ובין החול, ובין הטמא ובין הטהור. מי ששתה מאבד את היכולת להבדיל – וזו בדיוק העבודה של הכהן.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-11": {
+      "onkelosExplanation": {
+        "draft": "״ולאלפא ית בני ישראל ית כל קימיא״ – ולהורות את בני ישראל את כל החוקים. הכהן הוא גם מורה. ומורה צריך ראש צלול.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-12": {
+      "onkelosExplanation": {
+        "draft": "״סבו ית מנחתא דאשתארת... ואכלוה פטיר בסטר מדבחא״ – קחו את המנחה הנותרת ואכלוה מצות.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-13": {
+      "onkelosExplanation": {
+        "draft": "״ותיכלון יתה באתר קדיש ארי חלקך וחלק בניך היא״ – ואכלתם אותה במקום קדוש.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-14": {
+      "onkelosExplanation": {
+        "draft": "״וית חדיא דארמותא... תיכלון באתר דכי את ובניך ובנתיך עמך״ – ואת חזה התנופה תאכלו במקום טהור, אתה ובניך ובנותיך.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-15": {
+      "onkelosExplanation": {
+        "draft": "״שוקא דאפרשותא וחדיא דארמותא... ויהי לך ולבניך עמך לקים עלם״ – לחוק עולם.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-16": {
+      "onkelosExplanation": {
+        "draft": "״וית צפירא דחטאתא מתבע תבעי משה והא אתוקד״ – ואת שעיר החטאת דרש דרש משה, והנה שורף. הגמרא (קידושין) מונה: ״דרש דרש״ הן אמצע המילים של התורה. באמצע התורה עומדת שאלה – ״דרש דרש״.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-17": {
+      "onkelosExplanation": {
+        "draft": "״מדין לא אכלתון ית חטאתא באתר קדיש... לסלחא על חובי כנשתא״ – מדוע לא אכלתם את החטאת? ואונקלוס: לסלוח על חטאי העדה. אכילת הכהנים היא חלק מהכפרה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-18": {
+      "onkelosExplanation": {
+        "draft": "״הא לא אתעל ית דמה לבית קדשא גואה מיכל תכלון יתה בקדשא״ – הנה לא הובא את דמה אל הקודש פנימה, אכול תאכלו אותה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-19": {
+      "onkelosExplanation": {
+        "draft": "״וערעא יתי עקן כאלין ואלופון אכלית חטאתא יומא דין התקן קדם יי״ – ותקראנה אותי כאלה, ואכלתי חטאת היום – הייטב בעיני ה׳? אונקלוס: ״עקן״ – צרות. אהרן לא מתגונן; הוא שואל בעדינות: אבל ביום כזה – זה ראוי?",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-10-20": {
+      "onkelosExplanation": {
+        "draft": "״ושמע משה ושפר בעינוהי״ – וישמע משה וייטב בעיניו. רש״י מסביר: הודה, ולא בוש לומר ״לא שמעתי״. משה רבנו – ומודה בטעות לפני הכול.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה ועם אהרן למימר להון״ – וידבר ה׳ אל משה ואל אהרן. אהרן שוב שותף בדיבור.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-2": {
+      "onkelosExplanation": {
+        "draft": "״דא חיתא די תיכלון מכל בעירא די על ארעא״ – זאת החיה אשר תאכלו. רש״י מסביר: משה אחז בכל חיה והראה להם – ״זאת״ תאכלו, וזאת לא. ההלכה מוחשית מאוד.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-3": {
+      "onkelosExplanation": {
+        "draft": "״כל די סדיקן פרסתא ומטלפן טלפין פרסתא מסקא פשרא... יתה תיכלון״ – כל מפרסת פרסה ושוסעת שסע, מעלת גרה – אותה תאכלו. אונקלוס: ״מסקא פשרא״ – מעלה את המזון שבבטן ללעיסה חוזרת.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-4": {
+      "onkelosExplanation": {
+        "draft": "״ברם ית דין לא תיכלון... ית גמלא ארי מסיק פשרא הוא ופרסתא לא סדיקא״ – אך את הגמל לא תאכלו, כי מעלה גרה הוא ופרסה לא מפריס.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-5": {
+      "onkelosExplanation": {
+        "draft": "״וית טפזא״ – ואת השפן.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-6": {
+      "onkelosExplanation": {
+        "draft": "״וית ארנבא״ – ואת הארנבת.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-7": {
+      "onkelosExplanation": {
+        "draft": "״וית חזירא ארי סדיק פרסתא הוא... והוא פשרא לא פשר״ – ואת החזיר, כי מפריס פרסה הוא, והוא גרה לא יגר. החזיר מציג את הסימן שבחוץ – ומסתיר שאין בו את הסימן שבפנים.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-8": {
+      "onkelosExplanation": {
+        "draft": "״מבסרהון לא תיכלון ובנבלתהון לא תקרבון״ – מבשרם לא תאכלו ובנבלתם לא תיגעו.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-9": {
+      "onkelosExplanation": {
+        "draft": "״כל די לה ציצין וקלפין במיא... יתהון תיכלון״ – כל אשר לו סנפיר וקשקשת במים – אותם תאכלו.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-10": {
+      "onkelosExplanation": {
+        "draft": "״וכל די לית לה ציצין וקלפין... שקצא אנון לכון״ – וכל אשר אין לו – שקץ הם לכם.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-11": {
+      "onkelosExplanation": {
+        "draft": "״ושקצא יהון לכון מבסרהון לא תיכלון״ – ושקץ יהיו לכם.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-12": {
+      "onkelosExplanation": {
+        "draft": "״כל די לית לה ציצין וקלפין במיא שקצא הוא לכון״.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-13": {
+      "onkelosExplanation": {
+        "draft": "״וית אלין תשקצון מן עופא... נשרא וער ועזיא״ – ואת אלה תשקצו מן העוף: הנשר, הפרס והעזנייה. רוב העופות האסורים הם עופות דורסים.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-14": {
+      "onkelosExplanation": {
+        "draft": "״ודיתא וטרפיתא לזנה״ – הדאה והאיה למינה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-15": {
+      "onkelosExplanation": {
+        "draft": "״ית כל עורבא לזנה״ – כל עורב למינו.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-16": {
+      "onkelosExplanation": {
+        "draft": "״וית בת נעמיתא וציצא וצפר שחפא ונצא לזנוהי״ – בת היענה, התחמס, השחף והנץ.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-17": {
+      "onkelosExplanation": {
+        "draft": "״וקריא ושלינונא וקפופא״ – הכוס, השלך והינשוף.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-18": {
+      "onkelosExplanation": {
+        "draft": "״ובותא וקתא וירקרקא״ – התנשמת, הקאת והרחם.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-19": {
+      "onkelosExplanation": {
+        "draft": "״וחוריתא ואבו לזנה ונגר טורא ועטלפא״ – והחסידה, האנפה למינה, הדוכיפת והעטלף. רש״י מביא: למה נקראת ״חסידה״? שעושה חסד עם חברותיה במזון. ובכל זאת היא טמאה – כי חסד רק לחברים שלך, זה לא מספיק.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-20": {
+      "onkelosExplanation": {
+        "draft": "״כל רחשא דעופא דמהלך על ארבע שקצא הוא לכון״ – כל שרץ העוף ההולך על ארבע.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-21": {
+      "onkelosExplanation": {
+        "draft": "״די לה קרצולין מעלוי רגלוהי לקפצא בהון על ארעא״ – אשר לו כרעיים ממעל לרגליו לנתר בהן על הארץ.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-22": {
+      "onkelosExplanation": {
+        "draft": "״ית גובא לזנה וית רשונא לזנוהי וית חרגולא לזנוהי וית חגבא לזנוהי״ – הארבה, הסלעם, החרגול והחגב.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-23": {
+      "onkelosExplanation": {
+        "draft": "״וכל רחשא דעופא די לה ארבע רגלין שקצא הוא לכון״.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-24": {
+      "onkelosExplanation": {
+        "draft": "״ולאלין תסתאבון כל דיקרב בנבלתהון יהי מסאב עד רמשא״ – ולאלה תיטמאו, עד הערב.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-25": {
+      "onkelosExplanation": {
+        "draft": "״וכל דיטול מנבלתהון יצבע לבושוהי״ – וכל הנושא מנבלתם יכבס בגדיו.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-26": {
+      "onkelosExplanation": {
+        "draft": "״לכל בעירא די היא סדיקא פרסתא וטלפין ליתהא מטלפא״ – לכל בהמה אשר היא מפרסת פרסה ושסע איננה שוסעת.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-27": {
+      "onkelosExplanation": {
+        "draft": "״וכל דמהלך על ידוהי... מסאבין אנון לכון״ – וכל הולך על כפיו.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-28": {
+      "onkelosExplanation": {
+        "draft": "״ודיטול ית נבלתהון יצבע לבושוהי״.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-29": {
+      "onkelosExplanation": {
+        "draft": "״ודין לכון מסאבא דרחשא דרחש על ארעא חלדא ועכברא וצבא לזנוהי״ – וזה לכם הטמא בשרץ: החולד, העכבר והצב.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-30": {
+      "onkelosExplanation": {
+        "draft": "״וילא וכוחא וחלטיתא וחמטא ואשותא״ – האנקה, הכוח, הלטאה, החומט והתנשמת.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-31": {
+      "onkelosExplanation": {
+        "draft": "״כל דיקרב בהון במותהון יהי מסאב עד רמשא״ – כל הנוגע בהם במותם.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-32": {
+      "onkelosExplanation": {
+        "draft": "״במיא יתעל ויהי מסאב עד רמשא וידכי״ – במים יובא, וטמא עד הערב, וטהר. יש דרך חזרה: מים, זמן – וטהרה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-33": {
+      "onkelosExplanation": {
+        "draft": "״וכל מאן דחסף די יפל מנהון לגוה... ויתה תתברון״ – וכלי חרש אשר ייפול לתוכו – אותו תשבורו. כלי חרס נטמא רק מבפנים, ואין לו תקנה אלא שבירה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-34": {
+      "onkelosExplanation": {
+        "draft": "״מכל מיכלא דמתאכל די יעלון עלוהי מיא יהי מסאב״ – מכל האוכל אשר יבוא עליו מים – יטמא.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-35": {
+      "onkelosExplanation": {
+        "draft": "״תנור וכירים יתרעון״ – תנור וכיריים יותץ.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-36": {
+      "onkelosExplanation": {
+        "draft": "״ברם מעין וגוב בית כנישות מיא יהי דכי״ – אך מעיין ובור מקווה מים – יהיה טהור. אונקלוס: ״בית כנישות מיא״ – מקום שהמים מתכנסים בו. מכאן המקווה: מים מחוברים למקור לא נטמאים – והם מטהרים.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-37": {
+      "onkelosExplanation": {
+        "draft": "״וארי יפל מנבלתהון על כל בר זרע זרוע די יזדרע דכי הוא״ – זרע יבש – טהור הוא.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-38": {
+      "onkelosExplanation": {
+        "draft": "״וארי יתיהבון מיא על בר זרעא... מסאב הוא לכון״ – וכי יותן מים על זרע – טמא הוא.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-39": {
+      "onkelosExplanation": {
+        "draft": "״וארי ימות מן בעירא די היא לכון למיכל״ – וכי ימות מן הבהמה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-40": {
+      "onkelosExplanation": {
+        "draft": "״ודיכול מנבלתה יצבע לבושוהי״ – והאוכל מנבלתה יכבס בגדיו.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-41": {
+      "onkelosExplanation": {
+        "draft": "״וכל רחשא דרחש על ארעא שקצא הוא לא יתאכל״ – וכל השרץ השורץ על הארץ – שקץ הוא.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-42": {
+      "onkelosExplanation": {
+        "draft": "״כל דמהלך על מעוהי וכל דמהלך על ארבע עד כל סגיאות רגלאין״ – כל הולך על גחון, ועד כל מרבה רגליים.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-43": {
+      "onkelosExplanation": {
+        "draft": "״לא תשקצו ית נפשתיכון... ולא תסתאבון בהון״ – אל תשקצו את נפשותיכם ולא תיטמאו בהם. ״ונטמתם בם״ נכתב בלי אל״ף, והגמרא (יומא) דורשת: אל תקרי ״ונטמאתם״ אלא ״ונטמטם״ – האיסור מטמטם את הלב. מה שאדם אוכל משפיע על מי שהוא.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-44": {
+      "onkelosExplanation": {
+        "draft": "״ותתקדשון ותהון קדישין ארי קדיש אנא״ – והתקדשתם והייתם קדושים, כי קדוש אני. הכשרות אינה רק דיאטה; היא דרך להתקדש.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-45": {
+      "onkelosExplanation": {
+        "draft": "״ארי אנא יי דאסק יתכון מארעא דמצרים... ותהון קדישין ארי קדיש אנא״ – כי אני ה׳ המעלה אתכם מארץ מצרים. רש״י מביא: בכל מקום כתוב ״הוצאתי״, וכאן ״המעלה״ – כי שמירה מאכילת שרצים היא עלייה. הקדושה היא לא הגבלה; היא עלייה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-46": {
+      "onkelosExplanation": {
+        "draft": "״דא אוריתא דבעירא ודעופא ודכל נפשתא חיתא״ – זאת תורת הבהמה והעוף וכל נפש החיה.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-11-47": {
+      "onkelosExplanation": {
+        "draft": "״לאפרשא בין מסאבא ובין דכיא ובין חיתא דמתאכלא ובין חיתא די לא מתאכלא״ – להבדיל בין הטמא ובין הטהור. כמו הכהנים בתחילת הפרשה – כל יהודי לומד להבדיל. זו מהות הקדושה: לדעת להבחין.",
+        "updatedAt": "2026-10-08T17:09:06.663Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}

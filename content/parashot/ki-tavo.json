@@ -1,0 +1,1004 @@
+{
+  "schemaVersion": 2,
+  "slug": "ki-tavo",
+  "meta": {
+    "slug": "ki-tavo",
+    "name": "כי־תבוא",
+    "nameEn": "Ki Tavo",
+    "book": "Deuteronomy",
+    "bookHe": "דברים",
+    "range": "Deuteronomy 26:1-29:8",
+    "rangeHe": "דברים כ״ו:א׳–כ״ט:ח׳",
+    "verseCount": 122,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Deuteronomy 26:1-26:11"
+      },
+      {
+        "n": 2,
+        "ref": "Deuteronomy 26:12-26:15"
+      },
+      {
+        "n": 3,
+        "ref": "Deuteronomy 26:16-26:19"
+      },
+      {
+        "n": 4,
+        "ref": "Deuteronomy 27:1-27:10"
+      },
+      {
+        "n": 5,
+        "ref": "Deuteronomy 27:11-28:6"
+      },
+      {
+        "n": 6,
+        "ref": "Deuteronomy 28:7-28:69"
+      },
+      {
+        "n": 7,
+        "ref": "Deuteronomy 29:1-29:8"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "Isaiah 60:1-22",
+        "refHe": "ישעיהו ס, א–כב"
+      },
+      "sephardi": {
+        "ref": "Isaiah 60:1-22",
+        "refHe": "ישעיהו ס, א–כב"
+      },
+      "sameForAll": true
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Deuteronomy (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "דברים כו, א – כט, ח"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "ביכורים",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "מי שמביא ביכורים מספר: ארמי אובד אבי, וירד מצרימה, ויוציאנו. הווידוי והמעשר. אחר כך ברכות וקללות בהר גריזים ובהר עיבל. משה מסיים דור ואומר: לא נתן לכם לב לדעת עד היום.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "כשמביאים את הפירות הראשונים, מספרים סיפור: פעם היינו עבדים, ועכשיו יש לנו ארץ ופירות. אומרים תודה בקול.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "״קומי אורי כי בא אורך״. הבאת הביכורים היא אור שמגיע אל המקדש, וההפטרה כולה אור על ירושלים.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T17:24:22.161Z",
+      "source": "import:content-writer",
+      "draft": "זו השישית בשבע הפטרות הנחמה (ישעיהו ס, א–כב), ״קומי אורי כי בא אורך״, ואשכנזים וספרדים קוראים אותה בלי שינוי. בפרשה שומעים את התוכחה הקשה – ״ונשארתם במתי מעט״, ״והיו שמיך אשר על ראשך נחושת״. ההפטרה עונה כמעט מילה במילה: ״הקטון יהיה לאלף והצעיר לגוי עצום״, ״תחת הנחושת אביא זהב״. ובפרשה מביאים ביכורים אל המקדש בשמחה. בהפטרה כל העמים מביאים מתנות לירושלים: ״כולם מקבצו באו לך״. החושך של התוכחה לא נשאר האחרון – ״והיה לך ה׳ לאור עולם״."
+    },
+    "haftaraConnections": {
+      "published": [
+        "ביכורים",
+        "סיפור היציאה",
+        "אור"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "26:1",
+        "26:5"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "הפרשה מספרת מה קורה כשלא שומעים בקול ה׳, וזה קשה לשמוע. ההפטרה אומרת: ״קומי אורי כי בא אורך״. אחרי החושך – בא אור גדול, וה׳ יהיה לנו לאור לתמיד.",
+      "updatedAt": "2026-10-08T17:24:22.161Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "לא להיות כפוי טובה",
+          "text": "מי שמביא ביכורים אומר: ״הגדתי היום״. רש״י מסביר: שאינך כפוי טובה. החקלאי מספר את כל הסיפור – מ״ארמי אובד אבי״ ועד הפרי שבסל. ההודיה האמיתית לא מתחילה מהשפע. היא זוכרת מאיפה באנו."
+        },
+        {
+          "title": "בשמחה ובטוב לבב",
+          "text": "״תחת אשר לא עבדת את ה׳ אלוהיך בשמחה ובטוב לבב מרוב כל״. זה אחד המשפטים המפחידים בתורה. הבעיה לא הייתה רק שלא עשו – אלא שעשו בלי שמחה. אפשר לקיים הכול ולהיות עצוב ומריר. התורה מבקשת לב שמח. השמחה היא חלק מהעבודה."
+        },
+        {
+          "title": "היום נהיית לעם",
+          "text": "״היום הזה נהיית לעם״. אחרי ארבעים שנה! רש״י מסביר: בכל יום יהיו בעיניך כאילו היום באת עימו בברית. דברים חשובים נשחקים מהרגל – זוגיות, אמונה, תפקיד. הסוד הוא לחדש אותם כל בוקר, כאילו התחלנו היום."
+        },
+        {
+          "title": "לב לדעת",
+          "text": "״ולא נתן ה׳ לכם לב לדעת... עד היום הזה״. הם ראו קריעת ים סוף, מן, ענני כבוד – ובכל זאת הלב לא הבין עד הסוף. אפשר לראות ניסים ולא להשתנות. ההבנה של הלב לוקחת זמן, ולפעמים ארבעים שנה. לא מתייאשים – ממשיכים ללכת."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:24:22.161Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "תודה על הפרי הראשון",
+          "text": "החקלאי היה לוקח את התאנה הראשונה, את הענב הראשון, ומביא אותם בסל לבית המקדש כדי להגיד תודה. גם אנחנו יכולים לעצור לפני שאוכלים, ולהגיד ברכה – תודה לה׳."
+        },
+        {
+          "title": "לשמוח במצוות",
+          "text": "התורה רוצה שנעשה מצוות בשמחה, לא בפרצוף חמוץ. כשעוזרים בבית או נותנים צדקה – אפשר לעשות את זה עם חיוך."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:24:22.161Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "deuteronomy-26-1": {
+      "onkelosExplanation": {
+        "draft": "״ויהי ארי תעול לארעא די יי אלהך יהב לך אחסנא ותירתה ותיתב בה״ – והיה כי תבוא אל הארץ. רש״י: מצוות הביכורים חלה אחרי שכבשו וחילקו. רק כשיש לך באמת משהו – אתה מתבקש להודות עליו.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-2": {
+      "onkelosExplanation": {
+        "draft": "״ותסב מריש כל אבא דארעא... ותשוי בסלא ותהך לאתרא די יתרעי יי אלהך לאשראה שכנתה תמן״ – ולקחת מראשית כל פרי האדמה. אונקלוס: ״לאשראה שכנתה תמן״ – להשרות שכינתו שם. הפרי הראשון לא נשאר בבית. הוא הולך אל המקום שבו שורה השכינה.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-3": {
+      "onkelosExplanation": {
+        "draft": "״ותימר לה חויתי יומא דין קדם יי אלהך ארי עלית לארעא״ – הגדתי היום לה׳ אלוהיך כי באתי אל הארץ. רש״י מסביר: שאינך כפוי טובה. אונקלוס: ״חויתי״ – סיפרתי. ההודאה צריכה להיאמר בקול.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-4": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא סלא מידך ויחתנה קדם מדבחא דיי אלהך״ – ולקח הכהן הטנא מידך.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-5": {
+      "onkelosExplanation": {
+        "draft": "״ותתיב ותימר קדם יי אלהך לבן ארמאה בעא לאובדא ית אבא ונחת למצרים ודר תמן בעם זער״ – ארמי אובד אבי, ויירד מצרימה. אונקלוס מפרש: לבן הארמי ביקש לאבד את אבי, יעקב. כך מפרשים גם רש״י וההגדה של פסח. מי שמביא את הפרי הראשון – מספר את כל הסיפור מההתחלה: מהסכנה, מהמעט – אל השפע.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-6": {
+      "onkelosExplanation": {
+        "draft": "״ואבאישו לנא מצראי וענינא ויהבו עלנא פלחנא קשיא״ – וירעו אותנו המצרים ויענונו.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-7": {
+      "onkelosExplanation": {
+        "draft": "״וצלינא קדם יי אלהא דאבהתנא וקביל יי צלותנא וגלי קדמוהי עמלנא ולאותנא ודוחקנא״ – ונצעק אל ה׳... וישמע ה׳ את קולנו, וירא את ענינו ואת עמלנו ואת לחצנו. אונקלוס: ״וצלינא״ – והתפללנו. ״וקביל יי צלותנא״ – קיבל את תפילתנו. הצעקה היא תפילה.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-8": {
+      "onkelosExplanation": {
+        "draft": "״ואפקנא יי ממצרים בידא תקיפא ובדרעא מרממא ובחזונא רבא ובאתין ובמופתין״ – ובמורא גדול. אונקלוס: ״ובחזונא רבא״ – במראה גדול. כולם ראו.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-9": {
+      "onkelosExplanation": {
+        "draft": "״ואיתנא לאתרא הדין ויהב לנא ית ארעא הדא״ – ויביאנו אל המקום הזה.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-10": {
+      "onkelosExplanation": {
+        "draft": "״וכען הא איתתי ית ריש אבא דארעא דיהבת לי יי... ותסגוד קדם יי אלהך״ – ועתה הנה הבאתי את ראשית פרי האדמה אשר נתת לי ה׳. ״אשר נתת לי״ – גם מה שגידלתי בעבודה קשה – מתנה.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-11": {
+      "onkelosExplanation": {
+        "draft": "״ותחדי בכל טבתא די יהב לך יי אלהך ולאנש ביתך את ולואי וגיורא די בינך״ – ושמחת בכל הטוב. ושוב – השמחה כוללת את הלוי ואת הגר.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-12": {
+      "onkelosExplanation": {
+        "draft": "״ארי תשצי לעשרא ית כל מעשר עללתך בשתא תליתאה שנת מעשרא... וישבעון״ – כי תכלה לעשר... בשנה השלישית.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-13": {
+      "onkelosExplanation": {
+        "draft": "״ותימר קדם יי אלהך פלתי קדש מעשרא מן ביתא... לא עברית מפקודיך ולא אתנשיתי״ – ביערתי הקודש מן הבית... לא עברתי ממצוותיך ולא שכחתי. רש״י מסביר: ״ולא שכחתי״ – מלברך אותך על הפרשת המעשר. לא רק לתת – אלא לזכור למי נותנים.",
+        "updatedAt": "2026-10-08T17:24:22.161Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-14": {
+      "onkelosExplanation": {
+        "draft": "״לא אכלית באבלי מנה ולא פלתי מנה במסאב ולא יהבית מנה למית קבלית למימרא דיי אלהי״ – לא אכלתי באוני ממנו... שמעתי בקול ה׳ אלוהיי. אונקלוס: ״באבלי״ – באבלי.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-15": {
+      "onkelosExplanation": {
+        "draft": "״אסתכי ממדור קודשך מן שמיא וברך ית עמך ית ישראל״ – השקיפה ממעון קודשך מן השמיים וברך את עמך. רש״י מביא: כל ״השקפה״ שבתורה היא לרעה, חוץ מזו. גדול כוחה של מתנות עניים, שהופכת מידת הרוגז לרחמים.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-16": {
+      "onkelosExplanation": {
+        "draft": "״יומא הדין יי אלהך מפקדך למעבד ית קימיא האלין... בכל לבך ובכל נפשך״ – היום הזה ה׳ אלוהיך מצווך. רש״י: בכל יום יהיו בעיניך כחדשים, כאילו בו ביום נצטווית עליהם.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-17": {
+      "onkelosExplanation": {
+        "draft": "״ית יי חטבת יומא דין למהוי לך לאלה״ – את ה׳ האמרת היום להיות לך לאלוהים. אונקלוס: ״חטבת״ – בחרת, עשית אותו מיוחד. הגמרא (ברכות) אומרת: אתם עשיתם אותי חטיבה אחת בעולם, ואני אעשה אתכם חטיבה אחת בעולם.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-18": {
+      "onkelosExplanation": {
+        "draft": "״ויי חטבך יומא דין למהוי לה לעם חביב״ – וה׳ האמירך היום להיות לו לעם סגולה. אונקלוס: ״לעם חביב״ – לעם אהוב. ״סגולה״ – זה אוצר שאוהבים.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-26-19": {
+      "onkelosExplanation": {
+        "draft": "״ולמתנך עלאה על כל עממיא... לתשבחא ולשום ולרבו ולמהוך עם קדיש״ – לתהילה ולשם ולתפארת.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-1": {
+      "onkelosExplanation": {
+        "draft": "״ופקיד משה וסבי ישראל ית עמא למימר טר ית כל תפקדתא״ – ויצו משה וזקני ישראל. בפעם הראשונה משה מצווה יחד עם הזקנים. הוא מכין את ההנהגה שתבוא אחריו.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-2": {
+      "onkelosExplanation": {
+        "draft": "״ותקים לך אבנין רברבין ותסוד יתהון בסידא״ – והקמות לך אבנים גדולות ושדת אותם בשיד.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-3": {
+      "onkelosExplanation": {
+        "draft": "״ותכתוב עליהון ית כל פתגמי אוריתא הדא במעברך״ – וכתבת עליהן את כל דברי התורה הזאת. הדבר הראשון בכניסה לארץ – לכתוב את התורה באבן.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-4": {
+      "onkelosExplanation": {
+        "draft": "״תקימון ית אבניא האלין... בטורא דעיבל ותסוד יתהון בסידא״ – בהר עיבל.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-5": {
+      "onkelosExplanation": {
+        "draft": "״ותבני תמן מדבחא קדם יי אלהך מדבח אבנין לא תרים עליהון פרזלא״ – לא תניף עליהם ברזל. הברזל מקצר חיים, והמזבח מאריך אותם.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-6": {
+      "onkelosExplanation": {
+        "draft": "״אבנין שלמין תבני ית מדבחא דיי אלהך״ – אבנים שלמות.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-7": {
+      "onkelosExplanation": {
+        "draft": "״ותכוס נכסת קודשין ותיכול תמן ותחדי קדם יי אלהך״ – וזבחת שלמים ואכלת שם ושמחת.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-8": {
+      "onkelosExplanation": {
+        "draft": "״ותכתוב על אבניא ית כל פתגמי אוריתא הדא פרש יאות״ – באר היטב. אונקלוס: ״פרש יאות״ – מפורש היטב. חז״ל (סוטה) אומרים: בשבעים לשון. התורה נכתבה כך שכל אדם בעולם יוכל להבין.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-9": {
+      "onkelosExplanation": {
+        "draft": "״אצית ושמע ישראל יומא הדין הויתא לעמא קדם יי אלהך״ – הסכת ושמע ישראל, היום הזה נהיית לעם. אונקלוס: ״אצית״ – הקשב. רש״י מסביר: בכל יום יהיו בעיניך כאילו היום באת עימו בברית.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-10": {
+      "onkelosExplanation": {
+        "draft": "״ותקבל למימרא דיי אלהך ותעבד ית פקודוהי״ – ושמעת בקול ה׳ אלוהיך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-11": {
+      "onkelosExplanation": {
+        "draft": "״ופקיד משה ית עמא ביומא ההוא למימר״ – ויצו משה את העם ביום ההוא.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-12": {
+      "onkelosExplanation": {
+        "draft": "״אלין יקומון לברכא ית עמא על טורא דגרזים... שמעון ולוי ויהודה ויששכר ויוסף ובנימין״ – אלה יעמדו לברך את העם על הר גריזים.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-13": {
+      "onkelosExplanation": {
+        "draft": "״ואלין יקומון על לוטיא בטורא דעיבל ראובן גד ואשר וזבולן דן ונפתלי״ – על הקללה בהר עיבל.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-14": {
+      "onkelosExplanation": {
+        "draft": "״ויתיבון לואי ויימרון לכל אנש ישראל קלא רמא״ – וענו הלויים ואמרו... קול רם.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-15": {
+      "onkelosExplanation": {
+        "draft": "״ליט גברא די יעבד צלם ומתכא... ושוי בסתרא ויתיבון כל עמא ויימרון אמן״ – ארור האיש אשר יעשה פסל ומסכה... ושם בסתר. רוב הארורים כאן הם על דברים שעושים בסתר, במקום שבית הדין לא רואה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-16": {
+      "onkelosExplanation": {
+        "draft": "״ליט דיקלי אבוהי ואמה״ – ארור מקלה אביו ואמו. אונקלוס: ״דיקלי״ – מזלזל. לא רק מקלל – גם מי שמבזה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-17": {
+      "onkelosExplanation": {
+        "draft": "״ליט דישני תחומא דחברה״ – ארור מסיג גבול רעהו.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-18": {
+      "onkelosExplanation": {
+        "draft": "״ליט דיטעי עוירא בארחא״ – ארור משגה עיוור בדרך. רש״י מוסיף: גם מי שמשיא עצה רעה למי שעיוור בדבר.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-19": {
+      "onkelosExplanation": {
+        "draft": "״ליט דיצלי דין דיר יתמא וארמלא״ – ארור מטה משפט גר יתום ואלמנה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-20": {
+      "onkelosExplanation": {
+        "draft": "״ליט דישכוב עם אתת אבוהי ארי גלי כנפא דאבוהי״ – ארור שוכב עם אשת אביו.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-21": {
+      "onkelosExplanation": {
+        "draft": "״ליט דישכוב עם כל בעירא״ – ארור שוכב עם כל בהמה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-22": {
+      "onkelosExplanation": {
+        "draft": "״ליט דישכוב עם אחתה בת אבוהי או בת אמה״ – ארור שוכב עם אחותו.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-23": {
+      "onkelosExplanation": {
+        "draft": "״ליט דישכוב עם חמותה״ – ארור שוכב עם חותנתו.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-24": {
+      "onkelosExplanation": {
+        "draft": "״ליט דימחי לחברה בסתרא״ – ארור מכה רעהו בסתר. רש״י מסביר: על לשון הרע. מכה בסתר – בדיבור, מאחורי הגב.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-25": {
+      "onkelosExplanation": {
+        "draft": "״ליט די מקבל שחדא למקטל נפש דם זכי״ – ארור לוקח שוחד להכות נפש דם נקי.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-27-26": {
+      "onkelosExplanation": {
+        "draft": "״ליט די לא יקים ית פתגמי אוריתא הדא למעבד יתהון״ – ארור אשר לא יקים את דברי התורה הזאת. הארור האחרון כולל הכול.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-1": {
+      "onkelosExplanation": {
+        "draft": "״ויהי אם קבלא תקבל למימרא דיי אלהך... ויתננך יי אלהך עלאה על כל עממי ארעא״ – והיה אם שמוע תשמע.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-2": {
+      "onkelosExplanation": {
+        "draft": "״וייתון עלך כל ברכתא האלין וידבקנך״ – ובאו עליך כל הברכות האלה והשיגוך. הברכות ירדפו אחריך – לא אתה אחריהן.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-3": {
+      "onkelosExplanation": {
+        "draft": "״בריך את בקרתא ובריך את בחקלא״ – ברוך אתה בעיר וברוך אתה בשדה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-4": {
+      "onkelosExplanation": {
+        "draft": "״בריך ולדא דמעך ואבא דארעך וולדא דבעירך״ – ברוך פרי בטנך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-5": {
+      "onkelosExplanation": {
+        "draft": "״בריך סלך ואצותך״ – ברוך טנאך ומשארתך. אונקלוס: ״ואצותך״ – וקערת הבצק שלך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-6": {
+      "onkelosExplanation": {
+        "draft": "״בריך את במעלך ובריך את במפקך״ – ברוך אתה בבואך וברוך אתה בצאתך. רש״י מסביר: שתהיה יציאתך מן העולם כביאתך לעולם – בלי חטא.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-7": {
+      "onkelosExplanation": {
+        "draft": "״יתן יי ית בעלי דבבך... בארחא חדא יפקון לותך ובשבעא ארחן יערקון מקדמך״ – בדרך אחד ייצאו אליך ובשבעה דרכים ינוסו לפניך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-8": {
+      "onkelosExplanation": {
+        "draft": "״יפקד יי עמך ית ברכתא באוצרך ובכל אושטות ידך״ – יצו ה׳ אתך את הברכה באסמיך ובכל משלח ידך. הברכה שורה במה שאתה עושה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-9": {
+      "onkelosExplanation": {
+        "draft": "״יקימנך יי לה לעם קדיש... ותהך בארחן דתקנן קדמוהי״ – והלכת בדרכיו. אונקלוס: ״בארחן דתקנן קדמוהי״ – בדרכים הישרות לפניו.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-10": {
+      "onkelosExplanation": {
+        "draft": "״ויחזון כל עממי ארעא ארי שמא דיי אתקרי עלך וידחלון מנך״ – וראו כל עמי הארץ כי שם ה׳ נקרא עליך. הגמרא (ברכות) אומרת בשם רבי אליעזר הגדול: אלו תפילין שבראש.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-11": {
+      "onkelosExplanation": {
+        "draft": "״ויותרנך יי לטבא בולדא דמעך״ – והותירך ה׳ לטובה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-12": {
+      "onkelosExplanation": {
+        "draft": "״יפתח יי לך ית אוצרה טבא ית שמיא למתן מטר ארעך בעדנה... ותוזף לעממין סגיאין ואת לא תזוף״ – יפתח ה׳ לך את אוצרו הטוב. הגשם הוא אוצר – והמפתח שלו בידי ה׳.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-13": {
+      "onkelosExplanation": {
+        "draft": "״ויתננך יי לתקיף ולא לחלש ותהי ברם לעלא ולא תהי לתחתא״ – ונתנך ה׳ לראש ולא לזנב. אונקלוס מתרגם בלי משל: לחזק ולא לחלש.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-14": {
+      "onkelosExplanation": {
+        "draft": "״ולא תסטון מכל פתגמיא... ימינא ושמאלא למהך בתר טעות עממיא״ – ולא תסור.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-15": {
+      "onkelosExplanation": {
+        "draft": "״ויהי אם לא תקבל במימרא דיי אלהך... וייתון עלך כל לוטיא האלין וידבקנך״ – והיה אם לא תשמע.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-16": {
+      "onkelosExplanation": {
+        "draft": "״ליט את בקרתא וליט את בחקלא״ – ארור אתה בעיר.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-17": {
+      "onkelosExplanation": {
+        "draft": "״ליט סלך ואצותך״ – ארור טנאך ומשארתך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-18": {
+      "onkelosExplanation": {
+        "draft": "״ליט ולדא דמעך ואבא דארעך״ – ארור פרי בטנך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-19": {
+      "onkelosExplanation": {
+        "draft": "״ליט את במעלך וליט את במפקך״ – ארור אתה בבואך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-20": {
+      "onkelosExplanation": {
+        "draft": "״יגרי יי בך ית מארתא וית שגושיא וית מזופיתא... מן קדם בישות עובדיך דשבקתא דחלתי״ – ישלח ה׳ בך את המארה את המהומה ואת המגערת. אונקלוס: ״דשבקתא דחלתי״ – שעזבת את יראתי.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-21": {
+      "onkelosExplanation": {
+        "draft": "״ידבק יי בך ית מותא״ – ידבק ה׳ בך את הדבר. אונקלוס: ״מותא״ – מגפה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-22": {
+      "onkelosExplanation": {
+        "draft": "״ימחנך יי בשחפתא ובקדחתא ובדלקתא ובחרחורא ובחרבא ובשדפונא ובירקונא״ – בשחפת ובקדחת ובדלקת.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-23": {
+      "onkelosExplanation": {
+        "draft": "״ויהון שמיך די עלוי רישך חסינין כנחשא מלאחתא מטרא״ – והיו שמיך אשר על ראשך נחושת. אונקלוס מפרש את המשל: קשים כנחושת, מלהוריד מטר.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-24": {
+      "onkelosExplanation": {
+        "draft": "״יתן יי ית מטר ארעך אבקא ועפרא״ – אבק ועפר.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-25": {
+      "onkelosExplanation": {
+        "draft": "״יתננך יי תביר קדם סנאך... ותהי לזיע לכל מלכות ארעא״ – והיית לזעווה לכל ממלכות הארץ.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-26": {
+      "onkelosExplanation": {
+        "draft": "״ותהי נבלתך משגרא למיכל לכל עופא דשמיא... ולית דמניד״ – ואין מחריד.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-27": {
+      "onkelosExplanation": {
+        "draft": "״ימחנך יי בשחנא דמצרים ובטחורין ובגרבא ובחריס יביש״ – בשחין מצרים.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-28": {
+      "onkelosExplanation": {
+        "draft": "״ימחנך יי בטפשותא ובסמיותא ובשעממות לבא״ – בשיגעון ובעיוורון ובתמהון לבב. אונקלוס: ״ובשעממות לבא״ – בבלבול הלב.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-29": {
+      "onkelosExplanation": {
+        "draft": "״ותהי ממשש בטהרא כמא די משש עוירא בקבלא״ – והיית ממשש בצהריים כאשר ימשש העיוור באפלה. הגמרא (מגילה) שואלת: מה אכפת לעיוור אם חושך או אור? ומספרת על רבי יוסי שראה עיוור הולך בלילה עם אבוקה. העיוור הסביר: כל זמן שהאבוקה בידי – רואים אותי, ומצילים אותי מבורות.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-30": {
+      "onkelosExplanation": {
+        "draft": "״אתתא תירוס וגבר אחרן ישכבנה ביתא תבני ולא תיתב בה כרמא תצוב ולא תחלנה״ – אישה תארש... בית תבנה... כרם תיטע. הפוך בדיוק מהפטורים ממלחמה בפרשת שופטים.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-31": {
+      "onkelosExplanation": {
+        "draft": "״תורך יהי נכס לעיניך ולא תיכול מנה״ – שורך טבוח לעיניך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-32": {
+      "onkelosExplanation": {
+        "draft": "״בניך ובנתיך מסירין לעמא אחרן ועינך חזן ויסופן בגללהן״ – ועיניך רואות וכלות אליהם.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-33": {
+      "onkelosExplanation": {
+        "draft": "״אבא דארעך וכל לאותך יכול עמא די לא ידעת״ – פרי אדמתך וכל יגיעך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-34": {
+      "onkelosExplanation": {
+        "draft": "״ותהי משתטה מחזו עיניך די תחזי״ – והיית משוגע ממראה עיניך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-35": {
+      "onkelosExplanation": {
+        "draft": "״ימחנך יי בשחנא בישא על רכביא ועל שקיא״ – בשחין רע.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-36": {
+      "onkelosExplanation": {
+        "draft": "״יגלי יי יתך וית מלכך... ותפלח תמן לעממיא פלחי טעותא אעא ואבנא״ – ועבדת שם אלוהים אחרים. אונקלוס: ״לעממיא פלחי טעותא״ – לעמים עובדי עבודה זרה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-37": {
+      "onkelosExplanation": {
+        "draft": "״ותהי לצדו למתל ולשועי בכל עממיא״ – לשמה, למשל ולשנינה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-38": {
+      "onkelosExplanation": {
+        "draft": "״בר זרע סגי תפק לחקלא וזער תכנוש ארי יחסלנה גובא״ – זרע רב תוציא השדה ומעט תאסוף, כי יחסלנו הארבה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-39": {
+      "onkelosExplanation": {
+        "draft": "״כרמין תצוב ותפלח וחמרא לא תשתי... ארי תיכלנה תלעתא״ – כי תאכלנו התולעת.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-40": {
+      "onkelosExplanation": {
+        "draft": "״זיתין יהון לך בכל תחומך ומשחא לא תסוך ארי יתרון זיתיך״ – כי יישל זיתך.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-41": {
+      "onkelosExplanation": {
+        "draft": "״בנין ובנן תוליד ולא יהון לך ארי יהכון בשביא״ – כי ילכו בשבי.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-42": {
+      "onkelosExplanation": {
+        "draft": "״כל אילנך ואבא דארעך יחסננה סקאה״ – יירש הצלצל.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-43": {
+      "onkelosExplanation": {
+        "draft": "״תותב ערל די בינך יהי סליק עיל מנך לעלא לעלא ואת תהי נחת לתחתא לתחתא״ – הגר אשר בקרבך יעלה עליך מעלה מעלה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-44": {
+      "onkelosExplanation": {
+        "draft": "״הוא יוזפנך ואת לא תוזפנה הוא יהי לתקיף ואת תהי לחלש״ – הוא יהיה לראש ואתה תהיה לזנב.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-45": {
+      "onkelosExplanation": {
+        "draft": "״וייתון עלך כל לוטיא האלין וירדפנך וידבקנך״.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-46": {
+      "onkelosExplanation": {
+        "draft": "״ויהון בך לאת ולמופת ובבניך עד עלם״.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-47": {
+      "onkelosExplanation": {
+        "draft": "״חלף די לא פלחתא קדם יי אלהך בחדוא ובשפירות לבא מסגי כלא״ – תחת אשר לא עבדת את ה׳ אלוהיך בשמחה ובטוב לבב מרוב כל. אונקלוס: ״ובשפירות לבא״ – ביופי הלב. הרמב״ם (הלכות לולב) מביא פסוק זה ולומד ממנו: השמחה בעשיית המצוות היא עבודה גדולה. לא מספיק לעשות. צריך לשמוח במה שעושים.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-48": {
+      "onkelosExplanation": {
+        "draft": "״ותפלח ית בעלי דבבך... בכפנא ובצחותא ובערטליתא ובחסירות כלא״ – ברעב ובצמא ובעירום ובחוסר כל. מי שלא שמח מ״רוב כל״ – מגיע ל״חוסר כל״.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-49": {
+      "onkelosExplanation": {
+        "draft": "״ייתי יי עלך עם מרחיק מסיפי ארעא כמא די משתדי נשרא״ – כאשר ידאה הנשר. אונקלוס: ״משתדי״ – עט, מתנפל.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-50": {
+      "onkelosExplanation": {
+        "draft": "״עם תקיף אפין די לא יסב אפין לסבא ועל ינקא לא מרחם״ – גוי עז פנים אשר לא ישא פנים לזקן ונער לא יחון.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-51": {
+      "onkelosExplanation": {
+        "draft": "״וייכול ולדא דבעירך ואבא דארעך עד דתשתצי״.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-52": {
+      "onkelosExplanation": {
+        "draft": "״ויעק לך בכל קרויך עד דיכבש שוריך רמיא וכריכיא די את רחץ לאשתזבא בהן״ – והצר לך... עד רדת חומותיך הגבוהות והבצורות אשר אתה בוטח בהן.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-53": {
+      "onkelosExplanation": {
+        "draft": "״ותיכול ולדא דמעך בשר בניך ובנתיך... בצירא ובעקתא״ – במצור ובמצוק.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-54": {
+      "onkelosExplanation": {
+        "draft": "״גברא דרכיך בך ודמפנק לחדא תבאש עינה באחוהי״ – האיש הרך בך והענוג מאוד, תרע עינו באחיו. הרעב משנה גם את העדין ביותר.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-55": {
+      "onkelosExplanation": {
+        "draft": "״מלמתן לחד מנהון מבשר בנוהי די ייכול״.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-56": {
+      "onkelosExplanation": {
+        "draft": "״דרכיכא בך ודמפנקא די לא נסיאת פרסת רגלה לאחתא על ארעא״ – הרכה בך והענוגה אשר לא ניסתה כף רגלה הצג על הארץ.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-57": {
+      "onkelosExplanation": {
+        "draft": "״ובזער בנהא דיפקון מנה... ארי תיכלנון בחסירות כלא בסתרא״ – כי תאכלם בחוסר כל בסתר. חז״ל ראו בפסוקים הקשים האלה תיאור של חורבן ירושלים ומצוריה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-58": {
+      "onkelosExplanation": {
+        "draft": "״אם לא תטר למעבד... למדחל ית שמא יקירא ודחילא הדין ית יי אלהך״ – ליראה את השם הנכבד והנורא הזה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-59": {
+      "onkelosExplanation": {
+        "draft": "״ויפרש יי ית מחתך... מחן רברבן ומהימנן ומכתשין בישין ומהימנין״ – והפלא ה׳ את מכותך. אונקלוס: ״ומהימנן״ – ונאמנות, קבועות.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-60": {
+      "onkelosExplanation": {
+        "draft": "״ויתב בך ית כל מכתשי מצרים די דחלתא מקדמיהון״ – כל מדווה מצרים אשר יגורת מפניהם.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-61": {
+      "onkelosExplanation": {
+        "draft": "״אף כל מרע וכל מחא די לא כתיבין בספרא דאוריתא הדא״ – גם כל חולי וכל מכה אשר לא כתוב.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-62": {
+      "onkelosExplanation": {
+        "draft": "״ותשתארון בעם זער חלף די הויתון ככוכבי שמיא למסגי״ – ונשארתם במתי מעט, תחת אשר הייתם ככוכבי השמיים לרוב.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-63": {
+      "onkelosExplanation": {
+        "draft": "״ויהי כמא דחדי יי עליכון לאוטבא יתכון... כן יחדי יי עליכון לאובדא יתכון״ – כאשר שש ה׳ עליכם להיטיב... כן ישיש ה׳. הגמרא (מגילה) מדייקת: ״ישיש״ ולא ״ישוש״ – הוא עצמו אינו שש, אבל משיש אחרים. ה׳ לא שמח במפלת בניו.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-64": {
+      "onkelosExplanation": {
+        "draft": "״ויבדרנך יי בכל עממיא מסיפי ארעא ועד סיפי ארעא״ – והפיצך ה׳ בכל העמים מקצה הארץ ועד קצה הארץ.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-65": {
+      "onkelosExplanation": {
+        "draft": "״ובעממיא האנון לא תנוח... ויתן יי לך תמן לב דחל וחשכת עינין ומפחן נפש״ – לב רגז וכליון עיניים ודאבון נפש. אונקלוס: ״לב דחל״ – לב מפחד. ״מפחן נפש״ – ייאוש. הגלות הקשה מכולן – בתוך הלב.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-66": {
+      "onkelosExplanation": {
+        "draft": "״ויהון חייך תלן לך מקבל ותהי תוה ליליא ויממא ולא תהימין בחייך״ – והיו חייך תלואים לך מנגד... ולא תאמין בחייך. רש״י מסביר: ״ולא תאמין בחייך״ – זה הסומך על הפלטר, שקונה לחם מיום ליום.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-67": {
+      "onkelosExplanation": {
+        "draft": "״בצפרא תימר מן יתן רמשא וברמשא תימר מן יתן צפרא״ – בבוקר תאמר מי ייתן ערב, ובערב תאמר מי ייתן בוקר. זה הייאוש: כשכל רגע קשה, ומקווים רק לרגע אחר.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-68": {
+      "onkelosExplanation": {
+        "draft": "״ויתיבנך יי מצרים בספינן... ותזדבנון תמן לבעלי דבבך לעבדין ולאמהן ולית דקנה״ – והשיבך ה׳ מצרים באוניות... ואין קונה. השפל הגדול: אפילו כעבד – אין מי שרוצה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-28-69": {
+      "onkelosExplanation": {
+        "draft": "״אלין פתגמי קימא די פקיד יי ית משה למגזר עם בני ישראל בארעא דמואב בר מקימא די גזר עמהון בחרב״ – אלה דברי הברית... מלבד הברית אשר כרת איתם בחורב. אונקלוס: ״למגזר״ – לכרות.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-29-1": {
+      "onkelosExplanation": {
+        "draft": "״אתון חזיתון ית כל די עבד יי לעיניכון בארעא דמצרים״ – אתם ראיתם את כל אשר עשה ה׳.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-29-2": {
+      "onkelosExplanation": {
+        "draft": "״נסין רברבין די חזאה עינך אתיא ומופתיא רברביא האנון״ – המסות הגדולות. אונקלוס: ״נסין רברבין״ – ניסיונות גדולים.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-29-3": {
+      "onkelosExplanation": {
+        "draft": "״ולא יהב יי לכון לבא למדע ועינין למחזי ואדנין למשמע עד יומא הדין״ – ולא נתן ה׳ לכם לב לדעת ועיניים לראות ואוזניים לשמוע עד היום הזה. רש״י מספר: באותו יום נתן משה את ספר התורה לבני לוי, ובאו כל ישראל ואמרו: גם אנחנו עמדנו בסיני! ושמח משה, ואמר: היום הזה נהיית לעם. ראייה לא מספיקה. רק כשהלב מבין – רואים באמת.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-29-4": {
+      "onkelosExplanation": {
+        "draft": "״ודברית יתכון ארבעין שנין במדברא לא בליאת כסותכון מנכון ומסנך לא עדו מעל רגלך״ – לא בלו שלמותיכם מעליכם, ונעלך לא בלתה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-29-5": {
+      "onkelosExplanation": {
+        "draft": "״לחמא לא אכלתון וחמר חדת ועתיק לא שתיתון בדיל דתדעון ארי אנא יי אלהכון״ – לחם לא אכלתם ויין ושכר לא שתיתם. אונקלוס: ״וחמר חדת ועתיק״ – יין חדש וישן. ארבעים שנה חייתם רק מנס – כדי שתדעו מי מפרנס.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-29-6": {
+      "onkelosExplanation": {
+        "draft": "״ואתתון לאתרא הדין ונפק סיחון מלכא דחשבון ועוג מלכא דמתנן לקדמותנא לאגחא קרבא ומחונון״ – ותבואו אל המקום הזה, וייצא סיחון.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-29-7": {
+      "onkelosExplanation": {
+        "draft": "״ונסבנא ית ארעהון ויהבנה לאחסנא לשבטא דראובן ולשבטא דגד ולפלגות שבטא דמנשה״ – ונתנה לנחלה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    },
+    "deuteronomy-29-8": {
+      "onkelosExplanation": {
+        "draft": "״ותטרון ית פתגמי קימא הדא ותעבדון יתהון בדיל דתצלחון ית כל די תעבדון״ – ושמרתם את דברי הברית הזאת... למען תשכילו. אונקלוס: ״בדיל דתצלחון״ – למען תצליחו. ההשכלה האמיתית היא הצלחה.",
+        "updatedAt": "2026-10-08T17:24:22.162Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}

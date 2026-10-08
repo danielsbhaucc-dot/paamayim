@@ -1,0 +1,1004 @@
+{
+  "schemaVersion": 2,
+  "slug": "vayakhel",
+  "meta": {
+    "slug": "vayakhel",
+    "name": "ויקהל",
+    "nameEn": "Vayakhel",
+    "book": "Exodus",
+    "bookHe": "שמות",
+    "range": "Exodus 35:1-38:20",
+    "rangeHe": "שמות ל״ה:א׳–ל״ח:כ׳",
+    "verseCount": 122,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Exodus 35:1-35:20"
+      },
+      {
+        "n": 2,
+        "ref": "Exodus 35:21-35:29"
+      },
+      {
+        "n": 3,
+        "ref": "Exodus 35:30-36:7"
+      },
+      {
+        "n": 4,
+        "ref": "Exodus 36:8-36:19"
+      },
+      {
+        "n": 5,
+        "ref": "Exodus 36:20-37:16"
+      },
+      {
+        "n": 6,
+        "ref": "Exodus 37:17-37:29"
+      },
+      {
+        "n": 7,
+        "ref": "Exodus 38:1-38:20"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "I Kings 7:40-50",
+        "refHe": "מלכים א׳ ז, מ–נ"
+      },
+      "sephardi": {
+        "ref": "I Kings 7:13-26",
+        "refHe": "מלכים א׳ ז, יג–כו"
+      },
+      "sameForAll": false
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Exodus (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "שמות לה, א – לח, כ"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "כל מי שנדב לבו",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "משה מקהיל את העם ופותח בשבת, ואחר כך בתרומת המשכן. העם מביא כל כך הרבה עד שאומרים ״די״. בצלאל ואהליאב עושים את הכלים, והענן מחכה לסוף המלאכה.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "כולם מביאים משהו לבניית המשכן: בד, זהב, ועץ. מביאים כל כך הרבה, עד שאומרים: מספיק. אנשים חכמים בונים יחד.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "מלכים מפרט את כלי המקדש שעשה חירם. ההפטרה נבחרה כי הפרשה היא עשיית כלי המשכן בידיים.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T17:09:06.677Z",
+      "source": "import:content-writer",
+      "draft": "בפרשה בצלאל ואהליאב וכל חכמי הלב בונים את המשכן וכליו, ובצלאל מתואר כמי שה׳ מילא אותו ״בחכמה בתבונה ובדעת ובכל מלאכה״. בהפטרה (מלכים א ז; הספרדים קוראים פסוקים יג–כו, והאשכנזים מ–נ) חירם האומן עושה את כלי בית המקדש של שלמה – העמודים, הים הגדול, הכיורים והמנורות. והתנ״ך מתאר אותו כמעט באותן מילים בדיוק: ״וימלא את החכמה ואת התבונה ואת הדעת לעשות כל מלאכה בנחשת״. ומעניין: חירם הוא ״בן אשה אלמנה ממטה נפתלי״ – ובפרשה אהליאב בא משבט דן. בשני המקדשים, הבנייה הגדולה של ישראל נעשית בידי אמנים מכל השבטים – גם מאלה שנחשבו קטנים. (ברוב השנים ויקהל נקראת יחד עם פקודי, ובשנים רבות היא חלה בשבת שקלים, בשבת פרה או בשבת החודש – ואז קוראים את ההפטרה המיוחדת לאותה שבת.)"
+    },
+    "haftaraConnections": {
+      "published": [
+        "כלים",
+        "נדבת לב",
+        "מלאכה שנעשית יחד"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "35:1",
+        "35:21"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "בפרשה בצלאל, האומן החכם, בונה את המשכן ואת הכלים שלו. בהפטרה חירם, אומן חכם אחר, בונה את הכלים של בית המקדש בימי שלמה המלך. ה׳ נותן לאנשים כישרונות – כדי שיבנו בהם דברים טובים ויפים.",
+      "updatedAt": "2026-10-08T17:09:06.677Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "אותה אסיפה, כיוון הפוך",
+          "text": "לפני חטא העגל ״ויקהל העם על אהרן״ – כדי לבנות עגל. בפרשה ״ויקהל משה את כל עדת בני ישראל״ – כדי לבנות משכן. אותם אנשים, אותה התלהבות, אותו זהב. הכוח לחבר אנשים יכול להרוס ויכול לבנות; השאלה היא סביב מה מתאספים."
+        },
+        {
+          "title": "כשצריך לעצור אנשים מלתת",
+          "text": "העם הביא כל כך הרבה, עד שמשה העביר קול במחנה: אל תביאו עוד. העם שנתן זהב לעגל, נתן עכשיו ביד רחבה עוד יותר. כך נראית תשובה אמיתית: אותו כוח שנפל – מתהפך ומוביל לבנייה."
+        },
+        {
+          "title": "לא לחכות לראות מה יחסר",
+          "text": "הנשיאים אמרו: יביאו כולם, ואנחנו נשלים מה שחסר. אבל העם השלים הכול, ולהם נשארו רק האבנים. מי שמחכה בצד כדי להיכנס ברגע האחרון – לפעמים מגלה שהרגע עבר. בדברים טובים, כדאי להיות ראשונים."
+        },
+        {
+          "title": "המראות של הנשים",
+          "text": "הכיור נעשה ממראות הנחושת של הנשים. משה חשש לקבל אותן, ורש״י מביא שה׳ אמר: אלה החביבות עליי מכולן – כי בהן הנשים במצרים עודדו את בעליהן והמשיכו להביא ילדים לעולם. מה שנראה כמו יופי חיצוני, היה בעצם כלי של תקווה ואמונה בעתיד."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.677Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "כל אחד והכישרון שלו",
+          "text": "הנשים טוו חוטים, בצלאל עשה כלי זהב, והנשיאים הביאו אבנים יקרות. כל אחד עזר במה שהוא טוב בו. גם לי יש כישרון – ואני יכול להשתמש בו כדי לעזור."
+        },
+        {
+          "title": "שבת לפני הכול",
+          "text": "לפני שמשה סיפר על בניית המשכן, הוא הזכיר את השבת. אפילו את המשכן לא בונים בשבת. השבת היא יום מיוחד שלא מחליפים בשום דבר."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.677Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "exodus-35-1": {
+      "onkelosExplanation": {
+        "draft": "״ואכנש משה ית כל כנשתא דבני ישראל״ – ויקהל משה את כל עדת בני ישראל. רש״י מסביר שזה היה למחרת יום הכיפורים, כשמשה ירד עם הלוחות השניים. לפני חטא העגל ״ויקהל העם על אהרן״ לבנות עגל; עכשיו משה מקהיל אותם – לבנות משכן. אותה התכנסות, כיוון הפוך.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-2": {
+      "onkelosExplanation": {
+        "draft": "״שתא יומין תתעבד עבדתא וביומא שביעאה יהי לכון קודשא שבא שבתא קדם יי״ – ששת ימים תיעשה מלאכה וביום השביעי קודש, שבת שבתון. רש״י מסביר: הקדים את השבת לציווי המשכן, ללמד שבניין המשכן אינו דוחה שבת. אפילו הבית של ה׳ נבנה רק בששת ימי המעשה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-3": {
+      "onkelosExplanation": {
+        "draft": "״לא תבערון אשתא בכל מותבניכון ביומא דשבתא״ – לא תבערו אש בכל מושבותיכם ביום השבת. האש היא כלי היצירה של האדם; בשבת עוצרים את היצירה ומתבוננים במה שכבר נברא.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-4": {
+      "onkelosExplanation": {
+        "draft": "״דין פתגמא די פקד יי״ – זה הדבר אשר ציווה ה׳.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-5": {
+      "onkelosExplanation": {
+        "draft": "״סבו מנכון אפרשותא קדם יי כל דיתרעי לבה ייתי״ – קחו מאתכם תרומה, כל נדיב לב יביאה. ״מאתכם״ – מתוך עצמכם, ממה שבאמת שלכם.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-6": {
+      "onkelosExplanation": {
+        "draft": "״ותכלא וארגונא וצבע זהורי ובוץ ומעזי״ – תכלת, ארגמן, שני, שש ועזים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-7": {
+      "onkelosExplanation": {
+        "draft": "״ומשכי דדכרי מסמקי ומשכי דססגונא ואעי שטין״ – עורות אילים מאודמים, עורות תחשים ועצי שיטים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-8": {
+      "onkelosExplanation": {
+        "draft": "״ומשחא לאנהרותא ובוסמיא למשח רבותא ולקטרת בוסמיא״ – שמן למאור ובשמים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-9": {
+      "onkelosExplanation": {
+        "draft": "״ואבני בורלא ואבני אשלמותא״ – אבני שוהם ואבני מילואים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-10": {
+      "onkelosExplanation": {
+        "draft": "״וכל חכימי לבא בכון ייתון ויעבדון״ – וכל חכם לב בכם יבואו ויעשו. משה פונה לכל מי שיש בו כישרון: בואו.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-11": {
+      "onkelosExplanation": {
+        "draft": "״ית משכנא ית פרסה וית חופאה״ – את המשכן, את אוהלו ואת מכסהו. הרשימה המלאה חוזרת – הפעם כתכנית עבודה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-12": {
+      "onkelosExplanation": {
+        "draft": "״ית ארונא וית אריחוהי ית כפרתא וית פרכתא דפרסא״ – הארון, בדיו, הכפורת ופרוכת המסך.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-13": {
+      "onkelosExplanation": {
+        "draft": "״ית פתורא... וית לחם אפיא״ – השולחן ולחם הפנים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-14": {
+      "onkelosExplanation": {
+        "draft": "״וית מנרתא דאנהורי״ – מנורת המאור.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-15": {
+      "onkelosExplanation": {
+        "draft": "״וית מדבחא דקטורת בוסמיא״ – מזבח הקטורת.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-16": {
+      "onkelosExplanation": {
+        "draft": "״ית מדבחא דעלתא... ית כיורא וית בסיסה״ – מזבח העולה והכיור.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-17": {
+      "onkelosExplanation": {
+        "draft": "״ית סרדי דרתא״ – קלעי החצר.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-18": {
+      "onkelosExplanation": {
+        "draft": "״ית סכי משכנא וית סכי דדרתא וית אטוניהון״ – יתדות המשכן והחצר ומיתריהם. אפילו החבלים נמנים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-19": {
+      "onkelosExplanation": {
+        "draft": "״ית לבושי שמושא לשמשא בקודשא״ – בגדי השירות.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-20": {
+      "onkelosExplanation": {
+        "draft": "״ונפקו כל כנשתא דבני ישראל מן קדם משה״ – ויצאו כל העדה מלפני משה. הם יצאו – והלכו מיד להביא.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-21": {
+      "onkelosExplanation": {
+        "draft": "״ואתו כל גבר דאתרעי לבה וכל די אשלמת רוחה יתה״ – ויבואו כל איש אשר נשאו לבו, וכל אשר נדבה רוחו אותו, ואונקלוס: שרוחו השלימה אותו. הנתינה באה מלב שלם.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-22": {
+      "onkelosExplanation": {
+        "draft": "״ומיתן גבריא על נשיא״ – ויבואו האנשים על הנשים. רש״י מסביר: עם הנשים, סמוכים אליהן – הנשים הקדימו לבוא. ״שירין ושבכין ועזקן״ – תכשיטים. מי שלא נתנו תכשיטים לעגל, נותנות בשמחה למשכן.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-23": {
+      "onkelosExplanation": {
+        "draft": "״וכל גבר דאשתכח עמה תכלא וארגונא... איתיאו״ – וכל איש אשר נמצא אתו – הביאו. כל אחד ממה שנמצא אצלו.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-24": {
+      "onkelosExplanation": {
+        "draft": "״כל דארים ארמות כסף ונחש״ – כל מרים תרומת כסף ונחושת.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-25": {
+      "onkelosExplanation": {
+        "draft": "״וכל אתתא חכימת לבא בידהא מעזלא״ – וכל אישה חכמת לב בידיה טוו. החוכמה של הנשים יושבת בלב ומתבטאת בידיים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-26": {
+      "onkelosExplanation": {
+        "draft": "״וכל נשיא דאתרעי לבהן עמהן בחכמא עזלן ית מעזיא״ – וכל הנשים אשר נשא לבן אותנה בחוכמה טוו את העזים. רש״י מסביר: הן טוו את הצמר על גבי העזים עצמן – אומנות מופלאה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-27": {
+      "onkelosExplanation": {
+        "draft": "״ורברביא איתיאו ית אבני בורלא״ – והנשיאים הביאו את אבני השוהם. רש״י מביא: הנשיאים אמרו – יביאו הציבור, ומה שיחסר נשלים אנחנו. והציבור השלים הכול, ולא נשאר להם אלא האבנים. ולכן ״והנשאם״ כתוב בחסר. מי שמחכה לראות מה יחסר – מפסיד.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-28": {
+      "onkelosExplanation": {
+        "draft": "״וית בוסמא וית משחא לאנהרותא״ – ואת הבושם ואת השמן.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-29": {
+      "onkelosExplanation": {
+        "draft": "״כל גבר ואתתא דאתרעי לבהון עמהון... איתיאו בני ישראל נדבתא קדם יי״ – כל איש ואישה אשר נדב לבם אותם. נדבה של גברים ונשים יחד.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-30": {
+      "onkelosExplanation": {
+        "draft": "״חזו דרבי יי בשום בצלאל בר אורי בר חור לשבטא דיהודה״ – ראו, קרא ה׳ בשם בצלאל.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-31": {
+      "onkelosExplanation": {
+        "draft": "״ואשלם עמה רוח נבואה מן קדם יי״ – וימלא אותו רוח אלהים, ואונקלוס כאן: רוח נבואה מלפני ה׳. החוכמה של האמן נוגעת בנבואה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-32": {
+      "onkelosExplanation": {
+        "draft": "״ולאלפא אומנון״ – ולחשוב מחשבות, ואונקלוס: וללמד אומנות.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-33": {
+      "onkelosExplanation": {
+        "draft": "״ובאומנות אבן טבא לאשלמא ובנגרות אעא״ – בחרושת אבן ועץ.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-34": {
+      "onkelosExplanation": {
+        "draft": "״ולאלפא יהב בלבה הוא ואהליאב בר אחיסמך לשבטא דדן״ – ולהורות נתן בלבו, הוא ואהליאב. רש״י מסביר: אהליאב היה משבט דן, מן הנמוכים שבשבטים, והושווה לבצלאל משבט יהודה – לקיים ״ולא ניכר שוע לפני דל״. וגם: היכולת ללמד אחרים – היא מתנה בפני עצמה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-35-35": {
+      "onkelosExplanation": {
+        "draft": "״אשלם עמהון חכימות לבא... ומלפי אומנון״ – מילא אותם חוכמת לב, ואונקלוס מוסיף: ומלמדי אומנות.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-1": {
+      "onkelosExplanation": {
+        "draft": "״ועבד בצלאל ואהליאב וכל גבר חכים לבא״ – ועשה בצלאל ואהליאב וכל איש חכם לב. ״דיהב יי חכמא וסוכלתנותא בהון״ – אשר נתן ה׳ חוכמה ותבונה בהמה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-2": {
+      "onkelosExplanation": {
+        "draft": "״כל דאתרעי לבה למקרב לעבדתא למעבד יתה״ – כל אשר נשאו לבו לקרבה אל המלאכה. לא כולם למדו אומנות; רמב״ן מסביר שאיש מהם לא למד זאת במצרים – הלב הוא שנשא אותם.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-3": {
+      "onkelosExplanation": {
+        "draft": "״ואנון מיתן לה עוד נדבתא בצפר בצפר״ – והם הביאו אליו עוד נדבה בבוקר בבוקר. העם ממשיך לתת, יום אחרי יום.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-4": {
+      "onkelosExplanation": {
+        "draft": "״ואתו כל חכימיא... גבר גבר מעבדתה דאנון עבדין״ – ויבואו כל החכמים, איש איש ממלאכתו.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-5": {
+      "onkelosExplanation": {
+        "draft": "״מסגן עמא לאיתאה מסת פלחנא״ – מרבים העם להביא מדי העבודה. האומנים, ביושר, מודיעים: יש יותר מדי.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-6": {
+      "onkelosExplanation": {
+        "draft": "״ופקד משה ואעברו כרוזא במשריתא... ופסק עמא מלאיתאה״ – ויעבירו קול במחנה: איש ואישה אל יעשו עוד מלאכה לתרומת הקודש. ויכלא העם מהביא. אולי המקרה היחיד שבו היה צורך לעצור אנשים מלתת.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-7": {
+      "onkelosExplanation": {
+        "draft": "״ועבדתא הות מסת לכל עבדתא למעבד יתה ויתרת״ – והמלאכה הייתה דיים לכל המלאכה, והותר. אותו עם שתרם זהב לעגל – נותן ביתר נדיבות לה׳.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-8": {
+      "onkelosExplanation": {
+        "draft": "״ועבדו כל חכימי לבא בעבדי עבדתא ית משכנא עשר יריען״ – ויעשו כל חכמי הלב את המשכן. מכאן ואילך התורה חוזרת על כל הפרטים – הפעם כמעשה ולא כציווי.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-9": {
+      "onkelosExplanation": {
+        "draft": "״משחתא חדא לכל יריעתא״ – מידה אחת לכל היריעות.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-10": {
+      "onkelosExplanation": {
+        "draft": "״ולפף ית חמש יריען חדא עם חדא״ – ויחבר את חמש היריעות.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-11": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ענובין דתכלא על ספתא דירעתא חדא״ – לולאות תכלת.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-12": {
+      "onkelosExplanation": {
+        "draft": "״מכונן ענוביא חדא לקבל חדא״ – מקבילות הלולאות. מה שנאמר בציווי – נעשה בדיוק.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-13": {
+      "onkelosExplanation": {
+        "draft": "״ולפף ית יריעתא חדא עם חדא בפורפיא והוה משכנא חד״ – והיה המשכן אחד. בציווי: ״והיה״; במעשה: ״ויהי״. החלום נעשה מציאות.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-14": {
+      "onkelosExplanation": {
+        "draft": "״ועבד יריען דמעזי לפרסא על משכנא״ – יריעות עזים לאוהל.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-15": {
+      "onkelosExplanation": {
+        "draft": "״ארכא דיריעתא חדא תלתין באמין״ – שלושים באמה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-16": {
+      "onkelosExplanation": {
+        "draft": "״ולפף ית חמש יריען לחוד וית שית יריען לחוד״ – חמש לבד ושש לבד.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-17": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ענובין חמשין על ספתא דיריעתא״ – חמישים לולאות.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-18": {
+      "onkelosExplanation": {
+        "draft": "״ועבד פורפין דנחשא חמשין ללפפא ית משכנא למהוי חד״ – קרסי נחושת, לחבר את האוהל להיות אחד.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-19": {
+      "onkelosExplanation": {
+        "draft": "״ועבד חופאה למשכנא משכי דדכרי מסמקי״ – מכסה עורות אילים ותחשים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-20": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית דפיא למשכנא דאעי שטין קימין״ – הקרשים, עומדים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-21": {
+      "onkelosExplanation": {
+        "draft": "״עשר אמין ארכא דדפא״ – עשר אמות.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-22": {
+      "onkelosExplanation": {
+        "draft": "״תרתין צירין לדפא חד משלבין חדא לקבל חדא״ – שתי ידות לכל קרש.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-23": {
+      "onkelosExplanation": {
+        "draft": "״עסרין דפין לרוח עבר דרומא״ – עשרים קרשים לדרום.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-24": {
+      "onkelosExplanation": {
+        "draft": "״וארבעין סמכין דכסף״ – ארבעים אדני כסף.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-25": {
+      "onkelosExplanation": {
+        "draft": "״ולסטר משכנא תניתא לרוח צפונא עבד עסרין דפין״ – עשרים לצפון.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-26": {
+      "onkelosExplanation": {
+        "draft": "״וארבעין סמכיהון דכסף״ – ואדניהם.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-27": {
+      "onkelosExplanation": {
+        "draft": "״ולסיפי משכנא מערבא עבד שתא דפין״ – שישה למערב.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-28": {
+      "onkelosExplanation": {
+        "draft": "״ותרין דפין עבד לזוית משכנא״ – שניים לפינות.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-29": {
+      "onkelosExplanation": {
+        "draft": "״והוו מכונין מלרע וכחדא הוו מכונין על רישה״ – תואמים מלמטה ותמים מלמעלה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-30": {
+      "onkelosExplanation": {
+        "draft": "״והוו תמניא דפין וסמכיהון דכסף שתא עשר סמכין״ – שמונה קרשים ושישה עשר אדנים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-31": {
+      "onkelosExplanation": {
+        "draft": "״ועבד עברי דאעי שטין חמשא״ – חמישה בריחים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-32": {
+      "onkelosExplanation": {
+        "draft": "״וחמשא עברין לדפי סטר משכנא תניתא״ – גם לצד השני.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-33": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית עברא מציעאה לאעברא בגו דפיא מן סיפי לסיפי״ – הבריח התיכון, מקצה אל קצה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-34": {
+      "onkelosExplanation": {
+        "draft": "״וית דפיא חפא דהבא״ – וציפה את הקרשים זהב.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-35": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית פרכתא... צורת כרובין״ – הפרוכת עם הכרובים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-36": {
+      "onkelosExplanation": {
+        "draft": "״ועבד לה ארבעא עמודי שטין״ – ארבעה עמודי שיטים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-37": {
+      "onkelosExplanation": {
+        "draft": "״ועבד פרסא לתרע משכנא״ – המסך לפתח האוהל.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-36-38": {
+      "onkelosExplanation": {
+        "draft": "״וית עמודוהי חמשא... וסמכיהון חמשא נחשא״ – חמישה עמודים ואדני נחושת.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-1": {
+      "onkelosExplanation": {
+        "draft": "״ועבד בצלאל ית ארונא״ – ויעש בצלאל את הארון. רש״י מסביר: מפני שבצלאל מסר את נפשו על המלאכה יותר מכל החכמים – הארון נקרא על שמו. מה שעושים בכל הלב – נושא את שמנו.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-2": {
+      "onkelosExplanation": {
+        "draft": "״וחפהי דהב דכי מגו ומברא״ – וציפהו זהב מבית ומחוץ.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-3": {
+      "onkelosExplanation": {
+        "draft": "״ואתיך לה ארבע עזקן דדהב״ – ארבע טבעות זהב.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-4": {
+      "onkelosExplanation": {
+        "draft": "״ועבד אריחי דאעי שטין״ – בדי שיטים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-5": {
+      "onkelosExplanation": {
+        "draft": "״ואעיל ית אריחיא בעזקתא... למטל ית ארונא״ – לשאת את הארון.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-6": {
+      "onkelosExplanation": {
+        "draft": "״ועבד כפרתא דהב דכי״ – הכפורת.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-7": {
+      "onkelosExplanation": {
+        "draft": "״ועבד תרין כרובין דדהב נגיד״ – שני כרובים מקשה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-8": {
+      "onkelosExplanation": {
+        "draft": "״מן כפרתא עבד ית כרוביא״ – מן הכפורת.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-9": {
+      "onkelosExplanation": {
+        "draft": "״ואפיהון חד לקבל חד״ – ופניהם איש אל אחיו.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-10": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית פתורא דאעי שטין״ – השולחן.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-11": {
+      "onkelosExplanation": {
+        "draft": "״וחפא יתה דהב דכי ועבד לה דיר דדהב״ – זר זהב.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-12": {
+      "onkelosExplanation": {
+        "draft": "״ועבד לה גדנפא רומה פושכא״ – מסגרת טפח.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-13": {
+      "onkelosExplanation": {
+        "draft": "״ואתיך לה ארבע עזקן דדהב״ – ארבע טבעות.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-14": {
+      "onkelosExplanation": {
+        "draft": "״לקבל גדנפא הוו עזקתא״ – לעומת המסגרת.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-15": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית אריחיא... למטל ית פתורא״ – הבדים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-16": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית מניא די על פתורא״ – כלי השולחן.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-17": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית מנרתא דהב דכי נגיד״ – המנורה מקשה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-18": {
+      "onkelosExplanation": {
+        "draft": "״ושתא קנין נפקין מסטרהא״ – שישה קנים.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-19": {
+      "onkelosExplanation": {
+        "draft": "״תלתא כלידין מצירין בקניא חד חזור ושושן״ – שלושה גביעים, כפתור ופרח.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-20": {
+      "onkelosExplanation": {
+        "draft": "״ובמנרתא ארבעא כלידין״ – ארבעה גביעים בגוף המנורה.",
+        "updatedAt": "2026-10-08T17:09:06.677Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-21": {
+      "onkelosExplanation": {
+        "draft": "״וחזור תחות תרין קנין מנה״ – כפתור תחת כל זוג קנים.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-22": {
+      "onkelosExplanation": {
+        "draft": "״כלה נגידא חדא דהב דכי״ – כולה מקשה אחת.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-23": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית בוצינהא שבעא״ – שבעת הנרות.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-24": {
+      "onkelosExplanation": {
+        "draft": "״ככרא דהב דכי עבד יתה וית כל מנהא״ – מכיכר זהב.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-25": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית מדבחא דקטרת בוסמיא״ – מזבח הקטורת.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-26": {
+      "onkelosExplanation": {
+        "draft": "״וחפא יתה דהב דכי... ועבד לה דיר דדהב״ – זר זהב.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-27": {
+      "onkelosExplanation": {
+        "draft": "״ותרתין עזקן דדהב עבד לה״ – שתי טבעות.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-28": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית אריחיא דאעי שטין וחפא יתהון דהבא״ – הבדים.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-37-29": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית משחא דרבותא קודשא וית קטרת בוסמיא דכי״ – שמן המשחה והקטורת.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-1": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית מדבחא דעלתא דאעי שטין״ – מזבח העולה.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-2": {
+      "onkelosExplanation": {
+        "draft": "״ועבד קרנוהי על ארבע זויתה״ – הקרנות.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-3": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית כל מני מדבחא״ – כל כלי המזבח, נחושת.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-4": {
+      "onkelosExplanation": {
+        "draft": "״ועבד למדבחא סרדא עובד מצדתא דנחשא״ – המכבר, מעשה רשת.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-5": {
+      "onkelosExplanation": {
+        "draft": "״ואתיך ארבע עזקתא״ – ארבע טבעות.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-6": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית אריחיא דאעי שטין וחפא יתהון נחשא״ – הבדים.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-7": {
+      "onkelosExplanation": {
+        "draft": "״חליל לוחין עבד יתה״ – נבוב לוחות.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-8": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית כיורא נחשא וית בסיסה נחשא במחזין נשיא דאתין לצלאה בתרע משכן זמנא״ – ויעש את הכיור נחושת במראות הצובאות, ואונקלוס: במראות הנשים שבאו להתפלל בפתח אוהל מועד. רש״י מביא: משה מאס במראות, שנעשו ליופי. אמר לו ה׳: קבל – אלה חביבות עליי מן הכול, כי בהן העמידו הנשים צבאות רבים במצרים. מה שנראה כמו יוהרה – היה כלי של אמונה ותקווה.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-9": {
+      "onkelosExplanation": {
+        "draft": "״ועבד ית דרתא לרוח עבר דרומא״ – החצר.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-10": {
+      "onkelosExplanation": {
+        "draft": "״עמודיהון עסרין וסמכיהון עסרין נחשא״ – עשרים עמודים.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-11": {
+      "onkelosExplanation": {
+        "draft": "״ולרוח צפונא מאה אמין״ – מאה אמה לצפון.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-12": {
+      "onkelosExplanation": {
+        "draft": "״ולרוח מערבא סרדין חמשין באמין״ – חמישים אמה למערב.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-13": {
+      "onkelosExplanation": {
+        "draft": "״ולרוח קדומא מדינחא חמשין אמין״ – חמישים למזרח.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-14": {
+      "onkelosExplanation": {
+        "draft": "״סרדין חמש עסרי אמין לעברא״ – חמש עשרה אמה לכתף.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-15": {
+      "onkelosExplanation": {
+        "draft": "״ולעברא תניתא... חמש עסרי אמין״ – ולכתף השנייה.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-16": {
+      "onkelosExplanation": {
+        "draft": "״כל סרדי דדרתא סחור סחור דבוץ שזיר״ – כל קלעי החצר שש משזר.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-17": {
+      "onkelosExplanation": {
+        "draft": "״וחפוי רישיהון דכסף״ – וציפוי ראשיהם כסף.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-18": {
+      "onkelosExplanation": {
+        "draft": "״ופרסא דתרע דרתא עובד ציר״ – מסך שער החצר, מעשה רוקם.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-19": {
+      "onkelosExplanation": {
+        "draft": "״ועמודיהון ארבעא וסמכיהון ארבעא נחשא״ – ארבעה עמודים.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    },
+    "exodus-38-20": {
+      "onkelosExplanation": {
+        "draft": "״וכל סכיא למשכנא ולדרתא סחור סחור דנחשא״ – וכל היתדות נחושת. גם היתד הקטנה הושלמה. המלאכה נגמרת בפרט הקטן ביותר.",
+        "updatedAt": "2026-10-08T17:09:06.678Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}

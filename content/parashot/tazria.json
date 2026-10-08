@@ -1,0 +1,619 @@
+{
+  "schemaVersion": 2,
+  "slug": "tazria",
+  "meta": {
+    "slug": "tazria",
+    "name": "תזריע",
+    "nameEn": "Tazria",
+    "book": "Leviticus",
+    "bookHe": "ויקרא",
+    "range": "Leviticus 12:1-13:59",
+    "rangeHe": "ויקרא י״ב:א׳–י״ג:נ״ט",
+    "verseCount": 67,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Leviticus 12:1-13:5"
+      },
+      {
+        "n": 2,
+        "ref": "Leviticus 13:6-13:17"
+      },
+      {
+        "n": 3,
+        "ref": "Leviticus 13:18-13:23"
+      },
+      {
+        "n": 4,
+        "ref": "Leviticus 13:24-13:28"
+      },
+      {
+        "n": 5,
+        "ref": "Leviticus 13:29-13:39"
+      },
+      {
+        "n": 6,
+        "ref": "Leviticus 13:40-13:54"
+      },
+      {
+        "n": 7,
+        "ref": "Leviticus 13:55-13:59"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "II Kings 4:42-5:19",
+        "refHe": "מלכים ב׳ ד, מב – ה, יט"
+      },
+      "sephardi": {
+        "ref": "II Kings 4:42-5:19",
+        "refHe": "מלכים ב׳ ד, מב – ה, יט"
+      },
+      "sameForAll": true
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Leviticus (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "ויקרא יב, א – יג, נט"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "נגע, ודרך חזרה",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "הפרשה עוסקת ביולדת ובנגעי עור. הכהן רואה, מסגיר, ומחליט. מי שטמא יושב מחוץ למחנה עד שיתרפא. אין כאן דחייה לנצח, אלא סדר של בדיקה ושל שיבה.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "לפעמים מופיע כתם על העור, והכהן בודק בעדינות. מי שצריך יוצא קצת מהמחנה, וכשהוא מחלים הוא חוזר.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "אלישע מרפא את נעמן המצורע. ההפטרה נבחרה כי הפרשה מדברת בנגע, והנביא מראה שיש מרפא.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T17:09:06.664Z",
+      "source": "import:content-writer",
+      "draft": "הפרשה עוסקת בנגעי הצרעת – נגע שמבודד את האדם ומחייב אותו לבוא אל הכהן. בהפטרה (מלכים ב ד, מב – ה, יט) נעמן, שר צבא ארם, גיבור חיל ומצורע, מגיע אל אלישע הנביא. אלישע אפילו לא יוצא אליו, רק שולח לו: לך ורחצת שבע פעמים בירדן. נעמן כועס ומתכוון לחזור הביתה, עד שעבדיו משכנעים אותו לנסות – ״ויטבול בירדן שבע פעמים... ויטהר״. הריפוי מתחיל כשהגאווה נשברת. ואלישע מסרב לקבל ממנו מתנה, כדי שיידע שהריפוי בא מה׳. (ברוב השנים תזריע נקראת יחד עם מצורע, ואז קוראים את הפטרת מצורע; לפעמים היא חלה בשבת החודש או בשבת ראש חודש, ואז קוראים הפטרה מיוחדת.)"
+    },
+    "haftaraConnections": {
+      "published": [
+        "צרעת",
+        "כהן שרואה",
+        "ריפוי וחזרה"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "13:2",
+        "13:3"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "בפרשה לומדים על מחלת הצרעת. בהפטרה נעמן, שר צבא חשוב וחולה בצרעת, בא אל הנביא אלישע. אלישע אומר לו לטבול שבע פעמים בנהר הירדן. נעמן כמעט סירב כי זה נראה לו פשוט מדי – אבל כשהקשיב, הוא נרפא.",
+      "updatedAt": "2026-10-08T17:09:06.664Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "המילים שלנו בונות או סוגרות",
+          "text": "חז״ל לימדו שהצרעת באה בעיקר על לשון הרע. ואונקלוס קורא לה ״סגירו״ – סגירה. מי שמדבר רע על אחרים סוגר את עצמו ואת הקשרים סביבו. ורש״י מסביר: מי שהפריד בין אנשים בדיבורו, יושב לבד מחוץ למחנה. המילים שלנו קובעות באיזה עולם נחיה."
+        },
+        {
+          "title": "לא ממהרים לפסוק",
+          "text": "כשהכהן לא בטוח, הוא לא קובע מיד. הוא מסגיר שבוע, ועוד שבוע, ובודק שוב. גם לגבי אנשים אחרים – לפני שקובעים מי הוא ומה הוא, כדאי לחכות, להסתכל שוב ולתת לזמן לגלות את האמת."
+        },
+        {
+          "title": "לבקש רחמים",
+          "text": "המצורע קורא ״טמא טמא״ – כדי שיתרחקו ממנו. אבל הגמרא מוסיפה: כדי שידעו על הצער שלו ויבקשו עליו רחמים. גם מי שמבודד צריך שישמעו אותו. והקהילה שומעת – ומתפללת. אף אחד לא אמור לסבול בשקט, לבד."
+        },
+        {
+          "title": "אזהרה בהדרגה",
+          "text": "הרמב״ם מסביר שהנגע מופיע קודם בקירות הבית, אחר כך בבגדים, ורק בסוף בגוף. ה׳ לא מעניש בבת אחת; הוא שולח סימנים. החוכמה היא לשים לב לסימן הקטן – לפני שהוא נעשה גדול."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.664Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "מילים טובות",
+          "text": "התורה מלמדת שמילים רעות על אחרים יכולות להזיק מאוד. אני יכול להחליט: אני מדבר על אחרים רק טוב, ואם אין מה להגיד – אני שותק."
+        },
+        {
+          "title": "לא לשפוט מהר",
+          "text": "הכהן חיכה שבוע ובדק שוב לפני שהחליט. גם אני יכול לחכות ולשאול לפני שאני מחליט שמישהו לא בסדר."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.664Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "leviticus-12-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-12-2": {
+      "onkelosExplanation": {
+        "draft": "״אתתא ארי תעדי ותליד דכר ותהי מסאבא שבעת יומין״ – אישה כי תזריע וילדה זכר, וטמאה שבעת ימים. אונקלוס: ״תעדי״ – תתעבר. רש״י מביא את דברי רבי שמלאי: כמו שהאדם נברא אחרי הבהמות, כך דיניו נאמרו אחרי דיני הבהמות. ומתחילים בלידה – בתחילת החיים.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-12-3": {
+      "onkelosExplanation": {
+        "draft": "״וביומא תמינאה יגזר בסרא דערלתה״ – וביום השמיני ימול בשר ערלתו. הברית נכנסת לחיים כבר בשבוע הראשון, וחז״ל לימדו שמילה בזמנה דוחה אפילו שבת.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-12-4": {
+      "onkelosExplanation": {
+        "draft": "״ותלתין ותלתא יומין תיתב בדם דכו״ – ושלושים יום ושלושת ימים תשב בדמי טהרה. אונקלוס: ״דם דכו״ – דם של טהרה. גם בתוך הזמן הזה התורה מדגישה טהרה.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-12-5": {
+      "onkelosExplanation": {
+        "draft": "״ואם נקובתא תליד ותהי מסאבא ארבעה עסר״ – ואם נקבה תלד – וטמאה שבועיים.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-12-6": {
+      "onkelosExplanation": {
+        "draft": "״ובמשלם יומי דכותה לברא או לברתא תיתי אמר בר שתה לעלתא״ – ובמלאת ימי טהרה, לבן או לבת, תביא כבש לעולה. אותו קרבן בדיוק לבן ולבת.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-12-7": {
+      "onkelosExplanation": {
+        "draft": "״ויכפר עלה ותדכי מסואבת דמהא דא אוריתא דילדתא״ – וכיפר עליה וטהרה, זאת תורת היולדת. אחרי הלידה – חזרה אל המקדש. האם חוזרת אל ה׳ עם תודה.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-12-8": {
+      "onkelosExplanation": {
+        "draft": "״ואם לא תשכח ידה כמסת אמרא ותסב תרתין שפנינין״ – ואם לא תמצא ידה די שה – שתי תורים. השמחה של לידה לא תלויה בכסף.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה ועם אהרן למימר״ – אל משה ואל אהרן. הנגעים נמסרים לכהנים.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-2": {
+      "onkelosExplanation": {
+        "draft": "״אנש ארי יהי במשך בסרה... למכתש סגירו ויתתי לות אהרן כהנא״ – אדם כי יהיה בעור בשרו... לנגע צרעת, והובא אל אהרן הכהן. אונקלוס: ״סגירו״ – מלשון סגירה. הצרעת סוגרת את האדם. והוא בא לכהן, לא לרופא – כי חז״ל (ערכין) לימדו שהנגע בא בעיקר על לשון הרע.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-3": {
+      "onkelosExplanation": {
+        "draft": "״ויחזי כהנא ית מכתשא... מכתש סגירותא הוא ויחזנה כהנא ויסאב יתה״ – וראה הכהן את הנגע... וטימא אותו. המשנה (נגעים) מלמדת: הכל כשרים לראות נגעים, אבל רק הכהן מטמא ומטהר. הטומאה מתחילה רק כשהכהן אומר אותה בפה.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-4": {
+      "onkelosExplanation": {
+        "draft": "״ויסגר כהנא ית מכתשא שבעא יומין״ – והסגיר הכהן את הנגע שבעת ימים. לא ממהרים לפסוק. נותנים לאדם זמן – לנגע להתבהר, ולאדם להתבונן.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-5": {
+      "onkelosExplanation": {
+        "draft": "״והא מכתשא קם כד הוה לא אוסף מכתשא״ – והנה הנגע עמד בעיניו, לא פשה – והסגירו שבעה ימים שנית.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-6": {
+      "onkelosExplanation": {
+        "draft": "״והא עמיא מכתשא... וידכנה כהנא עדיתא היא״ – והנה כהה הנגע – וטיהרו הכהן, מספחת היא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-7": {
+      "onkelosExplanation": {
+        "draft": "״ואם אוספא תוסף עדיתא במשכא״ – ואם פשה תפשה המספחת.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-8": {
+      "onkelosExplanation": {
+        "draft": "״ויסאבנה כהנא סגירותא היא״ – וטימאו הכהן, צרעת היא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-9": {
+      "onkelosExplanation": {
+        "draft": "״מכתש סגירו ארי תהי באנשא ויתתי לות כהנא״ – נגע צרעת כי תהיה באדם, והובא אל הכהן.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-10": {
+      "onkelosExplanation": {
+        "draft": "״והא עמקא חורא במשכא... ורשם בסרא חיתא בעמקתא״ – שאת לבנה בעור, ומחיית בשר חי בשאת.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-11": {
+      "onkelosExplanation": {
+        "draft": "״סגירות עתיקא היא במשך בסרה״ – צרעת נושנת היא. אונקלוס: ״עתיקא״ – ישנה. מה שנראה חדש, לפעמים הוא בעיה עתיקה.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-12": {
+      "onkelosExplanation": {
+        "draft": "״ואם מסגא תסגי סגירותא... מרישה ועד רגלוהי״ – ואם פרוח תפרח הצרעת... מראשו ועד רגליו.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-13": {
+      "onkelosExplanation": {
+        "draft": "״והא חפת סגירותא ית כל בסרה וידכי ית מכתשא כלה אתהפיך למחור דכי הוא״ – כיסתה הצרעת את כל בשרו – וטיהר את הנגע, כולו הפך לבן, טהור הוא. פרדוקס: נגע קטן מטמא, ונגע על כל הגוף מטהר. הגמרא (סנהדרין) משתמשת בזה כמשל לגאולה: ״כולו הפך לבן – טהור הוא״.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-14": {
+      "onkelosExplanation": {
+        "draft": "״וביומא דאתחזי בה בסרא חיא יהי מסאב״ – וביום הראות בו בשר חי – יטמא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-15": {
+      "onkelosExplanation": {
+        "draft": "״בסרא חיא מסאב הוא סגירות הוא״ – הבשר החי טמא הוא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-16": {
+      "onkelosExplanation": {
+        "draft": "״או ארי יתוב בסרא חיא ויתהפיך למחור״ – או כי ישוב הבשר החי ונהפך ללבן.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-17": {
+      "onkelosExplanation": {
+        "draft": "״וידכי כהנא ית מכתשא דכי הוא״ – וטיהר הכהן את הנגע.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-18": {
+      "onkelosExplanation": {
+        "draft": "״ובסרא ארי יהי בה במשכה שחנא ויתסי״ – ובשר כי יהיה בו שחין ונרפא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-19": {
+      "onkelosExplanation": {
+        "draft": "״ויהי באתר שחנא עמקא חורא... ויתחזי לכהנא״ – והיה במקום השחין שאת לבנה, ונראה אל הכהן.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-20": {
+      "onkelosExplanation": {
+        "draft": "״והא מחזהא מכיך מן משכא... מכתש סגירותא היא בשחנא סגיאת״ – מראה שפל מן העור – נגע צרעת היא, בשחין פרחה.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-21": {
+      "onkelosExplanation": {
+        "draft": "״ויסגרנה כהנא שבעא יומין״ – והסגירו שבעת ימים.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-22": {
+      "onkelosExplanation": {
+        "draft": "״ואם אוספא תוסף במשכא ויסאב כהנא יתה״ – ואם פשה – וטימא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-23": {
+      "onkelosExplanation": {
+        "draft": "״רשם שחנא היא וידכנה כהנא״ – צרבת השחין היא, וטיהרו הכהן. צלקת של פצע ישן – לא כל סימן הוא נגע.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-24": {
+      "onkelosExplanation": {
+        "draft": "״או בסרא ארי יהי במשכה כואה דנור״ – או בשר כי יהיה בעורו מכוות אש.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-25": {
+      "onkelosExplanation": {
+        "draft": "״והא אתהפיך שער חור בבהרתא... סגירותא היא בכואה סגיאה״ – צרעת היא במכווה פרחה.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-26": {
+      "onkelosExplanation": {
+        "draft": "״ויסגרנה כהנא שבעא יומין״ – והסגירו שבעת ימים.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-27": {
+      "onkelosExplanation": {
+        "draft": "״אם אוספא תוסף במשכא ויסאב כהנא יתה״ – אם פשה – וטימא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-28": {
+      "onkelosExplanation": {
+        "draft": "״וידכנה כהנא ארי רשם כואה היא״ – וטיהרו, כי צרבת המכווה היא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-29": {
+      "onkelosExplanation": {
+        "draft": "״וגבר או אתתא ארי יהא בה מכתשא בריש או בדקן״ – ואיש או אישה כי יהיה בו נגע בראש או בזקן.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-30": {
+      "onkelosExplanation": {
+        "draft": "״ובה שער סמק דעדק... נתקא הוא״ – ובו שער צהוב דק – נתק הוא. אונקלוס: ״סמק דעדק״ – אדמדם ודק.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-31": {
+      "onkelosExplanation": {
+        "draft": "״ושער אכם לית ביה ויסגר כהנא ית מכתש נתקא שבעת יומין״ – ושער שחור אין בו – והסגיר.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-32": {
+      "onkelosExplanation": {
+        "draft": "״והא לא אוסף נתקא ולא הוה בה שער סמק״ – והנה לא פשה הנתק.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-33": {
+      "onkelosExplanation": {
+        "draft": "״ויגלח סחרני נתקא ודעם נתקא לא יגלח״ – והתגלח, ואת הנתק לא יגלח.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-34": {
+      "onkelosExplanation": {
+        "draft": "״וידכי יתה כהנא ויצבע לבושוהי וידכי״ – וטיהר אותו הכהן, וכיבס בגדיו וטהר.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-35": {
+      "onkelosExplanation": {
+        "draft": "״ואם אוספא יוסף נתקא במשכא בתר דכותה״ – ואם פשה אחרי טהרתו.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-36": {
+      "onkelosExplanation": {
+        "draft": "״לא יבקר כהנא לשער סמק מסאב הוא״ – לא יבקר הכהן לשער הצהוב, טמא הוא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-37": {
+      "onkelosExplanation": {
+        "draft": "״ושער אכם צמח בה אתסי נתקא דכי הוא״ – ושער שחור צמח בו – נרפא הנתק, טהור הוא. שער שחור חדש – סימן של חיים שחוזרים.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-38": {
+      "onkelosExplanation": {
+        "draft": "״וגבר או אתתא ארי יהי במשך בסרהון בהרן בהרן חורן״ – בהרות בהרות לבנות.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-39": {
+      "onkelosExplanation": {
+        "draft": "״בהקא הוא סגי במשכא דכי הוא״ – בוהק הוא, פרח בעור, טהור הוא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-40": {
+      "onkelosExplanation": {
+        "draft": "״וגבר ארי יתר שער רישה קרח הוא דכי הוא״ – ואיש כי יימרט ראשו – קרח הוא, טהור הוא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-41": {
+      "onkelosExplanation": {
+        "draft": "״ואם מלקבל אפוהי יתר שער רישה גלוש הוא״ – ואם מפאת פניו – גיבח הוא, טהור הוא.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-42": {
+      "onkelosExplanation": {
+        "draft": "״וארי יהי בקרחותה או בגלושותה מכתש חור סמוק״ – וכי יהיה בקרחת נגע לבן אדמדם.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-43": {
+      "onkelosExplanation": {
+        "draft": "״כמחזי סגירותא משך בסרא״ – כמראה צרעת עור בשר.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-44": {
+      "onkelosExplanation": {
+        "draft": "״גבר סגיר הוא מסאב הוא... ברישה מכתשה״ – איש צרוע הוא, טמא הוא, בראשו נגעו.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-45": {
+      "onkelosExplanation": {
+        "draft": "״לבושוהי יהון מבזעין ורישה יהי פריע ועל שפם כאבלא יתעטף ולא תסתאבון ולא תסתאבון יקרי״ – בגדיו יהיו פרומים וראשו פרוע, ועל שפם יעטה, וטמא טמא יקרא. אונקלוס מוסיף ״כאבלא״ – כמו אבל, וקורא את ״טמא טמא״ כאזהרה: ״אל תיטמאו, אל תיטמאו״. רש״י מסביר: משמיע שהוא טמא, כדי שיתרחקו ממנו. והגמרא (שבת) מוסיפה: כדי שיודיע צערו לרבים, ורבים יבקשו עליו רחמים.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-46": {
+      "onkelosExplanation": {
+        "draft": "״בלחודוהי ייתב מברא למשריתא מותבה״ – בדד ישב, מחוץ למחנה מושבו. רש״י מסביר: הוא הבדיל בלשון הרע בין איש לאשתו ובין איש לרעהו – לכן גם הוא יישב לבד. מי שמפריד בין אנשים, מרגיש על בשרו מה זו בדידות.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-47": {
+      "onkelosExplanation": {
+        "draft": "״ולבושא ארי יהי בה מכתש סגירו בלבש עמר או בלבוש כתן״ – והבגד כי יהיה בו נגע צרעת, בבגד צמר או פשתים. הרמב״ם מסביר שצרעת בגדים ובתים איננה טבעית; היא אות. קודם הנגע מופיע בקירות הבית, אחר כך בבגדים, ורק בסוף בגוף. ה׳ מזהיר בהדרגה.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-48": {
+      "onkelosExplanation": {
+        "draft": "״או בשתיא או בערבא לכתנא ולעמרא״ – או בשתי או בערב.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-49": {
+      "onkelosExplanation": {
+        "draft": "״ויהי מכתשא ירוק או סמוק... ויתחזי לכהנא״ – והיה הנגע ירקרק או אדמדם, והוראה לכהן.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-50": {
+      "onkelosExplanation": {
+        "draft": "״ויחזי כהנא ית מכתשא ויסגר ית מכתשא שבעת יומין״ – והסגיר שבעת ימים.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-51": {
+      "onkelosExplanation": {
+        "draft": "״ארי אוסף מכתשא... סגירות מחסרא מכתשא״ – צרעת ממארת. אונקלוס: ״מחסרא״ – מחסרת, מכלה.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-52": {
+      "onkelosExplanation": {
+        "draft": "״ויוקיד ית לבושא... בנורא תתוקד״ – ושרף את הבגד.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-53": {
+      "onkelosExplanation": {
+        "draft": "״ואם יחזי כהנא והא לא אוסף מכתשא בלבושא״ – ואם לא פשה.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-54": {
+      "onkelosExplanation": {
+        "draft": "״ויפקד כהנא ויחורון ית די בה מכתשא״ – וציווה הכהן וכיבסו.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-55": {
+      "onkelosExplanation": {
+        "draft": "״והא לא שנא מכתשא... בנורא תוקדנה תברא היא בשחיקותה או בחדתותה״ – לא הפך הנגע את עינו – באש תשרפנו, פחתת היא בקרחתו או בגבחתו. ואונקלוס: שבר הוא, בבלוי או בחדש.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-56": {
+      "onkelosExplanation": {
+        "draft": "״והא עמיא מכתשא בתר דחורו יתה ובזע יתה״ – והנה כהה – וקרע אותו מן הבגד. לפעמים לא צריך לשרוף הכול; מספיק לקרוע את החלק הפגוע.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-57": {
+      "onkelosExplanation": {
+        "draft": "״ואם תתחזי עוד בלבושא... בנורא תוקדנה״ – ואם תיראה עוד – באש תשרפנו.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-58": {
+      "onkelosExplanation": {
+        "draft": "״ויעדי מנהון מכתשא ויצטבע תנינות וידכי״ – וסר מהם הנגע, וכובס שנית וטהר.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-13-59": {
+      "onkelosExplanation": {
+        "draft": "״דא אוריתא דמכתש סגירו... לדכיותה או לסאבותה״ – זאת תורת נגע צרעת, לטהרו או לטמאו. ״לטהרו״ קודם. המטרה של התורה היא לטהר.",
+        "updatedAt": "2026-10-08T17:09:06.664Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}

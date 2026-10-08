@@ -1,0 +1,927 @@
+{
+  "schemaVersion": 2,
+  "slug": "vayikra",
+  "meta": {
+    "slug": "vayikra",
+    "name": "ויקרא",
+    "nameEn": "Vayikra",
+    "book": "Leviticus",
+    "bookHe": "ויקרא",
+    "range": "Leviticus 1:1-5:26",
+    "rangeHe": "ויקרא א׳:א׳–ה׳:כ״ו",
+    "verseCount": 111,
+    "aliyot": [
+      {
+        "n": 1,
+        "ref": "Leviticus 1:1-1:13"
+      },
+      {
+        "n": 2,
+        "ref": "Leviticus 1:14-2:6"
+      },
+      {
+        "n": 3,
+        "ref": "Leviticus 2:7-2:16"
+      },
+      {
+        "n": 4,
+        "ref": "Leviticus 3:1-3:17"
+      },
+      {
+        "n": 5,
+        "ref": "Leviticus 4:1-4:26"
+      },
+      {
+        "n": 6,
+        "ref": "Leviticus 4:27-5:10"
+      },
+      {
+        "n": 7,
+        "ref": "Leviticus 5:11-5:26"
+      }
+    ],
+    "haftara": {
+      "ashkenazi": {
+        "ref": "Isaiah 43:21-44:23",
+        "refHe": "ישעיהו מג, כא – מד, כג"
+      },
+      "sephardi": {
+        "ref": "Isaiah 43:21-44:23",
+        "refHe": "ישעיהו מג, כא – מד, כג"
+      },
+      "sameForAll": true
+    },
+    "sources": {
+      "hebrew": "Tanach with Nikkud (Sefaria, Public Domain)",
+      "onkelos": "Onkelos Leviticus (Sefaria, Public Domain)",
+      "readingAndHaftara": "@hebcal/leyning (same library the app uses), cross-checked with Sefaria calendars API"
+    },
+    "rangeHeWriter": "ויקרא א, א – ה, כו"
+  },
+  "fields": {
+    "storyTitle": {
+      "published": "קורבן שנקרא באהבה",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.adult": {
+      "published": "ה׳ קורא אל משה מאהל מועד. הפרשה מפרטת קרבנות: עולה, מנחה, שלמים, חטאת ואשם. הקרבן הוא דרך להתקרב, להודות, ולתקן — לא קסם, אלא סדר.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "story.child": {
+      "published": "משה שומע קריאה רכה מתוך האוהל. העם לומד להביא מתנה כשרוצים להודות, או כשטעו ורוצים לתקן.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.adult": {
+      "published": "ישעיהו אומר שה׳ לא חפץ בקרבנות בלי צדק. ההפטרה נבחרה דווקא ליד פרשת הקרבנות, כדי להזכיר שהלב והמשפט קודמים.",
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T17:09:06.692Z",
+      "source": "import:content-writer",
+      "draft": "הפרשה פותחת את סדר הקרבנות – הדרך שבה אדם מתקרב לה׳, מביא מה שיש לו, ומבקש כפרה. ההפטרה (ישעיהו מג, כא – מד, כג; אשכנזים וספרדים קוראים אותה) פותחת במילים ״עם זו יצרתי לי, תהלתי יספרו״, ומיד מוכיחה: ״ולא אותי קראת יעקב... לא הבאת לי שה עולותיך״. הנביא מזכיר שה׳ לא צריך את הקרבנות – הוא רוצה את הלב, ולמרות הכול הוא אומר: ״אנכי אנכי הוא מוחה פשעיך למעני״. בהמשך ישעיהו לועג למי שחוצב עץ, חצי ממנו שורף לחימום וחצי עושה לאלוהים. הקרבן האמיתי הוא לחזור – ״שובה אלי כי גאלתיך״. (בחלק מהשנים פרשת ויקרא חלה בשבת זכור או בשבת החודש, ואז קוראים את ההפטרה המיוחדת לאותה שבת.)"
+    },
+    "haftaraConnections": {
+      "published": [
+        "קרבן",
+        "לב לפני המתנה",
+        "קריאה אל משה"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "storyAnchors": {
+      "published": [
+        "1:1",
+        "1:2"
+      ],
+      "publishedAt": "2026-10-08T16:42:11.854Z",
+      "updatedAt": "2026-10-08T16:42:11.854Z",
+      "source": "migrated:src/data"
+    },
+    "whyThisHaftara.child": {
+      "draft": "בפרשה לומדים איך מביאים קרבן לה׳. בהפטרה הנביא ישעיהו מזכיר שה׳ רוצה בעיקר את הלב שלנו. ואפילו כשטעינו, ה׳ אומר: ״שובה אלי״ – תחזור אליי, אני מוחל לך.",
+      "updatedAt": "2026-10-08T17:09:06.692Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.adult": {
+      "draft": [
+        {
+          "title": "קרבן מלשון קירבה",
+          "text": "אונקלוס שומר על המילה ״קורבנא״ – מה שמקרב. הקרבנות אינם תשלום לאלוהים, הם דרך להתקרב אליו. כל פעם שאדם נותן משהו משלו – זמן, כסף, תשומת לב – הוא בונה קרבה. השאלה היא לא כמה נתת, אלא כמה התקרבת."
+        },
+        {
+          "title": "אחד המרבה ואחד הממעיט",
+          "text": "על הפר של העשיר ועל הציפור של העני כתובות אותן מילים: ״מתקבל ברצון לפני ה׳״. רש״י מביא: ובלבד שיכוון ליבו לשמיים. ואת מנחת הקמח של העני ה׳ רואה כאילו הקריב את נפשו. ה׳ לא מודד בכמות. הוא מודד בלב."
+        },
+        {
+          "title": "אשרי מי שמודה",
+          "text": "״אשר נשיא יחטא״ – ורש״י דורש: אשרי הדור שהנשיא שלו מביא קרבן על שגגתו. גם כהן גדול, גם הסנהדרין, גם הנשיא – כולם יכולים לטעות. גדולתו של מנהיג אינה שאינו טועה, אלא שהוא מודה בטעות בפני כולם."
+        },
+        {
+          "title": "קודם לאדם, אחר כך לה׳",
+          "text": "מי שגזל או שיקר לחברו לא יכול להסתפק בקרבן. קודם הוא מחזיר את מה שלקח, מוסיף חומש, ורק אחר כך בא אל המשכן. רבי עקיבא לימד: מי שמשקר לחברו בלי עדים, משקר לה׳ שהיה העד היחיד ביניהם. אי אפשר להיות קרוב לה׳ ורחוק מהיושר."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.692Z",
+      "source": "import:content-writer"
+    },
+    "lifeLessons.child": {
+      "draft": [
+        {
+          "title": "ה׳ קורא לי בשם",
+          "text": "לפני שה׳ דיבר עם משה, הוא קרא לו בשמו – באהבה. כשאני פונה למישהו, אני יכול לקרוא לו בשמו ובחיוך. זה מראה שאכפת לי ממנו."
+        },
+        {
+          "title": "כל אחד לפי מה שיש לו",
+          "text": "מי שהיה לו הרבה הביא פר, ומי שהיה לו מעט הביא ציפור או קצת קמח – וה׳ שמח בכולם באותה מידה. גם מתנה קטנה, כשהיא מכל הלב, היא מתנה גדולה."
+        }
+      ],
+      "updatedAt": "2026-10-08T17:09:06.692Z",
+      "source": "import:content-writer"
+    }
+  },
+  "verses": {
+    "leviticus-1-1": {
+      "onkelosExplanation": {
+        "draft": "״וקרא למשה ומליל יי עמיה ממשכן זמנא״ – ויקרא אל משה וידבר ה׳ אליו מאוהל מועד. בסוף שמות משה לא יכול היה להיכנס; עכשיו ה׳ קורא לו. רש״י מסביר שלפני כל דיבור קדמה קריאה – ״לשון חיבה״. ה׳ לא רק מצווה; הוא קורא בשם.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-2": {
+      "onkelosExplanation": {
+        "draft": "״אנש ארי יקרב מנכון קורבנא קדם יי״ – אדם כי יקריב מכם קרבן לה׳. אונקלוס שומר על השורש ק־ר־ב: קרבן הוא מה שמקרב. ורש״י מסביר: ״אדם״ – כמו אדם הראשון, שלא הקריב מגזל. אי אפשר להתקרב לה׳ עם מה שלקחת מאחר.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-3": {
+      "onkelosExplanation": {
+        "draft": "״יקרבנה לתרע משכן זמנא... לרעוא ליה קדם יי״ – יקריב אותו לפתח אוהל מועד, לרצונו לפני ה׳. אונקלוס: ״לרעוא ליה״ – כדי שיתקבל ברצון בשבילו. הקרבן הוא לא מס – הוא בקשה להיות רצוי.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-4": {
+      "onkelosExplanation": {
+        "draft": "״ויסמוך ידיה על ריש עלתא ויתרעי ליה לכפרא עלוהי״ – וסמך ידו על ראש העולה, ונרצה לו לכפר עליו. הסמיכה אומרת: זה במקומי. אי אפשר לשלוח קרבן בלי לשים עליו את הידיים – ואת הלב.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-5": {
+      "onkelosExplanation": {
+        "draft": "״ויכוס ית בר תורי קדם יי... ויזרקון ית דמא על מדבחא סחור סחור״ – ושחט את בן הבקר, וזרקו את הדם על המזבח סביב.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-6": {
+      "onkelosExplanation": {
+        "draft": "״וישלח ית עלתא ויפלג יתה לאברהא״ – והפשיט את העולה ונתח אותה לנתחיה.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-7": {
+      "onkelosExplanation": {
+        "draft": "״ויתנון בני אהרן כהנא אשתא על מדבחא ויסדרון אעיא״ – ונתנו אש על המזבח וערכו עצים. גם האש שירדה מן השמיים צריכה שמישהו יסדר לה עצים.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-8": {
+      "onkelosExplanation": {
+        "draft": "״ויסדרון... ית אבריא ית רישא וית תרבא״ – וערכו את הנתחים, את הראש ואת הפדר.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-9": {
+      "onkelosExplanation": {
+        "draft": "״וגויה וכרעוהי יחלל במיא... עלתא קורבן דמתקבל ברעוא קדם יי״ – וקרבו וכרעיו ירחץ במים... עולה, אשה ריח ניחוח לה׳. אונקלוס לא מתרגם ״ריח״: אצלו זה ״קרבן שמתקבל ברצון לפני ה׳״. ה׳ לא צריך ריח של בשר. רש״י מסביר: נחת רוח לפניי, שאמרתי ונעשה רצוני.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-10": {
+      "onkelosExplanation": {
+        "draft": "״ואם מן ענא קורבניה מן אמריא או מן בני עזיא״ – ואם מן הצאן, מן הכבשים או מן העזים.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-11": {
+      "onkelosExplanation": {
+        "draft": "״ויכוס יתיה על צדא דמדבחא צפונא קדם יי״ – ושחט אותו על ירך המזבח צפונה.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-12": {
+      "onkelosExplanation": {
+        "draft": "״ויפלג יתיה לאברוהי״ – ונתח אותו לנתחיו.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-13": {
+      "onkelosExplanation": {
+        "draft": "״וגוא וכרעיא יחלל במיא... עלתא הוא קורבן דמתקבל ברעוא קדם יי״ – עולה היא, מתקבלת ברצון.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-14": {
+      "onkelosExplanation": {
+        "draft": "״ואם מן עופא עלתא קורבניה... מן שפניניא או מן בני יונה״ – ואם מן העוף – תורים או בני יונה. זה הקרבן של העני, וה׳ פותח לו דלת.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-15": {
+      "onkelosExplanation": {
+        "draft": "״ויקרבינה כהנא למדבחא וימלוק ית רישה... ויתמצי דמיה על כותל מדבחא״ – ומלק את ראשו ונמצה דמו על קיר המזבח.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-16": {
+      "onkelosExplanation": {
+        "draft": "״ויעדי ית זפקיה באוכליה וירמי יתה לסטר מדבחא קידומא״ – והסיר את מוראתו בנוצתה, ואונקלוס: ״באוכליה״ – עם האוכל שבו. רש״י מסביר: הבהמה אוכלת מאבוס בעליה, אבל העוף ניזון ממה שאינו שלו, לכן הזפק שלו נזרק. אפילו עוף לומד לנו על גזל.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-1-17": {
+      "onkelosExplanation": {
+        "draft": "״ויפריק יתיה בגדפוהי... עלתא הוא קורבן דמתקבל ברעוא קדם יי״ – עולה היא, אשה ריח ניחוח לה׳. אותן מילים בדיוק כמו על הפר הגדול. רש״י מביא: אחד המרבה ואחד הממעיט – ובלבד שיכוון ליבו לשמיים.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-1": {
+      "onkelosExplanation": {
+        "draft": "״ואנש ארי יקרב קורבן מנחתא קדם יי סולתא יהי קורבניה״ – ונפש כי תקריב קרבן מנחה, סולת יהיה קרבנו. מנחה של קמח היא קרבן העני ביותר. רש״י מביא: דווקא כאן כתוב ״נפש״ – כאילו העני הקריב את נפשו.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-2": {
+      "onkelosExplanation": {
+        "draft": "״ויקמוץ מתמן מלי קומציה... ויסק כהנא ית אדכרתה למדבחא״ – וקמץ משם מלוא קומצו, והקטיר הכהן את אזכרתה. רק קומץ עולה למזבח – והוא ״אזכרה״: מספיק מעט כדי להיזכר לפני ה׳.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-3": {
+      "onkelosExplanation": {
+        "draft": "״ודאשתאר מן מנחתא לאהרן ולבנוהי קודש קודשין״ – והנותרת מן המנחה לאהרן ולבניו, קודש קודשים.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-4": {
+      "onkelosExplanation": {
+        "draft": "״מאפה תנורא סולתא גריצן פטירן דפילן במשח ואספוגין פטירין״ – מאפה תנור: חלות מצות בלולות בשמן ורקיקים.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-5": {
+      "onkelosExplanation": {
+        "draft": "״ואם מנחתא על מסריתא קורבנך״ – ואם מנחה על המחבת.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-6": {
+      "onkelosExplanation": {
+        "draft": "״בצע יתה ביצועין ותריק עלה משחא״ – פתות אותה פתים ויצקת עליה שמן.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-7": {
+      "onkelosExplanation": {
+        "draft": "״ואם מנחתא דרדתא קורבנך סולתא במשח תתעבד״ – ואם מנחת מרחשת.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-8": {
+      "onkelosExplanation": {
+        "draft": "״ותיתי ית מנחתא... ויקרבינה לות כהנא״ – והבאת את המנחה והגישה אל הכהן.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-9": {
+      "onkelosExplanation": {
+        "draft": "״ויפריש כהנא מן מנחתא ית אדכרתה״ – והרים הכהן את אזכרתה.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-10": {
+      "onkelosExplanation": {
+        "draft": "״ודאשתאר מן מנחתא לאהרן ולבנוהי קודש קודשין״ – והנותרת לאהרן ולבניו.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-11": {
+      "onkelosExplanation": {
+        "draft": "״לא תתעביד חמיע ארי כל חמיר וכל דבש לא תסקון״ – לא תיעשה חמץ, כי כל שאור וכל דבש לא תקטירו. מה שתופח ומתנפח, ומה שמתוק מדי – לא עולה למזבח.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-12": {
+      "onkelosExplanation": {
+        "draft": "״קורבן קדמי תקרבון יתהון... ולמדבחא לא יתסקון לאתקבלא ברעוא״ – קרבן ראשית תקריבו אותם, אבל על המזבח לא יעלו.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-13": {
+      "onkelosExplanation": {
+        "draft": "״במלחא תמלח ולא תבטל מלח קים אלהך מעל מנחתך״ – במלח תמלח, ולא תשבית מלח ברית אלוהיך. אונקלוס: ״מלח קים״ – מלח של קיום. מלח לא מתקלקל ושומר על מה שבו. כך הברית.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-14": {
+      "onkelosExplanation": {
+        "draft": "״ואם תקרב מנחת בכורין... אביב קלי בנור פירוכין רכיכן״ – מנחת ביכורים: אביב קלוי באש, גרש כרמל, ואונקלוס: פירורים רכים.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-15": {
+      "onkelosExplanation": {
+        "draft": "״ותתן עלה משחא ותשוי עלה לבונתא״ – ונתת עליה שמן ולבונה.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-2-16": {
+      "onkelosExplanation": {
+        "draft": "״ויסק כהנא ית אדכרתה מפרוכה וממשחה״ – והקטיר הכהן את אזכרתה.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-1": {
+      "onkelosExplanation": {
+        "draft": "״ואם נכסת קודשיא קורבניה״ – ואם זבח שלמים קרבנו. אונקלוס: ״נכסת קודשיא״ – זבח קדשים. רש״י מסביר: שלמים – שמטילים שלום בעולם, ויש בהם חלק למזבח, לכהנים ולבעלים. קרבן שכולם שותפים בו.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-2": {
+      "onkelosExplanation": {
+        "draft": "״ויסמוך ידיה על ריש קורבניה ויכסיניה בתרע משכן זמנא״ – וסמך ידו ושחטו בפתח אוהל מועד.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-3": {
+      "onkelosExplanation": {
+        "draft": "״ויקרב מנכסת קודשיא... ית תרבא דחפי ית גוא״ – והקריב מזבח השלמים את החלב המכסה את הקרב.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-4": {
+      "onkelosExplanation": {
+        "draft": "״וית תרתין כלין וית תרבא די עליהן״ – ושתי הכליות והחלב אשר עליהן.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-5": {
+      "onkelosExplanation": {
+        "draft": "״ויסקון יתיה בני אהרן למדבחא על עלתא... קורבן דמתקבל ברעוא״ – והקטירו אותו על העולה. מתקבל ברצון.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-6": {
+      "onkelosExplanation": {
+        "draft": "״ואם מן ענא קורבניה לנכסת קודשיא״ – ואם מן הצאן.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-7": {
+      "onkelosExplanation": {
+        "draft": "״אם אימר הוא מקרב ית קורבניה״ – אם כשב הוא מקריב.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-8": {
+      "onkelosExplanation": {
+        "draft": "״ויסמוך ית ידיה על ריש קורבניה ויכוס יתיה קדם משכן זמנא״ – וסמך ושחט לפני אוהל מועד.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-9": {
+      "onkelosExplanation": {
+        "draft": "״תרביה אליתא שלמתא לקבל שזרתא יעדנה״ – חלבו, האליה תמימה, לעומת העצה יסירנה.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-10": {
+      "onkelosExplanation": {
+        "draft": "״וית תרתין כלין... על כליתא יעדנה״ – והכליות, יסירנה.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-11": {
+      "onkelosExplanation": {
+        "draft": "״ויסקנה כהנא למדבחא לחם קרבנא קדם יי״ – לחם אשה לה׳, ואונקלוס: לחם הקרבן. ה׳ לא אוכל; ה״לחם״ הוא הקרבן עצמו.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-12": {
+      "onkelosExplanation": {
+        "draft": "״ואם מן בני עזיא קרבנה״ – ואם עז קרבנו.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-13": {
+      "onkelosExplanation": {
+        "draft": "״ויסמוך ית ידה על רישיה ויכוס יתה״ – וסמך ושחט.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-14": {
+      "onkelosExplanation": {
+        "draft": "״ויקרב מנה קרבנה... ית תרבא דחפי ית גוא״ – והקריב ממנו את החלב.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-15": {
+      "onkelosExplanation": {
+        "draft": "״וית תרתין כלין וית תרבא די עליהן״ – והכליות.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-16": {
+      "onkelosExplanation": {
+        "draft": "״לחם קרבנא לאתקבלא ברעוא כל תרבא קדם יי״ – כל חלב לה׳.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-3-17": {
+      "onkelosExplanation": {
+        "draft": "״קים עלם לדרתיכון בכל מותבניכון כל תרבא וכל דמא לא תיכלון״ – חוקת עולם, כל חלב וכל דם לא תאכלו. הדם הוא החיים – והוא לא שלנו לאכול.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-1": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-2": {
+      "onkelosExplanation": {
+        "draft": "״אנש ארי יחוב בשלו מכל פקודיא דיי״ – נפש כי תחטא בשגגה. אונקלוס: ״בשלו״ – מתוך שכחה והיסח דעת. גם טעות בלי כוונה צריכה תיקון: היא מגלה שלא שמרתי מספיק.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-3": {
+      "onkelosExplanation": {
+        "draft": "״אם כהנא רבא ייחוב לחובת עמא״ – אם הכהן המשיח יחטא לאשמת העם. כשהמנהיג טועה, האשמה נופלת על כל העם.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-4": {
+      "onkelosExplanation": {
+        "draft": "״וייתי ית תורא לתרע משכן זמנא... ויסמוך ית ידיה על ריש תורא״ – והביא את הפר וסמך את ידו.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-5": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא רבא מדמא דתורא ויעל יתה למשכן זמנא״ – ולקח הכהן מדם הפר והביא אותו אל אוהל מועד. חטא של כהן גדול – דמו נכנס פנימה.",
+        "updatedAt": "2026-10-08T17:09:06.692Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-6": {
+      "onkelosExplanation": {
+        "draft": "״וידי מן דמא שבע זמנין קדם יי קדם פרוכתא דקודשא״ – והזה מן הדם שבע פעמים לפני ה׳, את פני פרוכת הקודש.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-7": {
+      "onkelosExplanation": {
+        "draft": "״ויתן כהנא מן דמא על קרנת מדבח קטורת בוסמיא״ – ונתן מן הדם על קרנות מזבח הקטורת.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-8": {
+      "onkelosExplanation": {
+        "draft": "״וית כל תרב תורא דחטאתא יפרש מנה״ – וכל חלב פר החטאת ירים ממנו.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-9": {
+      "onkelosExplanation": {
+        "draft": "״וית תרתין כלין וית תרבא די עליהן״ – ואת שתי הכליות.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-10": {
+      "onkelosExplanation": {
+        "draft": "״כמא די מתפרש מתור נכסת קודשיא״ – כאשר יורם משור זבח השלמים.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-11": {
+      "onkelosExplanation": {
+        "draft": "״וית משך תורא וית כל בסרה״ – ואת עור הפר ואת כל בשרו.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-12": {
+      "onkelosExplanation": {
+        "draft": "״ויפק ית כל תורא מברא למשריתא לאתר דכי... ויוקיד יתה״ – והוציא את כל הפר אל מחוץ למחנה, אל מקום טהור, ושרף אותו. החטא מוצא החוצה – אבל למקום טהור.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-13": {
+      "onkelosExplanation": {
+        "draft": "״ואם כל כנשתא דישראל ישתלון ויהי מכסא פתגמא מעיני קהלא״ – ואם כל עדת ישראל ישגו, ונעלם דבר מעיני הקהל. גם ציבור שלם יכול לטעות. התורה לא מעמידה פנים שהרוב תמיד צודק.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-14": {
+      "onkelosExplanation": {
+        "draft": "״ותתידע חובתא די חבו עלה ויקרבון קהלא תור בר תורי״ – ונודעה החטאת, והקריבו הקהל פר.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-15": {
+      "onkelosExplanation": {
+        "draft": "״ויסמכון סבי כנשתא ית ידיהון על ריש תורא״ – וסמכו זקני העדה את ידיהם. הזקנים לוקחים אחריות בשם כולם.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-16": {
+      "onkelosExplanation": {
+        "draft": "״ויעל כהנא רבא מדמא דתורא למשכן זמנא״ – והביא הכהן המשיח מדם הפר.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-17": {
+      "onkelosExplanation": {
+        "draft": "״וידי שבע זמנין קדם יי ית קדם פרכתא״ – והזה שבע פעמים לפני הפרוכת.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-18": {
+      "onkelosExplanation": {
+        "draft": "״ומן דמא יתן על קרנת מדבחא די קדם יי״ – ומן הדם ייתן על קרנות המזבח.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-19": {
+      "onkelosExplanation": {
+        "draft": "״וית כל תרבה יפרש מנה ויסק למדבחא״ – ואת כל חלבו ירים והקטיר.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-20": {
+      "onkelosExplanation": {
+        "draft": "״ויכפר עליהון כהנא וישתבק להון״ – וכיפר עליהם הכהן ונסלח להם. אונקלוס: ״וישתבק״ – ויימחל, יעזבו להם. החטא משוחרר.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-21": {
+      "onkelosExplanation": {
+        "draft": "״ויפק ית תורא למברא למשריתא... חטאת קהלא הוא״ – חטאת הקהל הוא.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-22": {
+      "onkelosExplanation": {
+        "draft": "״אם רבא יחוב... בשלו ויחוב״ – אשר נשיא יחטא. אונקלוס מתרגם ״אשר״ כ״אם״. ורש״י מביא דרשה: ״אשר״ – לשון ״אשרי״: אשרי הדור שהנשיא שלו מביא קרבן על שגגתו. מנהיג שמודה בטעות – זו ברכה לדור.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-23": {
+      "onkelosExplanation": {
+        "draft": "״או אתידע לה חובתה די חב בה וייתי ית קרבנה צפיר בר עזין״ – או הודע אליו חטאתו, והביא שעיר עזים.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-24": {
+      "onkelosExplanation": {
+        "draft": "״ויסמוך ידה על רישא דצפירא... חטאתא הוא״ – וסמך ושחט, חטאת הוא.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-25": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא מדמא דחטאתא באצבעה ויתן על קרנת מדבחא דעלתא״ – על קרנות מזבח העולה.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-26": {
+      "onkelosExplanation": {
+        "draft": "״ויכפר עלוהי כהנא מחובתה וישתבק לה״ – וכיפר עליו ונסלח לו.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-27": {
+      "onkelosExplanation": {
+        "draft": "״ואם אנש חד יחוב בשלו מעמא דארעא״ – ואם נפש אחת תחטא מעם הארץ. אדם פשוט, אחד מהעם – וגם הוא מקבל דרך לתקן.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-28": {
+      "onkelosExplanation": {
+        "draft": "״וייתי קרבנה צפירת עזין שלמתא נקובתא״ – שעירת עזים תמימה, נקבה.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-29": {
+      "onkelosExplanation": {
+        "draft": "״ויסמוך ית ידה על ריש חטאתא״ – וסמך ושחט במקום העולה.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-30": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא מדמה באצבעה״ – ולקח הכהן מדמה.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-31": {
+      "onkelosExplanation": {
+        "draft": "״לאתקבלא ברעוא קדם יי ויכפר עלוהי כהנא וישתבק לה״ – לריח ניחוח, ואונקלוס: להתקבל ברצון. גם קרבן של חוטא מתקבל ברצון.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-32": {
+      "onkelosExplanation": {
+        "draft": "״ואם אימר ייתי קרבנה לחטאתא נקבא שלמתא ייתנה״ – ואם כבש יביא.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-33": {
+      "onkelosExplanation": {
+        "draft": "״ויסמוך ית ידה על ריש חטאתא״ – וסמך ושחט.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-34": {
+      "onkelosExplanation": {
+        "draft": "״ויסב כהנא מדמא דחטאתא באצבעה״ – ולקח מן הדם.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-4-35": {
+      "onkelosExplanation": {
+        "draft": "״ויכפר עלוהי כהנא על חובתה די חב וישתבק לה״ – וכיפר עליו על חטאתו ונסלח לו.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-1": {
+      "onkelosExplanation": {
+        "draft": "״וישמע קל מומי והוא סהיד או חזא או ידע אם לא יחוי ויקבל חובה״ – ושמעה קול אלה, והוא עד, או ראה או ידע – אם לא יגיד, ונשא עוונו. אונקלוס: ״קל מומי״ – קול של שבועה. מי שיודע את האמת ושותק – גם זה חטא.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-2": {
+      "onkelosExplanation": {
+        "draft": "״או אנש די יקרב בכל מדעם מסאב... ויהי מכסא מנה״ – או נפש אשר תיגע בכל דבר טמא, ונעלם ממנו.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-3": {
+      "onkelosExplanation": {
+        "draft": "״או ארי יקרב בסואבת אנשא... והוא ידע וחב״ – או כי ייגע בטומאת אדם, והוא ידע ואשם.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-4": {
+      "onkelosExplanation": {
+        "draft": "״או אנש ארי יקים לפרשא בספון לאבאשא או לאוטבא״ – או נפש כי תישבע לבטא בשפתיים להרע או להיטיב. אונקלוס: ״לפרשא בספון״ – לפרש בשפתיים. מילים שיוצאות מהפה מחייבות.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-5": {
+      "onkelosExplanation": {
+        "draft": "״ויהי ארי יחוב לחדא מאלין ויודי די חב עלה״ – והיה כי יאשם לאחת מאלה, והתוודה אשר חטא עליה. לפני הקרבן – וידוי. אין תיקון בלי להגיד בקול: טעיתי.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-6": {
+      "onkelosExplanation": {
+        "draft": "״וייתי ית אשמה קדם יי... ויכפר עלוהי כהנא מחובתה״ – והביא את אשמו, וכיפר עליו הכהן.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-7": {
+      "onkelosExplanation": {
+        "draft": "״ואם לא תמטי ידה כמסת שיתא... תרתין שפנינין או תרין בני יונה״ – ואם לא תגיע ידו די שה, יביא שתי תורים או שני בני יונה. הקרבן יורד לפי היכולת. ה׳ לא דורש מאדם יותר ממה שיש לו.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-8": {
+      "onkelosExplanation": {
+        "draft": "״וימלוק ית רישה מלקבל קדלה ולא יפרש״ – ומלק את ראשו ממול עורפו, ולא יבדיל.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-9": {
+      "onkelosExplanation": {
+        "draft": "״וידי מדמא דחטאתא על כתל מדבחא״ – והזה מדם החטאת על קיר המזבח.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-10": {
+      "onkelosExplanation": {
+        "draft": "״וית תנינא יעבד עלתא כדחזי״ – ואת השני יעשה עולה כמשפט.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-11": {
+      "onkelosExplanation": {
+        "draft": "״ואם לא תדבק ידה לתרתין שפנינין... חד מן עסרא בתלת סאין סלתא״ – ואם גם לשתי תורים אין לו – עשירית האיפה סולת. גם לעני מאוד יש דרך. אף אחד לא נשאר מחוץ לכפרה.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-12": {
+      "onkelosExplanation": {
+        "draft": "״ויקמוץ כהנא מנה מלי קמצה ית אדכרתה״ – וקמץ הכהן מלוא קומצו.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-13": {
+      "onkelosExplanation": {
+        "draft": "״ויכפר עלוהי כהנא... וישתבק לה״ – ונסלח לו.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-14": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-15": {
+      "onkelosExplanation": {
+        "draft": "״אנש ארי ישקר שקר ויחוב בשלו מקודשיא דיי״ – נפש כי תמעול מעל וחטאה בשגגה מקודשי ה׳. אונקלוס: ״ישקר שקר״ – ישקר שקר. מעילה היא בגידה באמון – לקחת לעצמך את מה ששייך לה׳.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-16": {
+      "onkelosExplanation": {
+        "draft": "״וית די חב מן קודשא ישלם וית חמשה יוסף עלוהי״ – ואת אשר חטא ישלם, ואת חמישיתו יוסיף עליו. מחזירים יותר ממה שלקחו.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-17": {
+      "onkelosExplanation": {
+        "draft": "״ויעבד חדא מכל פקודיא דיי... ולא ידע ויחוב ויקבל חובה״ – ולא ידע, ואשם ונשא עוונו. גם ספק חטא דורש תשומת לב.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-18": {
+      "onkelosExplanation": {
+        "draft": "״ויכפר עלוהי כהנא על שלותה דאשתלי והוא לא ידע וישתבק לה״ – על שגגתו אשר שגג והוא לא ידע.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-19": {
+      "onkelosExplanation": {
+        "draft": "״אשמא הוא על חובתה דהוא חב״ – אשם הוא.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-20": {
+      "onkelosExplanation": {
+        "draft": "״ומליל יי עם משה למימר״.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-21": {
+      "onkelosExplanation": {
+        "draft": "״אנש ארי יחוב וישקר שקר קדם יי ויכדב בחברה בפקדונא״ – נפש כי תחטא ומעלה מעל בה׳ וכיחש בעמיתו בפיקדון. מי שמשקר לחברו – משקר לפני ה׳. רש״י מביא את דברי רבי עקיבא: מי שמפקיד אצל חברו בלי עדים, ה׳ הוא העד היחיד ביניהם – ומי שכופר, כופר בו.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-22": {
+      "onkelosExplanation": {
+        "draft": "״או אשכח אבדתא ויכדב בה ואשתבע על שקרא״ – או מצא אבידה וכיחש בה, ונשבע על שקר.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-23": {
+      "onkelosExplanation": {
+        "draft": "״ויתב ית גזלא די גזל או ית עשקא די עשק״ – והשיב את הגזלה אשר גזל או את העושק אשר עשק. קודם מחזירים לאדם – ורק אחר כך באים לה׳.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-24": {
+      "onkelosExplanation": {
+        "draft": "״וישלם יתה ברישיה וחמשה יוסף עלוהי לדי הוא דילה יתננה ביומא דחובתה״ – ושילם אותו בראשו וחמישיתו יוסיף, לאשר הוא לו יתננו ביום אשמתו. ביום שמודים – משלמים. לא דוחים.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-25": {
+      "onkelosExplanation": {
+        "draft": "״וית אשמיה ייתי לקדם יי דכר שלים מן ענא״ – ואת אשמו יביא לה׳.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    },
+    "leviticus-5-26": {
+      "onkelosExplanation": {
+        "draft": "״ויכפר עלוהי כהנא קדם יי וישתבק לה על חדא מכל די יעבד״ – וכיפר עליו לפני ה׳ ונסלח לו על אחת מכל אשר יעשה. אין חטא שאין לו תיקון.",
+        "updatedAt": "2026-10-08T17:09:06.693Z",
+        "source": "import:content-writer"
+      }
+    }
+  }
+}
