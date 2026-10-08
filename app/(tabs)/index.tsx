@@ -17,7 +17,7 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BOTTOM_NAV_SPACE } from '../../src/components/GlassBottomNav';
 import { MenuButton } from '../../src/components/MenuButton';
-import { getCurrentParasha, isParashaComplete } from '../../src/data/parashot';
+import { isParashaComplete } from '../../src/data/parashot';
 import { useAppStore } from '../../src/store/useAppStore';
 import { APP_NAME, APP_TAGLINE } from '../../src/theme/brand';
 import { nw } from '../../src/theme/design';
@@ -28,7 +28,11 @@ import { assets, radii, spacing } from '../../src/theme/tokens';
 import {
   CalendarPill,
   GlassSurface,
+  GreetingHeader,
+  HomeStatus,
   HeroBanner,
+  LifeLessonsCard,
+  NamePrompt,
   PillButton,
   PrimaryButton,
   ScreenBackground,
@@ -36,6 +40,9 @@ import {
   useLayout,
 } from '../../src/ui';
 import { HomeWide } from '../../src/wide/HomeWide';
+import { lifeLessonsFor, useParasha, useParashaEyebrow } from '../../src/content';
+import { useG } from '../../src/greeting/useG';
+import { UI } from '../../src/greeting/uiTexts';
 
 function haftaraBook(source: string): string {
   const match = source.match(/^(.*?)\s+[\u0590-\u05EA״׳]+[:：]/);
@@ -58,7 +65,11 @@ function HomeMobile() {
   const lastVerseId = useAppStore((s) => s.lastVerseId);
   const onboardingDone = useAppStore((s) => s.onboardingDone);
 
-  const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
+  const familyVoice = useAppStore((s) => s.familyVoice);
+  const parasha = useParasha(calendarMode);
+  const eyebrow = useParashaEyebrow(calendarMode);
+  const t = useG();
+  const lessons = useMemo(() => lifeLessonsFor(parasha, familyVoice), [parasha, familyVoice]);
   const doneAll = useMemo(() => isParashaComplete(parasha, progress), [parasha, progress]);
 
   if (!onboardingDone) {
@@ -199,9 +210,16 @@ function HomeMobile() {
         >
           <HeroBanner
             parashaName={parasha.name}
+            eyebrow={eyebrow}
             rangeLabel={parasha.rangeLabel}
             underlay={insets.top + nw.space.headerH + 8}
+            safeTop={insets.top}
           />
+
+          {/* ברכה אישית + כל הפרשות */}
+          <GreetingHeader style={{ marginHorizontal: nw.space.screenX, marginTop: 12 }} />
+          <HomeStatus style={{ marginHorizontal: nw.space.screenX, marginTop: 10 }} />
+          <NamePrompt style={{ marginHorizontal: nw.space.screenX, marginTop: 12 }} />
 
           <View
             style={{
@@ -342,7 +360,7 @@ function HomeMobile() {
               {parasha.story.adult}
             </Text>
             <PillButton
-              title="קרא את הסיפור"
+              title={t(UI.readStory)}
               style={{ marginTop: 16 }}
               onPress={() => router.push({ pathname: '/story', params: { kind: 'parasha' } })}
             />
@@ -350,9 +368,16 @@ function HomeMobile() {
 
           <PrimaryButton
             variant="solid"
-            title={lastVerseId ? 'המשך מאיפה שעצרת' : 'למסלול הקריאה'}
+            title={lastVerseId ? t(UI.continueReading) : 'למסלול הקריאה'}
             style={{ marginHorizontal: nw.space.screenX, marginTop: 16 }}
             onPress={() => (doneAll ? router.push('/completion') : router.push('/reading'))}
+          />
+
+          {/* מה אפשר לקחת לחיים — רק כשיש תוכן מפורסם; מתחת לכפתור כדי שכל מה שמעליו לא יזוז */}
+          <LifeLessonsCard
+            items={lessons}
+            child={familyVoice === 'child' && Boolean(parasha.extras?.lifeLessons?.child?.length)}
+            style={{ marginHorizontal: nw.space.screenX, marginTop: 16 }}
           />
         </Animated.ScrollView>
 

@@ -1,9 +1,8 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Smile, User } from 'lucide-react-native';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getCurrentParasha } from '../src/data/parashot';
 import { useAppStore } from '../src/store/useAppStore';
 import { nw } from '../src/theme/design';
 import { img } from '../src/theme/images';
@@ -18,6 +17,7 @@ import {
   useLayout,
 } from '../src/ui';
 import { StoryWide } from '../src/wide/StoryWide';
+import { contentImage, useParasha, whyHaftaraFor } from '../src/content';
 
 export default function StoryScreen() {
   const { isWide } = useLayout();
@@ -43,17 +43,14 @@ function StoryMobile() {
   const familyVoice = useAppStore((s) => s.familyVoice);
   const setFamilyVoice = useAppStore((s) => s.setFamilyVoice);
 
-  const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
+  const parasha = useParasha(calendarMode);
   const isChild = familyVoice === 'child';
   const isHaftara = kind === 'haftara';
   const story = parasha.story;
 
   const body = isChild ? story.child : story.adult;
   const para1 = isChild ? parasha.haftara.storyChild : parasha.haftara.storyAdult;
-  const why =
-    calendarMode === 'israel'
-      ? parasha.haftara.whyThisHaftara.israel
-      : parasha.haftara.whyThisHaftara.diaspora;
+  const why = whyHaftaraFor(parasha, calendarMode, familyVoice);
 
   return (
     <ScreenBackground variant="mist" showNav={false}>
@@ -83,10 +80,10 @@ function StoryMobile() {
             <IllustrationCard
               source={
                 isHaftara
-                  ? img.haftaraProphet
+                  ? contentImage(parasha, 'haftara', img.haftaraProphet)
                   : isChild
-                    ? img.familyChild
-                    : img.familyAdult
+                    ? contentImage(parasha, 'storyChild', img.familyChild)
+                    : contentImage(parasha, 'storyAdult', img.familyAdult)
               }
               aspectRatio={16 / 9}
             />
@@ -106,7 +103,7 @@ function StoryMobile() {
                 <Text
                   style={{
                     ...nw.type.caption,
-                    color: nw.color.tealIcon,
+                    color: nw.color.tealText,
                     marginTop: 16,
                     textAlign: rtl.textRight,
                     writingDirection: 'rtl',
@@ -144,7 +141,7 @@ function StoryMobile() {
                   <Text
                     style={{
                       ...nw.type.caption,
-                      color: nw.color.tealIcon,
+                      color: nw.color.tealText,
                       marginTop: 16,
                       textAlign: rtl.textRight,
                       writingDirection: 'rtl',

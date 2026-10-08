@@ -5,18 +5,31 @@ const sh = (color: string, y: number, opacity: number, radius: number, elevation
     android: { elevation },
     default: { shadowColor: color, shadowOffset: { width: 0, height: y }, shadowOpacity: opacity, shadowRadius: radius },
   })!;
+/**
+ * משטח ״פנינה״ במקום לבן טהור: כל הכרטיסים, הזכוכית, הכפתורים והשבבים נגזרים מהגוון הזה.
+ * לבן טהור (#FFFFFF) נשאר רק לטקסט/אייקונים על טורקיז כהה (color.onAccent) ולדגל.
+ */
+export const PEARL_HEX = '#FAF7F0';
+const PEARL_RGB = '250,247,240';
+/** גוון הפנינה בשקיפות a (0..1) */
+export const pearl = (a: number) => `rgba(${PEARL_RGB},${a})`;
+
+/* ניגודיות (WCAG AA) נבדקה מול זכוכית פנינה בשקיפות 0.30–0.62 מעל רקעי השמיים/האפרסק:
+   ink ≥ 9.5, inkSoft ≥ 5.0, inkMuted ≥ 4.7, tealText ≥ 5.1, טקסט לבן על teal 6.2. */
 export const nw = {
   color: {
     ink: '#0B2A4A',
-    inkSoft: '#3B5F78',
-    inkMuted: '#6F8797',
+    inkSoft: '#34566E',
+    inkMuted: '#435A6B',
     onAccent: '#FFFFFF',
     teal: '#2B6B6A',
     tealDeep: '#1E5557',
     tealBright: '#1F9E8C',
-    tealIcon: '#2A8C80',
+    tealIcon: '#237A70',
+    /** טקסט טורקיז קטן (תוויות/כותרות־על): ניגודיות AA גם על זכוכית בהירה */
+    tealText: '#1D5A57',
     tealSoft: 'rgba(31,158,140,0.14)',
-    tealTint: 'rgba(43,107,106,0.62)',
+    tealTint: 'rgba(43,107,106,0.9)',
     mint: '#E3F4F0',
     sky: '#E6F4FA',
     snow: '#F2F7F7',
@@ -32,23 +45,47 @@ export const nw = {
     divider: 'rgba(11,42,74,0.08)',
     selectedBorder: 'rgba(31,158,140,0.55)',
     danger: '#B33A3A',
-    glow: 'rgba(255,255,255,0.8)',
+    /** טקסט אזהרה על זכוכית (≥4.5:1 גם על פנינה 0.30 מעל שמיים) */
+    dangerText: '#922B2B',
+    glow: pearl(0.8),
+  },
+  /** משטחים אטומים/חצי־אטומים (לא זכוכית): כפתורים בהירים, שבבים, שדות קלט, אריחים */
+  surface: {
+    solid: PEARL_HEX,
+    /** כפתור/גלולה בהירים */
+    button: pearl(0.78),
+    buttonActive: pearl(0.9),
+    /** שבב (chip) לא פעיל */
+    chip: pearl(0.62),
+    /** שדה קלט */
+    input: pearl(0.4), // שדות קלט: זכוכית פנינה (לא לבן אטום)
+    /** אריח עדין בתוך כרטיס */
+    tile: pearl(0.55),
+    /** קו מתאר בהיר */
+    border: pearl(0.9),
+    borderSoft: pearl(0.65),
   },
   glass: {
-    fill: 'rgba(255,255,255,0.50)',
-    fillStrong: 'rgba(255,255,255,0.64)',
-    fillSubtle: 'rgba(255,255,255,0.34)',
-    fillOnPhoto: 'rgba(255,255,255,0.30)',
-    border: 'rgba(255,255,255,0.88)',
-    borderSoft: 'rgba(255,255,255,0.60)',
-    highlightFrom: 'rgba(255,255,255,0.55)',
-    highlightTo: 'rgba(255,255,255,0)',
+    fill: pearl(0.42),
+    fillStrong: pearl(0.56),
+    fillSubtle: pearl(0.3),
+    fillOnPhoto: pearl(0.26),
+    /** זכוכית ״כפור״ אמיתית לכרטיסי גיבור (פרשת השבוע וכו׳): הרקע נראה דרכה */
+    fillFrost: pearl(0.3),
+    border: pearl(0.85),
+    borderSoft: pearl(0.6),
+    borderFrost: pearl(0.62),
+    highlightFrom: pearl(0.5),
+    highlightTo: pearl(0),
+    highlightFrost: pearl(0.32),
     blurIntensity: 22,
+    blurIntensityFrost: 30,
     webBlur: 'blur(22px) saturate(140%)',
+    webBlurFrost: 'blur(16px) saturate(165%) brightness(1.04)',
   },
   bg: {
     base: '#C9D8E2',
-    mistVeil: ['rgba(120,165,210,0.18)', 'rgba(255,255,255,0)', 'rgba(120,140,120,0.10)'],
+    mistVeil: ['rgba(120,165,210,0.18)', pearl(0), 'rgba(120,140,120,0.10)'],
     mistVeilLocations: [0, 0.5, 1],
     photoVeil: ['rgba(20,52,74,0.16)', 'rgba(20,52,74,0)', 'rgba(20,52,74,0.10)'],
     photoVeilLocations: [0, 0.35, 1],

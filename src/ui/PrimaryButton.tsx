@@ -25,7 +25,7 @@ export function PrimaryButton({
   light,
   style,
 }: Props) {
-  const textColor = variant === 'solid' || light ? '#FFFFFF' : nw.color.ink;
+  const textColor = variant === 'solid' || light ? nw.color.onAccent : nw.color.ink;
   const IconComp = icon === 'arrow' ? ArrowLeft : icon === 'chevron' ? ChevronLeft : null;
 
   const label = (
@@ -53,6 +53,7 @@ export function PrimaryButton({
         onPress={onPress}
         disabled={disabled}
         accessibilityRole="button"
+        accessibilityLabel={title}
         accessibilityState={{ disabled: !!disabled }}
         style={({ pressed }) => [
           {
@@ -80,6 +81,7 @@ export function PrimaryButton({
       onPress={onPress}
       disabled={disabled}
       accessibilityRole="button"
+      accessibilityLabel={title}
       accessibilityState={{ disabled: !!disabled }}
       style={({ pressed }) => [
         { alignSelf: 'stretch' },

@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useId } from 'react';
 import Svg, { Defs, LinearGradient as SvgGradient, Path, Stop } from 'react-native-svg';
-import { nw } from '../theme/design';
+import { nw, pearl } from '../theme/design';
 
 const WAVE = 'M0 30 C 70 8, 150 6, 215 22 S 330 48, 390 26';
 
@@ -39,8 +39,8 @@ export function WaveEdge({ color = nw.wave.color }: Props) {
           </SvgGradient>
         </Defs>
         <Path d={`${WAVE} L 390 56 L 0 56 Z`} fill={`url(#${id})`} />
-        <Path d={WAVE} fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth={6} />
-        <Path d={WAVE} fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth={1.75} />
+        <Path d={WAVE} fill="none" stroke={pearl(0.45)} strokeWidth={6} />
+        <Path d={WAVE} fill="none" stroke={pearl(0.95)} strokeWidth={1.75} />
       </Svg>
     </>
   );

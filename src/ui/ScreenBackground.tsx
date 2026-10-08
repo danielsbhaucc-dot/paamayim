@@ -2,9 +2,11 @@ import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { StyleSheet, View, type ImageSourcePropType } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BOTTOM_NAV_SPACE, GlassBottomNav } from '../components/GlassBottomNav';
 import { nw } from '../theme/design';
 import { img } from '../theme/images';
+import { OliveBranches } from './OliveBranches';
 import { TopNav } from './TopNav';
 import { useLayout } from './useLayout';
 
@@ -33,6 +35,7 @@ export function ScreenBackground({
   scrimLocations,
 }: Props) {
   const { isWide } = useLayout();
+  const insets = useSafeAreaInsets();
   const imageSource = source ?? (variant === 'mist' ? img.mistSky : img.heroSunrise);
   const scrimLayer = scrim ? (
     <LinearGradient
@@ -46,7 +49,15 @@ export function ScreenBackground({
   if (isWide) {
     const nav = wideNav ?? showNav;
     return (
-      <View style={{ flex: 1, backgroundColor: nw.bg.base }}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: nw.bg.base,
+          // טאבלט מותקן: status bar / home indicator (ב-web ה-insets הם 0)
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+        }}
+      >
         <Image
           source={imageSource}
           style={StyleSheet.absoluteFill}
@@ -60,6 +71,7 @@ export function ScreenBackground({
           style={StyleSheet.absoluteFill}
         />
         {scrimLayer}
+        <OliveBranches />
         {nav ? <TopNav /> : null}
         <View
           style={[

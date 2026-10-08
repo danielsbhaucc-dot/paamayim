@@ -1,13 +1,13 @@
 import { Image } from 'expo-image';
 import { usePathname, useRouter } from 'expo-router';
-import { CalendarDays, ChevronDown, Settings } from 'lucide-react-native';
+import { BookOpen, CalendarDays, ChevronDown, Settings } from 'lucide-react-native';
 import React from 'react';
 import { Pressable, Text, View, type PressableStateCallbackType } from 'react-native';
 import { isNavActive, NAV_ITEMS } from '../components/GlassBottomNav';
 import { MenuButton } from '../components/MenuButton';
 import { useAppStore } from '../store/useAppStore';
 import { APP_NAME, APP_TAGLINE } from '../theme/brand';
-import { nw } from '../theme/design';
+import { nw, pearl } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { img } from '../theme/images';
 import { rtl } from '../theme/rtl';
@@ -48,12 +48,12 @@ export function TopNav() {
     >
       <GlassSurface
         variant="strong"
-        radius={24}
+        radius={nw.layout.topNavH / 2}
         padded={false}
         shadow="float"
         contentStyle={{
           height: nw.layout.topNavH,
-          paddingHorizontal: 18,
+          paddingHorizontal: 24,
           flexDirection: rtl.row,
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -119,11 +119,8 @@ export function TopNav() {
                     flexDirection: rtl.row,
                     alignItems: 'center',
                     gap: 8,
-                    backgroundColor: active
-                      ? 'rgba(255,255,255,0.55)'
-                      : hovered
-                        ? 'rgba(255,255,255,0.40)'
-                        : 'transparent',
+                    // פעיל = קו תחתון בלבד (כמו ברפרנס); ריחוף = רקע פנינה עדין
+                    backgroundColor: !active && hovered ? pearl(0.4) : 'transparent',
                     opacity: state.pressed ? 0.85 : 1,
                   };
                 }}
@@ -148,9 +145,9 @@ export function TopNav() {
                   <View
                     style={{
                       position: 'absolute',
-                      left: 14,
-                      right: 14,
-                      bottom: 4,
+                      left: 8,
+                      right: 8,
+                      bottom: 2,
                       height: 3,
                       borderRadius: 2,
                       backgroundColor: nw.color.tealBright,
@@ -202,6 +199,29 @@ export function TopNav() {
             </GlassSurface>
           ) : null}
           <MenuButton />
+          {isDesktop ? (
+            <Pressable
+              onPress={() => router.push('/reading')}
+              accessibilityRole="button"
+              accessibilityLabel="לקריאה"
+              style={({ pressed }) => ({
+                height: 46,
+                paddingHorizontal: 22,
+                borderRadius: 23,
+                flexDirection: rtl.row,
+                alignItems: 'center',
+                gap: 8,
+                backgroundColor: nw.color.teal,
+                opacity: pressed ? 0.88 : 1,
+                ...nw.shadow.active,
+              })}
+            >
+              <BookOpen size={18} color={nw.color.onAccent} strokeWidth={2} />
+              <Text style={{ ...nw.type.label, fontSize: 15, color: nw.color.onAccent, writingDirection: 'rtl' }}>
+                לקריאה
+              </Text>
+            </Pressable>
+          ) : null}
         </View>
       </GlassSurface>
     </View>

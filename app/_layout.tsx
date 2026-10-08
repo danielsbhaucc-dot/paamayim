@@ -5,17 +5,25 @@ import { StatusBar } from 'expo-status-bar';
 import { useCallback, useEffect, useState } from 'react';
 import { I18nManager } from 'react-native';
 import { AppLoadingScreen } from '../src/components/AppLoadingScreen';
+import { startContentSync } from '../src/content';
 import { SideMenuHost } from '../src/components/SideMenuHost';
 import { fontAssets } from '../src/theme/fonts';
 import { colors } from '../src/theme/tokens';
-import { enforceRTL } from '../src/utils/a11y';
+import { applyWebA11y, capFontScaling, enforceRTL } from '../src/utils/a11y';
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
 enforceRTL();
+capFontScaling();
+applyWebA11y();
 
 export default function RootLayout() {
   const [loaded] = useFonts(fontAssets);
   const [showLoader, setShowLoader] = useState(true);
+
+  useEffect(() => {
+    // תוכן מפורסם: ארוז → מטמון → סנכרון מהשרת (ברקע, בלי לחסום את הטעינה)
+    startContentSync();
+  }, []);
 
   useEffect(() => {
     if (!I18nManager.isRTL) {
@@ -54,6 +62,7 @@ export default function RootLayout() {
         <Stack.Screen name="settings" options={{ presentation: 'modal' }} />
         <Stack.Screen name="legal" options={{ presentation: 'modal' }} />
         <Stack.Screen name="calendar" options={{ presentation: 'card' }} />
+        <Stack.Screen name="parashot" options={{ presentation: 'card' }} />
       </Stack>
       <SideMenuHost />
       {showLoader ? <AppLoadingScreen ready={loaded} onFinish={onLoaderFinish} /> : null}

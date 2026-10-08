@@ -14,7 +14,8 @@ import {
 } from 'react-native';
 import { nw } from '../theme/design';
 
-type Variant = 'card' | 'strong' | 'subtle' | 'onPhoto';
+/** frost = זכוכית כפור אמיתית לכרטיסי גיבור: מילוי נמוך, טשטוש חזק יותר, קו מתאר עדין */
+type Variant = 'card' | 'strong' | 'subtle' | 'onPhoto' | 'frost';
 type Shadow = 'card' | 'float' | 'none';
 
 type Props = {
@@ -40,6 +41,7 @@ const FILL: Record<Variant, string> = {
   strong: nw.glass.fillStrong,
   subtle: nw.glass.fillSubtle,
   onPhoto: nw.glass.fillOnPhoto,
+  frost: nw.glass.fillFrost,
 };
 
 export function GlassSurface({
@@ -60,6 +62,8 @@ export function GlassSurface({
   accessibilityValue,
 }: Props) {
   const shadowStyle = shadow === 'none' ? undefined : nw.shadow[shadow];
+  const frost = variant === 'frost';
+  const webBlur = frost ? nw.glass.webBlurFrost : nw.glass.webBlur;
   const outerBase: StyleProp<ViewStyle> = [
     shadowStyle,
     { borderRadius: radius, alignSelf: 'stretch' },
@@ -72,7 +76,7 @@ export function GlassSurface({
         borderRadius: radius,
         overflow: 'hidden',
         borderWidth,
-        borderColor: borderColor ?? nw.glass.border,
+        borderColor: borderColor ?? (frost ? nw.glass.borderFrost : nw.glass.border),
         flexGrow: 1,
       }}
     >
@@ -82,13 +86,13 @@ export function GlassSurface({
           style={[
             StyleSheet.absoluteFill,
             // @ts-expect-error web-only CSS
-            { backdropFilter: nw.glass.webBlur, WebkitBackdropFilter: nw.glass.webBlur },
+            { backdropFilter: webBlur, WebkitBackdropFilter: webBlur },
           ]}
         />
       ) : (
         <BlurView
           pointerEvents="none"
-          intensity={nw.glass.blurIntensity}
+          intensity={frost ? nw.glass.blurIntensityFrost : nw.glass.blurIntensity}
           tint={Platform.OS === 'ios' ? 'systemUltraThinMaterialLight' : 'light'}
           {...(Platform.OS === 'android' ? { experimentalBlurMethod: 'dimezisBlurView' as const } : {})}
           style={StyleSheet.absoluteFill}
@@ -100,7 +104,7 @@ export function GlassSurface({
       />
       <LinearGradient
         pointerEvents="none"
-        colors={[nw.glass.highlightFrom, nw.glass.highlightTo]}
+        colors={[frost ? nw.glass.highlightFrost : nw.glass.highlightFrom, nw.glass.highlightTo]}
         style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '45%' }}
       />
       <View style={[{ flexGrow: 1 }, padded && { padding: nw.space.cardPad }, contentStyle]}>

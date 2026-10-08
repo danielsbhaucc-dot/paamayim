@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import Svg, { Circle, G } from 'react-native-svg';
-import { nw } from '../theme/design';
+import { nw, pearl } from '../theme/design';
 import { fonts } from '../theme/fonts';
 
 type Props = {
@@ -33,8 +33,8 @@ export function ProgressRing({
           cx={c}
           cy={c}
           r={r}
-          fill="rgba(255,255,255,0.6)"
-          stroke="rgba(255,255,255,0.95)"
+          fill={pearl(0.6)}
+          stroke={pearl(0.95)}
           strokeWidth={stroke}
         />
         <Circle

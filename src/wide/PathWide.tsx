@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { CalendarDays } from 'lucide-react-native';
 import React, { useMemo } from 'react';
 import { Text, View } from 'react-native';
-import { aliyahProgress, getCurrentParasha } from '../data/parashot';
+import { aliyahProgress } from '../data/parashot';
 import { useAppStore } from '../store/useAppStore';
 import { nw } from '../theme/design';
 import { rtl } from '../theme/rtl';
@@ -17,6 +17,7 @@ import {
   WideSectionTitle,
   useLayout,
 } from '../ui';
+import { useParasha } from '../content';
 
 const tr = { textAlign: rtl.textRight, writingDirection: 'rtl' } as const;
 
@@ -29,7 +30,7 @@ export function PathWide() {
   const activeAliyah = useAppStore((s) => s.activeAliyah);
   const setActiveAliyah = useAppStore((s) => s.setActiveAliyah);
 
-  const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
+  const parasha = useParasha(calendarMode);
   const aliyah = parasha.aliyot.find((a) => a.id === activeAliyah) ?? parasha.aliyot[0];
   const ratios = useMemo(() => {
     const map: Record<number, number> = {};
@@ -120,7 +121,7 @@ export function PathWide() {
               style={{ flexBasis: isDesktop ? '12%' : '22%', flexGrow: 1 }}
               contentStyle={{ padding: 18, gap: 6 }}
             >
-              <Text style={{ ...nw.type.label, color: nw.color.tealIcon, ...tr }}>{dayName(a.dayShort)}</Text>
+              <Text style={{ ...nw.type.label, color: nw.color.tealText, ...tr }}>{dayName(a.dayShort)}</Text>
               <Text style={{ ...nw.type.h3, color: nw.color.ink, ...tr }}>{a.title}</Text>
               <View style={{ height: 6, borderRadius: 3, backgroundColor: nw.color.track, marginTop: 6, overflow: 'hidden' }}>
                 <View style={{ position: 'absolute', top: 0, bottom: 0, right: 0, width: `${pct}%`, backgroundColor: nw.color.tealBright }} />

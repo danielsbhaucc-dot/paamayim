@@ -78,7 +78,7 @@ export default function CalendarScreen() {
                   width: 72,
                   height: 72,
                   borderRadius: 36,
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: nw.surface.solid,
                   alignItems: 'center',
                   justifyContent: 'center',
                   ...nw.shadow.card,

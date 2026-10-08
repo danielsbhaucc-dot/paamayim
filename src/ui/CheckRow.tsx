@@ -33,12 +33,12 @@ export function CheckRow({ label, done, inProgress, caption, last }: Props) {
           borderRadius: 15,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: done ? nw.color.tealBright : 'rgba(255,255,255,0.6)',
+          backgroundColor: done ? nw.color.tealBright : nw.surface.chip,
           borderWidth: done ? 0 : 1.5,
           borderColor: 'rgba(11,42,74,0.18)',
         }}
       >
-        {done ? <Check size={18} color="#FFFFFF" strokeWidth={3} /> : null}
+        {done ? <Check size={18} color={nw.color.onAccent} strokeWidth={3} /> : null}
       </View>
 
       <View style={{ flex: 1 }}>

@@ -1,4 +1,4 @@
-import { HDate, Sedra, parshiot } from '@hebcal/core';
+import { HDate, Location, Sedra, Zmanim, parshiot } from '@hebcal/core';
 import {
   getLeyningForParsha,
   getLeyningOnDate,
@@ -273,23 +273,37 @@ function weekParasha(names: string[], hdate: HDate, il: boolean): Parasha {
   return parasha;
 }
 
-/**
- * פרשת השבוע לפי לוח ישראל או חו״ל.
- * בשבוע בלי פרשה (חג) מתקדמים לשבת הבאה שבה יש קריאה.
- */
-export function getCurrentParasha(mode: CalendarMode, date = new Date()): Parasha {
-  const il = mode === 'israel';
-  let hd = shabbatOnOrAfter(new HDate(date));
+const JERUSALEM = Location.lookup('Jerusalem');
 
+/** האם השבת כבר יצאה (מוצ״ש, צאת הכוכבים בירושלים) — אז עוברים לפרשה של השבוע הבא */
+export function isAfterShabbat(date: Date): boolean {
+  if (date.getDay() !== 6 || !JERUSALEM) return false;
+  const tzeit = new Zmanim(JERUSALEM, date, false).tzeit(8.5);
+  return !Number.isNaN(tzeit.getTime()) && date.getTime() >= tzeit.getTime();
+}
+
+/** שם/ות הפרשה (באנגלית של hebcal) שנקראת בשבת הקרובה, וה-HDate של אותה שבת */
+export function weekSedra(mode: CalendarMode, date = new Date()): { names: string[]; hdate: HDate } {
+  const il = mode === 'israel';
+  const start = new HDate(date);
+  let hd = shabbatOnOrAfter(isAfterShabbat(date) ? new HDate(start.abs() + 1) : start);
   for (let step = 0; step < 8; step++) {
     const result = new Sedra(hd.getFullYear(), il).lookup(hd);
-    if (result.parsha.length > 0 && result.num !== 0) {
-      return weekParasha(result.parsha, result.hdate, il);
-    }
+    if (!result.chag && result.parsha.length > 0) return { names: result.parsha, hdate: result.hdate };
     hd = new HDate(hd.abs() + 7);
   }
+  return { names: ['Bereshit'], hdate: hd };
+}
 
-  return PARASHOT[parashaId(['Bereshit'])];
+/**
+ * פרשת השבוע לפי לוח ישראל או חו״ל.
+ * - שבוע שבו השבת היא חג (בלי פרשה) → הפרשה של השבת הבאה שבה יש קריאה.
+ * - במוצאי שבת (אחרי צאת הכוכבים בירושלים) עוברים כבר לפרשה של השבוע הבא.
+ * - פרשות מחוברות (למשל ויקהל־פקודי) מגיעות כפרשה אחת, וההפטרה המיוחדת של אותה שבת (שקלים, חנוכה...) נלקחת מ-hebcal.
+ */
+export function getCurrentParasha(mode: CalendarMode, date = new Date()): Parasha {
+  const { names, hdate } = weekSedra(mode, date);
+  return weekParasha(names, hdate, mode === 'israel');
 }
 
 export function getParashaById(id: string): Parasha | undefined {

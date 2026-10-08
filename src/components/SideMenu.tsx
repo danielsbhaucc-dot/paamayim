@@ -20,18 +20,21 @@ import { fonts } from '../theme/fonts';
 import { assets, colors, radii, spacing } from '../theme/tokens';
 import { a11y } from '../utils/a11y';
 
+/** ב-web אין native driver (אזהרה בקונסול); בטלפון — בדיוק כמו קודם */
+const NATIVE_DRIVER = Platform.OS !== 'web';
+
 const OPEN_MS = 400;
 const CLOSE_MS = 320;
 const STAGGER = 90;
 
-type MenuItem = {
+export type MenuItem = {
   key: string;
   title: string;
   icon: keyof typeof Ionicons.glyphMap;
   onPress: (router: Router) => void;
 };
 
-const MENU_ITEMS: MenuItem[] = [
+export const MENU_ITEMS: MenuItem[] = [
   {
     key: 'home',
     title: 'פרשת השבוע',
@@ -76,7 +79,7 @@ function normalizePath(pathname: string) {
   return raw;
 }
 
-function isItemActive(pathname: string, key: string) {
+export function isItemActive(pathname: string, key: string) {
   const p = normalizePath(pathname);
   const leaf = p.includes('/') ? p.slice(p.lastIndexOf('/') + 1) : p;
 
@@ -167,7 +170,7 @@ function MenuRow({
         onPressIn={() => {
           Animated.spring(press, {
             toValue: 0.95,
-            useNativeDriver: true,
+            useNativeDriver: NATIVE_DRIVER,
             friction: 6,
             tension: 200,
           }).start();
@@ -175,7 +178,7 @@ function MenuRow({
         onPressOut={() => {
           Animated.spring(press, {
             toValue: 1,
-            useNativeDriver: true,
+            useNativeDriver: NATIVE_DRIVER,
             friction: 5,
             tension: 160,
           }).start();
@@ -253,7 +256,7 @@ export function SideMenu() {
             toValue: 1,
             duration: OPEN_MS,
             easing: Easing.out(Easing.cubic),
-            useNativeDriver: true,
+            useNativeDriver: NATIVE_DRIVER,
           }),
           Animated.sequence([
             Animated.delay(40),
@@ -261,7 +264,7 @@ export function SideMenu() {
               toValue: 1,
               friction: 7,
               tension: 80,
-              useNativeDriver: true,
+              useNativeDriver: NATIVE_DRIVER,
             }),
           ]),
           Animated.sequence([
@@ -270,7 +273,7 @@ export function SideMenu() {
               toValue: 1,
               duration: 360,
               easing: Easing.out(Easing.cubic),
-              useNativeDriver: true,
+              useNativeDriver: NATIVE_DRIVER,
             }),
           ]),
           Animated.sequence([
@@ -282,7 +285,7 @@ export function SideMenu() {
                   toValue: 1,
                   friction: 7,
                   tension: 70,
-                  useNativeDriver: true,
+                  useNativeDriver: NATIVE_DRIVER,
                 }),
               ),
             ),
@@ -300,18 +303,18 @@ export function SideMenu() {
         toValue: 0,
         duration: CLOSE_MS + (MENU_ITEMS.length - 1) * 45,
         easing: Easing.in(Easing.cubic),
-        useNativeDriver: true,
+        useNativeDriver: NATIVE_DRIVER,
       }),
       Animated.timing(closeAnim, {
         toValue: 0,
         duration: 240,
         easing: Easing.in(Easing.cubic),
-        useNativeDriver: true,
+        useNativeDriver: NATIVE_DRIVER,
       }),
       Animated.timing(ornamentAnim, {
         toValue: 0,
         duration: 200,
-        useNativeDriver: true,
+        useNativeDriver: NATIVE_DRIVER,
       }),
       Animated.stagger(
         45,
@@ -322,7 +325,7 @@ export function SideMenu() {
               toValue: 0,
               duration: 200,
               easing: Easing.in(Easing.cubic),
-              useNativeDriver: true,
+              useNativeDriver: NATIVE_DRIVER,
             }),
           ),
       ),
@@ -413,6 +416,7 @@ export function SideMenu() {
           <Pressable
             style={StyleSheet.absoluteFill}
             onPress={handleClose}
+            accessibilityRole={a11y.roles.button}
             accessibilityLabel="סגירת תפריט"
           />
         </ImageBackground>

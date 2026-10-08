@@ -17,7 +17,7 @@ export function CalendarPill({ mode, onPress }: Props) {
       variant="onPhoto"
       radius={nw.radius.pill}
       padded={false}
-      borderColor="rgba(255,255,255,0.6)"
+      borderColor={nw.surface.borderSoft}
       shadow="none"
       onPress={onPress}
       accessibilityRole="button"

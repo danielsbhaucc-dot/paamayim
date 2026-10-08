@@ -3,7 +3,7 @@ import { CalendarDays } from 'lucide-react-native';
 import React, { useMemo } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { aliyahProgress, getCurrentParasha } from '../../src/data/parashot';
+import { aliyahProgress } from '../../src/data/parashot';
 import { useAppStore } from '../../src/store/useAppStore';
 import { nw } from '../../src/theme/design';
 import { rtl } from '../../src/theme/rtl';
@@ -18,6 +18,7 @@ import {
   useLayout,
 } from '../../src/ui';
 import { PathWide } from '../../src/wide/PathWide';
+import { useParasha } from '../../src/content';
 
 export default function PathScreen() {
   const { isWide } = useLayout();
@@ -31,7 +32,7 @@ function PathMobile() {
   const activeAliyah = useAppStore((s) => s.activeAliyah);
   const setActiveAliyah = useAppStore((s) => s.setActiveAliyah);
 
-  const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
+  const parasha = useParasha(calendarMode);
   const aliyah = parasha.aliyot.find((a) => a.id === activeAliyah) ?? parasha.aliyot[0];
 
   const ratios = useMemo(() => {

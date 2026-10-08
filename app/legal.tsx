@@ -7,6 +7,7 @@ import { APP_NAME } from '../src/theme/brand';
 import { nw } from '../src/theme/design';
 import { rtl } from '../src/theme/rtl';
 import { GlassSurface, ScreenBackground, ScreenHeader } from '../src/ui';
+import { PrivacyNote } from '../src/ui/PrivacyNote';
 
 const verseTotal = CORPUS_LICENSE.totals.reduce((sum, row) => sum + row.verses, 0);
 
@@ -20,7 +21,7 @@ export default function LegalScreen() {
       accessibilityLabel="סגור"
       style={{ minHeight: 44, justifyContent: 'center', paddingHorizontal: 8 }}
     >
-      <Text style={{ ...nw.type.label, color: nw.color.tealIcon, writingDirection: 'rtl' }}>
+      <Text style={{ ...nw.type.label, color: nw.color.tealText, writingDirection: 'rtl' }}>
         סגור
       </Text>
     </Pressable>
@@ -206,6 +207,9 @@ export default function LegalScreen() {
             >
               חישוב פרשת השבוע לפי לוח ישראל או חו״ל. זה חישוב של לוח, לא הטקסט
             </Text>
+          </GlassSurface>
+          <GlassSurface variant="card" radius={nw.radius.card} style={{ marginTop: nw.space.gap }}>
+            <PrivacyNote />
           </GlassSurface>
         </ScrollView>
       </SafeAreaView>

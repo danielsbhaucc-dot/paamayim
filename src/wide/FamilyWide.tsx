@@ -1,8 +1,7 @@
 import { useRouter } from 'expo-router';
 import { Smile, User, Users, type LucideIcon } from 'lucide-react-native';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Text, View } from 'react-native';
-import { getCurrentParasha } from '../data/parashot';
 import type { FamilyVoice } from '../data/types';
 import { useAppStore } from '../store/useAppStore';
 import { nw } from '../theme/design';
@@ -17,6 +16,7 @@ import {
   WidePage,
   wideText,
 } from '../ui';
+import { contentImage, useParasha } from '../content';
 
 /** מצב משפחה — web רחב: שני הקולות זה לצד זה; בחירת כרטיס = בחירת הקול. */
 export function FamilyWide() {
@@ -24,7 +24,7 @@ export function FamilyWide() {
   const calendarMode = useAppStore((s) => s.calendarMode);
   const familyVoice = useAppStore((s) => s.familyVoice);
   const setFamilyVoice = useAppStore((s) => s.setFamilyVoice);
-  const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
+  const parasha = useParasha(calendarMode);
 
   const openStory = () => router.push({ pathname: '/story', params: { kind: 'parasha' } });
   const openReading = () =>
@@ -50,14 +50,18 @@ export function FamilyWide() {
         contentStyle={{ padding: 14 }}
       >
         <IllustrationCard
-          source={isChild ? img.familyChild : img.familyAdult}
+          source={
+            isChild
+              ? contentImage(parasha, 'storyChild', img.familyChild)
+              : contentImage(parasha, 'storyAdult', img.familyAdult)
+          }
           aspectRatio={16 / 10}
           radius={18}
         />
         <View style={{ padding: 12, paddingTop: 16 }}>
           <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 8 }}>
             <Icon size={20} color={nw.color.tealIcon} strokeWidth={1.75} />
-            <Text style={{ ...nw.type.label, color: nw.color.tealIcon, writingDirection: 'rtl' }}>
+            <Text style={{ ...nw.type.label, color: nw.color.tealText, writingDirection: 'rtl' }}>
               {selected ? `${label} · נבחר` : label}
             </Text>
           </View>

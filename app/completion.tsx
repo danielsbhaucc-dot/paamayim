@@ -2,9 +2,9 @@ import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { Check, Leaf, Trophy } from 'lucide-react-native';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { Animated, Pressable, ScrollView, Text, View } from 'react-native';
+import { Animated, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { countPasses, getCurrentParasha, isParashaComplete } from '../src/data/parashot';
+import { countPasses, isParashaComplete } from '../src/data/parashot';
 import { useAppStore } from '../src/store/useAppStore';
 import { nw } from '../src/theme/design';
 import { fonts } from '../src/theme/fonts';
@@ -20,6 +20,10 @@ import {
   WidePage,
   useLayout,
 } from '../src/ui';
+import { useParasha } from '../src/content';
+import { useG } from '../src/greeting/useG';
+import { UI } from '../src/greeting/uiTexts';
+import { motionMs } from '../src/ui/reducedMotion';
 
 const LEAVES: {
   left: number;
@@ -47,8 +51,9 @@ function CompletionMobile() {
   const router = useRouter();
   const calendarMode = useAppStore((s) => s.calendarMode);
   const progress = useAppStore((s) => s.progress);
+  const t = useG();
 
-  const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
+  const parasha = useParasha(calendarMode);
   const counts = useMemo(() => countPasses(parasha, progress), [parasha, progress]);
   const complete = useMemo(() => isParashaComplete(parasha, progress), [parasha, progress]);
 
@@ -63,8 +68,8 @@ function CompletionMobile() {
   useEffect(() => {
     Animated.timing(anim, {
       toValue: 1,
-      duration: 500,
-      useNativeDriver: true,
+      duration: motionMs(500),
+      useNativeDriver: Platform.OS !== 'web',
     }).start();
   }, [anim]);
 
@@ -152,7 +157,7 @@ function CompletionMobile() {
               marginTop: 4,
             }}
           >
-            {complete ? 'סיימת!' : 'כמעט שם'}
+            {complete ? t(UI.finished) : 'כמעט שם'}
           </Text>
 
           <Text
@@ -285,7 +290,8 @@ function CompletionWide() {
   const { isDesktop } = useLayout();
   const calendarMode = useAppStore((s) => s.calendarMode);
   const progress = useAppStore((s) => s.progress);
-  const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
+  const t = useG();
+  const parasha = useParasha(calendarMode);
   const counts = useMemo(() => countPasses(parasha, progress), [parasha, progress]);
   const complete = useMemo(() => isParashaComplete(parasha, progress), [parasha, progress]);
   const total = parasha.verses.length;
@@ -320,7 +326,7 @@ function CompletionWide() {
               </GlassSurface>
             </View>
             <Text accessibilityRole="header" style={{ ...nw.type.displayWide, color: nw.color.ink, textAlign: 'center', writingDirection: 'rtl' }}>
-              {complete ? 'סיימת!' : 'כמעט שם'}
+              {complete ? t(UI.finished) : 'כמעט שם'}
             </Text>
             <Text style={{ fontFamily: fonts.uiBold, fontSize: 20, color: nw.color.tealDeep, textAlign: 'center', writingDirection: 'rtl', marginTop: 4 }}>
               שניים מקרא ואחד תרגום

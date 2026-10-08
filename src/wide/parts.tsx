@@ -13,7 +13,7 @@ export function IconBadge({ Icon, size = 48 }: { Icon: LucideIcon; size?: number
         borderRadius: size / 2,
         backgroundColor: nw.color.mint,
         borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.9)',
+        borderColor: nw.surface.border,
         alignItems: 'center',
         justifyContent: 'center',
       }}

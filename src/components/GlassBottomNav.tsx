@@ -132,8 +132,8 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   tileActive: {
-    backgroundColor: 'rgba(255,255,255,0.85)',
-    borderColor: 'rgba(255,255,255,0.95)',
+    backgroundColor: nw.surface.buttonActive,
+    borderColor: nw.surface.border,
     ...nw.shadow.card,
   },
 });

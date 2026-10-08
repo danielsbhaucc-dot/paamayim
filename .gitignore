@@ -29,8 +29,15 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env
+# local env — סודות לעולם לא נכנסים ל-git (admin/.env כולל)
+.env
+.env.*
+!.env.example
 .env*.local
 
 # typescript
 *.tsbuildinfo
+
+# בדיקות / תוכן שנבנה
+.cache/
+public/content/

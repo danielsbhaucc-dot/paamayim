@@ -4,6 +4,7 @@ import {
   ChevronLeft,
   FileText,
   Globe,
+  Library,
   Menu,
   RotateCcw,
   Settings,
@@ -19,7 +20,9 @@ import { nw } from '../../src/theme/design';
 import { rtl } from '../../src/theme/rtl';
 import {
   GlassSurface,
+  GreetingHeader,
   IsraelFlag,
+  PersonalCard,
   ScreenBackground,
   ScreenHeader,
   WideCols,
@@ -47,6 +50,8 @@ function MoreMobile() {
         <ScrollView contentContainerStyle={{ paddingBottom: 24 }} showsVerticalScrollIndicator={false}>
           <ScreenHeader title="עוד אפשרויות" showBack={false} />
 
+          <PersonalCard style={{ marginHorizontal: nw.space.screenX, marginTop: 4 }} />
+
           <Text style={sectionTitle}>בחירת לוח</Text>
           <View style={{ flexDirection: rtl.row, gap: 12, paddingHorizontal: nw.space.screenX }}>
             <CalCard
@@ -69,6 +74,7 @@ function MoreMobile() {
             style={{ marginHorizontal: nw.space.screenX, marginTop: nw.space.gap + 6 }}
             contentStyle={{ paddingHorizontal: 16, paddingVertical: 4 }}
           >
+            <MenuRow Icon={Library} title="כל הפרשות" onPress={() => router.push('/parashot' as never)} />
             <MenuRow Icon={Menu} title="פתח תפריט ניווט" onPress={openSideMenu} />
             <MenuRow Icon={Sunrise} title="מסך פתיחה מחדש" onPress={() => setOnboardingDone(false)} />
             <MenuRow Icon={FileText} title="משפטי" onPress={() => router.push('/legal')} />
@@ -150,7 +156,7 @@ function CalCard({
             width: 60,
             height: 60,
             borderRadius: 30,
-            backgroundColor: '#FFFFFF',
+            backgroundColor: nw.surface.solid,
             alignItems: 'center',
             justifyContent: 'center',
             ...nw.shadow.card,
@@ -178,7 +184,7 @@ function CalCard({
             zIndex: 2,
           }}
         >
-          <Check size={14} color="#FFFFFF" strokeWidth={3} />
+          <Check size={14} color={nw.color.onAccent} strokeWidth={3} />
         </View>
       ) : null}
     </View>
@@ -198,7 +204,7 @@ function MenuRow({
   danger?: boolean;
   last?: boolean;
 }) {
-  const color = danger ? nw.color.danger : nw.color.ink;
+  const color = danger ? nw.color.dangerText : nw.color.ink;
   return (
     <Pressable
       onPress={onPress}
@@ -250,8 +256,11 @@ function MoreWide() {
 
   return (
     <WidePage title="עוד אפשרויות" maxWidth={980}>
+      <GreetingHeader wide style={{ marginBottom: 8 }} />
       <WideCols align="flex-start" gap={28}>
         <View style={{ flex: 1 }}>
+          <WideSectionTitle>הפרטים שלך</WideSectionTitle>
+          <PersonalCard title="איך לפנות אליך" />
           <WideSectionTitle>בחירת לוח</WideSectionTitle>
           <View style={{ flexDirection: rtl.row, gap: 16 }}>
             <CalCard
@@ -272,6 +281,7 @@ function MoreWide() {
           <WideSectionTitle>פעולות</WideSectionTitle>
           <GlassSurface variant="card" padded={false} contentStyle={{ paddingHorizontal: 18, paddingVertical: 4 }}>
             <MenuRow Icon={Settings} title="הגדרות" onPress={() => router.push('/settings')} />
+            <MenuRow Icon={Library} title="כל הפרשות" onPress={() => router.push('/parashot' as never)} />
             <MenuRow Icon={Menu} title="פתח תפריט ניווט" onPress={openSideMenu} />
             <MenuRow Icon={Sunrise} title="מסך פתיחה מחדש" onPress={() => setOnboardingDone(false)} />
             <MenuRow Icon={FileText} title="משפטי" onPress={() => router.push('/legal')} />

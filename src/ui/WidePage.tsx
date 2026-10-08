@@ -108,8 +108,18 @@ export function WidePage({
     </View>
   ) : null;
 
+  // flexGrow + justifyContent: center → תוכן קצר מתאזן אנכית (בלי חלל ריק גדול מתחת בטאבלט)
   const inner = (
-    <View style={{ width: '100%', maxWidth: max + gutter * 2, alignSelf: 'center', paddingHorizontal: gutter }}>
+    <View
+      style={{
+        width: '100%',
+        maxWidth: max + gutter * 2,
+        alignSelf: 'center',
+        paddingHorizontal: gutter,
+        flexGrow: 1,
+        justifyContent: 'center',
+      }}
+    >
       {head}
       {children}
     </View>
@@ -120,7 +130,7 @@ export function WidePage({
       {scroll ? (
         <ScrollView
           style={{ flex: 1 }}
-          contentContainerStyle={{ paddingBottom: 56 }}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 56 }}
           showsVerticalScrollIndicator
         >
           {inner}

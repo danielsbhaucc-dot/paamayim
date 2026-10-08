@@ -26,6 +26,27 @@ export interface Verse {
   };
   /** קישור לסיפור הילד */
   storyAnchors?: string[];
+  /** מהתוכן (content/): הסבר חופשי ״מה אונקלוס עושה כאן״ — כשקיים, מוצג במקום onkelosNote */
+  onkelosExplanation?: string;
+  /** מהתוכן: חידושים שמקושרים לפסוק הזה */
+  chidushim?: ContentItem[];
+}
+
+/** פריט תוכן כללי (לקח לחיים, חידוש, תוכן לילדים) */
+export interface ContentItem {
+  title?: string;
+  text?: string;
+  verse?: string;
+  source?: string;
+}
+
+/** תוכן נוסף שמגיע ממערכת התוכן (content/) — רק ערכים שפורסמו */
+export interface ParashaExtras {
+  explanation?: { adult?: string; child?: string };
+  lifeLessons?: { adult?: ContentItem[]; child?: ContentItem[] };
+  chidushim?: ContentItem[];
+  kids?: ContentItem[];
+  images?: { hero?: string; storyAdult?: string; storyChild?: string; haftara?: string };
 }
 
 export interface Aliyah {
@@ -57,6 +78,8 @@ export interface HaftaraInfo {
     israel: string;
     diaspora: string;
   };
+  /** מהתוכן: גרסת ילדים ל״למה דווקא ההפטרה הזו״ */
+  whyThisHaftaraChild?: string;
   connectionPoints: string[];
   /** סיבת ההפטרה המיוחדת מהלוח (למשל ״שבת מחר חודש״), אם יש */
   specialReason?: string;
@@ -72,4 +95,6 @@ export interface Parasha {
   aliyot: Aliyah[];
   story: StoryBlock;
   haftara: HaftaraInfo;
+  /** תוכן נוסף ממערכת התוכן (לקחים לחיים, חידושים, ילדים, תמונות) */
+  extras?: ParashaExtras;
 }

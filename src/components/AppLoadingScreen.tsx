@@ -17,6 +17,8 @@ import Animated, {
 import { APP_NAME, APP_TAGLINE } from '../theme/brand';
 import { fonts } from '../theme/fonts';
 import { assets, colors, radii, shadows } from '../theme/tokens';
+import { pearl } from '../theme/design';
+import { prefersReducedMotion } from '../ui/reducedMotion';
 
 type Props = {
   /** כשהאפליקציה מוכנה (פונטים וכו') — מתחיל fade-out אחרי מינימום תצוגה */
@@ -35,6 +37,13 @@ function SoftDots() {
   const c = useSharedValue(0.35);
 
   useEffect(() => {
+    // הפחתת תנועה: נקודות קבועות בלי הבהוב
+    if (prefersReducedMotion()) {
+      a.value = 1;
+      b.value = 0.7;
+      c.value = 0.45;
+      return;
+    }
     const pulse = (sv: typeof a, delay: number) => {
       sv.value = withDelay(
         delay,
@@ -216,9 +225,9 @@ const styles = StyleSheet.create({
     height: 96,
     borderRadius: 48,
     padding: 3,
-    backgroundColor: 'rgba(255,255,255,0.55)',
+    backgroundColor: pearl(0.55),
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.85)',
+    borderColor: pearl(0.85),
     marginBottom: 18,
     ...shadows.soft,
   },

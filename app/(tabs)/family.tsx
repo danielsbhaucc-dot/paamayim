@@ -1,9 +1,8 @@
 import { useRouter } from 'expo-router';
 import { Smile, User, Users } from 'lucide-react-native';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getCurrentParasha } from '../../src/data/parashot';
 import type { FamilyVoice } from '../../src/data/types';
 import { useAppStore } from '../../src/store/useAppStore';
 import { nw } from '../../src/theme/design';
@@ -20,6 +19,7 @@ import {
   useLayout,
 } from '../../src/ui';
 import { FamilyWide } from '../../src/wide/FamilyWide';
+import { contentImage, useParasha } from '../../src/content';
 
 export default function FamilyScreen() {
   const { isWide } = useLayout();
@@ -32,7 +32,7 @@ function FamilyMobile() {
   const familyVoice = useAppStore((s) => s.familyVoice);
   const setFamilyVoice = useAppStore((s) => s.setFamilyVoice);
 
-  const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
+  const parasha = useParasha(calendarMode);
   const isChild = familyVoice === 'child';
   const storyText = isChild ? parasha.story.child : parasha.story.adult;
 
@@ -70,7 +70,11 @@ function FamilyMobile() {
             contentStyle={{ padding: 12 }}
           >
             <IllustrationCard
-              source={isChild ? img.familyChild : img.familyAdult}
+              source={
+            isChild
+              ? contentImage(parasha, 'storyChild', img.familyChild)
+              : contentImage(parasha, 'storyAdult', img.familyAdult)
+          }
               aspectRatio={16 / 10}
               radius={18}
             />

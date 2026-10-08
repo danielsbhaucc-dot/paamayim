@@ -8,6 +8,7 @@ import { nw } from '../src/theme/design';
 import { rtl } from '../src/theme/rtl';
 import {
   GlassSurface,
+  PersonalCard,
   ScreenBackground,
   ScreenHeader,
   SegmentedTabs,
@@ -29,7 +30,7 @@ export default function SettingsScreen() {
       accessibilityLabel="סגור"
       style={{ minHeight: 44, justifyContent: 'center', paddingHorizontal: 8 }}
     >
-      <Text style={{ ...nw.type.label, color: nw.color.tealIcon, writingDirection: 'rtl' }}>
+      <Text style={{ ...nw.type.label, color: nw.color.tealText, writingDirection: 'rtl' }}>
         סגור
       </Text>
     </Pressable>
@@ -48,6 +49,8 @@ export default function SettingsScreen() {
           }}
           showsVerticalScrollIndicator={false}
         >
+          <PersonalCard style={{ marginHorizontal: nw.space.screenX }} />
+
           <GlassSurface
             variant="card"
             radius={22}

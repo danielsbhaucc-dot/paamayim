@@ -1,5 +1,5 @@
 ---
-description: Design system and hard constraints for the Paamayim / נהורא Expo app. Matching the "NuraWell" mockup (frosted glass, misty pastel sky, navy text, teal accents, Hebrew RTL, phone only).
+description: Design system and hard constraints for the Paamayim / נהורא Expo app (frosted glass, misty pastel sky, navy text, teal accents, Hebrew RTL; phone reference layout + tablet/desktop wide layouts; content system; greetings).
 globs:
 alwaysApply: true
 ---
@@ -12,41 +12,43 @@ This project is an Expo SDK 52 + expo-router app (React Native 0.76, Hebrew RTL)
 
 Never modify these unless the user's message explicitly names the file and the change:
 
-1. `src/components/SideMenu.tsx`: no code, style, animation or content changes at all.
+1. `src/components/SideMenu.tsx`: no code, style, animation or content changes at all. (The only allowed edit, already done: `export` on `MenuItem`, `MENU_ITEMS`, `isItemActive` so `WideMenu` reuses the same items.) The phone menu is always this component.
 2. `src/components/MenuButton.tsx`: keep the component exactly as is. Every screen keeps rendering `<MenuButton />` on the **visual right side of its header**, the same as today (phone layout). On wide web (≥768) the MenuButton lives in `TopNav` instead.
 3. `src/components/GlassBottomNav.tsx`: may be restyled visually only. Keep the 4 items, their order, labels and routes (בית `/(tabs)`, מסלול `/(tabs)/path`, משפחה `/(tabs)/family`, עוד `/(tabs)/more`), navigation with `router.push`, and the exports `GlassBottomNav` and `BOTTOM_NAV_SPACE = 96`. Style: glass card radius 24, lucide line icons (House, Map, Users, Ellipsis), the active item on a soft white tile. Only the current screen's item is active. A screen may hide the nav by passing `showNav={false}` to the background wrapper.
-4. `app/(tabs)/more.tsx` (the "עוד" screen): may be restyled visually only. Keep every action exactly: calendar choice (israel/diaspora), "פתח תפריט ניווט" (openSideMenu), "מסך פתיחה מחדש" (setOnboardingDone(false)), "משפטי" (/legal), "איפוס התקדמות" (same Alert, resetProgress + setOnboardingDone(false); on wide web `window.confirm`, because `Alert.alert` shows nothing in a browser), and the version footer. The wide layout (`MoreWide`) adds a "הגדרות" row.
+4. `app/(tabs)/more.tsx` (the "עוד" screen): may be restyled visually only. Keep every action exactly: calendar choice (israel/diaspora), "פתח תפריט ניווט" (openSideMenu), "מסך פתיחה מחדש" (setOnboardingDone(false)), "משפטי" (/legal), "איפוס התקדמות" (same Alert, resetProgress + setOnboardingDone(false); on wide web `window.confirm`, because `Alert.alert` shows nothing in a browser), and the version footer. The wide layout (`MoreWide`) adds a "הגדרות" row. Both layouts add `PersonalCard` (the personal page: optional name) and a "כל הפרשות" row (→ `/parashot`); `MoreWide` also shows `GreetingHeader`.
 5. The "התחל" button on the splash/onboarding branch of `app/(tabs)/index.tsx`: keep its styles exactly (`styles.startBtn`, `styles.startFill`, `styles.startText`, `styles.startArrow`, the BlurView and the chevron). Only its `onPress` may change when a step says so.
-6. `src/components/TorahScrollView.tsx` and `assets/megillah-*.png`: do not edit. The Torah scroll stays as it is.
+6. `src/components/TorahScrollView.tsx` and `assets/megillah-*.png`: the scroll's look stays as it is. The only additions are the optional props `currentVerseId` (highlight `tsv-<id>` + auto-scroll) and `onVersePress` (tap a verse to jump). Without them it renders exactly as before. The scroll always shows the **current aliyah** (never the story/focus verses).
 7. Brand: the app name stays **נהורא**. Do not edit `src/theme/brand.ts` (`APP_NAME = 'נהורא'`, `APP_TAGLINE = 'אור הפסוק. עד שבת.'`). Never write "NuraWell" in the UI.
 8. `src/theme/tokens.ts` and `src/theme/fonts.ts`: never change existing values (SideMenu depends on `colors`, `radii`, `spacing`, `assets.galilee`, `assets.icon`). New tokens go only in `src/theme/design.ts`.
-9. Data and state logic: `src/store/useAppStore.ts` and `src/data/*` must not change behavior. Read from them only. Exception: haftara content may change: `src/data/haftaraStories.ts`, the `haftara` object built in `assemble()` in `src/data/parashot.ts`, and the optional field `specialReason` in `HaftaraInfo` (`src/data/types.ts`).
+9. Data and state logic: `src/store/useAppStore.ts` and `src/data/*` must not change existing behavior. Additive changes only (new optional fields / actions, persisted). Already added: `completeVerse`, `pickedParashaId`, `userName`, `namePromptDismissed` (store); `weekSedra` / `isAfterShabbat` in `parashot.ts` (skip chag weeks, move to next week after motzaei Shabbat — covered by `npm run test:dates`); optional `Verse.onkelosExplanation`, `Verse.chidushim`, `Parasha.extras`, `HaftaraInfo.whyThisHaftaraChild` (types). Haftara content may change as before.
 10. Existing files in `assets/` (root) must not be deleted, renamed or overwritten.
 
 ## 2. Platform scope and responsive web
 
-- **Phone layout** (native iOS/Android at any width, and web < 768px) is the reference design. It must stay pixel-identical: the phone code path of every screen is the original component (e.g. `HomeMobile`, `PathMobile`) and is not changed by web work.
+- **Phone layout** (native phones, and web < 768px) is the reference design. It must stay pixel-identical: the phone code path of every screen is the original component (e.g. `HomeMobile`, `PathMobile`) and is not changed by web work.
 - The app must still run in Expo Go (iOS/Android) and in a mobile browser (`expo start --web` at 393×852).
 - `npx tsc --noEmit` must pass after every change.
 
-### Breakpoints (web only), shared hook `src/ui/useLayout.ts`
+### Breakpoints (web and native), shared hook `src/ui/useLayout.ts`
 
 | Breakpoint | Width | Layout |
 |---|---|---|
 | phone | < 768 | current mobile design, bottom tab bar (`GlassBottomNav`) |
-| tablet | 768–1199 | top nav (`TopNav`), 2 columns where it helps, gutters 32 |
+| tablet | 768–1199 (native: ≥ 700dp) | top nav (`TopNav`), 2 columns where it helps, gutters 32 |
 | desktop | ≥ 1200 | top nav with full labels + settings button, 2–4 column grids, gutters 48 |
 
-- `const { bp, isWide, isDesktop, isTablet, gutter, contentMax } = useLayout()`. `isWide` is true only when `Platform.OS === 'web'` and width ≥ 768. Native never gets the wide layout (native tablets keep the phone layout).
+- `const { bp, isWide, isNativeTablet, isDesktop, isTablet, gutter, contentMax } = useLayout()`. `isWide = bp !== 'phone'` on every platform: web ≥ 768, native ≥ 700dp (iPad mini portrait 744 qualifies; phones and folded foldables don't). Native tablets therefore get the wide layout too — use `rtl` helpers in wide code, never raw left/right/row. Wide `ScreenBackground` respects safe-area insets. Note: `app.json` orientation is still `portrait`.
 - Tokens: `nw.layout` (`tablet` 768, `desktop` 1200, `contentMax` 1200, `gutterTablet` 32, `gutterDesktop` 48, `textMax` 680, `topNavH` 68) and `nw.type.displayWide`.
 - Pattern per screen: the default export only picks the branch, e.g. `return isWide ? <PathWide /> : <PathMobile />;`. Never add an early return after other hooks. Wide screens live in `src/wide/*` (or next to the mobile component in the same route file for small ones), and reuse `src/ui` components and the same store/data.
-- Wide pages use `WidePage` (`src/ui/WidePage.tsx`): background A + `TopNav`, content centered with `maxWidth` ≤ 1200, large page title (`displayWide` on desktop), optional back button. Columns: `WideCols` (RTL row, `stack` to collapse). Section headings: `WideSectionTitle`.
+- Wide pages use `WidePage` (`src/ui/WidePage.tsx`): background A + `TopNav`, content centered with `maxWidth` ≤ 1200, large page title (`displayWide` on desktop), optional back button. Content is vertically centered when shorter than the window (no empty bottom half on a 820×1180 tablet). On tablet prefer stacking (wide image on top, text below) over two thin columns — see `StoryWide`. Columns: `WideCols` (RTL row, `stack` to collapse). Section headings: `WideSectionTitle`.
 - Screens that keep the phone layout on wide web (settings, legal, splash, calendar) use `ScreenBackground` props `wideMaxWidth` (centered column) and `wideNav` (show `TopNav`). The photo and scrim stay full-bleed.
-- Navigation on wide web: `TopNav` replaces the bottom tab bar. It uses the same routes (`NAV_ITEMS` / `isNavActive` exported from `GlassBottomNav`), the brand נהורא on the right, a calendar pill (→ `/calendar`), settings (desktop) and `MenuButton`, which opens the unchanged `SideMenu`. On wide web `SideMenuHost` shows the SideMenu as a 420px drawer on the right with a dimmed backdrop. `ScreenHeader` hides its own menu button on wide web.
+- Wide home (`src/wide/HomeHero.tsx`): centered leaf + greeting (line 1/2) + status sentence, then a row of glass feature cards — desktop 5 (סיפור הפרשה, מסלול, **פרשת השבוע**, סיפור ההפטרה, משפחה), tablet 3 — where the central parasha card is larger, `variant="frost"` and glows (soft teal shadow, brighter border); then the status CTA, "כל הפרשות" pill, and the WaveBand. Phone home is unchanged by this.
+- `TopNav` is a floating pill (radius = height/2); the active link is shown by a teal underline only (hover = faint pearl); desktop adds a solid teal CTA pill "לקריאה" at the far left.
+- Navigation on wide layouts: `TopNav` replaces the bottom tab bar. It uses the same routes (`NAV_ITEMS` / `isNavActive` exported from `GlassBottomNav`), the brand נהורא on the right, a calendar pill (→ `/calendar`), settings (desktop) and `MenuButton`. On wide layouts `SideMenuHost` renders `WideMenu` (`src/components/WideMenu.tsx`): a **full-screen** glass overlay over the Galilee photo, brand block, grid of large tiles (3 columns desktop / 2 tablet, 26px bold titles, active tile highlighted) built from `MENU_ITEMS` / `isItemActive`, close button top-left and **Esc** to close. On phone it renders the unchanged `SideMenu`. `ScreenHeader` hides its own menu button on wide layouts.
 - Text line length: paragraphs ≤ `nw.layout.textMax` (680) via `wideText(style)`. Never stretch buttons full width on wide: CTAs are max 320–520 wide.
 - Hover (web, mouse only): `GlassSurface` with `onPress` lifts 2px with `shadow.float`; TopNav links get a soft white background. Touch never triggers hover.
-- Reading on desktop shows verse card and Torah scroll side by side (scroll column 472 wide, height follows the window). Tablet keeps the verse/scroll toggle in a centered column. Keyboard: ← next verse, → previous verse.
-- No olive-branch edge art yet (no asset); the background stays `img.mistSky` (wide: `contentPosition: 'bottom'` so the landscape shows).
+- Reading on desktop shows verse card (`large`) and Torah scroll side by side (scroll column 472 wide, height follows the window; current verse highlighted, tap a verse to jump). Tablet keeps the verse/scroll toggle; scroll mode adds `ScrollReadBar`. Keyboard: ← next verse, → previous verse, Enter = "קראתי שניים ואחד" + next.
+- Olive-branch edge art: `src/ui/OliveBranches.tsx` (rendered by wide `ScreenBackground`, `pointerEvents="none"`), images `img.oliveLeft` / `img.oliveRight` (transparent PNGs ≤ 400KB). Sized from the free side margin so they never overlap content; hidden on phone. The background stays `img.mistSky` (wide: `contentPosition: 'bottom'`).
 
 ### Home header (phone)
 
@@ -59,7 +61,7 @@ Never modify these unless the user's message explicitly names the file and the c
 - No hard-coded hex colors, font sizes, radii or shadows inside screens. Use `nw` from `src/theme/design.ts`. (Exception: the Israel flag SVG colors.)
 - After finishing a screen, compare it with its mockup image in `design/mockup/` and list any remaining visual differences in your reply.
 - Do **not** run `git commit`, `git push`, or create branches/PRs unless the user explicitly asks.
-- Do not install packages other than: `react-native-svg`, `expo-image` (via `npx expo install`), `lucide-react-native` (via npm).
+- Do not install packages other than: `react-native-svg`, `expo-image` (via `npx expo install`), `lucide-react-native` (via npm), and the dev-only `esbuild` (used by `npm run test:dates`). The admin app in `admin/` has its own `package.json`.
 
 ## 4. Mockup reference images
 
@@ -113,16 +115,22 @@ Colors were sampled from mockup pixels.
 | `danger` | `#B33A3A` | destructive actions (איפוס התקדמות) |
 | `glow` | `rgba(255,255,255,0.8)` | white text-shadow halo for dark text on photos |
 
+### Surfaces: pearl, never pure white
+- **No pure `#FFFFFF` as a surface** (cards, buttons, chips, inputs, tiles, borders, highlights). All surfaces derive from the pearl tone `PEARL_HEX = '#FAF7F0'` via `pearl(alpha)` and the tokens `nw.surface.*` (`solid`, `button`, `buttonActive`, `chip`, `input`, `tile`, `border`, `borderSoft`) and `nw.glass.*`. Pure white stays only for text/icons on dark teal (`nw.color.onAccent`), text on dark photos, and the Israel flag.
+- Hero / feature cards (home "פרשת השבוע" card) use `GlassSurface variant="frost"`: real frosted glass (`glass.fillFrost` 0.30, stronger blur `webBlurFrost` / `blurIntensityFrost`, soft border `borderFrost`, faint highlight) + `frostText` glow on dark text for contrast.
+- Untouched by rule: `SideMenu.tsx`, `MenuButton.tsx`, `tokens.ts`, the splash "התחל" button styles.
+
 ### Glass
 | Token | Value |
 |---|---|
-| `glass.fill` | `rgba(255,255,255,0.50)`: normal card |
-| `glass.fillStrong` | `rgba(255,255,255,0.64)`: main card (verse, story) |
-| `glass.fillSubtle` | `rgba(255,255,255,0.34)`: tiles, pills, segmented container |
-| `glass.fillOnPhoto` | `rgba(255,255,255,0.30)`: on full-color photos |
-| `glass.border` | `rgba(255,255,255,0.88)`, width 1 |
-| `glass.borderSoft` | `rgba(255,255,255,0.60)` |
-| `glass.highlightFrom` → `highlightTo` | `rgba(255,255,255,0.55)` → `rgba(255,255,255,0)`: top 45% sheen |
+| `glass.fill` | `pearl(0.42)`: normal card |
+| `glass.fillStrong` | `pearl(0.56)`: main card (verse, story) |
+| `glass.fillSubtle` | `pearl(0.30)`: tiles, pills, segmented container |
+| `glass.fillOnPhoto` | `pearl(0.26)`: on full-color photos |
+| `glass.fillFrost` | `pearl(0.30)`: hero cards (`variant="frost"`) |
+| `glass.border` | `pearl(0.85)`, width 1 |
+| `glass.borderSoft` | `pearl(0.60)` |
+| `glass.highlightFrom` → `highlightTo` | `pearl(0.50)` → `pearl(0)`: top 45% sheen |
 | `glass.blurIntensity` | `22` (expo-blur; `tint="systemUltraThinMaterialLight"` on iOS, `tint="light"` on Android plus `experimentalBlurMethod="dimezisBlurView"`) |
 | `glass.webBlur` | `'blur(22px) saturate(140%)'` (web: `backdropFilter` + `WebkitBackdropFilter`) |
 
@@ -159,13 +167,14 @@ UI font is Assistant (`fonts.ui/uiMedium/uiSemi/uiBold/uiExtra`). Verse font is 
 
 ### Icons
 `lucide-react-native` only for new UI. Use `strokeWidth={1.75}`, default size 22, and color `tealIcon` (or `ink`/`inkSoft` for navigation chevrons).
-Names in use: `House, Map, Ellipsis, Menu, FileText, RotateCcw, BookOpen, BookOpenText, CalendarDays, Users, User, Smile, Lightbulb, Languages, Check, CheckCheck, ChevronLeft, ChevronDown, Globe, Sunrise, ArrowLeft, ArrowRight, Trophy, Leaf`.
+Names in use: `House, Map, Ellipsis, Menu, FileText, RotateCcw, BookOpen, BookOpenText, CalendarDays, Users, User, Smile, Lightbulb, Languages, Repeat, Check, CheckCheck, ChevronLeft, ChevronRight, ChevronDown, Globe, Sunrise, ArrowLeft, ArrowRight, Trophy, Leaf, Sprout, Sparkles, Library, Settings, X`.
 
 ## 6. Backgrounds
 
 - **mist** (content screens: home, path, reading, story, family, settings, legal, more): image `img.mistSky` plus ONE LinearGradient `nw.bg.mistVeil` = colors `['rgba(120,165,210,0.18)', 'rgba(255,255,255,0)', 'rgba(120,140,120,0.10)']`, locations `[0, 0.5, 1]`, over base color `nw.bg.base` `#C9D8E2`. This is a light veil: a soft blue tint at the top, nothing in the middle, a faint green tint at the bottom. The photo's own colors (blue sky, peach clouds, misty olive trees) show through. No white layer, never a near-white or washed-out look.
 - **photo** (splash, calendar, completion): full-color image plus LinearGradient `nw.bg.photoVeil` = colors `['rgba(20,52,74,0.16)', 'rgba(20,52,74,0)', 'rgba(20,52,74,0.10)']`, locations `[0, 0.35, 1]`. Never a white veil on photos. The splash adds `nw.scrim.splash` (dark top/middle scrim) so white text stays readable.
 - **Wave edge** (`src/ui/WaveEdge.tsx`): used ONLY where a full-width image ends directly on the page background with a hard edge. Today that is only the home hero banner (`src/ui/HeroBanner.tsx`: full width, height 262, `<WaveEdge />` as a child, parasha card `bottom: 44`). The wave covers the image's bottom 56pt, filled with `nw.wave.color` `#E4DDD8` (opacity 0.55 → 1), with a thin white line (1.75pt plus a soft 6pt glow), and fades to transparent over 36pt below the image. Images inside rounded cards (story, family) and full-screen photos (splash, calendar, completion) do NOT get a wave. Never on SideMenu or the Torah scroll.
+- **Wave band** (`src/ui/WaveBand.tsx`, wide only): a full-window-width frosted-glass wave (same curve as WaveEdge, web backdrop blur clipped to the wave) with the leaf logo centered. Used once, closing the wide home hero.
 
 ## 7. Images (`src/theme/images.ts`)
 
@@ -184,6 +193,7 @@ All new images live in `assets/images/`. Until Daniel adds the real files, place
 | `logoLeaf` | `logo-leaf.png` (transparent) | splash logo |
 | `trophy` | `trophy.png` (transparent) | completion |
 | `confettiLeaves` | `confetti-leaves.png` (transparent) | completion |
+| `oliveLeft` / `oliveRight` | `olive-branch-left.png` / `olive-branch-right.png` (transparent) | wide side-margin art (`OliveBranches`) |
 | (app.json only) | `app-icon-1024.png`, `adaptive-icon-foreground.png` | app icon / splash / favicon |
 
 `imgReady = { logoLeaf, trophy, confettiLeaves }` are booleans. While one is `false`, its UI must show a code fallback (logo → existing `assets.icon` in a 22pt-radius tile; trophy → lucide `Trophy` in `gold`; confetti → scattered lucide `Leaf` icons). Never `require()` a file that does not exist. Render images with `Image` from `expo-image` (`contentFit="cover"`, `cachePolicy="memory-disk"`).
@@ -237,3 +247,47 @@ export const rtl = {
 | `IllustrationCard` | rounded image inside a card |
 | `CalendarPill` | splash glass pill "לוח ישראל ▾" |
 | `IsraelFlag` | SVG flag in a circle |
+| `LifeLessonsCard` | "מה אפשר לקחת לחיים" glass card, numbered mint circles; props `wide`, `columns`, `child` |
+| `VerseFocusCard` | verse + three pass tiles in the classic order מקרא א׳ / מקרא ב׳ / תרגום, Targum always visible, content explanation + "חידוש בפסוק", `onCompleteNext` CTA, `large` for desktop |
+| `ScrollReadBar` | bottom bar in scroll mode: current verse's Onkelos, three pass chips, "קראתי · הבא ←" |
+| `FocusBanner` | "מעיינים בפסוקי הסיפור" banner with exit back to the aliyah |
+| `GreetingHeader` / `NamePrompt` | time greeting + day greeting (2nd line), "כל הפרשות" pill, "חזרה לפרשת השבוע" when a parasha is picked; gentle skippable name prompt |
+| `PersonalCard` | "הפרטים שלך": optional name (stored only on the device) + greeting preview; used in עוד and settings |
+| `OliveBranches` | wide-only side-margin olive art |
+
+## 10. Reading session (שניים מקרא ואחד תרגום)
+
+- All reading logic lives in `src/reading/useReadingSession.ts`, shared by `app/reading.tsx` (phone) and `src/wide/ReadingWide.tsx`. Never duplicate it in a screen.
+- Primary action is one tap: "קראתי שניים ואחד · לפסוק הבא" (`completeVerse` sets all three passes) and auto-advance. The single tiles stay for partial progress.
+- Resume: without params the session opens on `lastVerseId`'s aliyah. Progress shown per aliyah ("x/y" + bar).
+- Focus mode (`?focus=` story verses) is a side trip: it shows `FocusBanner`, never overwrites `lastVerseId`, and the Torah scroll still shows the current aliyah.
+- Bonus content (Onkelos explanation, chidushim) sits under the verse, never between the user and the CTA.
+
+## 11. Content system
+
+- Content lives as JSON in `content/parashot/<slug>.json` (schema `content/schema.json`). Each field is `{ published, draft, updatedAt, publishedAt, source }`; the app only ever sees `published`. Edit through the admin app (`admin/`), not by hand.
+- `npm run content:build` → `public/content/index.json` + `public/content/parashot/*.json` (git-ignored) and `src/content/bundled.json` (offline fallback, committed). `build:web` runs it automatically.
+- Runtime (`src/content/`): bundled → AsyncStorage cache → fetch `EXPO_PUBLIC_CONTENT_BASE_URL` (web default: same origin). Screens read the parasha only through `useParasha(mode)` (respects the picked parasha) and helpers `lifeLessonsFor`, `contentImage`, `whyHaftaraFor`, `useParashaEyebrow`. Never import `getCurrentParasha` directly in a screen.
+- `app/parashot.tsx` is the parasha picker (grouped by book, "חזרה לפרשת השבוע"). Picking sets `pickedParashaId`; the home hero then says "הפרשה שבחרת" instead of "פרשת השבוע".
+- `npm run content:import` imports the content-writer worker output as drafts (never published automatically).
+- API keys only in `admin/.env` (never committed; `admin/.env.example` documents them).
+
+## 12. Greetings
+
+- Every greeting text lives in `src/greeting/texts.ts` (single editable file). Logic in `src/greeting/greeting.ts`, hook `useGreeting()`.
+- Line 1 is always the time greeting by local hour (06–11:59 בוקר טוב, 12–15:59 צהריים טובים, 16–16:59 אחר הצהריים טובים, 17–20:59 ערב טוב, 21–05:59 לילה טוב) + optional name + 👋. Line 2 is the day greeting (שבת שלום from Friday 12:00, שבוע טוב from motzaei Shabbat to Sunday 12:00, holidays, Rosh Chodesh). The day greeting never replaces the time greeting.
+- Memorial days (יום השואה, יום הזיכרון, יום הזיכרון לחללי מלחמת חרבות ברזל, ז׳ באוקטובר, תשעה באב): no emoji, line 2 is the respectful sentence.
+- Below the greeting on home: `HomeStatus` — a personal status sentence + live progress bar + CTA (`useStatusLine`). Sentences (100, by category: notStarted, midway, almostDone, finished, returning, friday, holiday) live in `content/greetings/status-lines.json`, each neutral or `{m,f,p}`, placeholders `{name} {parasha} {aliyah} {remaining} {done} {left} {percent}`. Hebrew number words via `src/greeting/hebrewNumbers.ts` (עלייה ראשונה, שש עליות, נשארה עוד עלייה אחת).
+- Rotation: a new sentence on app open / refresh / return to home (focus), stable while shown, never the same as the previous one (`statusLast` in the store). Progress numbers update live; when the category changes (e.g. just finished) it switches immediately.
+- Gender (optional, `userGender`): גבר → m, אישה → f, ״מעדיף/ה לא לשתף״ or unset → plural. Every second-person UI text goes through `g()` / `useG()` (`src/greeting/gender.ts`, `useG.ts`) with variants in `src/greeting/uiTexts.ts`. Never hard-code a gendered "המשך/קרא/סיימת" in a screen.
+- Any change to dates/greetings/status must keep `npm test` (alias `npm run test:dates`) green.
+
+## 13. Accessibility, privacy, security
+
+- Every `Pressable`/touchable has `accessibilityRole` + a Hebrew `accessibilityLabel` (state via `accessibilityState`). Decorative images/backdrops are not focusable.
+- Text contrast ≥ 4.5:1 (WCAG AA) on every surface incl. frost 0.30 over the photo/sky: body text `ink`/`inkSoft`, secondary `inkMuted`, teal text `tealText` (never `tealIcon`/`tealBright` for text), warnings `dangerText`. White text only on `teal`/`tealText` (≥ 6:1).
+- Font scaling: system font scaling is allowed up to `MAX_FONT_SCALE` (1.5, `capFontScaling()` in `src/utils/a11y.ts`). Prefer `minHeight` over fixed `height` for anything with text.
+- Web: `applyWebA11y()` sets `lang="he"`, a visible `:focus-visible` ring (3px `tealText`) and honours `prefers-reduced-motion`. Do not set `dir="rtl"` on the document (layout is LTR + `rtl.row`). In JS animations use `prefersReducedMotion()` / `motionMs()` (`src/ui/reducedMotion.ts`); `useNativeDriver` only off-web.
+- Screen-reader order = DOM order = visual right-to-left (rtl.row), so keep the main item first in code.
+- Privacy: name, gender and progress live only in the device store (AsyncStorage/localStorage). No analytics, ads, tracking or crash-reporting SDKs. `PrivacyNote` (legal screen + "הפרטים שלך") explains it and offers "מחיקת הפרטים האישיים" (`clearPersonalData`). Copy lives in `PRIVACY` (`src/greeting/texts.ts`).
+- Security: no secrets in the app — anything `EXPO_PUBLIC_*` ships to every user. Remote content is validated (size cap, slug regex, object shape); content image URIs must be `https://` or a safe relative path (resolved against the content server). `public/_headers` sets security headers on Cloudflare Pages. `.env*` is git-ignored except `.env.example`.

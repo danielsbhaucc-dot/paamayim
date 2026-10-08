@@ -11,7 +11,14 @@
     "lint": "tsc --noEmit",
     "fetch-corpus": "node scripts/fetch-corpus.mjs",
     "placeholders": "node scripts/make-image-placeholders.mjs",
-    "check-images": "node scripts/check-images.mjs"
+    "check-images": "node scripts/check-images.mjs",
+    "content:build": "node scripts/content/build.mjs",
+    "content:import": "node scripts/content/import-writer.mjs",
+    "build:web": "npm run content:build && expo export -p web",
+    "eas-build-post-install": "npm run content:build",
+    "test:dates": "node scripts/tests/run.mjs",
+    "content:publish": "node scripts/content/publish.mjs",
+    "test": "node scripts/tests/run.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/assistant": "^0.4.1",
@@ -50,6 +57,7 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~18.3.12",
+    "esbuild": "^0.25.10",
     "typescript": "~5.3.3"
   }
 }

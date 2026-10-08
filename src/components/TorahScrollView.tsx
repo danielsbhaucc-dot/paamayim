@@ -1,7 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import {
   Image,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -18,7 +19,14 @@ type Props = {
   aliyah?: Aliyah;
   /** שם הפרשה לכותרת בתוך הקלף */
   parashaName?: string;
+  /** הפסוק שקוראים עכשיו — מודגש, והמגילה נגללת אליו */
+  currentVerseId?: string;
+  /** לחיצה על פסוק במגילה (למשל כדי לעבור אליו) */
+  onVersePress?: (verseId: string) => void;
 };
+
+/** הדגשת הפסוק הנוכחי — ״מרקר״ רך בגוון הטורקיז של המותג על הקלף */
+const HIGHLIGHT = 'rgba(31,158,140,0.18)';
 
 /** יחס גליל העץ מהנכס החתוך */
 const ROD_ASPECT = 167 / 1358;
@@ -33,13 +41,50 @@ const PARCHMENT = '#F3E6CC';
  * - קלף גמיש ב־flex שמחזיק ScrollView פנימי
  * - עובד לכל אורך עלייה: הטקסט נגלל בתוך הקלף, העץ נשאר במקום
  */
-export function TorahScrollView({ verses, aliyah, parashaName }: Props) {
+export function TorahScrollView({ verses, aliyah, parashaName, currentVerseId, onVersePress }: Props) {
   const { width } = useWindowDimensions();
   const scrollW = Math.min(width - 12, 420);
   const rodH = Math.max(30, Math.round(scrollW * ROD_ASPECT));
   const parchmentW = scrollW * PARCHMENT_RATIO;
 
   const chapter = useMemo(() => verses[0]?.chapter, [verses]);
+
+  // גלילה אוטומטית לפסוק הנוכחי
+  const scrollRef = useRef<ScrollView>(null);
+  const viewportH = useRef(0);
+  const contentH = useRef(0);
+  const scrollToCurrent = (animated: boolean) => {
+    if (!currentVerseId || !scrollRef.current) return;
+    const i = verses.findIndex((v) => v.id === currentVerseId);
+    if (i < 0) return;
+    let y: number | null = null;
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      // ב-web אפשר למדוד את הפסוק במדויק
+      const node = (scrollRef.current as unknown as { getScrollableNode?: () => HTMLElement }).getScrollableNode?.();
+      const el = document.getElementById(`tsv-${currentVerseId}`);
+      if (node && el) {
+        y = el.getBoundingClientRect().top - node.getBoundingClientRect().top + node.scrollTop;
+      }
+    }
+    if (y == null) {
+      // באפליקציה: הערכה לפי מיקום הפסוק בטקסט
+      const total = verses.reduce((n, v) => n + v.hebrew.length + 6, 0);
+      const before = verses.slice(0, i).reduce((n, v) => n + v.hebrew.length + 6, 0);
+      y = 60 + (contentH.current - 80) * (before / Math.max(1, total));
+    }
+    const target = Math.max(0, y - viewportH.current * 0.35);
+    scrollRef.current.scrollTo({ y: target, animated });
+  };
+  const firstScroll = useRef(true);
+  useEffect(() => {
+    if (!currentVerseId) return;
+    const t = setTimeout(() => {
+      scrollToCurrent(!firstScroll.current);
+      firstScroll.current = false;
+    }, firstScroll.current ? 250 : 30);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentVerseId, verses]);
 
   return (
     <View
@@ -79,6 +124,13 @@ export function TorahScrollView({ verses, aliyah, parashaName }: Props) {
         />
 
         <ScrollView
+          ref={scrollRef}
+          onLayout={(e) => {
+            viewportH.current = e.nativeEvent.layout.height;
+          }}
+          onContentSizeChange={(_, h) => {
+            contentH.current = h;
+          }}
           style={styles.scroller}
           contentContainerStyle={styles.textPad}
           showsVerticalScrollIndicator={false}
@@ -106,8 +158,15 @@ export function TorahScrollView({ verses, aliyah, parashaName }: Props) {
                   {chapterBreak ? (
                     <Text style={styles.chapterInline}>{`\nפרק ${hebrewNumber(v.chapter)}\n`}</Text>
                   ) : null}
-                  <Text style={styles.verseNum}>{`\u200F(${verseMark(v.verse)}) `}</Text>
-                  {v.hebrew}
+                  <Text
+                    nativeID={`tsv-${v.id}`}
+                    style={v.id === currentVerseId ? styles.current : undefined}
+                    onPress={onVersePress ? () => onVersePress(v.id) : undefined}
+                    accessibilityState={v.id === currentVerseId ? { selected: true } : undefined}
+                  >
+                    <Text style={styles.verseNum}>{`\u200F(${verseMark(v.verse)}) `}</Text>
+                    {v.hebrew}
+                  </Text>
                   {i < verses.length - 1 ? ' ' : ''}
                 </Text>
               );
@@ -209,6 +268,11 @@ const styles = StyleSheet.create({
     color: '#2A1810',
     textAlign: 'center',
     writingDirection: 'rtl',
+  },
+  current: {
+    backgroundColor: HIGHLIGHT,
+    color: '#1A0E08',
+    borderRadius: 6,
   },
   verseNum: {
     fontFamily: fonts.uiBold,
