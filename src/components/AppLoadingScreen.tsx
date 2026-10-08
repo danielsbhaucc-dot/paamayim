@@ -14,6 +14,7 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
+import { APP_NAME, APP_TAGLINE } from '../theme/brand';
 import { fonts } from '../theme/fonts';
 import { assets, colors, radii, shadows } from '../theme/tokens';
 
@@ -138,7 +139,7 @@ export function AppLoadingScreen({ ready, onFinish, minDurationMs = MIN_DURATION
       style={[styles.root, screenStyle]}
       pointerEvents="auto"
       accessibilityViewIsModal
-      accessibilityLabel="טוען את פעמיים"
+      accessibilityLabel={`טוען את ${APP_NAME}`}
     >
       <Image
         source={assets.galilee}
@@ -162,10 +163,10 @@ export function AppLoadingScreen({ ready, onFinish, minDurationMs = MIN_DURATION
 
           <Animated.View style={[styles.brandBlock, logoStyle]}>
             <View style={styles.logoRing}>
-              <Image source={assets.icon} style={styles.logo} resizeMode="cover" accessibilityLabel="פעמיים" />
+              <Image source={assets.icon} style={styles.logo} resizeMode="cover" accessibilityLabel={APP_NAME} />
             </View>
-            <Text style={styles.appName}>פעמיים</Text>
-            <Text style={styles.slogan}>לומדים. מרגישים. גדלים.</Text>
+            <Text style={styles.appName}>{APP_NAME}</Text>
+            <Text style={styles.slogan}>{APP_TAGLINE}</Text>
           </Animated.View>
 
           <View style={styles.loaderBlock}>

@@ -23,8 +23,14 @@ import {
   isParashaComplete,
 } from '../../src/data/parashot';
 import { useAppStore } from '../../src/store/useAppStore';
+import { APP_NAME, APP_TAGLINE } from '../../src/theme/brand';
 import { fonts } from '../../src/theme/fonts';
 import { assets, colors, radii, spacing } from '../../src/theme/tokens';
+
+function haftaraBook(source: string): string {
+  const match = source.match(/^(.*?)\s+[\u0590-\u05EA״׳]+[:：]/);
+  return (match?.[1] ?? source).trim();
+}
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -59,8 +65,8 @@ export default function HomeScreen() {
               <View style={styles.heroGlassFill} />
               <View style={styles.heroInner}>
                 <Image source={assets.icon} style={styles.logo} resizeMode="cover" />
-                <Text style={styles.appName}>פעמיים</Text>
-                <Text style={styles.brandTag}>לומדים. מרגישים. גדלים.</Text>
+                <Text style={styles.appName}>{APP_NAME}</Text>
+                <Text style={styles.brandTag}>{APP_TAGLINE}</Text>
                 <Text style={styles.splashTitle} accessibilityRole="header">
                   פרשת השבוע
                 </Text>
@@ -141,7 +147,13 @@ export default function HomeScreen() {
                   <Ionicons name="flame" size={22} color={colors.leaf} />
                 </View>
                 <Text style={styles.tileTitle}>ההפטרה</Text>
-                <Text style={styles.tileSub}>ישעיהו</Text>
+                <Text style={styles.tileSub}>
+                  {haftaraBook(
+                    calendarMode === 'israel'
+                      ? parasha.haftara.sourceIsrael
+                      : parasha.haftara.sourceDiaspora
+                  )}
+                </Text>
               </GlassCard>
             </Pressable>
           </View>

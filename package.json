@@ -8,12 +8,15 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "fetch-corpus": "node scripts/fetch-corpus.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/assistant": "^0.4.1",
     "@expo-google-fonts/frank-ruhl-libre": "^0.4.1",
     "@expo/vector-icons": "~14.0.4",
+    "@hebcal/core": "^6.14.0",
+    "@hebcal/leyning": "^10.1.0",
     "@react-native-async-storage/async-storage": "1.23.1",
     "expo": "~52.0.46",
     "expo-asset": "~11.0.5",

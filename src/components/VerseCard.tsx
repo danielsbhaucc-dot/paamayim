@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { verseRef } from '../data/hebrew';
 import type { PassKind, Verse, VerseProgress } from '../data/types';
 import { fonts } from '../theme/fonts';
 import { colors, radii } from '../theme/tokens';
@@ -14,13 +15,13 @@ type Props = {
 };
 
 export function VerseCard({ verse, progress, onToggle }: Props) {
-  const ref = `${verse.chapter}:${verse.verse}`;
+  const ref = verseRef(verse.chapter, verse.verse);
 
   return (
     <View style={styles.wrap}>
       <GlassCard strong round="xl" accessibilityLabel={`פסוק ${ref}`}>
         <View style={styles.header}>
-          <Text style={styles.book}>בראשית</Text>
+          <Text style={styles.book}>{verse.book}</Text>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>{ref}</Text>
           </View>

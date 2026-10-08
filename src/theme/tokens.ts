@@ -1,6 +1,6 @@
 import { fonts } from './fonts';
 
-/** פעמיים — זכוכית iOS לפי המוקאפ */
+/** נהורא — זכוכית iOS לפי המוקאפ */
 export const colors = {
   primary: '#0D5C63',
   primaryDark: '#0A454B',

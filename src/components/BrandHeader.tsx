@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { APP_NAME } from '../theme/brand';
 import { assets, colors, typography } from '../theme/tokens';
 
 export function BrandMark({ size = 56 }: { size?: number }) {
@@ -7,7 +8,7 @@ export function BrandMark({ size = 56 }: { size?: number }) {
     <Image
       source={assets.icon}
       style={{ width: size, height: size, borderRadius: size / 2 }}
-      accessibilityLabel="פעמיים"
+      accessibilityLabel={APP_NAME}
       resizeMode="cover"
     />
   );
@@ -24,7 +25,7 @@ export function BrandHeader({
     <View style={[styles.header, large && styles.headerLarge]} accessibilityRole="header">
       <BrandMark size={large ? 72 : 44} />
       <View style={styles.textCol}>
-        <Text style={[styles.name, large && styles.nameLarge]}>פעמיים</Text>
+        <Text style={[styles.name, large && styles.nameLarge]}>{APP_NAME}</Text>
         {subtitle ? <Text style={styles.sub}>{subtitle}</Text> : null}
       </View>
     </View>

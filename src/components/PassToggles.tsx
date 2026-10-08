@@ -14,7 +14,7 @@ const PASSES: {
 }[] = [
   { kind: 'mikra1', label: 'מקרא', icon: 'book-outline', iconDone: 'book' },
   { kind: 'onkelos', label: 'אונקלוס', icon: 'language-outline', iconDone: 'language' },
-  { kind: 'mikra2', label: 'פעמיים', icon: 'checkmark-done-outline', iconDone: 'checkmark-done' },
+  { kind: 'mikra2', label: 'מקרא ב׳', icon: 'checkmark-done-outline', iconDone: 'checkmark-done' },
 ];
 
 type Props = {
@@ -22,7 +22,7 @@ type Props = {
   onToggle: (kind: PassKind) => void;
 };
 
-/** שלושה עיגולים כמו במוקאפ — מקרא / אונקלוס / פעמיים */
+/** שלושה עיגולים — מקרא / אונקלוס / מקרא ב׳ */
 export function PassToggles({ progress, onToggle }: Props) {
   return (
     <View style={styles.row} accessibilityRole="summary">

@@ -14,6 +14,8 @@ export interface Verse {
   id: string;
   chapter: number;
   verse: number;
+  /** שם החומש בעברית */
+  book: string;
   hebrew: string;
   onkelos: string;
   /** הסבר קצר: מה אונקלוס עשה כאן */

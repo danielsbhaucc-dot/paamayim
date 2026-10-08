@@ -8,6 +8,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
+import { hebrewNumber, verseMark } from '../data/hebrew';
 import type { Aliyah, Verse } from '../data/types';
 import { fonts } from '../theme/fonts';
 import { assets, colors } from '../theme/tokens';
@@ -25,34 +26,6 @@ const ROD_ASPECT = 167 / 1358;
 const PARCHMENT_RATIO = 1257 / 1358;
 /** גוון קלף אחיד — בלי שכבות tile/wash */
 const PARCHMENT = '#F3E6CC';
-
-const HEB_CHAPTER = [
-  '',
-  'א׳',
-  'ב׳',
-  'ג׳',
-  'ד׳',
-  'ה׳',
-  'ו׳',
-  'ז׳',
-  'ח׳',
-  'ט׳',
-  'י׳',
-  'י״א',
-  'י״ב',
-  'י״ג',
-  'י״ד',
-  'ט״ו',
-  'ט״ז',
-  'י״ז',
-  'י״ח',
-  'י״ט',
-  'כ׳',
-];
-
-function chapterLabel(n: number): string {
-  return HEB_CHAPTER[n] ?? String(n);
-}
 
 /**
  * מגילה כמו בסקצ׳:
@@ -116,7 +89,7 @@ export function TorahScrollView({ verses, aliyah, parashaName }: Props) {
             <View style={styles.scrollHeader}>
               <Text style={styles.scrollTitle}>{parashaName}</Text>
               {chapter != null ? (
-                <Text style={styles.scrollChapter}>פרק {chapterLabel(chapter)}</Text>
+                <Text style={styles.scrollChapter}>פרק {hebrewNumber(chapter)}</Text>
               ) : null}
             </View>
           ) : aliyah ? (
@@ -126,13 +99,19 @@ export function TorahScrollView({ verses, aliyah, parashaName }: Props) {
           ) : null}
 
           <Text style={styles.verseBlock}>
-            {verses.map((v, i) => (
-              <Text key={v.id}>
-                <Text style={styles.verseNum}>{`\u200F(${v.verse}) `}</Text>
-                {v.hebrew}
-                {i < verses.length - 1 ? ' ' : ''}
-              </Text>
-            ))}
+            {verses.map((v, i) => {
+              const chapterBreak = i > 0 && verses[i - 1].chapter !== v.chapter;
+              return (
+                <Text key={v.id}>
+                  {chapterBreak ? (
+                    <Text style={styles.chapterInline}>{`\nפרק ${hebrewNumber(v.chapter)}\n`}</Text>
+                  ) : null}
+                  <Text style={styles.verseNum}>{`\u200F(${verseMark(v.verse)}) `}</Text>
+                  {v.hebrew}
+                  {i < verses.length - 1 ? ' ' : ''}
+                </Text>
+              );
+            })}
           </Text>
         </ScrollView>
       </View>
@@ -210,6 +189,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.textSecondary,
     textAlign: 'center',
+  },
+  chapterInline: {
+    fontFamily: fonts.uiBold,
+    fontSize: 16,
+    color: colors.primaryDark,
   },
   aliyahFallback: {
     fontFamily: fonts.uiBold,

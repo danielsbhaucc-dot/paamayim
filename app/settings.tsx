@@ -52,6 +52,19 @@ export default function SettingsScreen() {
           </GlassCard>
 
           <GlassCard>
+            <Pressable
+              onPress={() => router.push('/legal')}
+              accessibilityRole="button"
+              accessibilityLabel="משפטי"
+            >
+              <Text style={styles.label}>משפטי</Text>
+              <Text style={styles.hint}>
+                מקור הטקסטים, הרישיון, ומה שלא כלול בשימוש החופשי.
+              </Text>
+            </Pressable>
+          </GlassCard>
+
+          <GlassCard>
             <Text style={styles.label}>נגישות</Text>
             <Text style={styles.hint}>
               כל הכפתורים בגודל מגע מינימלי, תוויות בעברית, תפקידי נגישות (role) על טאבים,

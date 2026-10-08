@@ -52,6 +52,7 @@ export default function RootLayout() {
         <Stack.Screen name="reading" options={{ presentation: 'card' }} />
         <Stack.Screen name="completion" options={{ presentation: 'modal' }} />
         <Stack.Screen name="settings" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="legal" options={{ presentation: 'modal' }} />
       </Stack>
       <SideMenu />
       {showLoader ? <AppLoadingScreen ready={loaded} onFinish={onLoaderFinish} /> : null}

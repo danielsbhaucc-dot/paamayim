@@ -15,11 +15,11 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppStore } from '../store/useAppStore';
+import { APP_NAME, APP_TAGLINE } from '../theme/brand';
 import { fonts } from '../theme/fonts';
 import { assets, colors, radii, spacing } from '../theme/tokens';
 import { a11y } from '../utils/a11y';
 
-const ITEM_COUNT = 5;
 const OPEN_MS = 400;
 const CLOSE_MS = 320;
 const STAGGER = 90;
@@ -62,6 +62,12 @@ const MENU_ITEMS: MenuItem[] = [
     icon: 'settings-outline',
     onPress: (router) => router.push('/settings'),
   },
+  {
+    key: 'legal',
+    title: 'משפטי',
+    icon: 'document-text-outline',
+    onPress: (router) => router.push('/legal'),
+  },
 ];
 
 function normalizePath(pathname: string) {
@@ -91,6 +97,8 @@ function isItemActive(pathname: string, key: string) {
       return leaf === 'family';
     case 'settings':
       return leaf === 'settings';
+    case 'legal':
+      return leaf === 'legal';
     default:
       return false;
   }
@@ -218,7 +226,7 @@ export function SideMenu() {
   const closeAnim = useRef(new Animated.Value(0)).current;
   const ornamentAnim = useRef(new Animated.Value(0)).current;
   const itemAnims = useRef(
-    Array.from({ length: ITEM_COUNT }, () => new Animated.Value(0)),
+    Array.from({ length: MENU_ITEMS.length }, () => new Animated.Value(0)),
   ).current;
 
   const finishUnmount = () => {
@@ -290,7 +298,7 @@ export function SideMenu() {
     Animated.parallel([
       Animated.timing(progress, {
         toValue: 0,
-        duration: CLOSE_MS + (ITEM_COUNT - 1) * 45,
+        duration: CLOSE_MS + (MENU_ITEMS.length - 1) * 45,
         easing: Easing.in(Easing.cubic),
         useNativeDriver: true,
       }),
@@ -437,9 +445,9 @@ export function SideMenu() {
         </View>
 
         <View style={styles.brand}>
-          <Image source={assets.icon} style={styles.logo} accessibilityLabel="פעמיים" />
-          <Text style={styles.appName}>פעמיים</Text>
-          <Text style={styles.slogan}>לומדים. מרגישים. גדלים.</Text>
+          <Image source={assets.icon} style={styles.logo} accessibilityLabel={APP_NAME} />
+          <Text style={styles.appName}>{APP_NAME}</Text>
+          <Text style={styles.slogan}>{APP_TAGLINE}</Text>
           <Animated.View
             style={[styles.ornament, ornamentStyle]}
             accessibilityElementsHidden

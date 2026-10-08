@@ -1,0 +1,60 @@
+{
+  "source": "Sefaria",
+  "retrieved": "2026-10-08",
+  "use": "הטקסטים בנחלת הכלל. מותר להשתמש בהם לכל מטרה, כולל מסחרית, בלי חובת קרדיט.",
+  "hebrew": {
+    "version": "Tanach with Nikkud",
+    "license": "Public Domain",
+    "books": [
+      "Genesis",
+      "Exodus",
+      "Leviticus",
+      "Numbers",
+      "Deuteronomy"
+    ]
+  },
+  "onkelos": {
+    "versions": [
+      "Onkelos Genesis",
+      "Onkelos Exodus",
+      "Onkelos Leviticus",
+      "Onkelos Numbers",
+      "Onkelos Deuteronomy"
+    ],
+    "license": "Public Domain"
+  },
+  "totals": [
+    {
+      "book": "Genesis",
+      "he": "בראשית",
+      "chapters": 50,
+      "verses": 1533
+    },
+    {
+      "book": "Exodus",
+      "he": "שמות",
+      "chapters": 40,
+      "verses": 1210
+    },
+    {
+      "book": "Leviticus",
+      "he": "ויקרא",
+      "chapters": 27,
+      "verses": 859
+    },
+    {
+      "book": "Numbers",
+      "he": "במדבר",
+      "chapters": 36,
+      "verses": 1288
+    },
+    {
+      "book": "Deuteronomy",
+      "he": "דברים",
+      "chapters": 34,
+      "verses": 956
+    }
+  ],
+  "parashotChecked": 54,
+  "aliyahGaps": []
+}

@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,9 +8,11 @@ import { BrandHeader } from '../../src/components/BrandHeader';
 import { GlassCard } from '../../src/components/GlassCard';
 import { MenuButton } from '../../src/components/MenuButton';
 import { useAppStore } from '../../src/store/useAppStore';
+import { APP_NAME } from '../../src/theme/brand';
 import { colors, spacing, typography } from '../../src/theme/tokens';
 
 export default function MoreScreen() {
+  const router = useRouter();
   const openSideMenu = useAppStore((s) => s.openSideMenu);
   const calendarMode = useAppStore((s) => s.calendarMode);
   const setCalendarMode = useAppStore((s) => s.setCalendarMode);
@@ -47,6 +50,7 @@ export default function MoreScreen() {
               title="מסך פתיחה מחדש"
               onPress={() => setOnboardingDone(false)}
             />
+            <MenuRow title="משפטי" onPress={() => router.push('/legal')} />
             <MenuRow
               title="איפוס התקדמות"
               danger
@@ -66,7 +70,7 @@ export default function MoreScreen() {
             />
           </GlassCard>
 
-          <Text style={styles.footer}>פעמיים · גרסה 1.0</Text>
+          <Text style={styles.footer}>{APP_NAME} · גרסה 1.0</Text>
           <View style={{ height: 100 }} />
         </ScrollView>
       </SafeAreaView>
