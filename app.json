@@ -43,7 +43,11 @@
     "extra": {
       "router": {
         "origin": false
+      },
+      "eas": {
+        "projectId": "deced723-04a0-4acc-80be-75200f8c0e1f"
       }
-    }
+    },
+    "owner": "orot"
   }
 }
