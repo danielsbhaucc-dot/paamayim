@@ -1,15 +1,21 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Smile, User } from 'lucide-react-native';
 import React, { useMemo, useState } from 'react';
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppBackground } from '../src/components/AppBackground';
-import { FamilyToggle } from '../src/components/FamilyToggle';
-import { GlassButton } from '../src/components/GlassButton';
-import { GlassCard } from '../src/components/GlassCard';
-import { MenuButton } from '../src/components/MenuButton';
 import { getCurrentParasha } from '../src/data/parashot';
 import { useAppStore } from '../src/store/useAppStore';
-import { assets, colors, radii, spacing, typography } from '../src/theme/tokens';
+import { nw } from '../src/theme/design';
+import { img } from '../src/theme/images';
+import { rtl } from '../src/theme/rtl';
+import {
+  GlassSurface,
+  IllustrationCard,
+  PrimaryButton,
+  ScreenBackground,
+  ScreenHeader,
+  SegmentedTabs,
+} from '../src/ui';
 
 export default function StoryScreen() {
   const router = useRouter();
@@ -25,215 +31,204 @@ export default function StoryScreen() {
   const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
   const isChild = familyVoice === 'child';
   const isHaftara = kind === 'haftara';
+  const story = parasha.story;
 
-  const title = isHaftara ? 'סיפור ההפטרה' : parasha.story.title;
-  const body = isHaftara
-    ? isChild
-      ? parasha.haftara.storyChild
-      : parasha.haftara.storyAdult
-    : isChild
-      ? parasha.story.child
-      : parasha.story.adult;
-
+  const body = isChild ? story.child : story.adult;
+  const para1 = isChild ? parasha.haftara.storyChild : parasha.haftara.storyAdult;
   const why =
     calendarMode === 'israel'
       ? parasha.haftara.whyThisHaftara.israel
       : parasha.haftara.whyThisHaftara.diaspora;
-
-  const verseIds = isHaftara ? [] : parasha.story.verseIds;
+  const showWhy = why.trim() !== para1.trim();
 
   return (
-    <AppBackground bg="galilee">
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.topBar}>
-          <MenuButton />
-          <FamilyToggle value={familyVoice} onChange={setFamilyVoice} />
-          <Pressable
-            onPress={() => router.back()}
-            accessibilityRole="button"
-            accessibilityLabel="חזרה"
-            style={styles.back}
-          >
-            <Text style={styles.backText}>→ חזרה</Text>
-          </Pressable>
-        </View>
+    <ScreenBackground variant="mist" showNav={false}>
+      <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
+        <ScreenHeader title={isHaftara ? 'סיפור ההפטרה' : 'סיפור הפרשה'} />
 
-        <View style={styles.tabs}>
-          <Pressable
-            onPress={() => setKind('parasha')}
-            style={[styles.tab, !isHaftara && styles.tabActive]}
-            accessibilityRole="tab"
-            accessibilityState={{ selected: !isHaftara }}
-          >
-            <Text style={[styles.tabText, !isHaftara && styles.tabTextActive]}>סיפור הפרשה</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => setKind('haftara')}
-            style={[styles.tab, isHaftara && styles.tabActive]}
-            accessibilityRole="tab"
-            accessibilityState={{ selected: isHaftara }}
-          >
-            <Text style={[styles.tabText, isHaftara && styles.tabTextActive]}>סיפור ההפטרה</Text>
-          </Pressable>
-        </View>
+        <SegmentedTabs
+          size="md"
+          options={[
+            { id: 'parasha', label: 'סיפור הפרשה' },
+            { id: 'haftara', label: 'סיפור ההפטרה' },
+          ]}
+          value={kind}
+          onChange={(id) => setKind(id as 'parasha' | 'haftara')}
+          style={{ marginHorizontal: nw.space.screenX, marginTop: 4 }}
+        />
 
-        <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          <GlassCard strong>
-            <Image
+        <ScrollView
+          contentContainerStyle={{
+            paddingHorizontal: nw.space.screenX,
+            paddingTop: 14,
+            paddingBottom: 24,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <GlassSurface variant="strong" radius={24} contentStyle={{ padding: 16 }}>
+            <IllustrationCard
               source={
                 isHaftara
-                  ? assets.familyChildJerusalem
+                  ? img.haftaraProphet
                   : isChild
-                    ? assets.familyChildGalilee
-                    : assets.familyStudy
+                    ? img.familyChild
+                    : img.familyAdult
               }
-              style={styles.art}
-              resizeMode="cover"
+              aspectRatio={16 / 9}
             />
-            <Text style={styles.eyebrow}>
-              {isHaftara
-                ? calendarMode === 'israel'
-                  ? parasha.haftara.sourceIsrael
-                  : parasha.haftara.sourceDiaspora
-                : `פרשת ${parasha.name}`}
-            </Text>
-            <Text style={styles.title} accessibilityRole="header">
-              {title}
-            </Text>
-            <Text style={styles.body}>{body}</Text>
-          </GlassCard>
 
-          {isHaftara ? (
-            <GlassCard>
-              <Text style={styles.whyTitle}>למה קוראים דווקא את ההפטרה הזו?</Text>
-              <Text style={styles.whyBody}>{why}</Text>
-              <View style={styles.points}>
-                {parasha.haftara.connectionPoints.map((p) => (
-                  <Text key={p} style={styles.point}>
-                    · {p}
+            {kind === 'parasha' ? (
+              <>
+                <SegmentedTabs
+                  size="md"
+                  options={[
+                    { id: 'adult', label: 'מבוגר', Icon: User },
+                    { id: 'child', label: 'ילד/ה', Icon: Smile },
+                  ]}
+                  value={familyVoice}
+                  onChange={(id) => setFamilyVoice(id as 'adult' | 'child')}
+                  style={{ marginTop: 14 }}
+                />
+                <Text
+                  style={{
+                    ...nw.type.caption,
+                    color: nw.color.tealIcon,
+                    marginTop: 16,
+                    textAlign: rtl.textRight,
+                    writingDirection: 'rtl',
+                  }}
+                >
+                  {`פרשת ${parasha.name}`}
+                </Text>
+                <Text
+                  accessibilityRole="header"
+                  style={{
+                    ...nw.type.h2,
+                    color: nw.color.ink,
+                    marginTop: 2,
+                    textAlign: rtl.textRight,
+                    writingDirection: 'rtl',
+                  }}
+                >
+                  {parasha.story.title}
+                </Text>
+                <Text
+                  style={{
+                    ...nw.type.body,
+                    color: nw.color.inkSoft,
+                    marginTop: 10,
+                    textAlign: rtl.textRight,
+                    writingDirection: 'rtl',
+                  }}
+                >
+                  {body}
+                </Text>
+              </>
+            ) : (
+              <>
+                <Text
+                  accessibilityRole="header"
+                  style={{
+                    ...nw.type.h2,
+                    color: nw.color.ink,
+                    marginTop: 18,
+                    textAlign: rtl.textRight,
+                    writingDirection: 'rtl',
+                  }}
+                >
+                  למה קוראים דווקא את ההפטרה הזו?
+                </Text>
+                <Text
+                  style={{
+                    ...nw.type.body,
+                    color: nw.color.inkSoft,
+                    marginTop: 10,
+                    textAlign: rtl.textRight,
+                    writingDirection: 'rtl',
+                  }}
+                >
+                  {para1}
+                </Text>
+                {showWhy ? (
+                  <Text
+                    style={{
+                      ...nw.type.body,
+                      color: nw.color.inkSoft,
+                      marginTop: 14,
+                      textAlign: rtl.textRight,
+                      writingDirection: 'rtl',
+                    }}
+                  >
+                    {why}
                   </Text>
+                ) : null}
+                {parasha.haftara.connectionPoints.map((p) => (
+                  <View
+                    key={p}
+                    style={{
+                      flexDirection: rtl.row,
+                      gap: 10,
+                      alignItems: 'center',
+                      marginTop: 8,
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: 3,
+                        backgroundColor: nw.color.tealIcon,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        ...nw.type.bodySm,
+                        color: nw.color.inkSoft,
+                        flex: 1,
+                        textAlign: rtl.textRight,
+                        writingDirection: 'rtl',
+                      }}
+                    >
+                      {p}
+                    </Text>
+                  </View>
                 ))}
-              </View>
-              <Text style={styles.calendarNote}>
-                לוח פעיל: {calendarMode === 'israel' ? 'ישראל' : 'חו״ל'}
-              </Text>
-            </GlassCard>
-          ) : null}
+                <Text
+                  style={{
+                    ...nw.type.caption,
+                    color: nw.color.inkMuted,
+                    marginTop: 12,
+                    textAlign: rtl.textRight,
+                    writingDirection: 'rtl',
+                  }}
+                >
+                  {`מקור: ${
+                    calendarMode === 'israel'
+                      ? parasha.haftara.sourceIsrael
+                      : parasha.haftara.sourceDiaspora
+                  }`}
+                </Text>
+              </>
+            )}
+          </GlassSurface>
 
-          <GlassButton
-            title={
-              isHaftara
-                ? 'חזרה לבית'
-                : 'לפסוקים שהסיפור נשען עליהם'
-            }
+          <PrimaryButton
+            title="מעבר לפסוקים"
+            icon="chevron"
+            style={{ marginTop: 20 }}
             onPress={() => {
-              if (isHaftara) router.back();
-              else
+              if (kind === 'parasha') {
                 router.push({
                   pathname: '/reading',
-                  params: { focus: verseIds.join(',') },
+                  params: { focus: parasha.story.verseIds.join(',') },
                 });
+              } else {
+                router.push('/reading');
+              }
             }}
           />
-
-          <View style={{ height: 40 }} />
         </ScrollView>
       </SafeAreaView>
-    </AppBackground>
+    </ScreenBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  safe: { flex: 1 },
-  topBar: {
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
-  },
-  back: { minHeight: 44, justifyContent: 'center' },
-  backText: {
-    ...typography.subtitle,
-    color: colors.primary,
-    fontWeight: '700',
-  },
-  tabs: {
-    flexDirection: 'row-reverse',
-    marginHorizontal: spacing.lg,
-    marginTop: spacing.md,
-    backgroundColor: 'rgba(255,255,255,0.55)',
-    borderRadius: radii.pill,
-    padding: 4,
-    borderWidth: 1.5,
-    borderColor: colors.glassBorder,
-  },
-  tab: {
-    flex: 1,
-    minHeight: 44,
-    borderRadius: radii.pill,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tabActive: { backgroundColor: colors.primary },
-  tabText: {
-    ...typography.caption,
-    fontWeight: '700',
-    color: colors.textSecondary,
-  },
-  tabTextActive: { color: colors.textOnPrimary },
-  scroll: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
-    gap: spacing.md,
-  },
-  art: {
-    width: '100%',
-    height: 180,
-    borderRadius: radii.lg,
-    marginBottom: 14,
-  },
-  eyebrow: {
-    ...typography.caption,
-    color: colors.primary,
-    fontWeight: '700',
-    textAlign: 'right',
-  },
-  title: {
-    ...typography.title,
-    color: colors.text,
-    textAlign: 'right',
-    marginTop: 4,
-  },
-  body: {
-    ...typography.body,
-    color: colors.textSecondary,
-    textAlign: 'right',
-    marginTop: 12,
-  },
-  whyTitle: {
-    ...typography.subtitle,
-    fontWeight: '800',
-    color: colors.primaryDark,
-    textAlign: 'right',
-  },
-  whyBody: {
-    ...typography.body,
-    color: colors.textSecondary,
-    textAlign: 'right',
-    marginTop: 10,
-  },
-  points: { marginTop: 12, gap: 6 },
-  point: {
-    ...typography.caption,
-    color: colors.text,
-    textAlign: 'right',
-    lineHeight: 20,
-  },
-  calendarNote: {
-    ...typography.caption,
-    color: colors.textMuted,
-    textAlign: 'right',
-    marginTop: 14,
-  },
-});

@@ -1,9 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
-import { BlurView } from 'expo-blur';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useEffect, useMemo } from 'react';
+import { ArrowLeft, ArrowRight } from 'lucide-react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  Platform,
+  PanResponder,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -11,23 +11,26 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppBackground } from '../src/components/AppBackground';
-import { ViewToggle } from '../src/components/CalendarToggle';
-import { DaySelector } from '../src/components/DaySelector';
-import { GlassButton } from '../src/components/GlassButton';
-import { MenuButton } from '../src/components/MenuButton';
-import { ProgressBar } from '../src/components/ProgressBar';
 import { TorahScrollView } from '../src/components/TorahScrollView';
-import { VerseCard } from '../src/components/VerseCard';
 import {
   aliyahProgress,
   getCurrentParasha,
   isParashaComplete,
 } from '../src/data/parashot';
-import type { PassKind } from '../src/data/types';
+import type { PassKind, ReadingView } from '../src/data/types';
 import { useAppStore } from '../src/store/useAppStore';
+import { nw } from '../src/theme/design';
 import { fonts } from '../src/theme/fonts';
-import { colors, spacing, typography } from '../src/theme/tokens';
+import { rtl } from '../src/theme/rtl';
+import { spacing } from '../src/theme/tokens';
+import {
+  GlassSurface,
+  ProgressPill,
+  ScreenBackground,
+  ScreenHeader,
+  SegmentedTabs,
+  VerseFocusCard,
+} from '../src/ui';
 
 export default function ReadingScreen() {
   const router = useRouter();
@@ -41,9 +44,12 @@ export default function ReadingScreen() {
   const setReadingView = useAppStore((s) => s.setReadingView);
   const togglePass = useAppStore((s) => s.togglePass);
   const getVerseProgress = useAppStore((s) => s.getVerseProgress);
+  const lastVerseId = useAppStore((s) => s.lastVerseId);
+  const setLastVerseId = useAppStore((s) => s.setLastVerseId);
 
   const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
   const isScroll = readingView === 'scroll';
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     if (params.aliyah) {
@@ -81,6 +87,25 @@ export default function ReadingScreen() {
     progress
   );
 
+  useEffect(() => {
+    if (lastVerseId) {
+      const i = displayVerses.findIndex((v) => v.id === lastVerseId);
+      if (i >= 0) {
+        setIndex(i);
+        return;
+      }
+    }
+    setIndex(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- reset when aliyah / list changes
+  }, [activeAliyah, displayVerses.length]);
+
+  useEffect(() => {
+    const v = displayVerses[index];
+    if (v) setLastVerseId(v.id);
+  }, [index, displayVerses, setLastVerseId]);
+
+  const verse = displayVerses[index];
+
   const handleToggle = (verseId: string, kind: PassKind) => {
     togglePass(verseId, kind);
     setTimeout(() => {
@@ -100,36 +125,71 @@ export default function ReadingScreen() {
     else if (isParashaComplete(parasha, progress)) router.push('/completion');
   };
 
+  const canPrev = index > 0 || (!focusSet && activeAliyah > 1);
+  const canNext =
+    index < displayVerses.length - 1 ||
+    (!focusSet &&
+      (activeAliyah < 7 || isParashaComplete(parasha, progress)));
+
+  const goPrevVerse = () => {
+    if (index > 0) setIndex(index - 1);
+    else if (!focusSet && activeAliyah > 1) goPrevAliyah();
+  };
+
+  const goNextVerse = () => {
+    if (index < displayVerses.length - 1) setIndex(index + 1);
+    else if (!focusSet) goNextAliyah();
+  };
+
+  const indexRef = useRef(index);
+  const canPrevRef = useRef(canPrev);
+  const canNextRef = useRef(canNext);
+  const goPrevRef = useRef(goPrevVerse);
+  const goNextRef = useRef(goNextVerse);
+  indexRef.current = index;
+  canPrevRef.current = canPrev;
+  canNextRef.current = canNext;
+  goPrevRef.current = goPrevVerse;
+  goNextRef.current = goNextVerse;
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, g) =>
+        Math.abs(g.dx) > 10 && Math.abs(g.dy) < 40,
+      onPanResponderRelease: (_, g) => {
+        if (Math.abs(g.dx) > 60 && Math.abs(g.dy) < 40) {
+          if (g.dx < 0) {
+            if (canNextRef.current) goNextRef.current();
+          } else if (canPrevRef.current) {
+            goPrevRef.current();
+          }
+        }
+      },
+    })
+  ).current;
+
   /** מצב מגילה — הרכב קבוע כמו במוקאפ (בלי ScrollView חיצוני) */
   if (isScroll) {
     return (
-      <AppBackground bg="jerusalem" dim={false}>
+      <ScreenBackground variant="mist" showNav={false}>
         <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-          <View style={styles.megillahHeader}>
-            {/* row-reverse: תפריט מימין, חזור משמאל עם חץ ימינה (RTL) */}
-            <MenuButton light />
-            <View
-              style={styles.titleBlock}
-              accessibilityLabel={`פרשת ${parasha.name}, ${aliyah.title}`}
-            >
-              <Text style={styles.megillahParasha}>פרשת {parasha.name}</Text>
-              <Text style={styles.megillahAliyah}>
-                {aliyah.title} · יום {aliyah.dayShort}
-              </Text>
-            </View>
-            <Pressable
-              onPress={() => router.back()}
-              accessibilityRole="button"
-              accessibilityLabel="חזרה"
-              style={styles.backGhost}
-            >
-              <Ionicons name="chevron-forward" size={26} color="#fff" />
-            </Pressable>
-          </View>
+          <ScreenHeader
+            title={`פרשת ${parasha.name}`}
+            subtitle={`${aliyah.title} · ${
+              aliyah.dayShort === 'ש׳' ? 'שבת' : 'יום ' + aliyah.dayShort
+            }`}
+          />
 
-          <View style={styles.toggleWrap}>
-            <ViewToggle value={readingView} onChange={setReadingView} />
-          </View>
+          <SegmentedTabs
+            size="md"
+            options={[
+              { id: 'verse', label: 'פסוק־פסוק' },
+              { id: 'scroll', label: 'גלילה רציפה' },
+            ]}
+            value={readingView}
+            onChange={(id) => setReadingView(id as ReadingView)}
+            style={{ marginHorizontal: nw.space.screenX, marginTop: 4 }}
+          />
 
           {focusSet ? (
             <Text style={styles.focusHintLight}>פסוקים שהסיפור נשען עליהם</Text>
@@ -143,6 +203,12 @@ export default function ReadingScreen() {
               aliyah={focusSet ? undefined : aliyah}
             />
           </View>
+
+          <ProgressPill
+            value={current.total ? current.done / current.total : 0}
+            label={`${current.total ? Math.round((current.done / current.total) * 100) : 0}%`}
+            style={{ marginHorizontal: nw.space.screenX, marginBottom: 10 }}
+          />
 
           {!focusSet ? (
             <View style={styles.navArrows}>
@@ -165,78 +231,116 @@ export default function ReadingScreen() {
             </View>
           ) : null}
         </SafeAreaView>
-      </AppBackground>
+      </ScreenBackground>
     );
   }
 
+  const headerTitle = focusSet
+    ? 'פסוקים שהסיפור נשען עליהם'
+    : `עלייה ${activeAliyah} · ${
+        aliyah.dayShort === 'ש׳' ? 'שבת' : 'יום ' + aliyah.dayShort
+      }`;
+
+  const progressValue =
+    displayVerses.length > 0 ? (index + 1) / displayVerses.length : 0;
+
   return (
-    <AppBackground bg="jerusalem">
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.topBar}>
-          <MenuButton />
-          <View style={styles.topCenter}>
-            <Text style={styles.topTitle}>
-              {aliyah.title} · יום {aliyah.dayShort}
-            </Text>
-          </View>
-          <Pressable
-            onPress={() => router.back()}
-            accessibilityRole="button"
-            accessibilityLabel="חזרה"
-            style={styles.back}
+    <ScreenBackground variant="mist" showNav={false}>
+      <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
+        <View style={{ flex: 1 }}>
+          <ScreenHeader title={headerTitle} />
+
+          <SegmentedTabs
+            size="md"
+            options={[
+              { id: 'verse', label: 'פסוק־פסוק' },
+              { id: 'scroll', label: 'גלילה רציפה' },
+            ]}
+            value={readingView}
+            onChange={(id) => setReadingView(id as ReadingView)}
+            style={{ marginHorizontal: nw.space.screenX, marginTop: 4 }}
+          />
+
+          <ProgressPill
+            value={progressValue}
+            label={`${Math.min(index + 1, displayVerses.length)}/${displayVerses.length}`}
+            style={{ marginHorizontal: nw.space.screenX, marginTop: 12 }}
+          />
+
+          <ScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={{
+              paddingHorizontal: nw.space.screenX,
+              paddingTop: 14,
+              paddingBottom: 100,
+            }}
+            showsVerticalScrollIndicator={false}
           >
-            <Text style={styles.backText}>→ חזרה</Text>
-          </Pressable>
-        </View>
+            <View {...panResponder.panHandlers}>
+              {verse ? (
+                <VerseFocusCard
+                  verse={verse}
+                  progress={getVerseProgress(verse.id)}
+                  onToggle={(kind) => handleToggle(verse.id, kind)}
+                />
+              ) : null}
+            </View>
+          </ScrollView>
 
-        <View style={styles.progressPad}>
-          <ProgressBar done={current.done} total={current.total} label="התקדמות העלייה" />
-        </View>
+          <View
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              bottom: 16,
+              paddingHorizontal: nw.space.screenX,
+              flexDirection: rtl.row,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <GlassSurface
+              variant="subtle"
+              radius={26}
+              padded={false}
+              style={{ width: 52, height: 52, opacity: canPrev ? 1 : 0.4 }}
+              contentStyle={{ alignItems: 'center', justifyContent: 'center' }}
+              onPress={canPrev ? goPrevVerse : undefined}
+              accessibilityLabel="פסוק קודם"
+              accessibilityRole="button"
+              accessibilityState={{ disabled: !canPrev }}
+            >
+              <ArrowRight size={22} color={nw.color.ink} strokeWidth={1.75} />
+            </GlassSurface>
 
-        {!focusSet ? (
-          <View style={styles.dayWrap}>
-            <DaySelector
-              aliyot={parasha.aliyot}
-              activeId={activeAliyah}
-              onSelect={setActiveAliyah}
-              ratios={ratios}
-            />
+            <Text
+              style={{
+                ...nw.type.caption,
+                color: nw.color.inkMuted,
+                textAlign: 'center',
+                writingDirection: 'rtl',
+              }}
+            >
+              {focusSet ? 'פסוקי הסיפור' : aliyah.title}
+            </Text>
+
+            <GlassSurface
+              variant="subtle"
+              radius={26}
+              padded={false}
+              style={{ width: 52, height: 52, opacity: canNext ? 1 : 0.4 }}
+              contentStyle={{ alignItems: 'center', justifyContent: 'center' }}
+              onPress={canNext ? goNextVerse : undefined}
+              accessibilityLabel="פסוק הבא"
+              accessibilityRole="button"
+              accessibilityState={{ disabled: !canNext }}
+            >
+              <ArrowLeft size={22} color={nw.color.ink} strokeWidth={1.75} />
+            </GlassSurface>
           </View>
-        ) : (
-          <Text style={styles.focusHint}>פסוקים שהסיפור נשען עליהם</Text>
-        )}
-
-        <View style={styles.controls}>
-          <ViewToggle value={readingView} onChange={setReadingView} />
         </View>
-
-        <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          {displayVerses.map((v) => (
-            <VerseCard
-              key={v.id}
-              verse={v}
-              progress={getVerseProgress(v.id)}
-              onToggle={(kind) => handleToggle(v.id, kind)}
-            />
-          ))}
-
-          {!focusSet && activeAliyah < 7 ? (
-            <GlassButton title="לעלייה הבאה" onPress={goNextAliyah} style={{ marginTop: 8 }} />
-          ) : null}
-
-          {!focusSet && activeAliyah === 7 ? (
-            <GlassButton
-              title="סיכום השבוע"
-              variant="soft"
-              onPress={() => router.push('/completion')}
-              style={{ marginTop: 8 }}
-            />
-          ) : null}
-
-          <View style={{ height: 40 }} />
-        </ScrollView>
       </SafeAreaView>
-    </AppBackground>
+    </ScreenBackground>
   );
 }
 
@@ -258,68 +362,25 @@ function NavArrow({
       accessibilityRole="button"
       accessibilityLabel={label}
       style={({ pressed }) => [
-        styles.arrowBtn,
-        disabled && styles.arrowDisabled,
-        pressed && { opacity: 0.85 },
+        disabled && { opacity: 0.35 },
+        pressed && !disabled && { opacity: 0.85 },
       ]}
     >
-      {Platform.OS !== 'web' ? (
-        <BlurView intensity={40} tint="light" style={StyleSheet.absoluteFill} />
-      ) : null}
-      <View style={styles.arrowFill} />
-      <Ionicons name={icon} size={22} color="#fff" />
+      <GlassSurface
+        variant="subtle"
+        radius={26}
+        padded={false}
+        style={{ width: 52, height: 52 }}
+        contentStyle={{ alignItems: 'center', justifyContent: 'center' }}
+      >
+        <Ionicons name={icon} size={22} color={nw.color.ink} />
+      </GlassSurface>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   safe: { flex: 1 },
-  megillahHeader: {
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: spacing.sm,
-    paddingTop: spacing.sm,
-  },
-  backGhost: {
-    width: 44,
-    height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  titleBlock: {
-    flexShrink: 1,
-    alignItems: 'center',
-    paddingHorizontal: 10,
-  },
-  megillahParasha: {
-    fontFamily: fonts.uiExtra,
-    fontSize: 24,
-    lineHeight: 30,
-    color: '#FFFFFF',
-    textAlign: 'center',
-    letterSpacing: 0.35,
-    textShadowColor: 'rgba(6, 22, 28, 0.55)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 10,
-  },
-  megillahAliyah: {
-    fontFamily: fonts.uiSemi,
-    fontSize: 15,
-    lineHeight: 20,
-    color: 'rgba(255,255,255,0.92)',
-    textAlign: 'center',
-    marginTop: 4,
-    letterSpacing: 0.15,
-    textShadowColor: 'rgba(6, 22, 28, 0.45)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 6,
-  },
-  toggleWrap: {
-    alignItems: 'center',
-    marginTop: spacing.sm,
-    marginBottom: spacing.sm,
-  },
   megillahStage: {
     flex: 1,
     minHeight: 0,
@@ -330,7 +391,7 @@ const styles = StyleSheet.create({
   focusHintLight: {
     fontFamily: fonts.uiSemi,
     fontSize: 12,
-    color: colors.textSecondary,
+    color: nw.color.inkSoft,
     textAlign: 'center',
     marginBottom: 8,
   },
@@ -342,77 +403,13 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.md,
     paddingBottom: spacing.sm,
   },
-  arrowBtn: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    overflow: 'hidden',
-    borderWidth: 1.25,
-    borderColor: 'rgba(255,255,255,0.7)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  arrowFill: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255,255,255,0.22)',
-  },
-  arrowDisabled: {
-    opacity: 0.35,
-  },
   navLabelLight: {
     fontFamily: fonts.uiSemi,
     fontSize: 15,
     lineHeight: 20,
-    color: '#FFFFFF',
+    color: nw.color.inkSoft,
     minWidth: 128,
     textAlign: 'center',
     letterSpacing: 0.15,
-    textShadowColor: 'rgba(6, 22, 28, 0.5)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 8,
-  },
-  topBar: {
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
-  },
-  back: { minHeight: 44, justifyContent: 'center', minWidth: 64 },
-  backText: {
-    ...typography.subtitle,
-    color: colors.primary,
-    fontWeight: '800',
-  },
-  topCenter: { alignItems: 'center' },
-  topTitle: {
-    ...typography.caption,
-    fontWeight: '800',
-    color: colors.text,
-    fontSize: 13,
-  },
-  progressPad: {
-    paddingHorizontal: spacing.lg,
-    marginTop: 8,
-  },
-  dayWrap: {
-    paddingHorizontal: spacing.md,
-    marginTop: spacing.sm,
-  },
-  focusHint: {
-    ...typography.caption,
-    color: colors.primary,
-    fontWeight: '800',
-    textAlign: 'center',
-    marginTop: spacing.sm,
-  },
-  controls: {
-    paddingHorizontal: spacing.lg,
-    marginTop: spacing.md,
-    alignItems: 'center',
-  },
-  scroll: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
   },
 });

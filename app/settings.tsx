@@ -1,14 +1,17 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppBackground } from '../src/components/AppBackground';
-import { CalendarToggle, ViewToggle } from '../src/components/CalendarToggle';
-import { FamilyToggle } from '../src/components/FamilyToggle';
-import { GlassCard } from '../src/components/GlassCard';
-import { MenuButton } from '../src/components/MenuButton';
+import type { CalendarMode, FamilyVoice, ReadingView } from '../src/data/types';
 import { useAppStore } from '../src/store/useAppStore';
-import { colors, spacing, typography } from '../src/theme/tokens';
+import { nw } from '../src/theme/design';
+import { rtl } from '../src/theme/rtl';
+import {
+  GlassSurface,
+  ScreenBackground,
+  ScreenHeader,
+  SegmentedTabs,
+} from '../src/ui';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -19,99 +22,182 @@ export default function SettingsScreen() {
   const readingView = useAppStore((s) => s.readingView);
   const setReadingView = useAppStore((s) => s.setReadingView);
 
+  const closeSlot = !router.canGoBack() ? (
+    <Pressable
+      onPress={() => router.replace('/(tabs)')}
+      accessibilityRole="button"
+      accessibilityLabel="סגור"
+      style={{ minHeight: 44, justifyContent: 'center', paddingHorizontal: 8 }}
+    >
+      <Text style={{ ...nw.type.label, color: nw.color.tealIcon, writingDirection: 'rtl' }}>
+        סגור
+      </Text>
+    </Pressable>
+  ) : undefined;
+
   return (
-    <AppBackground>
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.topBar}>
-          <MenuButton />
-          <Text style={styles.title}>הגדרות</Text>
-          <Pressable
-            onPress={() => router.back()}
-            accessibilityRole="button"
-            accessibilityLabel="סגור"
-            style={styles.back}
+    <ScreenBackground variant="mist" showNav={false}>
+      <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
+        <ScreenHeader title="הגדרות" endSlot={closeSlot} />
+
+        <ScrollView
+          contentContainerStyle={{
+            paddingTop: 12,
+            paddingBottom: 24,
+            gap: nw.space.gap,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <GlassSurface
+            variant="card"
+            radius={22}
+            style={{ marginHorizontal: nw.space.screenX }}
+            contentStyle={{ padding: 18 }}
           >
-            <Text style={styles.backText}>סגור</Text>
-          </Pressable>
-        </View>
+            <Text
+              style={{
+                ...nw.type.h3,
+                color: nw.color.ink,
+                textAlign: rtl.textRight,
+                writingDirection: 'rtl',
+                marginBottom: 12,
+              }}
+            >
+              לוח ישראל / חו״ל
+            </Text>
+            <SegmentedTabs
+              size="md"
+              options={[
+                { id: 'israel', label: 'ישראל' },
+                { id: 'diaspora', label: 'חו״ל' },
+              ]}
+              value={calendarMode}
+              onChange={(id) => setCalendarMode(id as CalendarMode)}
+            />
+          </GlassSurface>
 
-        <ScrollView contentContainerStyle={styles.scroll}>
-          <GlassCard strong>
-            <Text style={styles.label}>לוח ישראל / חו״ל</Text>
-            <CalendarToggle value={calendarMode} onChange={setCalendarMode} />
-          </GlassCard>
+          <GlassSurface
+            variant="card"
+            radius={22}
+            style={{ marginHorizontal: nw.space.screenX }}
+            contentStyle={{ padding: 18 }}
+          >
+            <Text
+              style={{
+                ...nw.type.h3,
+                color: nw.color.ink,
+                textAlign: rtl.textRight,
+                writingDirection: 'rtl',
+                marginBottom: 12,
+              }}
+            >
+              מצב משפחה (ברירת מחדל)
+            </Text>
+            <SegmentedTabs
+              size="md"
+              options={[
+                { id: 'adult', label: 'מבוגר' },
+                { id: 'child', label: 'ילד/ה' },
+              ]}
+              value={familyVoice}
+              onChange={(id) => setFamilyVoice(id as FamilyVoice)}
+            />
+          </GlassSurface>
 
-          <GlassCard>
-            <Text style={styles.label}>מצב משפחה (ברירת מחדל)</Text>
-            <FamilyToggle value={familyVoice} onChange={setFamilyVoice} />
-          </GlassCard>
+          <GlassSurface
+            variant="card"
+            radius={22}
+            style={{ marginHorizontal: nw.space.screenX }}
+            contentStyle={{ padding: 18 }}
+          >
+            <Text
+              style={{
+                ...nw.type.h3,
+                color: nw.color.ink,
+                textAlign: rtl.textRight,
+                writingDirection: 'rtl',
+                marginBottom: 12,
+              }}
+            >
+              תצוגת קריאה
+            </Text>
+            <SegmentedTabs
+              size="md"
+              options={[
+                { id: 'verse', label: 'פסוק־פסוק' },
+                { id: 'scroll', label: 'גלילה רציפה' },
+              ]}
+              value={readingView}
+              onChange={(id) => setReadingView(id as ReadingView)}
+            />
+          </GlassSurface>
 
-          <GlassCard>
-            <Text style={styles.label}>תצוגת קריאה</Text>
-            <ViewToggle value={readingView} onChange={setReadingView} />
-          </GlassCard>
-
-          <GlassCard>
+          <GlassSurface
+            variant="card"
+            radius={22}
+            style={{ marginHorizontal: nw.space.screenX }}
+            contentStyle={{ padding: 18 }}
+          >
             <Pressable
               onPress={() => router.push('/legal')}
               accessibilityRole="button"
               accessibilityLabel="משפטי"
             >
-              <Text style={styles.label}>משפטי</Text>
-              <Text style={styles.hint}>
+              <Text
+                style={{
+                  ...nw.type.h3,
+                  color: nw.color.ink,
+                  textAlign: rtl.textRight,
+                  writingDirection: 'rtl',
+                  marginBottom: 12,
+                }}
+              >
+                משפטי
+              </Text>
+              <Text
+                style={{
+                  ...nw.type.bodySm,
+                  color: nw.color.inkSoft,
+                  textAlign: rtl.textRight,
+                  writingDirection: 'rtl',
+                }}
+              >
                 מקור הטקסטים, הרישיון, ומה שלא כלול בשימוש החופשי.
               </Text>
             </Pressable>
-          </GlassCard>
+          </GlassSurface>
 
-          <GlassCard>
-            <Text style={styles.label}>נגישות</Text>
-            <Text style={styles.hint}>
+          <GlassSurface
+            variant="card"
+            radius={22}
+            style={{ marginHorizontal: nw.space.screenX }}
+            contentStyle={{ padding: 18 }}
+          >
+            <Text
+              style={{
+                ...nw.type.h3,
+                color: nw.color.ink,
+                textAlign: rtl.textRight,
+                writingDirection: 'rtl',
+                marginBottom: 12,
+              }}
+            >
+              נגישות
+            </Text>
+            <Text
+              style={{
+                ...nw.type.bodySm,
+                color: nw.color.inkSoft,
+                textAlign: rtl.textRight,
+                writingDirection: 'rtl',
+              }}
+            >
               כל הכפתורים בגודל מגע מינימלי, תוויות בעברית, תפקידי נגישות (role) על טאבים,
               מתגים ופס התקדמות. תפריט נגישות ייעודי יתווסף בגרסה הבאה.
             </Text>
-          </GlassCard>
+          </GlassSurface>
         </ScrollView>
       </SafeAreaView>
-    </AppBackground>
+    </ScreenBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  safe: { flex: 1 },
-  topBar: {
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
-  },
-  back: { minHeight: 44, justifyContent: 'center', minWidth: 48 },
-  backText: {
-    ...typography.subtitle,
-    color: colors.primary,
-    fontWeight: '700',
-  },
-  title: {
-    ...typography.title,
-    color: colors.text,
-  },
-  scroll: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
-    gap: spacing.md,
-  },
-  label: {
-    ...typography.subtitle,
-    fontWeight: '700',
-    color: colors.text,
-    textAlign: 'right',
-    marginBottom: 12,
-  },
-  hint: {
-    ...typography.caption,
-    color: colors.textMuted,
-    textAlign: 'right',
-    lineHeight: 20,
-  },
-});

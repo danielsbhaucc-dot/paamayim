@@ -4,12 +4,12 @@
     "slug": "paamayim",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/app-icon-1024.png",
     "scheme": "paamayim",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/images/app-icon-1024.png",
       "resizeMode": "contain",
       "backgroundColor": "#0B3D4A"
     },
@@ -23,15 +23,16 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#0B3D4A"
+        "foregroundImage": "./assets/images/adaptive-icon-foreground.png",
+        "backgroundColor": "#2B6B6A"
       },
       "package": "com.paamayim.app"
     },
     "web": {
       "bundler": "metro",
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/app-icon-1024.png"
     },
+
     "plugins": [
       "expo-router",
       "expo-font",

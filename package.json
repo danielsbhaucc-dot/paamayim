@@ -9,7 +9,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "tsc --noEmit",
-    "fetch-corpus": "node scripts/fetch-corpus.mjs"
+    "fetch-corpus": "node scripts/fetch-corpus.mjs",
+    "placeholders": "node scripts/make-image-placeholders.mjs",
+    "check-images": "node scripts/check-images.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/assistant": "^0.4.1",
@@ -24,6 +26,7 @@
     "expo-constants": "~17.0.8",
     "expo-file-system": "~18.0.12",
     "expo-font": "~13.0.4",
+    "expo-image": "~2.0.7",
     "expo-linear-gradient": "~14.0.2",
     "expo-linking": "~7.0.5",
     "expo-router": "~4.0.20",
@@ -31,6 +34,7 @@
     "expo-status-bar": "~2.0.1",
     "expo-system-ui": "~4.0.9",
     "jimp": "^0.22.12",
+    "lucide-react-native": "^1.53.0",
     "query-string": "^7.1.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -39,6 +43,7 @@
     "react-native-reanimated": "~3.16.1",
     "react-native-safe-area-context": "4.12.0",
     "react-native-screens": "~4.4.0",
+    "react-native-svg": "15.8.0",
     "react-native-web": "~0.19.13",
     "zustand": "^5.0.3"
   },

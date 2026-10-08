@@ -1,6 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
+import { Image as ExpoImage } from 'expo-image';
 import { useRouter } from 'expo-router';
+import { BookOpen, BookOpenText, Sunrise } from 'lucide-react-native';
 import React, { useMemo } from 'react';
 import {
   Image,
@@ -12,20 +14,25 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppBackground } from '../../src/components/AppBackground';
-import { CalendarToggle } from '../../src/components/CalendarToggle';
-import { GlassButton } from '../../src/components/GlassButton';
-import { GlassCard } from '../../src/components/GlassCard';
+import { BOTTOM_NAV_SPACE } from '../../src/components/GlassBottomNav';
 import { MenuButton } from '../../src/components/MenuButton';
-import {
-  aliyahProgress,
-  getCurrentParasha,
-  isParashaComplete,
-} from '../../src/data/parashot';
+import { getCurrentParasha, isParashaComplete } from '../../src/data/parashot';
 import { useAppStore } from '../../src/store/useAppStore';
 import { APP_NAME, APP_TAGLINE } from '../../src/theme/brand';
+import { nw } from '../../src/theme/design';
 import { fonts } from '../../src/theme/fonts';
-import { assets, colors, radii, spacing } from '../../src/theme/tokens';
+import { img, imgReady } from '../../src/theme/images';
+import { rtl } from '../../src/theme/rtl';
+import { assets, radii, spacing } from '../../src/theme/tokens';
+import {
+  CalendarPill,
+  GlassSurface,
+  HeroBanner,
+  PillButton,
+  PrimaryButton,
+  ScreenBackground,
+  ScreenHeader,
+} from '../../src/ui';
 
 function haftaraBook(source: string): string {
   const match = source.match(/^(.*?)\s+[\u0590-\u05EA״׳]+[:：]/);
@@ -35,49 +42,114 @@ function haftaraBook(source: string): string {
 export default function HomeScreen() {
   const router = useRouter();
   const calendarMode = useAppStore((s) => s.calendarMode);
-  const setCalendarMode = useAppStore((s) => s.setCalendarMode);
   const progress = useAppStore((s) => s.progress);
   const lastVerseId = useAppStore((s) => s.lastVerseId);
   const onboardingDone = useAppStore((s) => s.onboardingDone);
-  const setOnboardingDone = useAppStore((s) => s.setOnboardingDone);
 
   const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
   const doneAll = useMemo(() => isParashaComplete(parasha, progress), [parasha, progress]);
-  const completedAliyot = parasha.aliyot.filter((a) => {
-    const { ratio } = aliyahProgress(a.verseIds, progress);
-    return ratio >= 1;
-  }).length;
 
   if (!onboardingDone) {
     return (
-      <AppBackground dim={false}>
+      <ScreenBackground variant="photo" source={img.heroSunrise} showNav={false}>
         <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
           <View style={styles.splashHeader}>
             <MenuButton light />
-            <CalendarToggle value={calendarMode} onChange={setCalendarMode} />
+            <CalendarPill mode={calendarMode} onPress={() => router.push('/calendar')} />
           </View>
 
-          <View style={styles.splashCenter}>
-            <View style={styles.heroGlass}>
-              {Platform.OS !== 'web' ? (
-                <BlurView intensity={35} tint="light" style={StyleSheet.absoluteFill} />
-              ) : null}
-              <View style={styles.heroGlassFill} />
-              <View style={styles.heroInner}>
-                <Image source={assets.icon} style={styles.logo} resizeMode="cover" />
-                <Text style={styles.appName}>{APP_NAME}</Text>
-                <Text style={styles.brandTag}>{APP_TAGLINE}</Text>
-                <Text style={styles.splashTitle} accessibilityRole="header">
-                  פרשת השבוע
-                </Text>
-                <Text style={styles.splashSub}>סיפורים. מקרא. תרגום. בדרך שלך.</Text>
-              </View>
+          <View style={{ flex: 1, paddingHorizontal: nw.space.screenX }}>
+            <View style={{ marginTop: 28, alignItems: 'center' }}>
+              {imgReady.logoLeaf ? (
+                <ExpoImage
+                  source={img.logoLeaf}
+                  style={{ width: 96, height: 96 }}
+                  contentFit="contain"
+                />
+              ) : (
+                <Image
+                  source={assets.icon}
+                  style={{ width: 84, height: 84, borderRadius: 22 }}
+                  resizeMode="cover"
+                />
+              )}
+              <Text
+                style={{
+                  fontFamily: fonts.uiExtra,
+                  fontSize: 36,
+                  lineHeight: 44,
+                  color: '#FFFFFF',
+                  textShadowColor: 'rgba(10,40,60,0.35)',
+                  textShadowOffset: { width: 0, height: 2 },
+                  textShadowRadius: 10,
+                  textAlign: 'center',
+                  writingDirection: 'rtl',
+                  marginTop: 12,
+                }}
+              >
+                {APP_NAME}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: fonts.uiSemi,
+                  fontSize: 16,
+                  color: 'rgba(255,255,255,0.92)',
+                  textShadowColor: 'rgba(10,40,60,0.35)',
+                  textShadowOffset: { width: 0, height: 2 },
+                  textShadowRadius: 10,
+                  textAlign: 'center',
+                  writingDirection: 'rtl',
+                  marginTop: 4,
+                }}
+              >
+                {APP_TAGLINE}
+              </Text>
             </View>
+
+            <View style={{ flex: 1 }} />
+
+            <View style={{ alignItems: 'center' }}>
+              <Text
+                accessibilityRole="header"
+                style={{
+                  fontFamily: fonts.uiExtra,
+                  fontSize: 34,
+                  lineHeight: 42,
+                  color: '#FFFFFF',
+                  textShadowColor: 'rgba(10,40,60,0.40)',
+                  textShadowOffset: { width: 0, height: 2 },
+                  textShadowRadius: 14,
+                  textAlign: 'center',
+                  writingDirection: 'rtl',
+                }}
+              >
+                פרשת השבוע
+              </Text>
+              <Text
+                style={{
+                  fontFamily: fonts.uiSemi,
+                  fontSize: 16,
+                  color: 'rgba(255,255,255,0.92)',
+                  textShadowColor: 'rgba(10,40,60,0.40)',
+                  textShadowOffset: { width: 0, height: 2 },
+                  textShadowRadius: 14,
+                  textAlign: 'center',
+                  writingDirection: 'rtl',
+                  marginTop: 8,
+                }}
+              >
+                סיפורים. מקרא. תרגום. בדרך שלך.
+              </Text>
+            </View>
+
+            <View style={{ flex: 0.6 }} />
           </View>
 
           <View style={styles.splashBottom}>
             <Pressable
-              onPress={() => setOnboardingDone(true)}
+              onPress={() =>
+                router.push({ pathname: '/calendar', params: { onboarding: '1' } })
+              }
               accessibilityRole="button"
               accessibilityLabel="התחל"
               style={({ pressed }) => [styles.startBtn, pressed && { opacity: 0.9 }]}
@@ -91,50 +163,68 @@ export default function HomeScreen() {
             </Pressable>
           </View>
         </SafeAreaView>
-      </AppBackground>
+      </ScreenBackground>
     );
   }
 
   return (
-    <AppBackground>
+    <ScreenBackground variant="mist">
       <SafeAreaView style={styles.safe} edges={['top']}>
-        <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          <View style={styles.dashTop}>
-            <MenuButton />
-            <Text style={styles.dashHeading}>פרשת השבוע</Text>
-            <Image source={assets.icon} style={styles.dashLogo} />
-          </View>
+        <ScreenHeader title="פרשת השבוע" />
+        <ScrollView
+          contentContainerStyle={{ paddingBottom: BOTTOM_NAV_SPACE + 24 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <HeroBanner parashaName={parasha.name} rangeLabel={parasha.rangeLabel} />
 
-          <CalendarToggle value={calendarMode} onChange={setCalendarMode} />
-
-          <GlassCard strong round="xl" accessibilityLabel={`פרשת ${parasha.name}`}>
-            <View style={styles.parashaRow}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.eyebrow}>השבוע</Text>
-                <Text style={styles.parashaName} accessibilityRole="header">
-                  {parasha.name}
-                </Text>
-                <Text style={styles.range}>{parasha.rangeLabel}</Text>
-              </View>
-              <Image source={assets.galilee} style={styles.thumb} />
-            </View>
-            <Text style={styles.pathHint}>מסלול עד שבת · {completedAliyot}/7 עליות</Text>
-          </GlassCard>
-
-          <View style={styles.tiles}>
+          <View
+            style={{
+              flexDirection: rtl.row,
+              gap: 14,
+              marginHorizontal: nw.space.screenX,
+              marginTop: 16,
+            }}
+          >
             <Pressable
               style={{ flex: 1 }}
               onPress={() => router.push({ pathname: '/story', params: { kind: 'parasha' } })}
               accessibilityRole="button"
               accessibilityLabel="הפרשה"
             >
-              <GlassCard style={styles.tile} round="lg">
-                <View style={[styles.tileIcon, { backgroundColor: 'rgba(42,168,176,0.25)' }]}>
-                  <Ionicons name="book" size={22} color={colors.primary} />
-                </View>
-                <Text style={styles.tileTitle}>הפרשה</Text>
-                <Text style={styles.tileSub}>{parasha.name}</Text>
-              </GlassCard>
+              <GlassSurface
+                variant="card"
+                radius={18}
+                style={{ flex: 1, height: 128 }}
+                contentStyle={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 6,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: fonts.uiBold,
+                    fontSize: 17,
+                    color: nw.color.ink,
+                    textAlign: 'center',
+                    writingDirection: 'rtl',
+                  }}
+                >
+                  הפרשה
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: fonts.uiBold,
+                    fontSize: 17,
+                    color: nw.color.ink,
+                    textAlign: 'center',
+                    writingDirection: 'rtl',
+                  }}
+                >
+                  {parasha.name}
+                </Text>
+                <BookOpen size={24} color={nw.color.tealIcon} strokeWidth={1.75} style={{ marginTop: 8 }} />
+              </GlassSurface>
             </Pressable>
             <Pressable
               style={{ flex: 1 }}
@@ -142,122 +232,116 @@ export default function HomeScreen() {
               accessibilityRole="button"
               accessibilityLabel="ההפטרה"
             >
-              <GlassCard style={styles.tile} round="lg">
-                <View style={[styles.tileIcon, { backgroundColor: 'rgba(95,168,138,0.3)' }]}>
-                  <Ionicons name="flame" size={22} color={colors.leaf} />
-                </View>
-                <Text style={styles.tileTitle}>ההפטרה</Text>
-                <Text style={styles.tileSub}>
+              <GlassSurface
+                variant="card"
+                radius={18}
+                style={{ flex: 1, height: 128 }}
+                contentStyle={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 6,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: fonts.uiBold,
+                    fontSize: 17,
+                    color: nw.color.ink,
+                    textAlign: 'center',
+                    writingDirection: 'rtl',
+                  }}
+                >
+                  ההפטרה
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: fonts.uiBold,
+                    fontSize: 17,
+                    color: nw.color.ink,
+                    textAlign: 'center',
+                    writingDirection: 'rtl',
+                  }}
+                >
                   {haftaraBook(
                     calendarMode === 'israel'
                       ? parasha.haftara.sourceIsrael
                       : parasha.haftara.sourceDiaspora
                   )}
                 </Text>
-              </GlassCard>
+                <Sunrise size={24} color={nw.color.tealIcon} strokeWidth={1.75} style={{ marginTop: 8 }} />
+              </GlassSurface>
             </Pressable>
           </View>
 
-          <GlassCard strong round="xl">
-            <Text style={styles.storyEyebrow}>סיפור ואז מקור</Text>
-            <Text style={styles.storyTitle}>סיפור הפרשה</Text>
-            <Text style={styles.storyBody} numberOfLines={4}>
+          <GlassSurface
+            variant="card"
+            radius={22}
+            style={{ marginHorizontal: nw.space.screenX, marginTop: 14 }}
+            contentStyle={{ padding: 20 }}
+          >
+            <View style={{ flexDirection: rtl.row, gap: 10, alignItems: 'center' }}>
+              <BookOpenText size={24} color={nw.color.tealIcon} strokeWidth={1.75} />
+              <Text
+                style={{
+                  ...nw.type.h3,
+                  color: nw.color.ink,
+                  textAlign: rtl.textRight,
+                  writingDirection: 'rtl',
+                }}
+              >
+                סיפור הפרשה
+              </Text>
+            </View>
+            <Text
+              style={{
+                ...nw.type.bodyStrong,
+                color: nw.color.ink,
+                marginTop: 12,
+                textAlign: rtl.textRight,
+                writingDirection: 'rtl',
+              }}
+            >
+              {`${parasha.name} – ${parasha.story.title}`}
+            </Text>
+            <Text
+              numberOfLines={4}
+              style={{
+                ...nw.type.bodySm,
+                color: nw.color.inkSoft,
+                marginTop: 8,
+                textAlign: rtl.textRight,
+                writingDirection: 'rtl',
+              }}
+            >
               {parasha.story.adult}
             </Text>
-            <GlassButton
-              title="לקרוא את הסיפור"
-              variant="soft"
+            <PillButton
+              title="קרא את הסיפור"
+              style={{ marginTop: 16 }}
               onPress={() => router.push({ pathname: '/story', params: { kind: 'parasha' } })}
-              style={{ marginTop: 14 }}
             />
-          </GlassCard>
+          </GlassSurface>
 
-          <GlassButton
+          <PrimaryButton
+            variant="solid"
             title={lastVerseId ? 'המשך מאיפה שעצרת' : 'למסלול הקריאה'}
+            style={{ marginHorizontal: nw.space.screenX, marginTop: 16 }}
             onPress={() => (doneAll ? router.push('/completion') : router.push('/reading'))}
           />
         </ScrollView>
       </SafeAreaView>
-    </AppBackground>
+    </ScreenBackground>
   );
 }
 
 const styles = StyleSheet.create({
   safe: { flex: 1 },
   splashHeader: {
-    flexDirection: 'row-reverse',
+    flexDirection: rtl.row,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.sm,
-  },
-  splashCenter: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: spacing.xl,
-  },
-  heroGlass: {
-    borderRadius: radii.xl,
-    overflow: 'hidden',
-    borderWidth: 1.25,
-    borderColor: 'rgba(255,255,255,0.7)',
-    ...(Platform.OS === 'web'
-      ? ({
-          backdropFilter: 'blur(28px)',
-          WebkitBackdropFilter: 'blur(28px)',
-        } as object)
-      : null),
-  },
-  heroGlassFill: {
-    ...StyleSheet.absoluteFillObject,
-    // קרם שקוף — לא מוצק
-    backgroundColor: 'rgba(247, 243, 236, 0.42)',
-  },
-  heroInner: {
-    paddingVertical: 32,
-    paddingHorizontal: 24,
-    alignItems: 'center',
-  },
-  logo: {
-    width: 78,
-    height: 78,
-    borderRadius: 39,
-    marginBottom: 14,
-    borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.65)',
-  },
-  appName: {
-    fontFamily: fonts.uiExtra,
-    fontSize: 30,
-    color: colors.primaryDark,
-    textAlign: 'center',
-    textShadowColor: 'rgba(255,255,255,0.55)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 4,
-  },
-  brandTag: {
-    fontFamily: fonts.uiMedium,
-    fontSize: 14,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    marginTop: 6,
-    marginBottom: 18,
-  },
-  splashTitle: {
-    fontFamily: fonts.uiExtra,
-    fontSize: 36,
-    color: colors.text,
-    textAlign: 'center',
-    writingDirection: 'rtl',
-  },
-  splashSub: {
-    fontFamily: fonts.uiMedium,
-    fontSize: 15,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    marginTop: 10,
-    writingDirection: 'rtl',
-    lineHeight: 22,
   },
   splashBottom: {
     paddingHorizontal: spacing.xl,
@@ -295,98 +379,5 @@ const styles = StyleSheet.create({
   startArrow: {
     position: 'absolute',
     left: 22,
-  },
-  scroll: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
-    gap: spacing.md,
-    paddingBottom: spacing.lg,
-  },
-  dashTop: {
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  dashHeading: {
-    fontFamily: fonts.uiBold,
-    fontSize: 20,
-    color: colors.text,
-  },
-  dashLogo: { width: 40, height: 40, borderRadius: 20 },
-  parashaRow: {
-    flexDirection: 'row-reverse',
-    gap: 14,
-    alignItems: 'center',
-  },
-  thumb: { width: 64, height: 64, borderRadius: radii.md },
-  eyebrow: {
-    fontFamily: fonts.uiBold,
-    fontSize: 12,
-    color: colors.primary,
-    textAlign: 'right',
-  },
-  parashaName: {
-    fontFamily: fonts.uiExtra,
-    fontSize: 32,
-    color: colors.text,
-    textAlign: 'right',
-  },
-  range: {
-    fontFamily: fonts.uiMedium,
-    fontSize: 12,
-    color: colors.textMuted,
-    textAlign: 'right',
-  },
-  pathHint: {
-    fontFamily: fonts.uiSemi,
-    fontSize: 12,
-    color: colors.textSecondary,
-    textAlign: 'right',
-    marginTop: 12,
-  },
-  tiles: { flexDirection: 'row-reverse', gap: 12 },
-  tile: { minHeight: 120 },
-  tileIcon: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-    alignSelf: 'flex-end',
-  },
-  tileTitle: {
-    fontFamily: fonts.uiBold,
-    fontSize: 16,
-    color: colors.text,
-    textAlign: 'right',
-  },
-  tileSub: {
-    fontFamily: fonts.uiMedium,
-    fontSize: 12,
-    color: colors.textMuted,
-    textAlign: 'right',
-    marginTop: 4,
-  },
-  storyEyebrow: {
-    fontFamily: fonts.uiBold,
-    fontSize: 12,
-    color: colors.primary,
-    textAlign: 'right',
-  },
-  storyTitle: {
-    fontFamily: fonts.uiBold,
-    fontSize: 22,
-    color: colors.text,
-    textAlign: 'right',
-    marginTop: 4,
-  },
-  storyBody: {
-    fontFamily: fonts.ui,
-    fontSize: 15,
-    lineHeight: 24,
-    color: colors.textSecondary,
-    textAlign: 'right',
-    marginTop: 10,
   },
 });

@@ -1,15 +1,23 @@
 import { useRouter } from 'expo-router';
+import { Smile, User, Users } from 'lucide-react-native';
 import React, { useMemo } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppBackground } from '../../src/components/AppBackground';
-import { FamilyToggle } from '../../src/components/FamilyToggle';
-import { GlassButton } from '../../src/components/GlassButton';
-import { GlassCard } from '../../src/components/GlassCard';
-import { MenuButton } from '../../src/components/MenuButton';
 import { getCurrentParasha } from '../../src/data/parashot';
+import type { FamilyVoice } from '../../src/data/types';
 import { useAppStore } from '../../src/store/useAppStore';
-import { assets, colors, radii, spacing, typography } from '../../src/theme/tokens';
+import { nw } from '../../src/theme/design';
+import { img } from '../../src/theme/images';
+import { rtl } from '../../src/theme/rtl';
+import {
+  GlassSurface,
+  IllustrationCard,
+  PillButton,
+  PrimaryButton,
+  ScreenBackground,
+  ScreenHeader,
+  SegmentedTabs,
+} from '../../src/ui';
 
 export default function FamilyScreen() {
   const router = useRouter();
@@ -20,109 +28,99 @@ export default function FamilyScreen() {
   const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
   const isChild = familyVoice === 'child';
   const storyText = isChild ? parasha.story.child : parasha.story.adult;
-  const heroImage = isChild ? assets.familyChildJerusalem : assets.familyStudy;
 
   return (
-    <AppBackground bg="jerusalem">
-      <SafeAreaView style={styles.safe} edges={['top']}>
-        <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          <View style={styles.topRow}>
-            <MenuButton />
-            <View style={styles.titleBlock}>
-              <Text style={styles.title} accessibilityRole="header">
-                מצב משפחה
-              </Text>
-              <Text style={styles.sub}>שני קולות · סיפור אחד</Text>
-            </View>
-          </View>
+    <ScreenBackground variant="mist">
+      <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+        <ScreenHeader
+          title="מצב משפחה"
+          subtitle="שני קולות, סיפור אחד"
+          titleIcon={<Users size={24} color={nw.color.tealIcon} strokeWidth={1.75} />}
+        />
 
-          <FamilyToggle value={familyVoice} onChange={setFamilyVoice} />
+        <ScrollView
+          contentContainerStyle={{
+            paddingHorizontal: nw.space.screenX,
+            paddingBottom: 24,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <SegmentedTabs
+            size="lg"
+            options={[
+              { id: 'adult', label: 'מבוגר', Icon: User },
+              { id: 'child', label: 'ילד/ה', Icon: Smile },
+            ]}
+            value={familyVoice}
+            onChange={(id) => setFamilyVoice(id as FamilyVoice)}
+            style={{ marginTop: 12 }}
+          />
 
-          <GlassCard strong round="xl">
-            <Image source={heroImage} style={styles.heroArt} resizeMode="cover" />
-            <Text style={styles.cardEyebrow}>
-              {isChild ? 'לילד · סיפור' : 'למבוגר · לומדים יחד'}
-            </Text>
-            <Text style={styles.cardTitle}>
-              {isChild ? 'הכול מתחיל באור' : parasha.story.title}
-            </Text>
-            <Text style={styles.cardBody}>{storyText}</Text>
-
-            <GlassButton
-              title={
-                isChild
-                  ? 'הצג את הפסוקים שהסיפור נשען עליהם'
-                  : 'עבור לכרטיס הקריאה'
-              }
-              onPress={() =>
-                router.push({
-                  pathname: '/reading',
-                  params: {
-                    focus: parasha.story.verseIds.join(','),
-                    aliyah: '1',
-                  },
-                })
-              }
-              style={{ marginTop: 14 }}
+          <GlassSurface
+            variant="strong"
+            radius={24}
+            style={{ marginTop: 16 }}
+            contentStyle={{ padding: 12 }}
+          >
+            <IllustrationCard
+              source={isChild ? img.familyChild : img.familyAdult}
+              aspectRatio={16 / 10}
+              radius={18}
             />
-          </GlassCard>
+            <View style={{ paddingHorizontal: 10, paddingBottom: 8 }}>
+              <Text
+                style={{
+                  ...nw.type.h3,
+                  color: nw.color.ink,
+                  marginTop: 14,
+                  textAlign: rtl.textRight,
+                  writingDirection: 'rtl',
+                }}
+              >
+                {isChild ? 'הכל התחיל באור' : parasha.story.title}
+              </Text>
+              <Text
+                numberOfLines={5}
+                style={{
+                  ...nw.type.body,
+                  color: nw.color.inkSoft,
+                  marginTop: 6,
+                  textAlign: rtl.textRight,
+                  writingDirection: 'rtl',
+                }}
+              >
+                {storyText}
+              </Text>
+              <PillButton
+                title="לסיפור המלא"
+                style={{ marginTop: 16 }}
+                onPress={() =>
+                  router.push({ pathname: '/story', params: { kind: 'parasha' } })
+                }
+              />
+            </View>
+          </GlassSurface>
 
-          <View style={{ height: 100 }} />
+          <PrimaryButton
+            variant="solid"
+            title={
+              isChild
+                ? 'הצג את הפסוקים שהסיפור נשען עליהם'
+                : 'עבור לכרטיס הקריאה'
+            }
+            style={{ marginTop: 16 }}
+            onPress={() =>
+              router.push({
+                pathname: '/reading',
+                params: {
+                  focus: parasha.story.verseIds.join(','),
+                  aliyah: '1',
+                },
+              })
+            }
+          />
         </ScrollView>
       </SafeAreaView>
-    </AppBackground>
+    </ScreenBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  safe: { flex: 1 },
-  scroll: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
-    gap: spacing.md,
-  },
-  topRow: {
-    flexDirection: 'row-reverse',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    gap: 12,
-  },
-  titleBlock: {
-    flex: 1,
-  },
-  title: {
-    ...typography.hero,
-    color: colors.text,
-    textAlign: 'right',
-  },
-  sub: {
-    ...typography.subtitle,
-    color: colors.textSecondary,
-    textAlign: 'right',
-    marginTop: 4,
-  },
-  heroArt: {
-    width: '100%',
-    height: 200,
-    borderRadius: radii.lg,
-    marginBottom: 14,
-  },
-  cardEyebrow: {
-    ...typography.caption,
-    color: colors.primary,
-    fontWeight: '800',
-    textAlign: 'right',
-  },
-  cardTitle: {
-    ...typography.title,
-    color: colors.text,
-    textAlign: 'right',
-    marginTop: 4,
-  },
-  cardBody: {
-    ...typography.body,
-    color: colors.textSecondary,
-    textAlign: 'right',
-    marginTop: 10,
-  },
-});

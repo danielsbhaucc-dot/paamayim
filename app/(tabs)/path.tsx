@@ -1,16 +1,21 @@
 import { useRouter } from 'expo-router';
-import React, { useMemo } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { CalendarDays } from 'lucide-react-native';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppBackground } from '../../src/components/AppBackground';
-import { DaySelector } from '../../src/components/DaySelector';
-import { GlassButton } from '../../src/components/GlassButton';
-import { GlassCard } from '../../src/components/GlassCard';
-import { MenuButton } from '../../src/components/MenuButton';
-import { ProgressRing } from '../../src/components/ProgressBar';
 import { aliyahProgress, getCurrentParasha } from '../../src/data/parashot';
 import { useAppStore } from '../../src/store/useAppStore';
-import { colors, spacing, typography } from '../../src/theme/tokens';
+import { nw } from '../../src/theme/design';
+import { rtl } from '../../src/theme/rtl';
+import {
+  CheckRow,
+  DayChip,
+  GlassSurface,
+  PrimaryButton,
+  ProgressRing,
+  ScreenBackground,
+  ScreenHeader,
+} from '../../src/ui';
 
 export default function PathScreen() {
   const router = useRouter();
@@ -18,6 +23,7 @@ export default function PathScreen() {
   const progress = useAppStore((s) => s.progress);
   const activeAliyah = useAppStore((s) => s.activeAliyah);
   const setActiveAliyah = useAppStore((s) => s.setActiveAliyah);
+  const daysScrollRef = useRef<ScrollView>(null);
 
   const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
   const aliyah = parasha.aliyot.find((a) => a.id === activeAliyah) ?? parasha.aliyot[0];
@@ -44,44 +50,120 @@ export default function PathScreen() {
   }
   const n = aliyah.verseIds.length;
 
-  return (
-    <AppBackground bg="galilee">
-      <SafeAreaView style={styles.safe} edges={['top']}>
-        <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          <View style={styles.topRow}>
-            <MenuButton />
-            <View style={styles.titleBlock}>
-              <Text style={styles.title} accessibilityRole="header">
-                מסלול עד שבת
-              </Text>
-              <Text style={styles.sub}>ז׳ עליות · לא מאבדים את המקום</Text>
-            </View>
-          </View>
+  useEffect(() => {
+    const index = Math.max(
+      0,
+      parasha.aliyot.findIndex((a) => a.id === activeAliyah)
+    );
+    const t = setTimeout(() => {
+      daysScrollRef.current?.scrollTo({ x: index * 60, animated: true });
+    }, 50);
+    return () => clearTimeout(t);
+  }, [activeAliyah, parasha.aliyot]);
 
-          <DaySelector
-            aliyot={parasha.aliyot}
-            activeId={activeAliyah}
-            onSelect={setActiveAliyah}
-            ratios={ratios}
+  return (
+    <ScreenBackground variant="mist">
+      <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+        <ScrollView
+          contentContainerStyle={{ paddingBottom: 24 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <ScreenHeader
+            title="מסלול עד שבת"
+            endSlot={<CalendarDays size={24} color={nw.color.tealIcon} strokeWidth={1.75} />}
           />
 
-          <GlassCard strong round="xl" style={{ alignItems: 'center' }}>
-            <ProgressRing current={Math.max(1, completedDays || activeAliyah)} total={7} caption="עליות" />
-            <Text style={styles.aliyahName}>{aliyah.title}</Text>
-            <Text style={styles.aliyahMeta}>
-              {aliyah.dayLabel} · נותרו כ־{daysLeft} ימים
-            </Text>
-          </GlassCard>
+          <ScrollView
+            ref={daysScrollRef}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ marginTop: 8 }}
+            contentContainerStyle={{
+              flexDirection: rtl.row,
+              gap: 8,
+              paddingHorizontal: nw.space.screenX,
+              paddingVertical: 6,
+            }}
+          >
+            {parasha.aliyot.map((a) => (
+              <DayChip
+                key={a.id}
+                top={a.dayShort === 'ש׳' ? 'שבת' : `יום ${a.dayShort}`}
+                bottom="עלייה"
+                active={a.id === activeAliyah}
+                done={(ratios[a.id] ?? 0) >= 1}
+                onPress={() => setActiveAliyah(a.id)}
+              />
+            ))}
+          </ScrollView>
 
-          <GlassCard round="xl">
-            <Text style={styles.checkTitle}>סימון לעלייה</Text>
-            <CheckRow label="מקרא — מעבר ראשון" done={m1} total={n} />
-            <CheckRow label="מקרא — מעבר שני" done={m2} total={n} />
-            <CheckRow label="תרגום אונקלוס" done={onk} total={n} />
-          </GlassCard>
+          <GlassSurface
+            variant="card"
+            radius={22}
+            style={{ marginHorizontal: nw.space.screenX, marginTop: 14 }}
+            contentStyle={{
+              flexDirection: rtl.row,
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: 18,
+            }}
+          >
+            <View>
+              <Text
+                style={{
+                  ...nw.type.h2,
+                  color: nw.color.ink,
+                  textAlign: rtl.textRight,
+                  writingDirection: 'rtl',
+                }}
+              >
+                {`עלייה ${activeAliyah}`}
+              </Text>
+              <Text
+                style={{
+                  ...nw.type.body,
+                  color: nw.color.inkSoft,
+                  textAlign: rtl.textRight,
+                  writingDirection: 'rtl',
+                }}
+              >
+                {`נשארו ${daysLeft} ימים`}
+              </Text>
+            </View>
+            <ProgressRing current={completedDays} total={7} />
+          </GlassSurface>
 
-          <GlassButton
+          <GlassSurface
+            variant="card"
+            radius={22}
+            style={{ marginHorizontal: nw.space.screenX, marginTop: 14 }}
+            contentStyle={{ paddingVertical: 6, paddingHorizontal: 18 }}
+          >
+            <CheckRow
+              label="מקרא – מעבר ראשון"
+              done={n > 0 && m1 >= n}
+              inProgress={m1 > 0 && m1 < n}
+              caption={`${m1}/${n}`}
+            />
+            <CheckRow
+              label="מקרא – מעבר שני"
+              done={n > 0 && m2 >= n}
+              inProgress={m2 > 0 && m2 < n}
+              caption={`${m2}/${n}`}
+            />
+            <CheckRow
+              label="תרגום אונקלוס"
+              done={n > 0 && onk >= n}
+              inProgress={onk > 0 && onk < n}
+              caption={`${onk}/${n}`}
+              last
+            />
+          </GlassSurface>
+
+          <PrimaryButton
             title="לפסוק הבא"
+            icon="arrow"
+            style={{ marginHorizontal: nw.space.screenX, marginTop: 18 }}
             onPress={() =>
               router.push({
                 pathname: '/reading',
@@ -89,120 +171,8 @@ export default function PathScreen() {
               })
             }
           />
-
-          <View style={{ height: 100 }} />
         </ScrollView>
       </SafeAreaView>
-    </AppBackground>
+    </ScreenBackground>
   );
 }
-
-function CheckRow({
-  label,
-  done,
-  total,
-}: {
-  label: string;
-  done: number;
-  total: number;
-}) {
-  const complete = done >= total && total > 0;
-  return (
-    <View style={styles.checkRow} accessibilityLabel={`${label}: ${done} מתוך ${total}`}>
-      <View style={[styles.radio, complete && styles.radioDone]}>
-        {complete ? <View style={styles.radioDot} /> : null}
-      </View>
-      <View style={{ flex: 1 }}>
-        <Text style={styles.checkLabel}>{label}</Text>
-        <Text style={styles.checkCount}>
-          {done}/{total}
-        </Text>
-      </View>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  safe: { flex: 1 },
-  scroll: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
-    gap: spacing.md,
-  },
-  topRow: {
-    flexDirection: 'row-reverse',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    gap: 12,
-  },
-  titleBlock: {
-    flex: 1,
-  },
-  title: {
-    ...typography.hero,
-    color: colors.text,
-    textAlign: 'right',
-  },
-  sub: {
-    ...typography.subtitle,
-    color: colors.textSecondary,
-    textAlign: 'right',
-    marginTop: 4,
-  },
-  aliyahName: {
-    ...typography.title,
-    color: colors.text,
-    marginTop: 16,
-    textAlign: 'center',
-  },
-  aliyahMeta: {
-    ...typography.caption,
-    color: colors.textMuted,
-    textAlign: 'center',
-  },
-  checkTitle: {
-    ...typography.subtitle,
-    fontWeight: '800',
-    color: colors.text,
-    textAlign: 'right',
-    marginBottom: 8,
-  },
-  checkRow: {
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    gap: 12,
-    paddingVertical: 12,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: 'rgba(20,56,63,0.12)',
-  },
-  radio: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    borderWidth: 2,
-    borderColor: colors.primaryLight,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.5)',
-  },
-  radioDone: {
-    borderColor: colors.success,
-  },
-  radioDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: colors.success,
-  },
-  checkLabel: {
-    ...typography.body,
-    fontSize: 15,
-    color: colors.text,
-    textAlign: 'right',
-  },
-  checkCount: {
-    ...typography.caption,
-    color: colors.textMuted,
-    textAlign: 'right',
-  },
-});
