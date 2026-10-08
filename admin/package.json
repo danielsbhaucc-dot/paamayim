@@ -1,0 +1,38 @@
+{
+  "name": "paamayim-admin",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "נהורא — אפליקציית ניהול תוכן (בלי מסד נתונים: קובצי JSON בריפו)",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "go": "node scripts/start.mjs",
+    "dev": "node scripts/dev.mjs",
+    "build": "vite build",
+    "start": "tsx server/node.ts",
+    "hash-password": "node scripts/hash-password.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --import tsx --test tests/*.test.ts"
+  },
+  "dependencies": {
+    "@fontsource/assistant": "^5.3.0",
+    "@fontsource/frank-ruhl-libre": "^5.3.0",
+    "@hono/node-server": "^2.1.4",
+    "hono": "^4.13.13",
+    "lucide-react": "^1.53.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  }
+}

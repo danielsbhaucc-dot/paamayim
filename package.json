@@ -18,6 +18,7 @@
     "eas-build-post-install": "npm run content:build",
     "test:dates": "node scripts/tests/run.mjs",
     "content:publish": "node scripts/content/publish.mjs",
+    "admin": "npm --prefix admin run go",
     "test": "node scripts/tests/run.mjs"
   },
   "dependencies": {

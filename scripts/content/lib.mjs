@@ -239,3 +239,27 @@ export function projectedImages(projection, schema) {
   }
   return out;
 }
+
+/**
+ * מה שהבנייה מייצרת מכל המסמכים — משותף ל-build.mjs ולכפתור ״פרסום״ באדמין.
+ * @param {any[]} docs  מסמכי פרשה (סדר לא משנה)
+ * @param {any} schema
+ * @returns {{ index: Record<string, { hash: string; nameEn: string }>, projections: Record<string, any>, version: string, bundledJson: string, images: string[] }}
+ */
+export function buildOutputs(docs, schema) {
+  /** @type {Record<string, { hash: string; nameEn: string }>} */
+  const index = {};
+  /** @type {Record<string, any>} */
+  const projections = {};
+  /** @type {string[]} */
+  const images = [];
+  for (const doc of [...docs].sort((a, b) => String(a.slug).localeCompare(String(b.slug)))) {
+    const p = project(doc, schema);
+    if (!Object.keys(p.fields).length && !Object.keys(p.verses).length) continue;
+    index[p.slug] = { hash: hashString(JSON.stringify(p)), nameEn: p.nameEn };
+    projections[p.slug] = p;
+    images.push(...projectedImages(p, schema));
+  }
+  const version = hashString(JSON.stringify(index));
+  return { index, projections, version, bundledJson: JSON.stringify({ version, parashot: projections }) + '\n', images };
+}

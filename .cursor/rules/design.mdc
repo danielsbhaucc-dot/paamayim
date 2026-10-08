@@ -291,3 +291,15 @@ export const rtl = {
 - Screen-reader order = DOM order = visual right-to-left (rtl.row), so keep the main item first in code.
 - Privacy: name, gender and progress live only in the device store (AsyncStorage/localStorage). No analytics, ads, tracking or crash-reporting SDKs. `PrivacyNote` (legal screen + "הפרטים שלך") explains it and offers "מחיקת הפרטים האישיים" (`clearPersonalData`). Copy lives in `PRIVACY` (`src/greeting/texts.ts`).
 - Security: no secrets in the app — anything `EXPO_PUBLIC_*` ships to every user. Remote content is validated (size cap, slug regex, object shape); content image URIs must be `https://` or a safe relative path (resolved against the content server). `public/_headers` sets security headers on Cloudflare Pages. `.env*` is git-ignored except `.env.example`.
+- Wide home hero tree: `WIDE_HERO_TREE` in `src/wide/heroTree.ts` — `'none'` (default, no tree), `'background'` (soft faded tree behind the cards, `home-hero-tree-soft.webp`) or `'card'` (small tree image at the top of the glowing "פרשת השבוע" card, `home-hero-tree-thumb.webp`). One-line switch; phone is not affected.
+- No pure white surfaces: cards are glass (`GlassSurface`), inputs use `nw.surface.input` (pearl 0.40) with a soft teal border. `#FFFFFF` only for text/icons on teal. The name prompt is `frost` glass and centered.
+
+## 14. Admin app (`admin/`)
+
+- Run: `npm run admin` (installs, creates `admin/.env` with a hashed password, builds, starts on `127.0.0.1:8787`). Dev: `npm --prefix admin run dev`. Docs: `admin/README.md` (Hebrew), `admin/API.md`.
+- Server (Hono, Node ≥ 20.19): no DB. `STORAGE=local` writes files in the repo (atomic, realpath-checked); `STORAGE=github` commits through the Git Data API (one commit per save, draft saves carry `[CF-Pages-Skip]`). Only paths whitelisted in `admin/server/paths.ts` can be written.
+- Forms are generated from `content/schema.json` — a new field in the schema appears in the admin automatically. Everything is saved as a draft; publishing (per field / per parasha / all verse explanations) also rebuilds `src/content/bundled.json` via `buildOutputs()` in `scripts/content/lib.mjs`.
+- Security: scrypt password hash, signed HttpOnly SameSite=Strict cookie (Secure when hosted), CSRF header + Origin check on every mutation, rate limits (login 5/min + 30/h, API 600/min, AI 20/min), body limits, image validation + WebP re-encode, CSP/security headers. Optional `ADMIN_API_TOKEN` (Bearer) for a dashboard.
+- AI keys only in `admin/.env`, never sent to the browser. Bulk jobs need a signed cost estimate first and are capped by `AI_MAX_JOB_USD`. Never overwrite a published value — AI output is always a draft.
+- UI: same pearl/glass language as the app, Assistant + Frank Ruhl Libre, RTL, top pill nav on desktop and bottom nav ≤ 760px. Every control has a visible label or `aria-label`, focus ring, keyboard shortcuts (Ctrl+S, Ctrl+Enter, Alt+←/→). Keep axe (WCAG 2.1 AA) clean.
+

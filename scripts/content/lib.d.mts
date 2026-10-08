@@ -25,3 +25,7 @@ export function docStats(doc: ContentDoc, schema: any, verseCount?: number): any
 export function hashString(s: string): string;
 export function slugFromName(name: string): string;
 export function projectedImages(projection: Projection, schema: any): string[];
+export function buildOutputs(
+  docs: ContentDoc[],
+  schema: any
+): { index: Record<string, { hash: string; nameEn: string }>; projections: Record<string, Projection>; version: string; bundledJson: string; images: string[] };

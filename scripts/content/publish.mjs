@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
  * פרסום טיוטות משורת הפקודה (עד שאפליקציית הניהול זמינה, או לפרסום מרוכז).
+ * עדיף: כפתור ״פרסום״ באדמין (npm run admin). הסקריפט נשאר לאוטומציה.
  *   npm run content:publish -- <slug...|--all> [--fields lifeLessons.adult,whyThisHaftara.adult,v.onkelosExplanation] [--dry]
  * בלי --fields: כל הטיוטות בפרשה. "v.<key>" = שדה פסוק (בכל הפסוקים).
  * אחרי פרסום: npm run content:build (או build:web) כדי שהאפליקציה תקבל את התוכן.

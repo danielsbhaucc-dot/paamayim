@@ -12,7 +12,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { hashString, project, projectedImages } from './lib.mjs';
+import { buildOutputs } from './lib.mjs';
 
 const ROOT = process.cwd();
 const SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, 'content/schema.json'), 'utf8'));
@@ -24,41 +24,45 @@ fs.rmSync(PUB, { recursive: true, force: true });
 fs.mkdirSync(path.join(PUB, 'parashot'), { recursive: true });
 fs.mkdirSync(path.dirname(BUNDLED), { recursive: true });
 
-/** @type {Record<string, { hash: string; nameEn: string }>} */
-const index = {};
-/** @type {Record<string, any>} */
-const bundled = {};
+const docs = fs
+  .readdirSync(SRC)
+  .filter((f) => f.endsWith('.json'))
+  .sort()
+  .map((file) => JSON.parse(fs.readFileSync(path.join(SRC, file), 'utf8')));
+const { index, projections, version, bundledJson: nextBundled, images: imageList } = buildOutputs(docs, SCHEMA);
 let images = 0;
-
-for (const file of fs.readdirSync(SRC).filter((f) => f.endsWith('.json')).sort()) {
-  const doc = JSON.parse(fs.readFileSync(path.join(SRC, file), 'utf8'));
-  const p = project(doc, SCHEMA);
-  if (!Object.keys(p.fields).length && !Object.keys(p.verses).length) continue;
-  const json = JSON.stringify(p);
-  const hash = hashString(json);
-  index[p.slug] = { hash, nameEn: p.nameEn };
-  bundled[p.slug] = p;
-  fs.writeFileSync(path.join(PUB, 'parashot', `${p.slug}.json`), json);
-  for (const rel of projectedImages(p, SCHEMA)) {
-    const from = path.join(ROOT, 'content', rel);
-    const to = path.join(PUB, rel);
-    if (!fs.existsSync(from)) {
-      console.warn(`  ! תמונה חסרה: content/${rel}`);
-      continue;
-    }
-    fs.mkdirSync(path.dirname(to), { recursive: true });
-    fs.copyFileSync(from, to);
-    images++;
+for (const [slug, p] of Object.entries(projections)) {
+  fs.writeFileSync(path.join(PUB, 'parashot', `${slug}.json`), JSON.stringify(p));
+}
+for (const rel of imageList) {
+  // רק נתיבים בתוך content/images (הגנה מנתיב זדוני בתוכן)
+  if (!/^images\/[\w./-]+$/.test(rel) || rel.includes('..')) {
+    console.warn(`  ! נתיב תמונה לא תקין: ${rel}`);
+    continue;
   }
+  const from = path.join(ROOT, 'content', rel);
+  const to = path.join(PUB, rel);
+  if (!fs.existsSync(from)) {
+    console.warn(`  ! תמונה חסרה: content/${rel}`);
+    continue;
+  }
+  fs.mkdirSync(path.dirname(to), { recursive: true });
+  fs.copyFileSync(from, to);
+  images++;
 }
 
-const version = hashString(JSON.stringify(index));
 const indexDoc = { schemaVersion: SCHEMA.schemaVersion, version, generatedAt: new Date().toISOString(), parashot: index };
 fs.writeFileSync(path.join(PUB, 'index.json'), JSON.stringify(indexDoc));
 
-const nextBundled = JSON.stringify({ version, parashot: bundled }) + '\n';
 const prev = fs.existsSync(BUNDLED) ? fs.readFileSync(BUNDLED, 'utf8') : '';
 if (prev !== nextBundled) fs.writeFileSync(BUNDLED, nextBundled);
+
+// טקסטים לברכות/סטטוס: מועתקים גם לאתר (לשימוש עתידי בזמן ריצה)
+const STATUS = path.join(ROOT, 'content/greetings/status-lines.json');
+if (fs.existsSync(STATUS)) {
+  fs.mkdirSync(path.join(PUB, 'greetings'), { recursive: true });
+  fs.copyFileSync(STATUS, path.join(PUB, 'greetings/status-lines.json'));
+}
 
 console.log(
   `תוכן מפורסם: ${Object.keys(index).length} פרשות · ${images} תמונות · גרסה ${version}` +
