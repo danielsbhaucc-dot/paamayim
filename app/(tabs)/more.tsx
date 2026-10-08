@@ -1,15 +1,13 @@
-import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { Check, ChevronLeft, FileText, Globe, Menu, RotateCcw, Sunrise, type LucideIcon } from 'lucide-react-native';
 import React from 'react';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppBackground } from '../../src/components/AppBackground';
-import { BrandHeader } from '../../src/components/BrandHeader';
-import { GlassCard } from '../../src/components/GlassCard';
-import { MenuButton } from '../../src/components/MenuButton';
 import { useAppStore } from '../../src/store/useAppStore';
 import { APP_NAME } from '../../src/theme/brand';
-import { colors, spacing, typography } from '../../src/theme/tokens';
+import { nw } from '../../src/theme/design';
+import { rtl } from '../../src/theme/rtl';
+import { GlassSurface, IsraelFlag, ScreenBackground, ScreenHeader } from '../../src/ui';
 
 export default function MoreScreen() {
   const router = useRouter();
@@ -20,40 +18,41 @@ export default function MoreScreen() {
   const setOnboardingDone = useAppStore((s) => s.setOnboardingDone);
 
   return (
-    <AppBackground>
-      <SafeAreaView style={styles.safe} edges={['top']}>
-        <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-          <View style={styles.headerRow}>
-            <MenuButton />
-            <BrandHeader subtitle="עוד אפשרויות" />
-          </View>
+    <ScreenBackground variant="mist">
+      <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 24 }} showsVerticalScrollIndicator={false}>
+          <ScreenHeader title="עוד אפשרויות" showBack={false} />
 
-          <Text style={styles.section}>בחירת לוח</Text>
-          <View style={styles.calRow}>
+          <Text style={sectionTitle}>בחירת לוח</Text>
+          <View style={{ flexDirection: rtl.row, gap: 12, paddingHorizontal: nw.space.screenX }}>
             <CalCard
               active={calendarMode === 'israel'}
               title="לוח ישראל"
-              icon="flag"
+              icon={<IsraelFlag size={44} />}
               onPress={() => setCalendarMode('israel')}
             />
             <CalCard
               active={calendarMode === 'diaspora'}
               title="לוח חו״ל"
-              icon="globe"
+              icon={<Globe size={36} color={nw.color.tealIcon} strokeWidth={1.5} />}
               onPress={() => setCalendarMode('diaspora')}
             />
           </View>
 
-          <GlassCard round="xl">
-            <MenuRow title="פתח תפריט ניווט" onPress={openSideMenu} />
+          <GlassSurface
+            variant="card"
+            padded={false}
+            style={{ marginHorizontal: nw.space.screenX, marginTop: nw.space.gap + 6 }}
+            contentStyle={{ paddingHorizontal: 16, paddingVertical: 4 }}
+          >
+            <MenuRow Icon={Menu} title="פתח תפריט ניווט" onPress={openSideMenu} />
+            <MenuRow Icon={Sunrise} title="מסך פתיחה מחדש" onPress={() => setOnboardingDone(false)} />
+            <MenuRow Icon={FileText} title="משפטי" onPress={() => router.push('/legal')} />
             <MenuRow
-              title="מסך פתיחה מחדש"
-              onPress={() => setOnboardingDone(false)}
-            />
-            <MenuRow title="משפטי" onPress={() => router.push('/legal')} />
-            <MenuRow
+              Icon={RotateCcw}
               title="איפוס התקדמות"
               danger
+              last
               onPress={() =>
                 Alert.alert('איפוס התקדמות?', 'כל סימוני המעברים יימחקו.', [
                   { text: 'ביטול', style: 'cancel' },
@@ -68,15 +67,34 @@ export default function MoreScreen() {
                 ])
               }
             />
-          </GlassCard>
+          </GlassSurface>
 
-          <Text style={styles.footer}>{APP_NAME} · גרסה 1.0</Text>
-          <View style={{ height: 100 }} />
+          <Text
+            style={{
+              ...nw.type.caption,
+              color: nw.color.inkMuted,
+              textAlign: 'center',
+              writingDirection: 'rtl',
+              marginTop: 18,
+            }}
+          >
+            {`${APP_NAME} · גרסה 1.0`}
+          </Text>
         </ScrollView>
       </SafeAreaView>
-    </AppBackground>
+    </ScreenBackground>
   );
 }
+
+const sectionTitle = {
+  ...nw.type.h3,
+  color: nw.color.ink,
+  textAlign: rtl.textRight,
+  writingDirection: 'rtl' as const,
+  paddingHorizontal: nw.space.screenX,
+  marginTop: 8,
+  marginBottom: 10,
+};
 
 function CalCard({
   active,
@@ -86,122 +104,97 @@ function CalCard({
 }: {
   active: boolean;
   title: string;
-  icon: keyof typeof Ionicons.glyphMap;
+  icon: React.ReactNode;
   onPress: () => void;
 }) {
   return (
-    <Pressable
-      onPress={onPress}
-      accessibilityRole="button"
-      accessibilityState={{ selected: active }}
-      accessibilityLabel={title}
-      style={{ flex: 1 }}
-    >
-      <GlassCard
-        strong={active}
-        round="xl"
-        style={[styles.calCard, active && styles.calCardActive]}
+    <View style={{ flex: 1 }}>
+      <GlassSurface
+        variant="strong"
+        radius={nw.radius.card}
+        padded={false}
+        borderColor={active ? nw.color.selectedBorder : undefined}
+        borderWidth={active ? 1.5 : 1}
+        contentStyle={{ alignItems: 'center', paddingVertical: 20, gap: 10 }}
+        onPress={onPress}
+        accessibilityRole="radio"
+        accessibilityState={{ checked: active }}
+        accessibilityLabel={title}
       >
-        <View style={[styles.calIcon, active && styles.calIconActive]}>
-          <Ionicons name={icon} size={28} color={active ? '#fff' : colors.primary} />
+        <View
+          style={{
+            width: 60,
+            height: 60,
+            borderRadius: 30,
+            backgroundColor: '#FFFFFF',
+            alignItems: 'center',
+            justifyContent: 'center',
+            ...nw.shadow.card,
+          }}
+        >
+          {icon}
         </View>
-        <Text style={[styles.calTitle, active && { color: colors.primary }]}>{title}</Text>
-      </GlassCard>
-    </Pressable>
+        <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, textAlign: 'center', writingDirection: 'rtl' }}>
+          {title}
+        </Text>
+      </GlassSurface>
+      {active ? (
+        <View
+          pointerEvents="none"
+          style={{
+            position: 'absolute',
+            top: 10,
+            ...rtl.left(10),
+            width: 24,
+            height: 24,
+            borderRadius: 12,
+            backgroundColor: nw.color.tealBright,
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 2,
+          }}
+        >
+          <Check size={14} color="#FFFFFF" strokeWidth={3} />
+        </View>
+      ) : null}
+    </View>
   );
 }
 
 function MenuRow({
+  Icon,
   title,
   onPress,
   danger,
+  last,
 }: {
+  Icon: LucideIcon;
   title: string;
   onPress: () => void;
   danger?: boolean;
+  last?: boolean;
 }) {
+  const color = danger ? nw.color.danger : nw.color.ink;
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={title}
-      style={styles.row}
+      style={({ pressed }) => ({
+        flexDirection: rtl.row,
+        alignItems: 'center',
+        gap: 12,
+        minHeight: 56,
+        borderBottomWidth: last ? 0 : 1,
+        borderBottomColor: nw.color.divider,
+        opacity: pressed ? 0.7 : 1,
+      })}
     >
-      <Text style={[styles.rowText, danger && { color: '#B33A3A' }]}>{title}</Text>
-      <Text style={styles.chev}>‹</Text>
+      <Icon size={nw.icon.size} color={danger ? nw.color.danger : nw.color.tealIcon} strokeWidth={nw.icon.stroke} />
+      <Text style={{ ...nw.type.bodyStrong, color, flex: 1, textAlign: rtl.textRight, writingDirection: 'rtl' }}>
+        {title}
+      </Text>
+      <ChevronLeft size={nw.icon.sizeSm} color={nw.color.inkMuted} strokeWidth={nw.icon.stroke} />
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  safe: { flex: 1 },
-  scroll: {
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
-    gap: spacing.md,
-  },
-  headerRow: {
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 12,
-  },
-  section: {
-    ...typography.subtitle,
-    fontWeight: '800',
-    color: colors.text,
-    textAlign: 'right',
-  },
-  calRow: {
-    flexDirection: 'row-reverse',
-    gap: 12,
-  },
-  calCard: {
-    minHeight: 140,
-    alignItems: 'center',
-  },
-  calCardActive: {
-    borderColor: colors.primaryLight,
-  },
-  calIcon: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: colors.accentSoft,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12,
-  },
-  calIconActive: {
-    backgroundColor: colors.primary,
-  },
-  calTitle: {
-    ...typography.subtitle,
-    fontWeight: '800',
-    color: colors.text,
-    textAlign: 'center',
-  },
-  row: {
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 14,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: 'rgba(20,56,63,0.12)',
-    minHeight: 48,
-  },
-  rowText: {
-    ...typography.body,
-    color: colors.text,
-    fontWeight: '600',
-  },
-  chev: {
-    fontSize: 22,
-    color: colors.textMuted,
-  },
-  footer: {
-    ...typography.caption,
-    color: colors.textMuted,
-    textAlign: 'center',
-  },
-});

@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { CalendarDays } from 'lucide-react-native';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { aliyahProgress, getCurrentParasha } from '../../src/data/parashot';
@@ -23,7 +23,6 @@ export default function PathScreen() {
   const progress = useAppStore((s) => s.progress);
   const activeAliyah = useAppStore((s) => s.activeAliyah);
   const setActiveAliyah = useAppStore((s) => s.setActiveAliyah);
-  const daysScrollRef = useRef<ScrollView>(null);
 
   const parasha = useMemo(() => getCurrentParasha(calendarMode), [calendarMode]);
   const aliyah = parasha.aliyot.find((a) => a.id === activeAliyah) ?? parasha.aliyot[0];
@@ -50,17 +49,6 @@ export default function PathScreen() {
   }
   const n = aliyah.verseIds.length;
 
-  useEffect(() => {
-    const index = Math.max(
-      0,
-      parasha.aliyot.findIndex((a) => a.id === activeAliyah)
-    );
-    const t = setTimeout(() => {
-      daysScrollRef.current?.scrollTo({ x: index * 60, animated: true });
-    }, 50);
-    return () => clearTimeout(t);
-  }, [activeAliyah, parasha.aliyot]);
-
   return (
     <ScreenBackground variant="mist">
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
@@ -73,14 +61,11 @@ export default function PathScreen() {
             endSlot={<CalendarDays size={24} color={nw.color.tealIcon} strokeWidth={1.75} />}
           />
 
-          <ScrollView
-            ref={daysScrollRef}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{ marginTop: 8 }}
-            contentContainerStyle={{
+          <View
+            style={{
+              marginTop: 8,
               flexDirection: rtl.row,
-              gap: 8,
+              gap: 6,
               paddingHorizontal: nw.space.screenX,
               paddingVertical: 6,
             }}
@@ -95,7 +80,7 @@ export default function PathScreen() {
                 onPress={() => setActiveAliyah(a.id)}
               />
             ))}
-          </ScrollView>
+          </View>
 
           <GlassSurface
             variant="card"

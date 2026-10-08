@@ -3,6 +3,7 @@ import { BlurView } from 'expo-blur';
 import { Image as ExpoImage } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { BookOpen, BookOpenText, Sunrise } from 'lucide-react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import React, { useMemo } from 'react';
 import {
   Image,
@@ -52,6 +53,12 @@ export default function HomeScreen() {
   if (!onboardingDone) {
     return (
       <ScreenBackground variant="photo" source={img.heroSunrise} showNav={false}>
+        <LinearGradient
+          pointerEvents="none"
+          colors={nw.scrim.splash}
+          locations={nw.scrim.splashLocations}
+          style={StyleSheet.absoluteFill}
+        />
         <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
           <View style={styles.splashHeader}>
             <MenuButton light />
@@ -63,7 +70,7 @@ export default function HomeScreen() {
               {imgReady.logoLeaf ? (
                 <ExpoImage
                   source={img.logoLeaf}
-                  style={{ width: 96, height: 96 }}
+                  style={{ width: 112, height: 112 }}
                   contentFit="contain"
                 />
               ) : (
@@ -79,9 +86,9 @@ export default function HomeScreen() {
                   fontSize: 36,
                   lineHeight: 44,
                   color: '#FFFFFF',
-                  textShadowColor: 'rgba(10,40,60,0.35)',
+                  textShadowColor: 'rgba(6,28,44,0.55)',
                   textShadowOffset: { width: 0, height: 2 },
-                  textShadowRadius: 10,
+                  textShadowRadius: 12,
                   textAlign: 'center',
                   writingDirection: 'rtl',
                   marginTop: 12,
@@ -94,9 +101,9 @@ export default function HomeScreen() {
                   fontFamily: fonts.uiSemi,
                   fontSize: 16,
                   color: 'rgba(255,255,255,0.92)',
-                  textShadowColor: 'rgba(10,40,60,0.35)',
+                  textShadowColor: 'rgba(6,28,44,0.55)',
                   textShadowOffset: { width: 0, height: 2 },
-                  textShadowRadius: 10,
+                  textShadowRadius: 12,
                   textAlign: 'center',
                   writingDirection: 'rtl',
                   marginTop: 4,
@@ -116,9 +123,9 @@ export default function HomeScreen() {
                   fontSize: 34,
                   lineHeight: 42,
                   color: '#FFFFFF',
-                  textShadowColor: 'rgba(10,40,60,0.40)',
+                  textShadowColor: 'rgba(6,28,44,0.55)',
                   textShadowOffset: { width: 0, height: 2 },
-                  textShadowRadius: 14,
+                  textShadowRadius: 16,
                   textAlign: 'center',
                   writingDirection: 'rtl',
                 }}
@@ -130,9 +137,9 @@ export default function HomeScreen() {
                   fontFamily: fonts.uiSemi,
                   fontSize: 16,
                   color: 'rgba(255,255,255,0.92)',
-                  textShadowColor: 'rgba(10,40,60,0.40)',
+                  textShadowColor: 'rgba(6,28,44,0.55)',
                   textShadowOffset: { width: 0, height: 2 },
-                  textShadowRadius: 14,
+                  textShadowRadius: 16,
                   textAlign: 'center',
                   writingDirection: 'rtl',
                   marginTop: 8,

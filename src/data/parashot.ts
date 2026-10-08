@@ -9,6 +9,7 @@ import {
 import { CORPUS, corpusVerse } from './corpus';
 import { explainOnkelos } from './explainOnkelos';
 import { hebrewNumber, stripNikud, verseRef } from './hebrew';
+import { findSpecialHaftara, HAFTARA_STORIES } from './haftaraStories';
 import { HAND_NOTES } from './notes';
 import { STORIES, STORY_FALLBACK, type ParashaStory } from './stories';
 import type { Aliyah, CalendarMode, Parasha, StoryBlock, Verse } from './types';
@@ -198,8 +199,12 @@ function assemble(
   const parts = storiesFor(names);
   const story = buildStory(names, verses);
   const whyBase = parts.map((part) => part.why).filter(Boolean).join('\n\n');
-  const why = haftReason ? `השבוע, לפי הלוח: ${haftReason}.\n${whyBase}` : whyBase;
   const connections = [...new Set(parts.flatMap((part) => part.connections))];
+  const special = findSpecialHaftara(haftReason);
+  const regular = names
+    .map((name) => HAFTARA_STORIES[name])
+    .filter(Boolean)
+    .pop();
   const named = getLeyningForParsha(names);
   const books = [...new Set(verses.map((verse) => verse.book))];
   const first = verses[0];
@@ -219,12 +224,11 @@ function assemble(
       title: `הפטרת ${stripNikud(named.name.he)}`,
       sourceIsrael: source,
       sourceDiaspora: source,
-      storyAdult: why,
-      storyChild: connections.length
-        ? `ההפטרה קשורה לפרשה ב: ${connections.join(', ')}.`
-        : parts.map((part) => part.child).join('\n\n'),
-      whyThisHaftara: { israel: why, diaspora: why },
-      connectionPoints: connections,
+      storyAdult: special ? special.adult : (regular?.adult ?? ''),
+      storyChild: special ? special.child : (regular?.child ?? ''),
+      whyThisHaftara: { israel: special ? special.why : whyBase, diaspora: special ? special.why : whyBase },
+      connectionPoints: special ? [] : connections,
+      specialReason: special ? haftReason : undefined,
     },
   };
 }

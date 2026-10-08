@@ -14,13 +14,13 @@ Never modify these unless the user's message explicitly names the file and the c
 
 1. `src/components/SideMenu.tsx`: no code, style, animation or content changes at all.
 2. `src/components/MenuButton.tsx`: keep the component exactly as is. Every screen keeps rendering `<MenuButton />` on the **visual right side of its header**, the same as today.
-3. `src/components/GlassBottomNav.tsx`: do not edit it. Keep its items, order, icons, routes and styles (בית / מסלול / משפחה / עוד) and the "עוד" tab. You may only hide the nav on a screen by passing `showNav={false}` to the background wrapper.
-4. `app/(tabs)/more.tsx` (the "עוד" screen): do not edit.
+3. `src/components/GlassBottomNav.tsx`: may be restyled visually only. Keep the 4 items, their order, labels and routes (בית `/(tabs)`, מסלול `/(tabs)/path`, משפחה `/(tabs)/family`, עוד `/(tabs)/more`), navigation with `router.push`, and the exports `GlassBottomNav` and `BOTTOM_NAV_SPACE = 96`. Style: glass card radius 24, lucide line icons (House, Map, Users, Ellipsis), the active item on a soft white tile. Only the current screen's item is active. A screen may hide the nav by passing `showNav={false}` to the background wrapper.
+4. `app/(tabs)/more.tsx` (the "עוד" screen): may be restyled visually only. Keep every action exactly: calendar choice (israel/diaspora), "פתח תפריט ניווט" (openSideMenu), "מסך פתיחה מחדש" (setOnboardingDone(false)), "משפטי" (/legal), "איפוס התקדמות" (same Alert, resetProgress + setOnboardingDone(false)), and the version footer.
 5. The "התחל" button on the splash/onboarding branch of `app/(tabs)/index.tsx`: keep its styles exactly (`styles.startBtn`, `styles.startFill`, `styles.startText`, `styles.startArrow`, the BlurView and the chevron). Only its `onPress` may change when a step says so.
 6. `src/components/TorahScrollView.tsx` and `assets/megillah-*.png`: do not edit. The Torah scroll stays as it is.
 7. Brand: the app name stays **נהורא**. Do not edit `src/theme/brand.ts` (`APP_NAME = 'נהורא'`, `APP_TAGLINE = 'אור הפסוק. עד שבת.'`). Never write "NuraWell" in the UI.
 8. `src/theme/tokens.ts` and `src/theme/fonts.ts`: never change existing values (SideMenu depends on `colors`, `radii`, `spacing`, `assets.galilee`, `assets.icon`). New tokens go only in `src/theme/design.ts`.
-9. Data and state logic: `src/store/useAppStore.ts` and `src/data/*` must not change behavior. Read from them only.
+9. Data and state logic: `src/store/useAppStore.ts` and `src/data/*` must not change behavior. Read from them only. Exception: haftara content may change: `src/data/haftaraStories.ts`, the `haftara` object built in `assemble()` in `src/data/parashot.ts`, and the optional field `specialReason` in `HaftaraInfo` (`src/data/types.ts`).
 10. Existing files in `assets/` (root) must not be deleted, renamed or overwritten.
 
 ## 2. Platform scope
@@ -87,18 +87,20 @@ Colors were sampled from mockup pixels.
 | `track` | `#DCE8EC` | progress track |
 | `fillFrom` → `fillTo` | `#2B6B6A` → `#4E9BA3` | progress fill gradient |
 | `divider` | `rgba(11,42,74,0.08)` | row separators |
+| `danger` | `#B33A3A` | destructive actions (איפוס התקדמות) |
+| `glow` | `rgba(255,255,255,0.8)` | white text-shadow halo for dark text on photos |
 
 ### Glass
 | Token | Value |
 |---|---|
-| `glass.fill` | `rgba(255,255,255,0.58)`: normal card |
-| `glass.fillStrong` | `rgba(255,255,255,0.74)`: main card (verse, story) |
-| `glass.fillSubtle` | `rgba(255,255,255,0.40)`: tiles, pills, segmented container |
+| `glass.fill` | `rgba(255,255,255,0.50)`: normal card |
+| `glass.fillStrong` | `rgba(255,255,255,0.64)`: main card (verse, story) |
+| `glass.fillSubtle` | `rgba(255,255,255,0.34)`: tiles, pills, segmented container |
 | `glass.fillOnPhoto` | `rgba(255,255,255,0.30)`: on full-color photos |
 | `glass.border` | `rgba(255,255,255,0.88)`, width 1 |
 | `glass.borderSoft` | `rgba(255,255,255,0.60)` |
-| `glass.highlightFrom` → `highlightTo` | `rgba(255,255,255,0.70)` → `rgba(255,255,255,0)`: top 45% sheen |
-| `glass.blurIntensity` | `28` (expo-blur, `tint="light"`; Android adds `experimentalBlurMethod="dimezisBlurView"`) |
+| `glass.highlightFrom` → `highlightTo` | `rgba(255,255,255,0.55)` → `rgba(255,255,255,0)`: top 45% sheen |
+| `glass.blurIntensity` | `22` (expo-blur; `tint="systemUltraThinMaterialLight"` on iOS, `tint="light"` on Android plus `experimentalBlurMethod="dimezisBlurView"`) |
 | `glass.webBlur` | `'blur(22px) saturate(140%)'` (web: `backdropFilter` + `WebkitBackdropFilter`) |
 
 ### Radius / spacing
@@ -107,7 +109,7 @@ Colors were sampled from mockup pixels.
 - Minimum touch target: 44×44.
 
 ### Shadows
-- `shadow.card`: color `#1B3A4B`, offset (0,10), opacity 0.08, radius 24, Android elevation 3
+- `shadow.card`: color `#1B3A4B`, offset (0,8), opacity 0.12, radius 22, Android elevation 4
 - `shadow.float`: color `#1B3A4B`, offset (0,14), opacity 0.14, radius 30, Android elevation 8
 - `shadow.active`: color `#2B6B6A`, offset (0,6), opacity 0.25, radius 12, Android elevation 4
 
@@ -134,12 +136,12 @@ UI font is Assistant (`fonts.ui/uiMedium/uiSemi/uiBold/uiExtra`). Verse font is 
 
 ### Icons
 `lucide-react-native` only for new UI. Use `strokeWidth={1.75}`, default size 22, and color `tealIcon` (or `ink`/`inkSoft` for navigation chevrons).
-Names in use: `House, BookOpen, BookOpenText, CalendarDays, Users, User, Smile, Lightbulb, Languages, Check, CheckCheck, ChevronLeft, ChevronDown, Globe, Sunrise, ArrowLeft, ArrowRight, Trophy, Leaf`.
+Names in use: `House, Map, Ellipsis, Menu, FileText, RotateCcw, BookOpen, BookOpenText, CalendarDays, Users, User, Smile, Lightbulb, Languages, Check, CheckCheck, ChevronLeft, ChevronDown, Globe, Sunrise, ArrowLeft, ArrowRight, Trophy, Leaf`.
 
 ## 6. Backgrounds
 
-- **mist** (content screens: home, path, reading, story, family, settings, legal): image `img.mistSky` plus a LinearGradient with locations `[0, 0.35, 0.7, 1]` and colors `['rgba(201,217,226,0.35)', 'rgba(228,236,239,0.78)', 'rgba(242,241,236,0.88)', 'rgba(244,247,248,0.96)']`, plus a flat `rgba(255,255,255,0.12)` layer. The result reads ≈ `#C7D6DF` at the top, `#E4ECEF` in the middle, near-white at the bottom. Never a warm sepia look.
-- **photo** (splash, calendar, completion): full-color image plus a bottom gradient `rgba(255,255,255,0)` → `rgba(255,255,255,0.18)`.
+- **mist** (content screens: home, path, reading, story, family, settings, legal, more): image `img.mistSky` plus ONE LinearGradient `nw.bg.mistVeil` = colors `['rgba(170,196,214,0.35)', 'rgba(200,218,229,0.45)', 'rgba(208,224,233,0.55)']`, locations `[0, 0.45, 1]`, over base color `nw.bg.base` `#C9D8E2`. No white layer. The result is cool blue-gray with visible clouds and a misty landscape at the bottom. Never near-white, never beige.
+- **photo** (splash, calendar, completion): full-color image plus LinearGradient `nw.bg.photoVeil` = colors `['rgba(20,52,74,0.16)', 'rgba(20,52,74,0)', 'rgba(20,52,74,0.10)']`, locations `[0, 0.35, 1]`. Never a white veil on photos. The splash adds `nw.scrim.splash` (dark top/middle scrim) so white text stays readable.
 
 ## 7. Images (`src/theme/images.ts`)
 

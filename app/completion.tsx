@@ -114,14 +114,14 @@ export default function CompletionScreen() {
               tint="rgba(227,244,240,0.8)"
               radius={58}
               padded={false}
-              style={{ width: 116, height: 116 }}
+              style={{ width: 116, height: 116, alignSelf: 'center' }}
               contentStyle={{ alignItems: 'center', justifyContent: 'center' }}
             >
               {imgReady.trophy ? (
                 <Image
                   source={img.trophy}
                   contentFit="contain"
-                  style={{ width: 64, height: 64 }}
+                  style={{ width: 76, height: 76 }}
                 />
               ) : (
                 <Trophy
@@ -245,8 +245,11 @@ export default function CompletionScreen() {
             >
               <Text
                 style={{
-                  ...nw.type.label,
-                  color: nw.color.inkSoft,
+                  ...nw.type.bodyStrong,
+                  color: nw.color.ink,
+                  textShadowColor: nw.color.glow,
+                  textShadowOffset: { width: 0, height: 0 },
+                  textShadowRadius: 8,
                   textAlign: 'center',
                   writingDirection: 'rtl',
                 }}

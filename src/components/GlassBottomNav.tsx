@@ -1,66 +1,87 @@
-import { Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { usePathname, useRouter } from 'expo-router';
+import { Ellipsis, House, Map, Users, type LucideIcon } from 'lucide-react-native';
 import React from 'react';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
-import { colors, radii } from '../theme/tokens';
+import { rtl } from '../theme/rtl';
 import { a11y } from '../utils/a11y';
 
-const ITEMS = [
-  { href: '/(tabs)', match: ['/', '/(tabs)', '/(tabs)/'], label: 'בית', icon: 'home', iconOutline: 'home-outline' },
-  { href: '/(tabs)/path', match: ['/path', '/(tabs)/path'], label: 'מסלול', icon: 'trail-sign', iconOutline: 'trail-sign-outline' },
-  { href: '/(tabs)/family', match: ['/family', '/(tabs)/family'], label: 'משפחה', icon: 'people', iconOutline: 'people-outline' },
-  { href: '/(tabs)/more', match: ['/more', '/(tabs)/more'], label: 'עוד', icon: 'ellipsis-horizontal-circle', iconOutline: 'ellipsis-horizontal-circle-outline' },
-] as const;
+const ITEMS: ReadonlyArray<{ href: string; match: readonly string[]; label: string; Icon: LucideIcon }> = [
+  { href: '/(tabs)', match: ['/', '/(tabs)', '/(tabs)/'], label: 'בית', Icon: House },
+  { href: '/(tabs)/path', match: ['/path', '/(tabs)/path'], label: 'מסלול', Icon: Map },
+  { href: '/(tabs)/family', match: ['/family', '/(tabs)/family'], label: 'משפחה', Icon: Users },
+  { href: '/(tabs)/more', match: ['/more', '/(tabs)/more'], label: 'עוד', Icon: Ellipsis },
+];
 
 function isActive(pathname: string, match: readonly string[]) {
-  if (pathname === '/' || pathname === '') return match.includes('/');
+  const atHome = pathname === '/' || pathname === '' || pathname === '/(tabs)';
+  if (match.includes('/')) return atHome; // "בית" פעיל רק במסך הבית
+  if (atHome) return false;
   return match.some((m) => pathname === m || pathname.endsWith(m.replace('/(tabs)', '')));
 }
 
-/** תפריט תחתון זכוכית כמו בסקצ׳ — blur + שקיפות + מסגרת לבנה */
+/** תפריט תחתון: כרטיס זכוכית, אייקוני קו, הפריט הפעיל על אריח לבן רך (כמו במוקאפ). */
 export function GlassBottomNav() {
   const router = useRouter();
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
 
   return (
-    <View
-      pointerEvents="box-none"
-      style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 8) }]}
-    >
+    <View pointerEvents="box-none" style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]}>
       <View style={styles.bar}>
         {Platform.OS === 'web' ? (
-          <View style={[StyleSheet.absoluteFill, styles.webBlur]} />
+          <View
+            pointerEvents="none"
+            style={[
+              StyleSheet.absoluteFill,
+              // @ts-expect-error web-only CSS
+              { backdropFilter: nw.glass.webBlur, WebkitBackdropFilter: nw.glass.webBlur },
+            ]}
+          />
         ) : (
-          <BlurView intensity={70} tint="light" style={StyleSheet.absoluteFill} />
+          <BlurView
+            pointerEvents="none"
+            intensity={nw.glass.blurIntensity}
+            tint={Platform.OS === 'ios' ? 'systemUltraThinMaterialLight' : 'light'}
+            {...(Platform.OS === 'android' ? { experimentalBlurMethod: 'dimezisBlurView' as const } : {})}
+            style={StyleSheet.absoluteFill}
+          />
         )}
-        <View style={styles.fill} pointerEvents="none" />
+        <View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: nw.glass.fillStrong }]} />
         <View style={styles.row}>
-          {ITEMS.map((item) => {
-            const active = isActive(pathname, item.match);
-            const color = active ? colors.primary : colors.textSecondary;
+          {ITEMS.map(({ href, match, label, Icon }) => {
+            const active = isActive(pathname, match);
             return (
               <Pressable
-                key={item.href}
-                onPress={() => router.push(item.href as never)}
+                key={href}
+                onPress={() => router.push(href as never)}
                 accessibilityRole={a11y.roles.tab}
                 accessibilityState={{ selected: active }}
-                accessibilityLabel={item.label}
+                accessibilityLabel={label}
                 style={styles.item}
               >
-                <View style={[styles.iconWrap, active && styles.iconActive]}>
-                  <Ionicons
-                    name={(active ? item.icon : item.iconOutline) as keyof typeof Ionicons.glyphMap}
-                    size={22}
-                    color={color}
+                <View style={[styles.tile, active && styles.tileActive]}>
+                  <Icon
+                    size={nw.icon.size}
+                    color={active ? nw.color.teal : nw.color.inkSoft}
+                    strokeWidth={active ? 2 : nw.icon.stroke}
                   />
+                  <Text
+                    style={{
+                      fontFamily: active ? fonts.uiBold : fonts.uiSemi,
+                      fontSize: 12,
+                      lineHeight: 16,
+                      color: active ? nw.color.ink : nw.color.inkSoft,
+                      textAlign: 'center',
+                      writingDirection: 'rtl',
+                    }}
+                  >
+                    {label}
+                  </Text>
                 </View>
-                <Text style={[styles.label, { color, fontFamily: active ? fonts.uiBold : fonts.uiSemi }]}>
-                  {item.label}
-                </Text>
               </Pressable>
             );
           })}
@@ -78,69 +99,41 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    alignItems: 'center',
     zIndex: 100,
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
   },
   bar: {
-    alignSelf: 'stretch',
-    borderRadius: radii.xl,
+    borderRadius: 24,
     overflow: 'hidden',
-    borderWidth: 1.5,
-    borderColor: 'rgba(255,255,255,0.82)',
-    minHeight: 70,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#0A2E35',
-        shadowOffset: { width: 0, height: 12 },
-        shadowOpacity: 0.22,
-        shadowRadius: 24,
-      },
-      android: { elevation: 16 },
-      default: {
-        shadowColor: '#0A2E35',
-        shadowOffset: { width: 0, height: 12 },
-        shadowOpacity: 0.18,
-        shadowRadius: 20,
-      },
-    }),
-  },
-  webBlur: {
-    backgroundColor: 'rgba(255,255,255,0.28)',
-    ...( {
-      backdropFilter: 'blur(28px)',
-      WebkitBackdropFilter: 'blur(28px)',
-    } as object),
-  },
-  fill: {
-    ...StyleSheet.absoluteFillObject,
-    // שקוף יותר — הנוף נראה מאחורי הזכוכית
-    backgroundColor: 'rgba(255,255,255,0.32)',
+    borderWidth: 1,
+    borderColor: nw.glass.border,
+    ...nw.shadow.float,
   },
   row: {
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-around',
+    flexDirection: rtl.row,
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 8,
     paddingHorizontal: 8,
   },
   item: {
     flex: 1,
     alignItems: 'center',
     minHeight: a11y.minTouch,
-    gap: 3,
   },
-  iconWrap: {
-    width: 42,
-    height: 34,
-    borderRadius: 17,
+  tile: {
+    minWidth: 64,
+    height: 56,
+    paddingHorizontal: 10,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 3,
+    borderWidth: 1,
+    borderColor: 'transparent',
   },
-  iconActive: {
-    backgroundColor: 'rgba(42, 168, 176, 0.28)',
-  },
-  label: {
-    fontSize: 11,
+  tileActive: {
+    backgroundColor: 'rgba(255,255,255,0.85)',
+    borderColor: 'rgba(255,255,255,0.95)',
+    ...nw.shadow.card,
   },
 });

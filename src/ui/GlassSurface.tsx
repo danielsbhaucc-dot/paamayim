@@ -89,7 +89,7 @@ export function GlassSurface({
         <BlurView
           pointerEvents="none"
           intensity={nw.glass.blurIntensity}
-          tint="light"
+          tint={Platform.OS === 'ios' ? 'systemUltraThinMaterialLight' : 'light'}
           {...(Platform.OS === 'android' ? { experimentalBlurMethod: 'dimezisBlurView' as const } : {})}
           style={StyleSheet.absoluteFill}
         />

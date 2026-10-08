@@ -24,7 +24,7 @@ export function DayChip({ top, bottom, active, done, onPress }: Props) {
       padded={false}
       tint={active ? nw.color.tealTint : undefined}
       shadow={active ? 'none' : 'card'}
-      style={[{ width: 52, height: 84 }, active ? nw.shadow.active : null]}
+      style={[{ flex: 1, minWidth: 0, height: 84 }, active ? nw.shadow.active : null]}
       contentStyle={{ alignItems: 'center', justifyContent: 'center', gap: 4 }}
       onPress={onPress}
       accessibilityRole="tab"

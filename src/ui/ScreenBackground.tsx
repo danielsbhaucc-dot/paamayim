@@ -22,29 +22,14 @@ export function ScreenBackground({
   const imageSource = source ?? (variant === 'mist' ? img.mistSky : img.heroSunrise);
 
   return (
-    <View style={{ flex: 1, backgroundColor: nw.color.mist }}>
+    <View style={{ flex: 1, backgroundColor: nw.bg.base }}>
       <Image source={imageSource} style={StyleSheet.absoluteFill} contentFit="cover" />
-      {variant === 'mist' ? (
-        <>
-          <LinearGradient
-            colors={[
-              'rgba(201,217,226,0.35)',
-              'rgba(228,236,239,0.78)',
-              'rgba(242,241,236,0.88)',
-              'rgba(244,247,248,0.96)',
-            ]}
-            locations={[0, 0.35, 0.7, 1]}
-            style={StyleSheet.absoluteFill}
-          />
-          <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(255,255,255,0.12)' }]} />
-        </>
-      ) : (
-        <LinearGradient
-          colors={['rgba(255,255,255,0)', 'rgba(255,255,255,0.18)']}
-          locations={[0.6, 1]}
-          style={StyleSheet.absoluteFill}
-        />
-      )}
+      <LinearGradient
+        pointerEvents="none"
+        colors={variant === 'mist' ? nw.bg.mistVeil : nw.bg.photoVeil}
+        locations={variant === 'mist' ? nw.bg.mistVeilLocations : nw.bg.photoVeilLocations}
+        style={StyleSheet.absoluteFill}
+      />
       <View style={{ flex: 1, paddingBottom: showNav ? BOTTOM_NAV_SPACE : 0 }}>{children}</View>
       {showNav ? <GlassBottomNav /> : null}
     </View>

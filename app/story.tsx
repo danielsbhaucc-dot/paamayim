@@ -39,7 +39,6 @@ export default function StoryScreen() {
     calendarMode === 'israel'
       ? parasha.haftara.whyThisHaftara.israel
       : parasha.haftara.whyThisHaftara.diaspora;
-  const showWhy = why.trim() !== para1.trim();
 
   return (
     <ScreenBackground variant="mist" showNav={false}>
@@ -126,12 +125,25 @@ export default function StoryScreen() {
               </>
             ) : (
               <>
+                {parasha.haftara.specialReason ? (
+                  <Text
+                    style={{
+                      ...nw.type.caption,
+                      color: nw.color.tealIcon,
+                      marginTop: 16,
+                      textAlign: rtl.textRight,
+                      writingDirection: 'rtl',
+                    }}
+                  >
+                    {parasha.haftara.specialReason}
+                  </Text>
+                ) : null}
                 <Text
                   accessibilityRole="header"
                   style={{
                     ...nw.type.h2,
                     color: nw.color.ink,
-                    marginTop: 18,
+                    marginTop: parasha.haftara.specialReason ? 2 : 18,
                     textAlign: rtl.textRight,
                     writingDirection: 'rtl',
                   }}
@@ -147,20 +159,34 @@ export default function StoryScreen() {
                     writingDirection: 'rtl',
                   }}
                 >
-                  {para1}
+                  {why}
                 </Text>
-                {showWhy ? (
-                  <Text
-                    style={{
-                      ...nw.type.body,
-                      color: nw.color.inkSoft,
-                      marginTop: 14,
-                      textAlign: rtl.textRight,
-                      writingDirection: 'rtl',
-                    }}
-                  >
-                    {why}
-                  </Text>
+                {para1.trim() ? (
+                  <>
+                    <Text
+                      accessibilityRole="header"
+                      style={{
+                        ...nw.type.h3,
+                        color: nw.color.ink,
+                        marginTop: 18,
+                        textAlign: rtl.textRight,
+                        writingDirection: 'rtl',
+                      }}
+                    >
+                      מה מסופר בהפטרה
+                    </Text>
+                    <Text
+                      style={{
+                        ...nw.type.body,
+                        color: nw.color.inkSoft,
+                        marginTop: 8,
+                        textAlign: rtl.textRight,
+                        writingDirection: 'rtl',
+                      }}
+                    >
+                      {para1}
+                    </Text>
+                  </>
                 ) : null}
                 {parasha.haftara.connectionPoints.map((p) => (
                   <View

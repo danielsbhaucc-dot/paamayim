@@ -58,6 +58,8 @@ export interface HaftaraInfo {
     diaspora: string;
   };
   connectionPoints: string[];
+  /** סיבת ההפטרה המיוחדת מהלוח (למשל ״שבת מחר חודש״), אם יש */
+  specialReason?: string;
 }
 
 export interface Parasha {
