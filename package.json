@@ -14,7 +14,7 @@
     "check-images": "node scripts/check-images.mjs",
     "content:build": "node scripts/content/build.mjs",
     "content:import": "node scripts/content/import-writer.mjs",
-    "build:web": "npm run content:build && expo export -p web",
+    "build:web": "npm run content:build && expo export -p web && node scripts/fix-web-assets.js",
     "eas-build-post-install": "npm run content:build",
     "test:dates": "node scripts/tests/run.mjs",
     "content:publish": "node scripts/content/publish.mjs",
