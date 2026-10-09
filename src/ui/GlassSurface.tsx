@@ -36,6 +36,8 @@ type Props = {
   accessibilityValue?: AccessibilityValue;
   /** מעט פחות שקוף ויותר טשטוש (כרטיס הגיבור בטלפון) */
   denser?: boolean;
+  /** משטח קריאה: מילוי פנינה כמעט אטום + טשטוש חזק; tint נצבע *מעל* המילוי (לא במקומו) */
+  reading?: boolean;
 };
 
 const FILL: Record<Variant, string> = {
@@ -63,10 +65,11 @@ export function GlassSurface({
   accessibilityState,
   accessibilityValue,
   denser = false,
+  reading = false,
 }: Props) {
   const shadowStyle = shadow === 'none' ? undefined : nw.shadow[shadow];
   const frost = variant === 'frost';
-  const webBlur = denser ? nw.glass.webBlurDense : frost ? nw.glass.webBlurFrost : nw.glass.webBlur;
+  const webBlur = reading ? nw.glass.webBlurReading : denser ? nw.glass.webBlurDense : frost ? nw.glass.webBlurFrost : nw.glass.webBlur;
   const outerBase: StyleProp<ViewStyle> = [
     shadowStyle,
     { borderRadius: radius, alignSelf: 'stretch' },
@@ -97,7 +100,7 @@ export function GlassSurface({
       ) : (
         <BlurView
           pointerEvents="none"
-          intensity={denser ? nw.glass.blurIntensityDense : frost ? nw.glass.blurIntensityFrost : nw.glass.blurIntensity}
+          intensity={reading ? nw.glass.blurIntensityReading : denser ? nw.glass.blurIntensityDense : frost ? nw.glass.blurIntensityFrost : nw.glass.blurIntensity}
           tint={Platform.OS === 'ios' ? 'systemUltraThinMaterialLight' : 'light'}
           {...(Platform.OS === 'android' ? { experimentalBlurMethod: 'dimezisBlurView' as const } : {})}
           style={StyleSheet.absoluteFill}
@@ -105,8 +108,12 @@ export function GlassSurface({
       )}
       <View
         pointerEvents="none"
-        style={[StyleSheet.absoluteFill, { backgroundColor: tint ?? (denser ? nw.glass.fillDense : FILL[variant]) }]}
+        style={[
+          StyleSheet.absoluteFill,
+          { backgroundColor: reading ? nw.glass.fillReading : tint ?? (denser ? nw.glass.fillDense : FILL[variant]) },
+        ]}
       />
+      {reading && tint ? <View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: tint }]} /> : null}
       <LinearGradient
         pointerEvents="none"
         colors={[frost ? nw.glass.highlightFrost : nw.glass.highlightFrom, nw.glass.highlightTo]}

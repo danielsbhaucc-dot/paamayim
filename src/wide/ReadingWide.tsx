@@ -118,6 +118,7 @@ export function ReadingWide() {
 
   const scrollCol = (
     <GlassSurface
+      reading
       variant="card"
       radius={26}
       style={{ width: isDesktop ? 472 : '100%', maxWidth: isDesktop ? 520 : 680, alignSelf: 'center' }}

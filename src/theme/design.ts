@@ -110,6 +110,8 @@ export const nw = {
     fillFrost: pearl(0.3),
     /** כרטיס הגיבור בטלפון: קצת פחות שקוף (+0.10) וקצת יותר טשטוש — הרקע עדיין נראה */
     fillDense: pearl(0.4),
+    /** משטחי קריאה (פסוקים, תרגום): כמעט אטומים — הנוף לא ״מדמם״ מאחורי הטקסט; עדיין מעט זכוכית בשוליים */
+    fillReading: pearl(0.86),
     border: pearl(0.85),
     borderSoft: pearl(0.6),
     borderFrost: pearl(0.62),
@@ -119,9 +121,11 @@ export const nw = {
     blurIntensity: 22,
     blurIntensityFrost: 30,
     blurIntensityDense: 38,
+    blurIntensityReading: 70,
     webBlur: 'blur(22px) saturate(140%)',
     webBlurFrost: 'blur(16px) saturate(165%) brightness(1.04)',
     webBlurDense: 'blur(22px) saturate(160%) brightness(1.04)',
+    webBlurReading: 'blur(32px) saturate(140%)',
   },
   bg: {
     base: '#C9D8E2',

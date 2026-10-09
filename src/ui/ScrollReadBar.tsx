@@ -29,7 +29,7 @@ const PASSES: { kind: PassKind; label: string }[] = [
 export function ScrollReadBar({ verse, progress, onToggle, onCompleteNext, style }: Props) {
   const allDone = progress.mikra1 && progress.mikra2 && progress.onkelos;
   return (
-    <GlassSurface variant="strong" radius={22} style={style} contentStyle={{ padding: 14, gap: 10 }}>
+    <GlassSurface reading variant="strong" radius={22} style={style} contentStyle={{ padding: 14, gap: 10 }}>
       <View style={{ flexDirection: rtl.row, alignItems: 'baseline', gap: 8 }}>
         <Text style={[styles.rtl, { ...nw.type.caption, color: nw.color.tealText }]}>
           {`תרגום · (${verseMark(verse.chapter)}, ${verseMark(verse.verse)})`}

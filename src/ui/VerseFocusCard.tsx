@@ -33,7 +33,7 @@ export function VerseFocusCard({
 
   return (
     <View>
-      <GlassSurface variant="strong" radius={24} contentStyle={{ padding: 22 }}>
+      <GlassSurface reading variant="strong" radius={24} contentStyle={{ padding: 22 }}>
         <Text
           style={{
             ...nw.type.verseXL,
@@ -122,6 +122,7 @@ export function VerseFocusCard({
       </GlassSurface>
 
       <GlassSurface
+        reading
         variant="card"
         radius={22}
         style={{ marginTop: 14 }}
@@ -168,6 +169,7 @@ export function VerseFocusCard({
 
       {verse.chidushim?.length ? (
         <GlassSurface
+          reading
           variant="card"
           radius={22}
           style={{ marginTop: 14 }}

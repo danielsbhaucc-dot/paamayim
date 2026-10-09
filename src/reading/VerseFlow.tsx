@@ -14,7 +14,7 @@ import {
 import { verseMark } from '../data/hebrew';
 import type { FlowLayout, PassKind, Verse, VerseProgress } from '../data/types';
 import { useAppStore } from '../store/useAppStore';
-import { aliyahHue, nw, passHue, pearl } from '../theme/design';
+import { aliyahHue, nw, passHue } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { GlassSurface } from '../ui/GlassSurface';
@@ -194,7 +194,7 @@ export function VerseFlow({ r, large = false, header, animatedScrollY, bottomPad
         ))}
 
         {nextLabel ? (
-          <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18, gap: 12, alignItems: 'center' }}>
+          <GlassSurface reading variant="card" radius={22} contentStyle={{ padding: 18, gap: 12, alignItems: 'center' }}>
             <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, textAlign: 'center', writingDirection: 'rtl' }}>
               {`סוף העלייה ה${ORDINAL_SHORT[aliyah.id - 1]}`}
             </Text>
@@ -230,10 +230,11 @@ function FlowVerse({
   const ref = `(${verseMark(verse.chapter)}, ${verseMark(verse.verse)})`;
   return (
     <GlassSurface
+      reading
       variant={current ? 'strong' : 'card'}
       radius={22}
       // הפסוק הנוכחי: זכוכית חזקה + גוון עדין של העלייה — בלי מסגרת צבעונית
-      tint={current || allDone ? hue.wash : undefined}
+      tint={current ? hue.soft : allDone ? hue.wash : undefined}
       contentStyle={{ padding: large ? 22 : 16, gap: 10 }}
     >
       <Pressable onPress={onFocus} accessibilityRole="button" accessibilityLabel={`פסוק ${ref}`} accessibilityState={{ selected: current }} style={{ gap: 8 }}>
@@ -377,9 +378,8 @@ function ClassicVerse({
     );
   };
   return (
-    <View style={[styles.classic, { backgroundColor: current ? pearl(0.46) : pearl(0.26) }]}>
-      {/* הדגשת הפסוק הנוכחי: גוון עדין של העלייה, בלי מסגרת */}
-      {current ? <View pointerEvents="none" style={[StyleSheet.absoluteFill, { borderRadius: 22, backgroundColor: hue.wash }]} /> : null}
+    // משטח קריאה כמעט אטום; הפסוק הנוכחי מקבל גוון עדין של העלייה מעל — בלי מסגרת
+    <GlassSurface reading radius={22} padded={false} shadow={current ? 'card' : 'none'} tint={current ? hue.soft : undefined} contentStyle={styles.classic}>
       <Pressable onPress={onFocus} accessibilityRole="button" accessibilityLabel={`פסוק ${ref}`} accessibilityState={{ selected: current }} style={{ gap: 6 }}>
         <Text style={{ ...nw.type.verseRef, color: hue.ink, textAlign: rtl.textRight }}>{ref}</Text>
       </Pressable>
@@ -406,12 +406,12 @@ function ClassicVerse({
         </Text>
       </View>
       <VerseActions progress={progress} onToggle={onToggle} onComplete={onComplete} showToggles={false} />
-    </View>
+    </GlassSurface>
   );
 }
 
 const styles = StyleSheet.create({
-  classic: { gap: 12, paddingVertical: 14, paddingHorizontal: 14, borderRadius: 22 },
+  classic: { gap: 12, paddingVertical: 16, paddingHorizontal: 16 },
   passLabel: {
     flexDirection: rtl.row,
     alignItems: 'center',
