@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router';
 import {
   ChevronLeft,
   FileText,
+  Globe,
   Library,
   Palette,
   RotateCcw,
@@ -10,8 +11,9 @@ import {
   type LucideIcon,
 } from 'lucide-react-native';
 import React, { useState } from 'react';
-import { Alert, Animated, Platform, Pressable, Text, View } from 'react-native';
+import { Alert, Animated, Linking, Platform, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { LANDING_URL } from '../content/config';
 import type { FlowLayout, CalendarMode, FamilyVoice, ReadingView } from '../data/types';
 import { READING_MODES } from '../reading/modes';
 import { useAppStore } from '../store/useAppStore';
@@ -230,7 +232,23 @@ function InfoSection() {
     <Section title="מידע">
       <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18, gap: 10 }}>
         <Row Icon={Palette} title="מקרא צבעים" sub="למה לכל פרשה יש גוון משלה" onPress={() => router.push('/colors' as never)} />
-        <Row Icon={FileText} title="משפטי ומקורות" sub="מקור הטקסטים, הרישיון ומה שלא כלול" last onPress={() => router.push('/legal')} />
+        <Row Icon={FileText} title="משפטי ומקורות" sub="מקור הטקסטים, הרישיון ומה שלא כלול" onPress={() => router.push('/legal')} />
+        <Pressable
+          onPress={() => Linking.openURL(LANDING_URL)}
+          accessibilityRole="link"
+          accessibilityLabel="אתר נהורא"
+          style={({ pressed }) => ({
+            flexDirection: rtl.row,
+            alignItems: 'center',
+            gap: 8,
+            minHeight: 44,
+            opacity: pressed ? 0.7 : 1,
+            marginTop: 2,
+          })}
+        >
+          <Globe size={16} color={nw.color.inkMuted} strokeWidth={nw.icon.stroke} />
+          <Text style={{ ...nw.type.caption, fontSize: 13, color: nw.color.inkMuted, ...T }}>אתר נהורא</Text>
+        </Pressable>
         <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, ...T }}>נגישות</Text>
         <Text style={{ ...nw.type.bodySm, fontSize: 14, color: nw.color.inkSoft, ...T }}>
           כפתורים בגודל מגע מינימלי, תוויות בעברית לקוראי מסך, ניגודיות AA, וניווט מקלדת ב-web. מצב הקריאה ״גלילה״ נוח גם להגדלת טקסט בדפדפן.
