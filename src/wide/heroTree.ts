@@ -6,4 +6,4 @@
  *   'card'       = ג׳: העץ כתמונה קטנה בראש הכרטיס הזוהר ״פרשת השבוע״
  */
 export type WideHeroTree = 'none' | 'background' | 'card';
-export const WIDE_HERO_TREE: WideHeroTree = 'none';
+export const WIDE_HERO_TREE: WideHeroTree = 'background';
