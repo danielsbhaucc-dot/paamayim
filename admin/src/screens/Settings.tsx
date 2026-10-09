@@ -1,5 +1,5 @@
-/** הגדרות: אחסון, סנכרון ל-GitHub (מקומי), סטטוס מפתחות AI, התנתקות */
-import { GitBranch, LogOut, RefreshCw } from 'lucide-react';
+/** הגדרות: אחסון, סנכרון ל-GitHub (מקומי), פרסום ל-master (מאורח), סטטוס מפתחות AI, התנתקות */
+import { GitBranch, LogOut, RefreshCw, Upload } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { api } from '../api';
 import { useApp } from '../ctx';
@@ -9,6 +9,7 @@ export function Settings({ onLogout }: { onLogout: () => void }) {
   const [git, setGit] = useState<any>(null);
   const [msg, setMsg] = useState('עדכון תוכן מהאדמין');
   const [busy, setBusy] = useState(false);
+  const [publishing, setPublishing] = useState(false);
   const load = () => api('/git/status').then(setGit, () => {});
   useEffect(() => {
     load();
@@ -25,6 +26,23 @@ export function Settings({ onLogout }: { onLogout: () => void }) {
       setBusy(false);
     }
   };
+  const publishAll = async () => {
+    if (!window.confirm('לפרסם הכול ל־master?\nCloudflare יבנה מחדש פעם אחת את האתר והאפליקציה.')) return;
+    setPublishing(true);
+    try {
+      const r = await api<{ commit: string; files: number; empty?: boolean }>('/publish-all', {
+        json: { message: 'פרסום תוכן מהאדמין (content-drafts → master)' },
+      });
+      if (r.empty) toast('אין שינויים לפרסום — master כבר מעודכן');
+      else toast(`פורסם ל־master · ${r.files} קבצים · Cloudflare בונה עכשיו`);
+    } catch (e: any) {
+      toast(e.message, true);
+    } finally {
+      setPublishing(false);
+    }
+  };
+  const draftBr = session.draftBranch || 'content-drafts';
+  const prodBr = session.prodBranch || 'master';
   return (
     <>
       <div className="pagehead">
@@ -39,13 +57,35 @@ export function Settings({ onLogout }: { onLogout: () => void }) {
       <div className="grid">
         <section className="card stack" aria-labelledby="s-h">
           <h2 id="s-h">אחסון</h2>
-          <p>{session.storage === 'local' ? 'מקומי — הקבצים נשמרים בתיקיית הפרויקט במחשב.' : `GitHub (${session.storageLabel.replace('github:', '')}) — כל שמירה היא commit.`}</p>
+          <p>
+            {session.storage === 'local'
+              ? 'מקומי — הקבצים נשמרים בתיקיית הפרויקט במחשב.'
+              : `GitHub (${session.storageLabel.replace('github:', '')}) — טיוטות ב־${draftBr}, אתר חי מ־${prodBr}.`}
+          </p>
           <p className="help">
             {session.storage === 'local'
               ? 'כדי שהשינויים יגיעו לאתר ול-APK: ״שמירה ל-GitHub״ (commit + push). Cloudflare Pages בונה מחדש לבד.'
-              : 'שמירת טיוטה לא מפעילה בנייה ([CF-Pages-Skip]); פרסום כן.'}
+              : `שמירת טיוטה / פרסום שדה נשמרים לענף ${draftBr} (בלי בנייה ב-Cloudflare). «פרסם הכול» מעביר ל־${prodBr} ב-commit אחד ומפעיל בנייה אחת.`}
           </p>
         </section>
+
+        {session.storage === 'github' && (
+          <section className="card stack" aria-labelledby="pub-h">
+            <h2 id="pub-h">
+              <Upload size={18} aria-hidden /> פרסום לאתר
+            </h2>
+            <p className="small">
+              מעביר את כל קובצי התוכן מ־<b dir="ltr">{draftBr}</b> ל־<b dir="ltr">{prodBr}</b> ב-commit אחד. זה מה שמפעיל בנייה ב-Cloudflare Pages.
+            </p>
+            <div className="actions">
+              <button type="button" className="btn primary" disabled={publishing} onClick={publishAll} aria-label="פרסם הכול">
+                {publishing ? 'מפרסם…' : 'פרסם הכול'}
+              </button>
+            </div>
+            <p className="help">מומלץ לפרסם אחרי סבב עריכות, לא אחרי כל שדה — כדי לחסוך בבניות החודשיות.</p>
+          </section>
+        )}
+
         {session.storage === 'local' && (
           <section className="card stack" aria-labelledby="g-h">
             <h2 id="g-h">

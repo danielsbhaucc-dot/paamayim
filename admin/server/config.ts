@@ -28,7 +28,7 @@ export type Config = {
   port: number;
   storage: 'local' | 'github';
   repoRoot: string;
-  github?: { token: string; repo: string; branch: string };
+  github?: { token: string; repo: string; branch: string; draftBranch: string };
   passwordHash?: string;
   password?: string;
   sessionSecret: string;
@@ -81,7 +81,12 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env): Config {
     const repo = env.GITHUB_REPO || '';
     if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) throw new Error('GITHUB_REPO צריך להיות בפורמט owner/name');
     if (!env.GITHUB_TOKEN) throw new Error('STORAGE=github דורש GITHUB_TOKEN');
-    cfg.github = { token: env.GITHUB_TOKEN, repo, branch: env.GITHUB_BRANCH || 'master' };
+    cfg.github = {
+      token: env.GITHUB_TOKEN,
+      repo,
+      branch: env.GITHUB_BRANCH || 'master',
+      draftBranch: env.GITHUB_DRAFT_BRANCH || 'content-drafts',
+    };
   }
   return cfg;
 }

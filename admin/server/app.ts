@@ -114,11 +114,14 @@ export function createApp(cfg: Config, storage: Storage, opts: { distDir?: strin
 
   app.get('/api/session', (c) => {
     const s = c.get('session');
+    const gh = cfg.github;
     return c.json({
       authenticated: !!s,
       csrf: s && !c.get('viaToken') ? csrfFor(cfg.sessionSecret, s) : null,
       storage: storage.kind,
       storageLabel: storage.describe().replace(/^local:.*/, 'local'),
+      draftBranch: gh?.draftBranch ?? null,
+      prodBranch: gh?.branch ?? null,
       ai: s ? ai.providers() : null,
     });
   });
@@ -255,15 +258,30 @@ export function createApp(cfg: Config, storage: Storage, opts: { distDir?: strin
   app.get('/api/ai/jobs/:id', (c) => c.json(ai.getJob(c.req.param('id'))));
   app.post('/api/ai/jobs/:id/cancel', (c) => c.json(ai.cancel(c.req.param('id'))));
 
-  // ---------- git (מקומי) ----------
+  // ---------- git (מקומי) + פרסום ל-master (GitHub) ----------
   app.get('/api/git/status', async (c) => {
-    if (storage.kind !== 'local') return c.json({ available: false, mode: 'github', note: 'במצב GitHub כל שמירה היא commit' });
+    if (storage.kind !== 'local') {
+      return c.json({
+        available: false,
+        mode: 'github',
+        draftBranch: cfg.github?.draftBranch ?? 'content-drafts',
+        prodBranch: cfg.github?.branch ?? 'master',
+        note: 'טיוטות נשמרות ל-content-drafts. «פרסם הכול» מעביר ל-master ומפעיל בנייה אחת.',
+      });
+    }
     return c.json(await gitStatus(cfg.repoRoot));
   });
   app.post('/api/git/sync', async (c) => {
     if (storage.kind !== 'local') throw new HttpError(400, 'זמין רק במצב מקומי');
     const b = await c.req.json().catch(() => ({}));
     return c.json(await gitSync(cfg.repoRoot, String(b?.message ?? ''), b?.push !== false));
+  });
+  app.post('/api/publish-all', async (c) => {
+    if (storage.kind !== 'github' || !storage.promoteToProd) throw new HttpError(400, 'זמין רק במצב GitHub');
+    const b = await c.req.json().catch(() => ({}));
+    const message = typeof b?.message === 'string' && b.message.trim() ? b.message.trim().slice(0, 200) : undefined;
+    const r = await storage.promoteToProd(message);
+    return c.json(r);
   });
 
   app.all('/api/*', (c) => c.json({ error: 'לא נמצא' }, 404));

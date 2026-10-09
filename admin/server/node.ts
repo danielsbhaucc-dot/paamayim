@@ -14,7 +14,15 @@ if (errors.length) {
   for (const e of errors) console.error(`✖ ${e}`);
   process.exit(1);
 }
-const storage = cfg.storage === 'github' && cfg.github ? githubStorage(cfg.github) : localStorage(cfg.repoRoot);
+const storage =
+  cfg.storage === 'github' && cfg.github
+    ? githubStorage({
+        token: cfg.github.token,
+        repo: cfg.github.repo,
+        branch: cfg.github.branch,
+        draftBranch: cfg.github.draftBranch,
+      })
+    : localStorage(cfg.repoRoot);
 const { app } = createApp(cfg, storage, { distDir: path.join(ADMIN_DIR, 'dist') });
 serve({ fetch: app.fetch, port: cfg.port, hostname: cfg.host }, (info) => {
   const url = `http://${cfg.host === '0.0.0.0' ? 'localhost' : cfg.host}:${info.port}`;

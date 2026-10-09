@@ -61,6 +61,7 @@ Limits:
 | POST | `/ai/jobs/:id/cancel` | | stops after the current request |
 | GET | `/git/status` | | local mode: changed content files and commits not yet pushed |
 | POST | `/git/sync` | `{message, push?:true}` | local mode: `git add` (content only) + commit + push |
+| POST | `/publish-all` | `{message?}` | GitHub mode: copy content files from `content-drafts` → `master` (one commit; triggers CF build) |
 
 Tasks: `explainVerses` (per-verse "what Onkelos does here"), `whyThisHaftara` (adult and child, using the haftara text from Sefaria) and `lifeLessons` (adult and child).
 

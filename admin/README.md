@@ -96,7 +96,8 @@ npm run admin
 ## 5. בהמשך: אירוח האדמין (כדי לערוך מהטלפון)
 
 האדמין צריך שרת Node (בגלל עיבוד התמונות) — **לא** Cloudflare Pages/Workers. מתאים: Render, Railway, Fly.io, או מחשב בבית.
-במצב מאורח כל שמירה היא commit ישיר לריפו דרך GitHub API (`STORAGE=github`) — בלי git ובלי דיסק.
+במצב מאורח (`STORAGE=github`) שמירות נכתבות לענף **`content-drafts`** (נוצר אוטומטית אם חסר).
+כפתור **«פרסם הכול»** בהגדרות מעתיק את קובצי התוכן ל־**`master`** ב-commit אחד — ורק אז Cloudflare Pages בונה מחדש (חיסכון במכסת 500 בניות/חודש).
 
 1. **טוקן GitHub מצומצם:** https://github.com/settings/personal-access-tokens/new → *Fine-grained* → Repository access: **Only select repositories** → `paamayim` → Permissions → **Contents: Read and write** (שאר ההרשאות: אין). תוקף: עד שנה.
 2. **גיבוב סיסמה** (במחשב): `npm --prefix admin run hash-password` → מעתיקים את השורה.
@@ -112,6 +113,7 @@ npm run admin
      GITHUB_TOKEN=github_pat_…
      GITHUB_REPO=danielsbhaucc-dot/paamayim
      GITHUB_BRANCH=master
+     GITHUB_DRAFT_BRANCH=content-drafts
      ADMIN_PASSWORD_HASH=scrypt$…
      SESSION_SECRET=…(48 תווים אקראיים)
      COOKIE_SECURE=1

@@ -7,11 +7,16 @@ export interface Storage {
   /** שמות קבצים בתיקייה */
   list(dir: string): Promise<string[]>;
   /**
-   * כתיבה אטומית של כמה קבצים יחד. ב-GitHub: commit אחד.
-   * skipBuild=true מוסיף [CF-Pages-Skip] להודעה — שמירת טיוטה לא מפעילה בנייה ב-Cloudflare Pages.
+   * כתיבה אטומית של כמה קבצים יחד. ב-GitHub: commit אחד לענף הטיוטות (content-drafts).
+   * skipBuild=true מוסיף [CF-Pages-Skip] להודעה (הגנה נוספת; Cloudflare אמור לבנות רק מ-master).
    */
   write(changes: Change[], message: string, opts?: { skipBuild?: boolean }): Promise<{ commit?: string }>;
   describe(): string;
+  /**
+   * רק במצב GitHub: מעתיק את קובצי התוכן מ-content-drafts ל-master ב-commit אחד.
+   * זה מה שמפעיל בנייה ב-Cloudflare Pages.
+   */
+  promoteToProd?(message?: string): Promise<{ commit: string; files: number; empty?: boolean }>;
 }
 
 export async function readText(s: Storage, path: string) {

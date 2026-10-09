@@ -26,6 +26,8 @@ export type Session = {
   csrf: string | null;
   storage: 'local' | 'github';
   storageLabel: string;
+  draftBranch?: string | null;
+  prodBranch?: string | null;
   ai: null | { deepseek: { configured: boolean; defaultModel: string }; openrouter: { configured: boolean; defaultModel: string }; defaultProvider: 'deepseek' | 'openrouter'; mock: boolean; maxJobUsd: number; peakNow: boolean };
 };
 
