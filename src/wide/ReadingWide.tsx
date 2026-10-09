@@ -1,3 +1,4 @@
+import { parashaHue } from '../theme/parashaColors';
 import { Ionicons } from '@expo/vector-icons';
 import { ArrowLeft, ArrowRight } from 'lucide-react-native';
 import React, { useEffect } from 'react';
@@ -13,6 +14,7 @@ import { rtl } from '../theme/rtl';
 import {
   FocusBanner,
   GlassSurface,
+  ParashaDot,
   ProgressPill,
   ScrollReadBar,
   SegmentedTabs,
@@ -63,6 +65,7 @@ export function ReadingWide() {
   }, []);
 
   const dayLabel = aliyah.dayShort === 'ש׳' ? 'שבת' : 'יום ' + aliyah.dayShort;
+  const accent = parashaHue(parasha.id)?.solid;
   const title = focusSet ? 'פסוקים שהסיפור נשען עליהם' : `פרשת ${parasha.name}`;
   const subtitle = focusSet
     ? `פרשת ${parasha.name}`
@@ -82,7 +85,7 @@ export function ReadingWide() {
         !isDesktop && { maxWidth: 680, width: '100%', alignSelf: 'center' },
       ]}
     >
-      <ProgressPill
+      <ProgressPill accent={accent}
         value={focusSet ? (index + 1) / Math.max(1, displayVerses.length) : pct}
         label={`${Math.min(index + 1, displayVerses.length)}/${displayVerses.length}`}
       />
@@ -143,7 +146,7 @@ export function ReadingWide() {
           style={{ width: '100%' }}
         />
       ) : null}
-      <ProgressPill value={pct} label={`${Math.round(pct * 100)}%`} style={{ width: '100%' }} />
+      <ProgressPill accent={accent} value={pct} label={`${Math.round(pct * 100)}%`} style={{ width: '100%' }} />
       {!focusSet ? (
         <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 18 }}>
           <RoundBtn label="עלייה קודמת" disabled={activeAliyah <= 1} onPress={r.goPrevAliyah}>
@@ -190,10 +193,10 @@ export function ReadingWide() {
           bottomPad={56}
           header={
             <View style={{ gap: 12, marginBottom: 14 }}>
-              <WidePageHead title={title} subtitle={subtitle} back />
+              <WidePageHead title={title} subtitle={subtitle} back icon={<ParashaDot id={parasha.id} size={16} />} />
               {tabs}
               {focusSet ? <FocusBanner onExit={r.exitFocus} /> : null}
-              <ProgressPill value={pct} label={`${r.aliyahDone.done}/${r.aliyahDone.total} פסוקים`} />
+              <ProgressPill accent={accent} value={pct} label={`${r.aliyahDone.done}/${r.aliyahDone.total} פסוקים`} />
             </View>
           }
         />
@@ -202,7 +205,7 @@ export function ReadingWide() {
   }
 
   return (
-    <WidePage title={title} subtitle={subtitle} back maxWidth={isDesktop ? 1180 : 760}>
+    <WidePage title={title} subtitle={subtitle} back icon={<ParashaDot id={parasha.id} size={16} />} maxWidth={isDesktop ? 1180 : 760}>
       {tabs}
       {focusSet ? <FocusBanner onExit={r.exitFocus} style={{ marginBottom: 16 }} /> : null}
       <WideCols align="flex-start" gap={28}>

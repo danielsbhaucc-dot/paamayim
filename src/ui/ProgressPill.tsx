@@ -9,9 +9,11 @@ type Props = {
   value: number;
   label: string;
   style?: StyleProp<ViewStyle>;
+  /** גוון הפרשה למילוי הפס (ברירת מחדל: טורקיז) */
+  accent?: string;
 };
 
-export function ProgressPill({ value, label, style }: Props) {
+export function ProgressPill({ value, label, style, accent }: Props) {
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
 
   return (
@@ -42,7 +44,7 @@ export function ProgressPill({ value, label, style }: Props) {
         <LinearGradient
           start={{ x: 1, y: 0 }}
           end={{ x: 0, y: 0 }}
-          colors={[nw.color.fillFrom, nw.color.fillTo]}
+          colors={accent ? [`${accent}B3`, accent] : [nw.color.fillFrom, nw.color.fillTo]}
           style={{
             height: '100%',
             width: `${pct}%`,

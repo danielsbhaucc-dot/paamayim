@@ -61,6 +61,7 @@ export default function RootLayout() {
         <Stack.Screen name="completion" options={{ presentation: 'modal' }} />
         <Stack.Screen name="settings" options={{ presentation: 'modal' }} />
         <Stack.Screen name="legal" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="colors" options={{ presentation: 'card' }} />
         <Stack.Screen name="calendar" options={{ presentation: 'card' }} />
         <Stack.Screen name="parashot" options={{ presentation: 'card' }} />
       </Stack>

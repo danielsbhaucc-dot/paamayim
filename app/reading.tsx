@@ -27,6 +27,8 @@ import {
 import { VerseFlow } from '../src/reading/VerseFlow';
 import { ORDINAL_SHORT } from '../src/reading/journey';
 import { aliyahHue } from '../src/theme/design';
+import { parashaHue } from '../src/theme/parashaColors';
+import { ParashaDot } from '../src/ui/ParashaDot';
 
 import { READING_MODES } from '../src/reading/modes';
 import { ReadingWide } from '../src/wide/ReadingWide';
@@ -66,6 +68,7 @@ function ReadingMobile() {
   ).current;
 
   const dayLabel = aliyah.dayShort === 'ש׳' ? 'שבת' : 'יום ' + aliyah.dayShort;
+  const accent = parashaHue(parasha.id)?.solid;
   const pct = r.aliyahDone.total ? r.aliyahDone.done / r.aliyahDone.total : 0;
 
   /** מצב מגילה — קריאה רציפה: הפסוק הנוכחי מודגש, התרגום והסימון בפס שמתחת */
@@ -110,6 +113,7 @@ function ReadingMobile() {
           ) : null}
 
           <ProgressPill
+              accent={accent}
             value={pct}
             label={`${Math.round(pct * 100)}%`}
             style={{ marginHorizontal: nw.space.screenX }}
@@ -159,7 +163,7 @@ function ReadingMobile() {
       title={headerTitle}
       subtitle={headerSub}
       scrollY={t.scrollY}
-      icon={<View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: hue.solid }} />}
+      icon={<ParashaDot id={parasha.id} fallback={hue.solid} />}
     />
   );
 
@@ -178,6 +182,7 @@ function ReadingMobile() {
                 {modeTabs}
                 {focusSet ? <FocusBanner onExit={r.exitFocus} /> : null}
                 <ProgressPill
+              accent={accent}
                   value={pct}
                   label={`${r.aliyahDone.done}/${r.aliyahDone.total} פסוקים`}
                   style={{ marginHorizontal: nw.space.screenX }}
@@ -207,6 +212,7 @@ function ReadingMobile() {
             {focusSet ? <FocusBanner onExit={r.exitFocus} style={{ marginTop: 10 }} /> : null}
             {/* ההתקדמות האמיתית בעלייה (כמה פסוקים נקראו שניים ואחד), והמיקום בתווית */}
             <ProgressPill
+              accent={accent}
               value={focusSet ? (index + 1) / Math.max(1, displayVerses.length) : pct}
               label={`${Math.min(index + 1, displayVerses.length)}/${displayVerses.length}`}
               style={{ marginHorizontal: nw.space.screenX, marginTop: 12 }}

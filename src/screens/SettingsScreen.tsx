@@ -3,6 +3,7 @@ import {
   ChevronLeft,
   FileText,
   Library,
+  Palette,
   RotateCcw,
   Settings as SettingsIcon,
   Sunrise,
@@ -228,6 +229,7 @@ function InfoSection() {
   return (
     <Section title="מידע">
       <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18, gap: 10 }}>
+        <Row Icon={Palette} title="מקרא צבעים" sub="למה לכל פרשה יש גוון משלה" onPress={() => router.push('/colors' as never)} />
         <Row Icon={FileText} title="משפטי ומקורות" sub="מקור הטקסטים, הרישיון ומה שלא כלול" last onPress={() => router.push('/legal')} />
         <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, ...T }}>נגישות</Text>
         <Text style={{ ...nw.type.bodySm, fontSize: 14, color: nw.color.inkSoft, ...T }}>

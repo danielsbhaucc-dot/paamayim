@@ -1,3 +1,4 @@
+import { parashaHue } from '../../src/theme/parashaColors';
 import { Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { Image as ExpoImage } from 'expo-image';
@@ -211,6 +212,8 @@ function HomeMobile() {
         >
           <HeroBanner
             parashaName={parasha.name}
+            parashaId={parasha.id}
+            accent={parashaHue(parasha.id)}
             eyebrow={eyebrow}
             rangeLabel={parasha.rangeLabel}
             underlay={insets.top + nw.space.headerH + 8}

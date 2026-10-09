@@ -13,6 +13,8 @@ import { img } from '../theme/images';
 import { rtl } from '../theme/rtl';
 import { frostText } from '../ui/frostText';
 import { GlassSurface } from '../ui/GlassSurface';
+import { ParashaDot } from '../ui/ParashaDot';
+import { parashaHue } from '../theme/parashaColors';
 import { PrimaryButton } from '../ui/PrimaryButton';
 import { NamePrompt, PersonalizeButton } from '../ui/Greeting';
 import { ResumeLine } from '../ui/HomeStatus';
@@ -43,6 +45,7 @@ export function HomeHero() {
   const picked = useAppStore((s) => s.pickedParashaId);
   const setPicked = useAppStore((s) => s.setPickedParashaId);
   const parasha = useParasha(mode);
+  const accent = parashaHue(parasha.id);
   const week = useWeekParasha(mode);
   const eyebrow = useParashaEyebrow(mode);
   const g = useGreeting();
@@ -114,6 +117,12 @@ export function HomeHero() {
               style={[GLOW, { flex: isDesktop ? 1.3 : 1.4, minHeight: isDesktop ? 300 : 280 }]}
               contentStyle={[center, { justifyContent: 'center', padding: isDesktop ? 26 : 22, gap: 6 }]}
             >
+              {accent ? (
+                <View
+                  pointerEvents="none"
+                  style={{ position: 'absolute', top: -60, ...rtl.right(-60), width: 240, height: 240, borderRadius: 120, backgroundColor: accent.wash }}
+                />
+              ) : null}
               {WIDE_HERO_TREE === 'card' ? (
                 <Image
                   source={img.homeHeroTreeThumb}
@@ -127,14 +136,17 @@ export function HomeHero() {
                 </View>
               )}
               <Text style={{ ...T, fontFamily: fonts.uiSemi, fontSize: 16, color: nw.color.ink, marginTop: 4 }}>{eyebrow}</Text>
-              <Text style={{ ...T, ...nw.type.parashaName, fontSize: isDesktop ? 50 : 42, lineHeight: isDesktop ? 60 : 52, color: nw.color.ink, ...frostText }}>
-                {parasha.name}
-              </Text>
-              <Text style={{ ...T, ...nw.type.label, color: nw.color.ink }}>{parasha.rangeLabel}</Text>
+              <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 10 }}>
+                <ParashaDot id={parasha.id} size={isDesktop ? 16 : 14} />
+                <Text style={{ ...T, ...nw.type.parashaName, fontSize: isDesktop ? 50 : 42, lineHeight: isDesktop ? 60 : 52, color: nw.color.ink, ...frostText }}>
+                  {parasha.name}
+                </Text>
+              </View>
+              <Text style={{ ...T, ...nw.type.label, color: accent ? accent.ink : nw.color.ink }}>{parasha.rangeLabel}</Text>
               {p ? (
                 <View style={{ alignSelf: 'stretch', marginTop: 12, gap: 6 }}>
                   <View style={{ height: 6, borderRadius: 3, backgroundColor: nw.color.tealSoft, overflow: 'hidden', flexDirection: rtl.row }}>
-                    <View style={{ width: `${p.percent}%`, height: 6, borderRadius: 3, backgroundColor: nw.color.tealBright }} />
+                    <View style={{ width: `${p.percent}%`, height: 6, borderRadius: 3, backgroundColor: accent ? accent.solid : nw.color.tealBright }} />
                   </View>
                   <Text style={{ ...T, fontFamily: fonts.uiSemi, fontSize: 12, color: nw.color.inkMuted }}>
                     {`${p.doneAliyot}/${p.totalAliyot} עליות · ${p.percent}%`}

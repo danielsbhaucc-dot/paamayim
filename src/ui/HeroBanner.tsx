@@ -7,6 +7,8 @@ import { fonts } from '../theme/fonts';
 import { img } from '../theme/images';
 import { rtl } from '../theme/rtl';
 import { GlassSurface } from './GlassSurface';
+import { ParashaDot } from './ParashaDot';
+import type { ParashaHue } from '../theme/parashaColors';
 import { frostText } from './frostText';
 import { WaveEdge } from './WaveEdge';
 
@@ -26,6 +28,9 @@ type Props = {
    * הרצועה שמעליה מתמלאת בהשתקפות של שמי התמונה (מתחת ל-scrim של הכותרת).
    */
   safeTop?: number;
+  /** מזהה הפרשה — לנקודה בגוון הפרשה ולהדגשה העדינה */
+  parashaId?: string;
+  accent?: ParashaHue;
 };
 
 /** מידות home-hero-tree.jpg */
@@ -55,7 +60,7 @@ function HeroImage({ frameH, safeTop }: { frameH: number; safeTop: number }) {
 }
 
 /** באנר הבית: קצה תחתון גלי ועדין, עם קו לבן דק שמפריד בין התמונה לדף. */
-export function HeroBanner({ parashaName, eyebrow = 'פרשת השבוע', rangeLabel, underlay, safeTop = 0 }: Props) {
+export function HeroBanner({ parashaName, eyebrow = 'פרשת השבוע', rangeLabel, underlay, safeTop = 0, parashaId, accent }: Props) {
   const under = underlay ?? 0;
   return (
     <View
@@ -117,6 +122,14 @@ export function HeroBanner({ parashaName, eyebrow = 'פרשת השבוע', range
         >
           {eyebrow}
         </Text>
+        {accent ? (
+          <View
+            pointerEvents="none"
+            style={{ position: 'absolute', top: -40, ...rtl.right(-40), width: 170, height: 170, borderRadius: 85, backgroundColor: accent.wash }}
+          />
+        ) : null}
+        <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 8 }}>
+        <ParashaDot id={parashaId} />
         <Text
           accessibilityRole="header"
           style={{
@@ -129,6 +142,7 @@ export function HeroBanner({ parashaName, eyebrow = 'פרשת השבוע', range
         >
           {parashaName}
         </Text>
+        </View>
         <GlassSurface
           variant="subtle"
           radius={nw.radius.pill}
@@ -139,7 +153,7 @@ export function HeroBanner({ parashaName, eyebrow = 'פרשת השבוע', range
           <Text
             style={{
               ...nw.type.label,
-              color: nw.color.inkSoft,
+              color: accent ? accent.ink : nw.color.inkSoft,
               textAlign: 'center',
               writingDirection: 'rtl',
             }}
