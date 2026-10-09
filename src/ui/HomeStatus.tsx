@@ -1,10 +1,10 @@
 import { router } from 'expo-router';
-import { PartyPopper } from 'lucide-react-native';
+import { MapPin, PartyPopper } from 'lucide-react-native';
 import React from 'react';
 import { StyleSheet, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useStatusLine } from '../greeting/useStatusLine';
 import { aliyotCount } from '../greeting/hebrewNumbers';
-import { nw, pearl } from '../theme/design';
+import { nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { GlassSurface } from './GlassSurface';
@@ -37,6 +37,7 @@ export function HomeStatus({ wide, style }: { wide?: boolean; style?: StyleProp<
             {s.text}
           </Text>
         </View>
+        {s.resume ? <ResumeLine label={s.resume.label} when={s.resume.when} /> : null}
         <View style={{ gap: 6 }}>
           <View style={styles.track} accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: 100, now: p.percent }}>
             <View style={[styles.fill, { width: `${p.percent}%` }]} />
@@ -58,7 +59,36 @@ export function HomeStatus({ wide, style }: { wide?: boolean; style?: StyleProp<
   );
 }
 
+/** ״📍 פרשת בראשית · עלייה שלישית · פסוק י״ב · אתמול״ — המקום השמור, מתעדכן חי */
+export function ResumeLine({ label, when, center }: { label: string; when: string; center?: boolean }) {
+  return (
+    <View
+      accessibilityLabel={`המקום שלך: ${label}, ${when}`}
+      style={[styles.resume, center && { alignSelf: 'center' }]}
+    >
+      <MapPin size={15} color={nw.color.tealIcon} strokeWidth={2} />
+      <Text style={styles.resumeText} numberOfLines={2}>
+        {`${label} · ${when}`}
+      </Text>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  resume: {
+    flexDirection: rtl.row,
+    alignItems: 'center',
+    alignSelf: rtl.alignRight,
+    gap: 6,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 14,
+    backgroundColor: nw.color.tealSoft,
+    borderWidth: 1,
+    borderColor: 'rgba(31,158,140,0.28)',
+    maxWidth: '100%',
+  },
+  resumeText: { fontFamily: fonts.uiSemi, fontSize: 13, lineHeight: 18, color: nw.color.tealText, writingDirection: 'rtl', flexShrink: 1 },
   text: {
     fontFamily: fonts.uiBold,
     fontSize: 17,
@@ -70,7 +100,7 @@ const styles = StyleSheet.create({
   track: {
     height: 6,
     borderRadius: 3,
-    backgroundColor: pearl(0.7),
+    backgroundColor: nw.color.tealSoft, // מסלול בצבע ההתקדמות (לא לבן)
     overflow: 'hidden',
     flexDirection: rtl.row,
   },

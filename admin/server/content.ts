@@ -396,7 +396,7 @@ export class ContentService {
 }
 
 const CATEGORIES = ['notStarted', 'midway', 'almostDone', 'finished', 'returning', 'friday', 'holiday'] as const;
-const PLACEHOLDERS = new Set(['name', 'parasha', 'aliyah', 'remaining', 'done', 'left', 'percent']);
+const PLACEHOLDERS = new Set(['name', 'parasha', 'aliyah', 'remaining', 'done', 'left', 'percent', 'lastAliyah', 'verse', 'when']);
 
 function cleanText(v: unknown, where: string): string {
   if (typeof v !== 'string') throw new HttpError(400, `${where}: צריך טקסט`);
@@ -420,7 +420,9 @@ export function validateStatusLines(data: any) {
   if (!data || typeof data !== 'object') throw new HttpError(400, 'מבנה לא תקין');
   const out: any = { $comment: typeof data.$comment === 'string' ? data.$comment : undefined, version: Number(data.version) || 1, rules: {}, ctas: {}, lines: {} };
   const rules = data.rules ?? {};
-  for (const k of ['returningAfterDays', 'almostDoneRemaining', 'almostDonePercent']) {
+  // תאימות: קובץ ישן עם returningAfterDays → שעות
+  if (rules.returningAfterHours == null && rules.returningAfterDays != null) rules.returningAfterHours = Number(rules.returningAfterDays) * 24;
+  for (const k of ['returningAfterHours', 'almostDoneRemaining', 'almostDonePercent']) {
     const n = Number(rules[k]);
     if (!Number.isFinite(n) || n < 0 || n > 100) throw new HttpError(400, `כלל לא תקין: ${k}`);
     out.rules[k] = n;

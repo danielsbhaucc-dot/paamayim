@@ -14,6 +14,40 @@ const PEARL_RGB = '250,247,240';
 /** גוון הפנינה בשקיפות a (0..1) */
 export const pearl = (a: number) => `rgba(${PEARL_RGB},${a})`;
 
+/**
+ * צבעים רכים לפי משמעות — כדי לראות במבט אחד ״איפה אני״.
+ * solid = פסים/טבעות/נקודות (≥3:1 מול זכוכית) · ink = טקסט/רקע לטקסט לבן (≥4.8:1) · soft = גוון רקע עדין.
+ * הצבע אף פעם לא לבד: תמיד יש גם תווית/אייקון (נגיש גם לעיוורון צבעים — פלטה בהשראת Okabe-Ito).
+ */
+type Hue = { solid: string; ink: string; soft: string; wash: string };
+const hue = (solid: string, ink: string, rgb: string): Hue => ({
+  solid,
+  ink,
+  soft: `rgba(${rgb},0.16)`,
+  wash: `rgba(${rgb},0.08)`,
+});
+
+/** שלושת המעברים: מקרא א׳ (כחול ים), מקרא ב׳ (טורקיז), תרגום (ענבר) */
+export const passHue: Record<'mikra1' | 'mikra2' | 'onkelos', Hue> = {
+  mikra1: hue('#3D7FC0', '#316599', '61,127,192'),
+  mikra2: hue('#1C9181', '#166F62', '28,145,129'),
+  onkelos: hue('#B07926', '#82591C', '176,121,38'),
+};
+
+/** גוון עדין לכל אחת משבע העליות (ראשון…שבת) — שבבי המסלול, כותרות העלייה, הדגשה בגלילה */
+export const aliyahHues: readonly Hue[] = [
+  hue('#2C928C', '#206B66', '44,146,140'), // ראשון — טורקיז
+  hue('#3F86C6', '#2D6496', '63,134,198'), // שני — תכלת
+  hue('#7275C4', '#5559B8', '114,117,196'), // שלישי — לבנדר
+  hue('#B0679A', '#8F4A7B', '176,103,154'), // רביעי — סגול־ורד
+  hue('#CC6446', '#A2472D', '204,100,70'), // חמישי — אלמוג
+  hue('#AB7826', '#815B1D', '171,120,38'), // שישי — ענבר
+  hue('#668D4E', '#4B693A', '102,141,78'), // שבת — מרווה
+];
+
+/** הגוון של עלייה (1..7; ערך לא תקין → הראשונה) */
+export const aliyahHue = (id: number): Hue => aliyahHues[Math.min(6, Math.max(0, (id || 1) - 1))];
+
 /* ניגודיות (WCAG AA) נבדקה מול זכוכית פנינה בשקיפות 0.30–0.62 מעל רקעי השמיים/האפרסק:
    ink ≥ 9.5, inkSoft ≥ 5.0, inkMuted ≥ 4.7, tealText ≥ 5.1, טקסט לבן על teal 6.2. */
 export const nw = {
@@ -28,6 +62,8 @@ export const nw = {
     tealIcon: '#237A70',
     /** טקסט טורקיז קטן (תוויות/כותרות־על): ניגודיות AA גם על זכוכית בהירה */
     tealText: '#1D5A57',
+    /** טקסט התרגום (אונקלוס): טורקיז עמוק, ≥7:1 מול זכוכית פנינה */
+    targumInk: '#1E5557',
     tealSoft: 'rgba(31,158,140,0.14)',
     tealTint: 'rgba(43,107,106,0.9)',
     mint: '#E3F4F0',
@@ -72,6 +108,8 @@ export const nw = {
     fillOnPhoto: pearl(0.26),
     /** זכוכית ״כפור״ אמיתית לכרטיסי גיבור (פרשת השבוע וכו׳): הרקע נראה דרכה */
     fillFrost: pearl(0.3),
+    /** כרטיס הגיבור בטלפון: קצת פחות שקוף (+0.10) וקצת יותר טשטוש — הרקע עדיין נראה */
+    fillDense: pearl(0.4),
     border: pearl(0.85),
     borderSoft: pearl(0.6),
     borderFrost: pearl(0.62),
@@ -80,8 +118,10 @@ export const nw = {
     highlightFrost: pearl(0.32),
     blurIntensity: 22,
     blurIntensityFrost: 30,
+    blurIntensityDense: 38,
     webBlur: 'blur(22px) saturate(140%)',
     webBlurFrost: 'blur(16px) saturate(165%) brightness(1.04)',
+    webBlurDense: 'blur(22px) saturate(160%) brightness(1.04)',
   },
   bg: {
     base: '#C9D8E2',
@@ -140,7 +180,8 @@ export const nw = {
     stat: { fontFamily: fonts.uiExtra, fontSize: 32, lineHeight: 38 },
     verseXL: { fontFamily: fonts.verse, fontSize: 32, lineHeight: 54 },
     verseRef: { fontFamily: fonts.verseRegular, fontSize: 17, lineHeight: 24 },
-    onkelos: { fontFamily: fonts.verseRegular, fontSize: 18, lineHeight: 30 },
+    /** תרגום אונקלוס: Noto Serif Hebrew — ניקוד ברור, גדול ומרווח, בצבע טורקיז־דיו (שונה מהפסוק) */
+    onkelos: { fontFamily: fonts.targum, fontSize: 20, lineHeight: 36 },
   },
   icon: { size: 22, sizeSm: 18, sizeLg: 28, stroke: 1.75 },
   touch: 44,

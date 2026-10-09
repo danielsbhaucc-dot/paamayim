@@ -34,6 +34,8 @@ type Props = {
   accessibilityRole?: AccessibilityRole;
   accessibilityState?: AccessibilityState;
   accessibilityValue?: AccessibilityValue;
+  /** מעט פחות שקוף ויותר טשטוש (כרטיס הגיבור בטלפון) */
+  denser?: boolean;
 };
 
 const FILL: Record<Variant, string> = {
@@ -60,10 +62,11 @@ export function GlassSurface({
   accessibilityRole,
   accessibilityState,
   accessibilityValue,
+  denser = false,
 }: Props) {
   const shadowStyle = shadow === 'none' ? undefined : nw.shadow[shadow];
   const frost = variant === 'frost';
-  const webBlur = frost ? nw.glass.webBlurFrost : nw.glass.webBlur;
+  const webBlur = denser ? nw.glass.webBlurDense : frost ? nw.glass.webBlurFrost : nw.glass.webBlur;
   const outerBase: StyleProp<ViewStyle> = [
     shadowStyle,
     { borderRadius: radius, alignSelf: 'stretch' },
@@ -85,14 +88,16 @@ export function GlassSurface({
           pointerEvents="none"
           style={[
             StyleSheet.absoluteFill,
+            // borderRadius גם על שכבת הטשטוש עצמה: Chrome לא חותך backdrop-filter לפי
+            // overflow:hidden + radius של ההורה — בלי זה נראה ״ריבוע״ מאחורי צורה מעוגלת.
             // @ts-expect-error web-only CSS
-            { backdropFilter: webBlur, WebkitBackdropFilter: webBlur },
+            { borderRadius: radius, backdropFilter: webBlur, WebkitBackdropFilter: webBlur },
           ]}
         />
       ) : (
         <BlurView
           pointerEvents="none"
-          intensity={frost ? nw.glass.blurIntensityFrost : nw.glass.blurIntensity}
+          intensity={denser ? nw.glass.blurIntensityDense : frost ? nw.glass.blurIntensityFrost : nw.glass.blurIntensity}
           tint={Platform.OS === 'ios' ? 'systemUltraThinMaterialLight' : 'light'}
           {...(Platform.OS === 'android' ? { experimentalBlurMethod: 'dimezisBlurView' as const } : {})}
           style={StyleSheet.absoluteFill}
@@ -100,7 +105,7 @@ export function GlassSurface({
       )}
       <View
         pointerEvents="none"
-        style={[StyleSheet.absoluteFill, { backgroundColor: tint ?? FILL[variant] }]}
+        style={[StyleSheet.absoluteFill, { backgroundColor: tint ?? (denser ? nw.glass.fillDense : FILL[variant]) }]}
       />
       <LinearGradient
         pointerEvents="none"

@@ -13,7 +13,7 @@ import { useAppStore } from '../store/useAppStore';
  */
 export function useReadingSession() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ aliyah?: string; focus?: string }>();
+  const params = useLocalSearchParams<{ aliyah?: string; focus?: string; verse?: string }>();
 
   const calendarMode = useAppStore((s) => s.calendarMode);
   const progress = useAppStore((s) => s.progress);
@@ -36,6 +36,16 @@ export function useReadingSession() {
   // כניסה למסך: עלייה מפורשת (מהמסלול) או המשך מהפסוק האחרון שנקרא
   const resumed = useRef(false);
   useEffect(() => {
+    // ״להמשיך מפסוק…״ — קפיצה מדויקת לפסוק השמור
+    if (params.verse) {
+      const a = aliyahOf(params.verse);
+      if (a) {
+        resumed.current = true;
+        setLastVerseId(params.verse);
+        if (a.id !== activeAliyah) setActiveAliyah(a.id);
+        return;
+      }
+    }
     if (params.aliyah) {
       const n = Number(params.aliyah);
       if (n >= 1 && n <= 7) setActiveAliyah(n);
@@ -47,7 +57,7 @@ export function useReadingSession() {
     const a = aliyahOf(lastVerseId);
     if (a && a.id !== activeAliyah) setActiveAliyah(a.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- פעם אחת בכניסה
-  }, [params.aliyah]);
+  }, [params.aliyah, params.verse]);
 
   const aliyah = parasha.aliyot.find((a) => a.id === activeAliyah) ?? parasha.aliyot[0];
   const verseMap = useMemo(
@@ -80,6 +90,17 @@ export function useReadingSession() {
     setIndex(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- רק כשהעלייה / הרשימה מתחלפת
   }, [activeAliyah, displayVerses.length, focusSet]);
+
+  // אחרי שהעלייה הנכונה נטענה — מציבים את הפסוק המבוקש, ומנקים את הפרמטר (כדי שניווט רגיל לא ״יקפוץ״ אליו שוב)
+  useEffect(() => {
+    if (!params.verse) return;
+    const i = displayVerses.findIndex((v) => v.id === params.verse);
+    if (i >= 0) {
+      setIndex(i);
+      router.setParams({ verse: '' });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.verse, displayVerses]);
 
   const verse: Verse | undefined = displayVerses[Math.min(index, displayVerses.length - 1)];
 
@@ -153,6 +174,12 @@ export function useReadingSession() {
     goNextVerse();
   };
 
+  /** מצב גלילה: ״קראתי שניים ואחד״ לפסוק מסוים (בלי לעבור פסוק) */
+  const completeVerseAt = (verseId: string) => {
+    completeVerse(verseId);
+    if (isParashaComplete(parasha, useAppStore.getState().progress)) setTimeout(() => router.push('/completion'), 160);
+  };
+
   /** קפיצה לפסוק (למשל בלחיצה על פסוק במגילה) */
   const jumpToVerse = (verseId: string) => {
     const i = displayVerses.findIndex((v) => v.id === verseId);
@@ -193,6 +220,7 @@ export function useReadingSession() {
     goNextAliyah,
     handleToggle,
     completeAndNext,
+    completeVerseAt,
     jumpToVerse,
     exitFocus,
   };

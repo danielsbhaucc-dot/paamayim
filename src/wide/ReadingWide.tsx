@@ -5,6 +5,8 @@ import { Platform, Text, View } from 'react-native';
 import { TorahScrollView } from '../components/TorahScrollView';
 import type { ReadingView } from '../data/types';
 import { useReadingSession } from '../reading/useReadingSession';
+import { READING_MODES } from '../reading/modes';
+import { VerseFlow } from '../reading/VerseFlow';
 import { useAppStore } from '../store/useAppStore';
 import { nw } from '../theme/design';
 import { rtl } from '../theme/rtl';
@@ -16,7 +18,9 @@ import {
   SegmentedTabs,
   VerseFocusCard,
   WideCols,
+  ScreenBackground,
   WidePage,
+  WidePageHead,
   useLayout,
 } from '../ui';
 
@@ -28,7 +32,7 @@ import {
  * מקלדת: ← הבא, → הקודם (כיוון קריאה עברי), Enter = ״קראתי שניים ואחד״ והבא.
  */
 export function ReadingWide() {
-  const { isDesktop, height } = useLayout();
+  const { isDesktop, height, gutter } = useLayout();
   const readingView = useAppStore((s) => s.readingView);
   const setReadingView = useAppStore((s) => s.setReadingView);
   const getVerseProgress = useAppStore((s) => s.getVerseProgress);
@@ -45,6 +49,8 @@ export function ReadingWide() {
       const t = e.target as HTMLElement | null;
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
       const k = keyRef.current;
+      // במצב גלילה החיצים/Enter שייכים לגלילה הרגילה של הדף
+      if (useAppStore.getState().readingView === 'flow') return;
       if (e.key === 'ArrowLeft' && k.canNext) k.goNextVerse();
       if (e.key === 'ArrowRight' && k.canPrev) k.goPrevVerse();
       if (e.key === 'Enter' && !k.focusSet) {
@@ -60,8 +66,9 @@ export function ReadingWide() {
   const title = focusSet ? 'פסוקים שהסיפור נשען עליהם' : `פרשת ${parasha.name}`;
   const subtitle = focusSet
     ? `פרשת ${parasha.name}`
-    : `${aliyah.title} · עלייה ${activeAliyah} · ${dayLabel}`;
-  const showVerse = isDesktop || readingView !== 'scroll';
+    : `${aliyah.title} · ${dayLabel}`;
+  const flow = readingView === 'flow';
+  const showVerse = isDesktop || readingView === 'verse';
   const showScroll = isDesktop || readingView === 'scroll';
   const stageH = isDesktop
     ? Math.max(440, Math.min(720, height - 300))
@@ -160,20 +167,42 @@ export function ReadingWide() {
     </GlassSurface>
   );
 
+  const tabs = (
+    <SegmentedTabs
+      size="md"
+      options={READING_MODES}
+      value={readingView}
+      onChange={(id) => setReadingView(id as ReadingView)}
+      style={{ maxWidth: 520, width: '100%', alignSelf: 'center', marginBottom: 16 }}
+    />
+  );
+
+  /** מצב גלילה: עמודה אחת ממורכזת וקריאה, כל העלייה ברצף */
+  if (flow) {
+    return (
+      <ScreenBackground variant="mist" wideNav>
+        <VerseFlow
+          r={r}
+          large={isDesktop}
+          contentMax={820 + gutter * 2}
+          padX={gutter}
+          bottomPad={56}
+          header={
+            <View style={{ gap: 12, marginBottom: 14 }}>
+              <WidePageHead title={title} subtitle={subtitle} back />
+              {tabs}
+              {focusSet ? <FocusBanner onExit={r.exitFocus} /> : null}
+              <ProgressPill value={pct} label={`${r.aliyahDone.done}/${r.aliyahDone.total} פסוקים`} />
+            </View>
+          }
+        />
+      </ScreenBackground>
+    );
+  }
+
   return (
     <WidePage title={title} subtitle={subtitle} back maxWidth={isDesktop ? 1180 : 760}>
-      {!isDesktop ? (
-        <SegmentedTabs
-          size="md"
-          options={[
-            { id: 'verse', label: 'פסוק־פסוק' },
-            { id: 'scroll', label: 'גלילה רציפה' },
-          ]}
-          value={readingView}
-          onChange={(id) => setReadingView(id as ReadingView)}
-          style={{ maxWidth: 440, width: '100%', alignSelf: 'center', marginBottom: 20 }}
-        />
-      ) : null}
+      {tabs}
       {focusSet ? <FocusBanner onExit={r.exitFocus} style={{ marginBottom: 16 }} /> : null}
       <WideCols align="flex-start" gap={28}>
         {showVerse ? verseCol : null}

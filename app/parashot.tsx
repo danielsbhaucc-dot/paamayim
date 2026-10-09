@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { Check, RotateCcw } from 'lucide-react-native';
 import React, { useMemo } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { slugsForParasha, useWeekParasha } from '../src/content';
 import { listParashot } from '../src/data/parashot';
@@ -10,12 +10,13 @@ import { useAppStore } from '../src/store/useAppStore';
 import { nw } from '../src/theme/design';
 import { fonts } from '../src/theme/fonts';
 import { rtl } from '../src/theme/rtl';
-import { GlassSurface, ScreenBackground, ScreenHeader, WidePage, useLayout } from '../src/ui';
+import { GlassSurface, ScreenBackground, ScreenHeader, WidePage, useLayout, LargeTitle, useCollapsingTitle } from '../src/ui';
 import { useG } from '../src/greeting/useG';
 import { UI } from '../src/greeting/uiTexts';
 
 /** בחירת פרשה: כל 54 הפרשות לפי חומשים, ו״חזרה לפרשת השבוע״ */
 export default function ParashotScreen() {
+  const t = useCollapsingTitle();
   const { isWide } = useLayout();
   const body = <ParashaPicker />;
   if (isWide) {
@@ -28,13 +29,15 @@ export default function ParashotScreen() {
   return (
     <ScreenBackground variant="mist" showNav={false}>
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
-        <ScreenHeader title="כל הפרשות" />
-        <ScrollView
-          contentContainerStyle={{ paddingHorizontal: nw.space.screenX, paddingTop: 8, paddingBottom: 32 }}
+        <ScreenHeader title="כל הפרשות" scrollY={t.scrollY} />
+        <Animated.ScrollView
+          {...t.scrollProps}
+          contentContainerStyle={{ paddingHorizontal: nw.space.screenX, paddingBottom: 32 }}
           showsVerticalScrollIndicator={false}
         >
+          <LargeTitle title="כל הפרשות" subtitle="54 פרשות בחמשת חומשי התורה" scrollY={t.scrollY} />
           {body}
-        </ScrollView>
+        </Animated.ScrollView>
       </SafeAreaView>
     </ScreenBackground>
   );
@@ -140,7 +143,7 @@ const styles = StyleSheet.create({
     flexDirection: rtl.row,
     alignItems: 'center',
     gap: 6,
-    backgroundColor: nw.surface.button,
+    backgroundColor: nw.surface.chip,
     borderWidth: 1,
     borderColor: nw.surface.border,
   },

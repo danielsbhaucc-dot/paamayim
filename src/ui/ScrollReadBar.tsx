@@ -3,7 +3,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { verseMark } from '../data/hebrew';
 import type { PassKind, Verse, VerseProgress } from '../data/types';
-import { nw } from '../theme/design';
+import { nw, passHue } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { GlassSurface } from './GlassSurface';
@@ -37,13 +37,14 @@ export function ScrollReadBar({ verse, progress, onToggle, onCompleteNext, style
       </View>
       <Text
         numberOfLines={3}
-        style={[styles.rtl, { ...nw.type.onkelos, fontSize: 17, lineHeight: 28, color: nw.color.inkSoft }]}
+        style={[styles.rtl, { ...nw.type.onkelos, fontSize: 18, lineHeight: 32, color: nw.color.targumInk }]}
       >
         {verse.onkelos}
       </Text>
       <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 8 }}>
         {PASSES.map(({ kind, label }) => {
           const done = progress[kind];
+          const h = passHue[kind];
           return (
             <Pressable
               key={kind}
@@ -51,10 +52,10 @@ export function ScrollReadBar({ verse, progress, onToggle, onCompleteNext, style
               accessibilityRole="checkbox"
               accessibilityState={{ checked: done }}
               accessibilityLabel={label}
-              style={[styles.chip, done && styles.chipDone]}
+              style={[styles.chip, { backgroundColor: h.soft, borderColor: h.solid }, done && { backgroundColor: h.ink, borderColor: h.ink }]}
             >
               {done ? <Check size={14} color={nw.color.onAccent} strokeWidth={3} /> : null}
-              <Text style={[styles.chipText, done && { color: nw.color.onAccent }]}>{label}</Text>
+              <Text style={[styles.chipText, { color: h.ink }, done && { color: nw.color.onAccent }]}>{label}</Text>
             </Pressable>
           );
         })}

@@ -1,71 +1,81 @@
+import { Check } from 'lucide-react-native';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { nw } from '../theme/design';
+import { STATUS_LABEL, type AliyahStatus } from '../reading/journey';
+import { aliyahHue, nw, pearl } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { GlassSurface } from './GlassSurface';
 
 type Props = {
-  top: string;
-  bottom: string;
-  active: boolean;
-  done: boolean;
+  /** ״יום א׳״ / ״שבת״ */
+  day: string;
+  /** ״ראשונה״, ״שנייה״… */
+  ordinal: string;
+  /** 1..7 — קובע את הגוון */
+  aliyahId: number;
+  status: AliyahStatus;
+  /** 0..1 — לסטטוס ״בתהליך״ */
+  ratio?: number;
+  selected: boolean;
   onPress: () => void;
+  /** רוחב קבוע (גלילה אופקית בטלפון) במקום flex */
+  width?: number;
 };
 
-export function DayChip({ top, bottom, active, done, onPress }: Props) {
-  const topColor = active ? '#FFFFFF' : nw.color.ink;
-  const bottomColor = active ? '#FFFFFF' : nw.color.inkSoft;
-  const dotColor = active ? '#FFFFFF' : nw.color.tealBright;
+/**
+ * שבב יום במסלול השבועי: היום + העלייה + הסטטוס במילים.
+ * ״היום״ מודגש במילוי בגוון העלייה; הנבחר (אם אינו היום) — מסגרת בגוון; הושלמה — סימן ✓.
+ * כל עלייה בגוון עדין משלה (פס עליון), אבל המצב תמיד כתוב גם במילים — לא רק בצבע.
+ */
+export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, onPress, width }: Props) {
+  const h = aliyahHue(aliyahId);
+  const today = status === 'today';
+  const done = status === 'done';
+  const ink = today ? nw.color.onAccent : nw.color.ink;
+  const sub = today ? nw.color.onAccent : h.ink;
+  const statusText = status === 'partial' ? `${STATUS_LABEL.partial} · ${Math.round(ratio * 100)}%` : STATUS_LABEL[status];
 
   return (
     <GlassSurface
       variant="subtle"
       radius={16}
       padded={false}
-      tint={active ? nw.color.tealTint : undefined}
-      shadow={active ? 'none' : 'card'}
-      style={[{ flex: 1, minWidth: 0, height: 84 }, active ? nw.shadow.active : null]}
-      contentStyle={{ alignItems: 'center', justifyContent: 'center', gap: 4 }}
+      tint={today ? h.ink : done ? h.soft : undefined}
+      borderColor={selected && !today ? h.solid : today ? h.ink : undefined}
+      borderWidth={selected && !today ? 2 : 1}
+      shadow={today ? 'none' : 'card'}
+      style={[{ height: 96 }, width ? { width } : { flex: 1, minWidth: 0 }, today ? nw.shadow.active : null]}
+      contentStyle={{ alignItems: 'center', justifyContent: 'center', gap: 2, paddingTop: 6, paddingHorizontal: 4 }}
       onPress={onPress}
       accessibilityRole="tab"
-      accessibilityState={{ selected: active }}
-      accessibilityLabel={`${top} ${bottom}`}
+      accessibilityState={{ selected }}
+      accessibilityLabel={`${day}, עלייה ${ordinal}, ${statusText}`}
     >
-      <Text
+      {/* פס הגוון של העלייה */}
+      <View
         style={{
-          fontFamily: fonts.uiBold,
-          fontSize: 14,
-          color: topColor,
-          textAlign: 'center',
-          writingDirection: 'rtl',
+          position: 'absolute',
+          top: 0,
+          left: 14,
+          right: 14,
+          height: 4,
+          borderBottomLeftRadius: 3,
+          borderBottomRightRadius: 3,
+          backgroundColor: today ? pearl(0.7) : h.solid,
         }}
-      >
-        {top}
+      />
+      <Text numberOfLines={1} style={{ fontFamily: fonts.uiSemi, fontSize: 13, color: today ? nw.color.onAccent : nw.color.inkSoft, textAlign: 'center', writingDirection: 'rtl' }}>
+        {day}
       </Text>
-      <Text
-        style={{
-          fontFamily: fonts.uiSemi,
-          fontSize: 13,
-          color: bottomColor,
-          textAlign: 'center',
-          writingDirection: 'rtl',
-        }}
-      >
-        {bottom}
+      <Text numberOfLines={1} style={{ fontFamily: fonts.uiExtra, fontSize: 15, color: ink, textAlign: 'center', writingDirection: 'rtl' }}>
+        {ordinal}
       </Text>
-      {done ? (
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 8,
-            width: 6,
-            height: 6,
-            borderRadius: 3,
-            backgroundColor: dotColor,
-            alignSelf: 'center',
-          }}
-        />
-      ) : null}
+      <View style={{ flexDirection: 'row-reverse', alignItems: 'center', gap: 3, marginTop: 2 }}>
+        {done ? <Check size={13} color={sub} strokeWidth={3} /> : null}
+        <Text numberOfLines={1} style={{ fontFamily: fonts.uiBold, fontSize: 12, color: sub, textAlign: 'center', writingDirection: 'rtl' }}>
+          {statusText}
+        </Text>
+      </View>
     </GlassSurface>
   );
 }

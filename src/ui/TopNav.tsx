@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { usePathname, useRouter } from 'expo-router';
-import { BookOpen, CalendarDays, ChevronDown, Settings } from 'lucide-react-native';
+import { BookOpen, CalendarDays, ChevronDown } from 'lucide-react-native';
 import React from 'react';
 import { Pressable, Text, View, type PressableStateCallbackType } from 'react-native';
 import { isNavActive, NAV_ITEMS } from '../components/GlassBottomNav';
@@ -19,7 +19,7 @@ const WIDE_LABEL: Record<string, string> = {
   '/(tabs)': 'בית',
   '/(tabs)/path': 'מסלול עד שבת',
   '/(tabs)/family': 'מצב משפחה',
-  '/(tabs)/more': 'עוד',
+  '/(tabs)/more': 'הגדרות',
 };
 
 type HoverState = PressableStateCallbackType & { hovered?: boolean };
@@ -114,6 +114,7 @@ export function TopNav() {
                   const hovered = (state as HoverState).hovered;
                   return {
                     height: 48,
+                    overflow: 'hidden',
                     paddingHorizontal: isDesktop ? 14 : 10,
                     borderRadius: 14,
                     flexDirection: rtl.row,
@@ -183,21 +184,6 @@ export function TopNav() {
             </Text>
             <ChevronDown size={16} color={nw.color.inkSoft} strokeWidth={1.75} />
           </GlassSurface>
-          {isDesktop ? (
-            <GlassSurface
-              variant="subtle"
-              radius={22}
-              padded={false}
-              shadow="none"
-              onPress={() => router.push('/settings')}
-              accessibilityRole="button"
-              accessibilityLabel="הגדרות"
-              style={{ width: 44, height: 44 }}
-              contentStyle={{ alignItems: 'center', justifyContent: 'center' }}
-            >
-              <Settings size={20} color={nw.color.ink} strokeWidth={1.75} />
-            </GlassSurface>
-          ) : null}
           <MenuButton />
           {isDesktop ? (
             <Pressable

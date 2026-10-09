@@ -218,8 +218,9 @@ function HomeMobile() {
 
           {/* ברכה אישית + כל הפרשות */}
           <GreetingHeader style={{ marginHorizontal: nw.space.screenX, marginTop: 12 }} />
+          {/* ביקור ראשון: ״נעים להכיר״ מיד מתחת לברכה (נפתח שוב מהעיפרון שליד הברכה) */}
+          <NamePrompt style={{ marginHorizontal: nw.space.screenX, marginTop: 12, width: 'auto' }} />
           <HomeStatus style={{ marginHorizontal: nw.space.screenX, marginTop: 10 }} />
-          <NamePrompt style={{ marginHorizontal: nw.space.screenX, marginTop: 12 }} />
 
           <View
             style={{
@@ -230,7 +231,7 @@ function HomeMobile() {
             }}
           >
             <Pressable
-              style={{ flex: 1 }}
+              style={{ flex: 1, borderRadius: 18 }}
               onPress={() => router.push({ pathname: '/story', params: { kind: 'parasha' } })}
               accessibilityRole="button"
               accessibilityLabel="הפרשה"
@@ -271,7 +272,7 @@ function HomeMobile() {
               </GlassSurface>
             </Pressable>
             <Pressable
-              style={{ flex: 1 }}
+              style={{ flex: 1, borderRadius: 18 }}
               onPress={() => router.push({ pathname: '/story', params: { kind: 'haftara' } })}
               accessibilityRole="button"
               accessibilityLabel="ההפטרה"

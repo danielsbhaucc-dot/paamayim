@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { verseMark } from '../data/hebrew';
 import type { PassKind, Verse, VerseProgress } from '../data/types';
-import { nw } from '../theme/design';
+import { nw, passHue } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { GlassSurface } from './GlassSurface';
@@ -71,18 +71,21 @@ export function VerseFocusCard({
           {/* הסדר הקלאסי: שניים מקרא ואחד תרגום */}
           <PassTile
             label="מקרא א׳"
+            hue={passHue.mikra1}
             Icon={BookOpen}
             done={progress.mikra1}
             onPress={() => onToggle('mikra1')}
           />
           <PassTile
             label="מקרא ב׳"
+            hue={passHue.mikra2}
             Icon={Repeat}
             done={progress.mikra2}
             onPress={() => onToggle('mikra2')}
           />
           <PassTile
             label="תרגום"
+            hue={passHue.onkelos}
             Icon={Languages}
             done={progress.onkelos}
             onPress={() => onToggle('onkelos')}
@@ -101,7 +104,7 @@ export function VerseFocusCard({
           <Text
             style={{
               ...nw.type.caption,
-              color: nw.color.tealText,
+              color: passHue.onkelos.ink,
               textAlign: 'center',
               writingDirection: 'rtl',
               marginTop: 12,
@@ -112,8 +115,8 @@ export function VerseFocusCard({
           <Text
             style={{
               ...nw.type.onkelos,
-              ...(large ? { fontSize: 21, lineHeight: 34 } : null),
-              color: nw.color.inkSoft,
+              ...(large ? { fontSize: 24, lineHeight: 42 } : null),
+              color: nw.color.targumInk,
               textAlign: 'center',
               writingDirection: 'rtl',
               marginTop: 4,

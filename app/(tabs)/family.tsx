@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { Smile, User, Users } from 'lucide-react-native';
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Animated, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { FamilyVoice } from '../../src/data/types';
 import { useAppStore } from '../../src/store/useAppStore';
@@ -16,7 +16,7 @@ import {
   ScreenBackground,
   ScreenHeader,
   SegmentedTabs,
-  useLayout,
+  useLayout, LargeTitle, useCollapsingTitle,
 } from '../../src/ui';
 import { FamilyWide } from '../../src/wide/FamilyWide';
 import { contentImage, useParasha } from '../../src/content';
@@ -27,6 +27,7 @@ export default function FamilyScreen() {
 }
 
 function FamilyMobile() {
+  const t = useCollapsingTitle();
   const router = useRouter();
   const calendarMode = useAppStore((s) => s.calendarMode);
   const familyVoice = useAppStore((s) => s.familyVoice);
@@ -39,19 +40,22 @@ function FamilyMobile() {
   return (
     <ScreenBackground variant="mist">
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
-        <ScreenHeader
-          title="מצב משפחה"
-          subtitle="שני קולות, סיפור אחד"
-          titleIcon={<Users size={24} color={nw.color.tealIcon} strokeWidth={1.75} />}
-        />
+        <ScreenHeader title="מצב משפחה" scrollY={t.scrollY} />
 
-        <ScrollView
+        <Animated.ScrollView
+          {...t.scrollProps}
           contentContainerStyle={{
             paddingHorizontal: nw.space.screenX,
             paddingBottom: 24,
           }}
           showsVerticalScrollIndicator={false}
         >
+          <LargeTitle
+            title="מצב משפחה"
+            subtitle="שני קולות, סיפור אחד"
+            icon={<Users size={28} color={nw.color.tealIcon} strokeWidth={1.75} />}
+            scrollY={t.scrollY}
+          />
           <SegmentedTabs
             size="lg"
             options={[
@@ -130,7 +134,7 @@ function FamilyMobile() {
               })
             }
           />
-        </ScrollView>
+        </Animated.ScrollView>
       </SafeAreaView>
     </ScreenBackground>
   );

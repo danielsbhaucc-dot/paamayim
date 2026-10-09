@@ -1,6 +1,6 @@
 import { BlurView } from 'expo-blur';
 import { usePathname, useRouter } from 'expo-router';
-import { Ellipsis, House, Map, Users, type LucideIcon } from 'lucide-react-native';
+import { House, Map, Settings, Users, type LucideIcon } from 'lucide-react-native';
 import React from 'react';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,7 +13,7 @@ export const NAV_ITEMS: ReadonlyArray<{ href: string; match: readonly string[]; 
   { href: '/(tabs)', match: ['/', '/(tabs)', '/(tabs)/'], label: 'בית', Icon: House },
   { href: '/(tabs)/path', match: ['/path', '/(tabs)/path'], label: 'מסלול', Icon: Map },
   { href: '/(tabs)/family', match: ['/family', '/(tabs)/family'], label: 'משפחה', Icon: Users },
-  { href: '/(tabs)/more', match: ['/more', '/(tabs)/more'], label: 'עוד', Icon: Ellipsis },
+  { href: '/(tabs)/more', match: ['/more', '/(tabs)/more', '/settings'], label: 'הגדרות', Icon: Settings },
 ];
 
 export function isNavActive(pathname: string, match: readonly string[]) {
@@ -38,7 +38,7 @@ export function GlassBottomNav() {
             style={[
               StyleSheet.absoluteFill,
               // @ts-expect-error web-only CSS
-              { backdropFilter: nw.glass.webBlur, WebkitBackdropFilter: nw.glass.webBlur },
+              { borderRadius: 24, backdropFilter: nw.glass.webBlur, WebkitBackdropFilter: nw.glass.webBlur },
             ]}
           />
         ) : (
@@ -55,13 +55,14 @@ export function GlassBottomNav() {
           {NAV_ITEMS.map(({ href, match, label, Icon }) => {
             const active = isNavActive(pathname, match);
             return (
+              <View key={href} style={styles.item}>
+              {/* ה־Pressable עוטף בדיוק את האריח ועגול כמוהו → מסגרת המיקוד / hover לא מרובעת ולא רחבה */}
               <Pressable
-                key={href}
                 onPress={() => router.push(href as never)}
                 accessibilityRole={a11y.roles.tab}
                 accessibilityState={{ selected: active }}
                 accessibilityLabel={label}
-                style={styles.item}
+                style={styles.press}
               >
                 <View style={[styles.tile, active && styles.tileActive]}>
                   <Icon
@@ -83,6 +84,7 @@ export function GlassBottomNav() {
                   </Text>
                 </View>
               </Pressable>
+              </View>
             );
           })}
         </View>
@@ -120,6 +122,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     minHeight: a11y.minTouch,
   },
+  press: { borderRadius: 16 },
   tile: {
     minWidth: 64,
     height: 56,
@@ -132,8 +135,8 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   tileActive: {
-    backgroundColor: nw.surface.buttonActive,
-    borderColor: nw.surface.border,
-    ...nw.shadow.card,
+    // במקום אריח כמעט לבן: גוון טורקיז עדין על הזכוכית
+    backgroundColor: nw.color.tealSoft,
+    borderColor: 'rgba(31,158,140,0.32)',
   },
 });

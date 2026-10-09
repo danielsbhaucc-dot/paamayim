@@ -91,6 +91,7 @@ export function HeroBanner({ parashaName, eyebrow = 'פרשת השבוע', range
       <WaveEdge />
       <GlassSurface
         variant="frost"
+        denser
         radius={22}
         style={{
           position: 'absolute',

@@ -14,6 +14,8 @@ import { rtl } from '../theme/rtl';
 import { frostText } from '../ui/frostText';
 import { GlassSurface } from '../ui/GlassSurface';
 import { PrimaryButton } from '../ui/PrimaryButton';
+import { NamePrompt, PersonalizeButton } from '../ui/Greeting';
+import { ResumeLine } from '../ui/HomeStatus';
 import { useLayout } from '../ui/useLayout';
 import { WaveBand } from '../ui/WaveBand';
 import { WIDE_HERO_TREE } from './heroTree';
@@ -76,9 +78,12 @@ export function HomeHero() {
       {/* כותרת */}
       <View style={[center, { gap: 6, paddingHorizontal: 12 }]}>
         <Image source={img.logoLeaf} style={{ width: 40, height: 48 }} contentFit="contain" />
-        <Text accessibilityRole="header" style={{ ...T, fontFamily: fonts.uiExtra, fontSize: isDesktop ? 46 : 36, lineHeight: isDesktop ? 56 : 46, color: nw.color.ink, ...frostText }}>
-          {g.line1}
-        </Text>
+        <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 10 }}>
+          <Text accessibilityRole="header" style={{ ...T, fontFamily: fonts.uiExtra, fontSize: isDesktop ? 46 : 36, lineHeight: isDesktop ? 56 : 46, color: nw.color.ink, ...frostText }}>
+            {g.line1}
+          </Text>
+          <PersonalizeButton />
+        </View>
         {g.line2 ? (
           <Text style={{ ...T, fontFamily: g.solemn ? fonts.uiSemi : fonts.uiBold, fontSize: g.solemn ? 18 : 22, lineHeight: 30, color: g.solemn ? nw.color.inkSoft : nw.color.teal, maxWidth: 760 }}>
             {g.line2}
@@ -89,6 +94,8 @@ export function HomeHero() {
             {status.text}
           </Text>
         ) : null}
+        {status?.resume ? <ResumeLine label={status.resume.label} when={status.resume.when} center /> : null}
+        <NamePrompt style={{ marginTop: 12 }} />
       </View>
 
       {/* כרטיסים */}
@@ -126,7 +133,7 @@ export function HomeHero() {
               <Text style={{ ...T, ...nw.type.label, color: nw.color.ink }}>{parasha.rangeLabel}</Text>
               {p ? (
                 <View style={{ alignSelf: 'stretch', marginTop: 12, gap: 6 }}>
-                  <View style={{ height: 6, borderRadius: 3, backgroundColor: pearl(0.7), overflow: 'hidden', flexDirection: rtl.row }}>
+                  <View style={{ height: 6, borderRadius: 3, backgroundColor: nw.color.tealSoft, overflow: 'hidden', flexDirection: rtl.row }}>
                     <View style={{ width: `${p.percent}%`, height: 6, borderRadius: 3, backgroundColor: nw.color.tealBright }} />
                   </View>
                   <Text style={{ ...T, fontFamily: fonts.uiSemi, fontSize: 12, color: nw.color.inkMuted }}>

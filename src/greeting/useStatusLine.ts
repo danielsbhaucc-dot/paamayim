@@ -10,12 +10,14 @@ import {
   pickIndex,
   renderStatus,
   statusCategory,
+  whenPhrase,
   type ParashaProgress,
   type StatusCategory,
 } from './status';
 import { useNow } from './useGreeting';
 import { getGreeting } from './greeting';
 import { aliyahOrdinal, aliyotLeftPhrase } from './hebrewNumbers';
+import { verseMark } from '../data/hebrew';
 
 /** האם המאגר השמור (AsyncStorage) כבר נטען — כדי לא להציג משפט של ״לא התחלת״ לרגע */
 function useHydrated(): boolean {
@@ -35,6 +37,18 @@ export type StatusLine = {
   cta: string;
   route: string;
   progress: ParashaProgress;
+  /** המקום השמור בפרשה הזו (אם יש): לכפתור ״להמשיך מפסוק…״ ולשורת ״עצרת ב…״ */
+  resume: Resume | null;
+};
+
+export type Resume = {
+  verseId: string;
+  aliyahId: number;
+  aliyah: string;
+  verse: string;
+  when: string;
+  /** ״פרשת בראשית · עלייה שלישית · פסוק י״ב״ */
+  label: string;
 };
 
 /**
@@ -46,14 +60,32 @@ export function useStatusLine(): StatusLine | null {
   const mode = useAppStore((s) => s.calendarMode);
   const parasha = useParasha(mode);
   const progressMap = useAppStore((s) => s.progress);
-  const lastActiveAt = useAppStore((s) => s.lastActiveAt);
+  const lastVerseId = useAppStore((s) => s.lastVerseId);
+  const lastReadAt = useAppStore((s) => s.lastReadAt);
   const gender = useAppStore((s) => s.userGender);
   const name = useAppStore((s) => s.userName);
   const now = useNow();
   const hydrated = useHydrated();
 
   const progress = useMemo(() => parashaProgress(parasha, progressMap), [parasha, progressMap]);
-  const category = statusCategory(progress, now, lastActiveAt);
+  // המקום השמור — רק אם הוא בפרשה המוצגת ולא בסוף שלה
+  const resume = useMemo<Resume | null>(() => {
+    if (!lastVerseId || progress.finished) return null;
+    const a = parasha.aliyot.find((x) => x.verseIds.includes(lastVerseId));
+    const v = parasha.verses.find((x) => x.id === lastVerseId);
+    if (!a || !v) return null;
+    const aliyah = aliyahOrdinal(a.id);
+    const verse = `פסוק ${verseMark(v.verse)}`;
+    return {
+      verseId: v.id,
+      aliyahId: a.id,
+      aliyah,
+      verse,
+      when: lastReadAt ? whenPhrase(lastReadAt, now) : 'בפעם הקודמת',
+      label: `פרשת ${parasha.name} · ${aliyah} · ${verse}`,
+    };
+  }, [lastVerseId, lastReadAt, parasha, progress.finished, now]);
+  const category = statusCategory(progress, now, resume ? lastReadAt : null);
   const categoryRef = useRef(category);
   categoryRef.current = category;
 
@@ -99,17 +131,20 @@ export function useStatusLine(): StatusLine | null {
       : progress.started
         ? `פרשת ${parasha.name} · ${aliyahOrdinal(progress.currentAliyah)} · ${aliyotLeftPhrase(progress.remaining)}.`
         : `פרשת ${parasha.name} · שבע עליות.`;
-    return { category, text, cta: g(cta.label, gender), route: cta.route, progress };
+    return { category, text, cta: g(cta.label, gender), route: cta.route, progress, resume };
   }
+  const resumeRoute = resume && cta.route === '/reading' ? `/reading?verse=${encodeURIComponent(resume.verseId)}` : cta.route;
   return {
     category,
     text: renderStatus(STATUS_LINES[category][pick.idx], gender, {
       name,
       parasha: parasha.name,
       progress,
+      resume,
     }),
-    cta: g(cta.label, gender),
-    route: cta.route,
+    cta: category === 'returning' && resume ? `להמשיך מ${resume.verse}` : g(cta.label, gender),
+    route: resumeRoute,
     progress,
+    resume,
   };
 }

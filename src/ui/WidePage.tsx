@@ -57,56 +57,10 @@ export function WidePage({
   scroll = true,
   children,
 }: PageProps) {
-  const router = useRouter();
-  const { isDesktop, gutter, contentMax } = useLayout();
+  const { gutter, contentMax } = useLayout();
   const max = maxWidth ?? contentMax;
 
-  const head = title ? (
-    <View style={{ alignItems: 'center', marginTop: isDesktop ? 18 : 12, marginBottom: isDesktop ? 26 : 20 }}>
-      <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 12 }}>
-        {icon ?? <Image source={img.logoLeaf} style={{ width: 30, height: 38 }} contentFit="contain" />}
-        <Text
-          accessibilityRole="header"
-          style={{
-            ...(isDesktop ? nw.type.displayWide : nw.type.display),
-            color: nw.color.ink,
-            textAlign: 'center',
-            writingDirection: 'rtl',
-          }}
-        >
-          {title}
-        </Text>
-      </View>
-      {subtitle ? (
-        <Text
-          style={{
-            ...nw.type.h3,
-            fontSize: isDesktop ? 20 : 18,
-            color: nw.color.inkSoft,
-            textAlign: 'center',
-            writingDirection: 'rtl',
-            marginTop: 6,
-          }}
-        >
-          {subtitle}
-        </Text>
-      ) : null}
-      {back ? (
-        <GlassSurface
-          variant="subtle"
-          radius={22}
-          padded={false}
-          shadow="none"
-          onPress={() => (router.canGoBack() ? router.back() : router.replace('/(tabs)' as never))}
-          accessibilityLabel="חזרה"
-          style={{ position: 'absolute', top: 6, right: 0, width: 44, height: 44 }}
-          contentStyle={{ alignItems: 'center', justifyContent: 'center' }}
-        >
-          <ChevronRight size={22} color={nw.color.ink} strokeWidth={1.75} />
-        </GlassSurface>
-      ) : null}
-    </View>
-  ) : null;
+  const head = title ? <WidePageHead title={title} subtitle={subtitle} icon={icon} back={back} /> : null;
 
   // flexGrow + justifyContent: center → תוכן קצר מתאזן אנכית (בלי חלל ריק גדול מתחת בטאבלט)
   const inner = (
@@ -176,6 +130,58 @@ export function WideSectionTitle({ children, icon }: { children: string; icon?: 
       <Text style={{ ...nw.type.h2, color: nw.color.ink, textAlign: rtl.textRight, writingDirection: 'rtl' }}>
         {children}
       </Text>
+    </View>
+  );
+}
+
+/** כותרת עמוד רחב (עלה + כותרת גדולה + תת־כותרת + חזרה). מיוצא למסכים שמנהלים גלילה בעצמם. */
+export function WidePageHead({ title, subtitle, icon, back }: { title: string; subtitle?: string; icon?: React.ReactNode; back?: boolean }) {
+  const router = useRouter();
+  const { isDesktop } = useLayout();
+  return (
+    <View style={{ alignItems: 'center', marginTop: isDesktop ? 18 : 12, marginBottom: isDesktop ? 26 : 20 }}>
+      <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 12 }}>
+        {icon ?? <Image source={img.logoLeaf} style={{ width: 30, height: 38 }} contentFit="contain" />}
+        <Text
+          accessibilityRole="header"
+          style={{
+            ...(isDesktop ? nw.type.displayWide : nw.type.display),
+            color: nw.color.ink,
+            textAlign: 'center',
+            writingDirection: 'rtl',
+          }}
+        >
+          {title}
+        </Text>
+      </View>
+      {subtitle ? (
+        <Text
+          style={{
+            ...nw.type.h3,
+            fontSize: isDesktop ? 20 : 18,
+            color: nw.color.inkSoft,
+            textAlign: 'center',
+            writingDirection: 'rtl',
+            marginTop: 6,
+          }}
+        >
+          {subtitle}
+        </Text>
+      ) : null}
+      {back ? (
+        <GlassSurface
+          variant="subtle"
+          radius={22}
+          padded={false}
+          shadow="none"
+          onPress={() => (router.canGoBack() ? router.back() : router.replace('/(tabs)' as never))}
+          accessibilityLabel="חזרה"
+          style={{ position: 'absolute', top: 6, right: 0, width: 44, height: 44 }}
+          contentStyle={{ alignItems: 'center', justifyContent: 'center' }}
+        >
+          <ChevronRight size={22} color={nw.color.ink} strokeWidth={1.75} />
+        </GlassSurface>
+      ) : null}
     </View>
   );
 }

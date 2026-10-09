@@ -12,6 +12,7 @@ import {
   pickIndex,
   renderStatus,
   statusCategory,
+  whenPhrase,
   type ParashaProgress,
   type StatusCategory,
 } from '../../src/greeting/status';
@@ -46,7 +47,8 @@ test('pool: ~100 sentences, every category has CTAs, all render cleanly in m/f/p
     STATUS_LINES[cat].forEach((line, i) => {
       for (const gender of ['m', 'f', 'p'] as const) {
         for (const name of ['דניאל', '']) {
-          const s = renderStatus(line, gender, { name, parasha: 'בראשית', progress: prog(3, 46) });
+          const resume = cat === 'returning' ? { aliyah: 'עלייה שלישית', verse: 'פסוק י״ב', when: 'אתמול' } : null;
+          const s = renderStatus(line, gender, { name, parasha: 'בראשית', progress: prog(3, 46), resume });
           assert.ok(!/[{}]/.test(s), `${cat}#${i} ${gender}: ${s}`);
           assert.ok(!/^[,!.\s]|\s[,.!?]|,,/.test(s), `${cat}#${i} ${gender} punctuation: ${s}`);
           if (!name) assert.ok(!s.includes('דניאל'));
@@ -86,7 +88,7 @@ test('categories', () => {
   assert.equal(statusCategory(prog(2, 30), tue, fiveDaysAgo), 'returning');
   assert.equal(statusCategory(prog(7, 100), tue, fiveDaysAgo), 'finished'); // סיום גובר
   assert.equal(statusCategory(prog(2, 30), at(2026, 10, 16, 10), at(2026, 10, 16, 9).getTime()), 'friday');
-  assert.equal(statusCategory(prog(2, 30), at(2026, 10, 16, 19), at(2026, 10, 16, 10).getTime()), 'midway'); // שישי אחרי השקיעה
+  assert.equal(statusCategory(prog(2, 30), at(2026, 10, 16, 19), at(2026, 10, 16, 18).getTime()), 'midway'); // שישי אחרי השקיעה
   assert.equal(statusCategory(prog(2, 30), at(2026, 12, 7, 10), at(2026, 12, 7, 9).getTime()), 'holiday'); // חנוכה
   assert.equal(statusCategory(prog(2, 30), at(2027, 4, 19, 10), at(2027, 4, 19, 9).getTime()), 'holiday'); // שבוע פסח
 });
@@ -114,4 +116,26 @@ test('rotation never repeats the previous sentence', () => {
     last = n;
   }
   assert.equal(pickIndex(1, 0), 0);
+});
+
+test('returning: resume line names the exact spot, gendered; "when" phrases', () => {
+  const p = prog(2, 30);
+  const resume = { aliyah: 'עלייה שלישית', verse: 'פסוק י״ב', when: 'אתמול' };
+  const line = STATUS_LINES.returning[0];
+  assert.equal(
+    renderStatus(line, 'm', { parasha: 'בראשית', progress: p, resume }),
+    'בפעם הקודמת עצרת בבראשית, עלייה שלישית, פסוק י״ב. נמשיך?',
+  );
+  assert.match(renderStatus(line, 'p', { parasha: 'בראשית', progress: p, resume }), /^בפעם הקודמת עצרתם/);
+  // כל משפטי ״חוזרים״ החדשים מזכירים את המקום המדויק
+  assert.ok(STATUS_LINES.returning.filter((l) => JSON.stringify(l).includes('{verse}')).length >= 5);
+  const now = at(2026, 10, 13, 10);
+  assert.equal(whenPhrase(at(2026, 10, 13, 6).getTime(), now), 'מוקדם יותר היום');
+  assert.equal(whenPhrase(at(2026, 10, 12, 22).getTime(), now), 'אתמול');
+  assert.equal(whenPhrase(at(2026, 10, 11, 9).getTime(), now), 'שלשום');
+  assert.equal(whenPhrase(at(2026, 10, 9, 9).getTime(), now), 'לפני ארבעה ימים');
+  // ״חוזרים״ רק אחרי כמה שעות מהקריאה האחרונה
+  assert.equal(statusCategory(p, now, now.getTime() - 3600_000), 'midway');
+  assert.equal(statusCategory(p, now, now.getTime() - 5 * 3600_000), 'returning');
+  assert.equal(statusCategory(p, now, null), 'midway');
 });

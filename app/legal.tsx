@@ -1,17 +1,18 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Pressable, ScrollView, Text } from 'react-native';
+import { Animated, Pressable, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CORPUS_LICENSE } from '../src/data/corpus';
 import { APP_NAME } from '../src/theme/brand';
 import { nw } from '../src/theme/design';
 import { rtl } from '../src/theme/rtl';
-import { GlassSurface, ScreenBackground, ScreenHeader } from '../src/ui';
+import { GlassSurface, ScreenBackground, ScreenHeader, LargeTitle, useCollapsingTitle } from '../src/ui';
 import { PrivacyNote } from '../src/ui/PrivacyNote';
 
 const verseTotal = CORPUS_LICENSE.totals.reduce((sum, row) => sum + row.verses, 0);
 
 export default function LegalScreen() {
+  const t = useCollapsingTitle();
   const router = useRouter();
 
   const closeSlot = !router.canGoBack() ? (
@@ -30,16 +31,18 @@ export default function LegalScreen() {
   return (
     <ScreenBackground variant="mist" showNav={false} wideNav wideMaxWidth={760}>
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
-        <ScreenHeader title="משפטי" endSlot={closeSlot} />
+        <ScreenHeader title="משפטי" endSlot={closeSlot} scrollY={t.scrollY} />
 
-        <ScrollView
+        <Animated.ScrollView
+          {...t.scrollProps}
           contentContainerStyle={{
-            paddingTop: 12,
+            paddingTop: 0,
             paddingBottom: 24,
             gap: nw.space.gap,
           }}
           showsVerticalScrollIndicator={false}
         >
+          <LargeTitle title="משפטי ומקורות" subtitle="מאיפה הטקסטים, הרישיון והפרטיות" scrollY={t.scrollY} />
           <GlassSurface
             variant="card"
             radius={22}
@@ -211,7 +214,7 @@ export default function LegalScreen() {
           <GlassSurface variant="card" radius={nw.radius.card} style={{ marginTop: nw.space.gap }}>
             <PrivacyNote />
           </GlassSurface>
-        </ScrollView>
+        </Animated.ScrollView>
       </SafeAreaView>
     </ScreenBackground>
   );

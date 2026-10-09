@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
-import { Library, X } from 'lucide-react-native';
-import React, { useState } from 'react';
+import { Library, PencilLine, X } from 'lucide-react-native';
+import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useParasha, useWeekParasha } from '../content';
 import { useGreeting } from '../greeting/useGreeting';
@@ -29,19 +29,23 @@ export function GreetingHeader({ wide = false, style }: { wide?: boolean; style?
     <View style={style}>
       <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 12 }}>
         <View style={{ flex: 1 }} accessibilityRole="header">
-          <Text
-            style={[
-              styles.rtl,
-              {
-                fontFamily: fonts.uiExtra,
-                fontSize: wide ? 28 : 21,
-                lineHeight: wide ? 36 : 28,
-                color: nw.color.ink,
-              },
-            ]}
-          >
-            {g.line1}
-          </Text>
+          <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 6 }}>
+            <Text
+              style={[
+                styles.rtl,
+                {
+                  fontFamily: fonts.uiExtra,
+                  fontSize: wide ? 28 : 21,
+                  lineHeight: wide ? 36 : 28,
+                  color: nw.color.ink,
+                  flexShrink: 1,
+                },
+              ]}
+            >
+              {g.line1}
+            </Text>
+            <PersonalizeButton />
+          </View>
           {g.line2 ? (
             <Text
               style={[
@@ -90,17 +94,49 @@ export function GreetingHeader({ wide = false, style }: { wide?: boolean; style?
   );
 }
 
-/** הזמנה עדינה לשם — לא חובה, נסגרת ב״לא עכשיו״, ניתנת לעריכה בהגדרות */
+/** עיפרון קטן ליד הברכה — נקודת כניסה קבועה להתאמה אישית (שם ופנייה) */
+export function PersonalizeButton({ light }: { light?: boolean }) {
+  const open = useAppStore((s) => s.openNamePrompt);
+  const isOpen = useAppStore((s) => s.namePromptOpen);
+  return (
+    <Pressable
+      onPress={open}
+      accessibilityRole="button"
+      accessibilityLabel={NAME_PROMPT.edit}
+      accessibilityState={{ expanded: isOpen }}
+      hitSlop={8}
+      style={({ pressed }) => [styles.pencil, pressed && { opacity: 0.8 }]}
+    >
+      <PencilLine size={15} color={light ? nw.color.onAccent : nw.color.tealIcon} strokeWidth={2} />
+    </Pressable>
+  );
+}
+
+/**
+ * ״נעים להכיר״ — הזמנה ברורה לשם ולפנייה בביקור הראשון (לא חובה, נסגרת ב-X / ״לא עכשיו״).
+ * נפתחת שוב בכל רגע מהעיפרון שליד הברכה (עם הערכים הנוכחיים).
+ */
 export function NamePrompt({ style }: { style?: StyleProp<ViewStyle> }) {
   const userName = useAppStore((s) => s.userName);
   const dismissed = useAppStore((s) => s.namePromptDismissed);
+  const open = useAppStore((s) => s.namePromptOpen);
   const setUserName = useAppStore((s) => s.setUserName);
   const dismiss = useAppStore((s) => s.dismissNamePrompt);
-  const [value, setValue] = useState('');
-  if (userName || dismissed) return null;
+  const [value, setValue] = useState(userName);
+  useEffect(() => {
+    if (open) setValue(userName);
+  }, [open, userName]);
+  if (!open && (userName || dismissed)) return null;
   const save = () => (value.trim() ? setUserName(value) : dismiss());
   return (
-    <GlassSurface variant="frost" tint={pearl(0.2)} radius={22} style={style} contentStyle={styles.promptBody}>
+    <GlassSurface
+      variant="frost"
+      tint={pearl(0.24)}
+      radius={22}
+      borderColor="rgba(31,158,140,0.35)"
+      style={[{ maxWidth: 560, width: '100%', alignSelf: 'center' }, style]}
+      contentStyle={styles.promptBody}
+    >
       <View style={styles.promptHead}>
         <View style={{ width: 28 }} />
         <View style={{ flex: 1, alignItems: 'center', gap: 2 }}>
@@ -141,6 +177,16 @@ const styles = StyleSheet.create({
   promptBody: { padding: 18, gap: 12, alignItems: 'stretch' },
   promptHead: { flexDirection: rtl.row, alignItems: 'flex-start', gap: 8 },
   inputRow: { flexDirection: rtl.row, gap: 8, alignItems: 'center', alignSelf: 'center', width: '100%', maxWidth: 440 },
+  pencil: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: nw.color.tealSoft,
+    borderWidth: 1,
+    borderColor: 'rgba(31,158,140,0.3)',
+  },
   pickedRow: {
     flexDirection: rtl.row,
     flexWrap: 'wrap',

@@ -1,22 +1,12 @@
 import { Image } from 'expo-image';
 import React, { useId } from 'react';
-import { Platform, View, useWindowDimensions } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 import Svg, { Defs, LinearGradient as SvgGradient, Path, Stop } from 'react-native-svg';
 import { PEARL_HEX, pearl } from '../theme/design';
 import { img } from '../theme/images';
 
 // אותו קו גל של WaveEdge, ברוחב מלא של החלון
 const WAVE = 'M0 30 C 70 8, 150 6, 215 22 S 330 48, 390 26';
-
-/** מקטין/מגדיל את מסלול הגל (viewBox 390×56) לפיקסלים — בשביל clip-path של הטשטוש ב-web */
-function scaledArea(w: number, h: number): string {
-  const sx = w / 390;
-  const sy = h / 56;
-  const nums = `${WAVE} L 390 56 L 0 56 Z`.replace(/(-?\d+(?:\.\d+)?)\s*,?\s*(-?\d+(?:\.\d+)?)/g, (_m, x, y) =>
-    `${(+x * sx).toFixed(1)} ${(+y * sy).toFixed(1)}`,
-  );
-  return `path('${nums}')`;
-}
 
 /**
  * פס זכוכית גלי ברוחב מלא (מסכים רחבים בלבד) עם עלה הלוגו במרכז.
@@ -32,20 +22,14 @@ export function WaveBand({ height = 96 }: { height?: number }) {
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
     >
-      {Platform.OS === 'web' ? (
-        <View
-          style={[
-            { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 },
-            // @ts-expect-error web-only CSS
-            { backdropFilter: 'blur(14px) saturate(140%)', WebkitBackdropFilter: 'blur(14px) saturate(140%)', clipPath: scaledArea(width, height) },
-          ]}
-        />
-      ) : null}
+      {/* בלי backdrop-filter מתחת לגל: ב־Chrome מסכת דהייה לא חלה על הטשטוש, ולכן נוצרה ״רצועת כפור״ עם קצה
+          ישר ש״נוטפת״ על התוכן. עכשיו רק גרדיאנט פנינה רך שנבלע בתוכן + קו הגל. */}
       <Svg width="100%" height={height} viewBox="0 0 390 56" preserveAspectRatio="none" style={{ position: 'absolute', left: 0, right: 0, top: 0 }}>
         <Defs>
           <SvgGradient id={id} x1="0" y1="0" x2="0" y2="1">
             <Stop offset="0" stopColor={PEARL_HEX} stopOpacity={0.5} />
-            <Stop offset="1" stopColor={PEARL_HEX} stopOpacity={0.05} />
+            <Stop offset="0.5" stopColor={PEARL_HEX} stopOpacity={0.18} />
+            <Stop offset="1" stopColor={PEARL_HEX} stopOpacity={0} />
           </SvgGradient>
         </Defs>
         <Path d={`${WAVE} L 390 56 L 0 56 Z`} fill={`url(#${id})`} />

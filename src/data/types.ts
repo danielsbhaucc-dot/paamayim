@@ -1,6 +1,7 @@
 export type CalendarMode = 'israel' | 'diaspora';
 export type FamilyVoice = 'adult' | 'child';
-export type ReadingView = 'verse' | 'scroll';
+/** flow = גלילה (כל העלייה ברצף) · verse = פסוק אחר פסוק · scroll = מגילה */
+export type ReadingView = 'flow' | 'verse' | 'scroll';
 
 export type PassKind = 'mikra1' | 'mikra2' | 'onkelos';
 

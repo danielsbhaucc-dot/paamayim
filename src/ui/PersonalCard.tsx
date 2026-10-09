@@ -7,7 +7,6 @@ import { nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { GenderChips } from './GenderChips';
-import { PrivacyNote } from './PrivacyNote';
 import { GlassSurface } from './GlassSurface';
 
 /** ״הפרטים שלי״ — שם לפנייה אישית (לא חובה, נשמר רק אצלך במכשיר) + תצוגת הברכה */
@@ -61,7 +60,6 @@ export function PersonalCard({
           <Text style={[styles.rtl, { fontFamily: fonts.uiSemi, fontSize: 14, color: nw.color.teal }]}>{g.line2}</Text>
         ) : null}
       </View>
-      <PrivacyNote compact />
     </GlassSurface>
   );
 }

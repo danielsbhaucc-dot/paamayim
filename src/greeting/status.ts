@@ -95,13 +95,22 @@ export function isFridayBeforeShabbat(date: Date): boolean {
   return date.getDay() === 5 && hebrewDay(date).getDay() === 5;
 }
 
+/** אחרי כמה שעות בלי קריאה חוזרים ל״נמשיך מאיפה שעצרת״ (תאימות לאחור: returningAfterDays) */
+const RETURNING_MS =
+  ((RULES as { returningAfterHours?: number }).returningAfterHours ??
+    ((RULES as { returningAfterDays?: number }).returningAfterDays ?? 1) * 24) * 3_600_000;
+
+/**
+ * @param resumeAt מתי נקרא לאחרונה פסוק בפרשה הזו (null = אין מקום שמור בפרשה הזו).
+ * ״חוזרים״ = יש מקום שמור באמצע הפרשה, ועברו כמה שעות מאז.
+ */
 export function statusCategory(
   p: ParashaProgress,
   now: Date,
-  lastActiveAt: number | null,
+  resumeAt: number | null,
 ): StatusCategory {
   if (p.finished) return 'finished';
-  if (lastActiveAt && now.getTime() - lastActiveAt >= RULES.returningAfterDays * 86_400_000) {
+  if (resumeAt && now.getTime() - resumeAt >= RETURNING_MS) {
     return 'returning';
   }
   if (isFridayBeforeShabbat(now)) return 'friday';
@@ -121,7 +130,25 @@ export function pickIndex(count: number, last: number | undefined, rng: () => nu
   return i === last ? (i + 1) % count : i;
 }
 
-export type StatusVars = { name?: string | null; parasha: string; progress: ParashaProgress };
+/** המקום השמור (לקטגוריית ״חוזרים״): ״עלייה שלישית״, ״פסוק י״ב״, ״אתמול״ */
+export type ResumeVars = { aliyah: string; verse: string; when: string };
+export type StatusVars = { name?: string | null; parasha: string; progress: ParashaProgress; resume?: ResumeVars | null };
+
+/** ״מוקדם יותר היום״ / ״אתמול״ / ״שלשום״ / ״לפני ארבעה ימים״ — לפי ימים קלנדריים */
+export function whenPhrase(then: number, now: Date): string {
+  const a = new Date(then);
+  a.setHours(0, 0, 0, 0);
+  const b = new Date(now);
+  b.setHours(0, 0, 0, 0);
+  const days = Math.round((b.getTime() - a.getTime()) / 86_400_000);
+  if (days <= 0) return 'מוקדם יותר היום';
+  if (days === 1) return 'אתמול';
+  if (days === 2) return 'שלשום';
+  if (days < 7) return `לפני ${DAYS_WORD[days]} ימים`;
+  if (days < 14) return 'לפני שבוע';
+  return 'לפני כמה שבועות';
+}
+const DAYS_WORD = ['', '', '', 'שלושה', 'ארבעה', 'חמישה', 'שישה'];
 
 /** ממלא משתנים; בלי שם — {name} נמחק יחד עם הפיסוק שצמוד אליו */
 export function renderStatus(template: Line, gender: Gender | null, v: StatusVars): string {
@@ -134,7 +161,11 @@ export function renderStatus(template: Line, gender: Gender | null, v: StatusVar
       .replace(/\s*\{name\}/g, '');
   }
   const p = v.progress;
+  const r = v.resume;
   return s
+    .replace(/\{lastAliyah\}/g, r?.aliyah ?? aliyahOrdinal(p.currentAliyah))
+    .replace(/\{verse\}/g, r?.verse ?? 'הפסוק הבא')
+    .replace(/\{when\}/g, r?.when ?? 'בפעם הקודמת')
     .replace(/\{name\}/g, name ?? '')
     .replace(/\{parasha\}/g, v.parasha)
     .replace(/\{aliyah\}/g, aliyahOrdinal(p.currentAliyah))

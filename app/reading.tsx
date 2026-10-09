@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { ArrowLeft, ArrowRight } from 'lucide-react-native';
 import React, { useRef } from 'react';
-import { PanResponder, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Animated, PanResponder, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TorahScrollView } from '../src/components/TorahScrollView';
 import type { ReadingView } from '../src/data/types';
@@ -14,14 +14,21 @@ import { spacing } from '../src/theme/tokens';
 import {
   FocusBanner,
   GlassSurface,
+  LargeTitle,
   ProgressPill,
   ScreenBackground,
   ScreenHeader,
   ScrollReadBar,
   SegmentedTabs,
   VerseFocusCard,
+  useCollapsingTitle,
   useLayout,
 } from '../src/ui';
+import { VerseFlow } from '../src/reading/VerseFlow';
+import { ORDINAL_SHORT } from '../src/reading/journey';
+import { aliyahHue } from '../src/theme/design';
+
+import { READING_MODES } from '../src/reading/modes';
 import { ReadingWide } from '../src/wide/ReadingWide';
 
 export default function ReadingScreen() {
@@ -38,6 +45,7 @@ function ReadingMobile() {
   const r = useReadingSession();
   const { parasha, aliyah, activeAliyah, focusSet, displayVerses, index, verse } = r;
   const isScroll = readingView === 'scroll';
+  const t = useCollapsingTitle();
 
   const navRef = useRef(r);
   navRef.current = r;
@@ -72,10 +80,7 @@ function ReadingMobile() {
 
           <SegmentedTabs
             size="md"
-            options={[
-              { id: 'verse', label: 'פסוק־פסוק' },
-              { id: 'scroll', label: 'גלילה רציפה' },
-            ]}
+            options={READING_MODES}
             value={readingView}
             onChange={(id) => setReadingView(id as ReadingView)}
             style={{ marginHorizontal: nw.space.screenX, marginTop: 4 }}
@@ -137,44 +142,76 @@ function ReadingMobile() {
     );
   }
 
-  const headerTitle = focusSet ? 'פסוקים שהסיפור נשען עליהם' : `עלייה ${activeAliyah} · ${dayLabel}`;
+  const headerTitle = focusSet ? 'פסוקים שהסיפור נשען עליהם' : `פרשת ${parasha.name}`;
+  const headerSub = focusSet ? `פרשת ${parasha.name}` : `עלייה ${ORDINAL_SHORT[activeAliyah - 1]} · ${dayLabel}`;
+  const hue = aliyahHue(activeAliyah);
+  const modeTabs = (
+    <SegmentedTabs
+      size="md"
+      options={READING_MODES}
+      value={readingView}
+      onChange={(id) => setReadingView(id as ReadingView)}
+      style={{ marginHorizontal: nw.space.screenX }}
+    />
+  );
+  const bigTitle = (
+    <LargeTitle
+      title={headerTitle}
+      subtitle={headerSub}
+      scrollY={t.scrollY}
+      icon={<View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: hue.solid }} />}
+    />
+  );
+
+  /** מצב גלילה: כל העלייה ברצף, מקרא + תרגום לכל פסוק, המיקום נשמר תוך כדי גלילה */
+  if (readingView === 'flow') {
+    return (
+      <ScreenBackground variant="mist" showNav={false}>
+        <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
+          <ScreenHeader title={headerTitle} subtitle={headerSub} scrollY={t.scrollY} />
+          <VerseFlow
+            r={r}
+            animatedScrollY={t.scrollY}
+            header={
+              <View style={{ gap: 10, marginBottom: 12 }}>
+                {bigTitle}
+                {modeTabs}
+                {focusSet ? <FocusBanner onExit={r.exitFocus} /> : null}
+                <ProgressPill
+                  value={pct}
+                  label={`${r.aliyahDone.done}/${r.aliyahDone.total} פסוקים`}
+                  style={{ marginHorizontal: nw.space.screenX }}
+                />
+              </View>
+            }
+          />
+        </SafeAreaView>
+      </ScreenBackground>
+    );
+  }
 
   return (
     <ScreenBackground variant="mist" showNav={false}>
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
         <View style={{ flex: 1 }}>
-          <ScreenHeader title={headerTitle} />
+          <ScreenHeader title={headerTitle} subtitle={headerSub} scrollY={t.scrollY} />
 
-          <SegmentedTabs
-            size="md"
-            options={[
-              { id: 'verse', label: 'פסוק־פסוק' },
-              { id: 'scroll', label: 'גלילה רציפה' },
-            ]}
-            value={readingView}
-            onChange={(id) => setReadingView(id as ReadingView)}
-            style={{ marginHorizontal: nw.space.screenX, marginTop: 4 }}
-          />
-
-          {focusSet ? <FocusBanner onExit={r.exitFocus} style={{ marginTop: 10 }} /> : null}
-
-          {/* ההתקדמות האמיתית בעלייה (כמה פסוקים נקראו שניים ואחד), והמיקום בתווית */}
-          <ProgressPill
-            value={focusSet ? (index + 1) / Math.max(1, displayVerses.length) : pct}
-            label={`${Math.min(index + 1, displayVerses.length)}/${displayVerses.length}`}
-            style={{ marginHorizontal: nw.space.screenX, marginTop: 12 }}
-          />
-
-          <ScrollView
+          <Animated.ScrollView
             style={{ flex: 1 }}
-            contentContainerStyle={{
-              paddingHorizontal: nw.space.screenX,
-              paddingTop: 14,
-              paddingBottom: 100,
-            }}
+            contentContainerStyle={{ paddingBottom: 100 }}
             showsVerticalScrollIndicator={false}
+            {...t.scrollProps}
           >
-            <View {...panResponder.panHandlers}>
+            {bigTitle}
+            {modeTabs}
+            {focusSet ? <FocusBanner onExit={r.exitFocus} style={{ marginTop: 10 }} /> : null}
+            {/* ההתקדמות האמיתית בעלייה (כמה פסוקים נקראו שניים ואחד), והמיקום בתווית */}
+            <ProgressPill
+              value={focusSet ? (index + 1) / Math.max(1, displayVerses.length) : pct}
+              label={`${Math.min(index + 1, displayVerses.length)}/${displayVerses.length}`}
+              style={{ marginHorizontal: nw.space.screenX, marginTop: 12 }}
+            />
+            <View {...panResponder.panHandlers} style={{ paddingHorizontal: nw.space.screenX, paddingTop: 14 }}>
               {verse ? (
                 <VerseFocusCard
                   verse={verse}
@@ -184,7 +221,7 @@ function ReadingMobile() {
                 />
               ) : null}
             </View>
-          </ScrollView>
+          </Animated.ScrollView>
 
           <View
             style={{

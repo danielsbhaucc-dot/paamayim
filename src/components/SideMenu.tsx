@@ -63,7 +63,7 @@ export const MENU_ITEMS: MenuItem[] = [
     key: 'settings',
     title: 'הגדרות',
     icon: 'settings-outline',
-    onPress: (router) => router.push('/settings'),
+    onPress: (router) => router.push('/(tabs)/more'),
   },
   {
     key: 'legal',
@@ -99,7 +99,7 @@ export function isItemActive(pathname: string, key: string) {
     case 'family':
       return leaf === 'family';
     case 'settings':
-      return leaf === 'settings';
+      return leaf === 'settings' || leaf === 'more';
     case 'legal':
       return leaf === 'legal';
     default:

@@ -17,11 +17,11 @@ const CATS: [string, string][] = [
   ['holiday', 'שבוע של חג'],
 ];
 const RULES: [string, string][] = [
-  ['returningAfterDays', 'כמה ימים בלי קריאה = ״חוזרים״'],
+  ['returningAfterHours', 'כמה שעות מאז הקריאה האחרונה = ״חוזרים״ (״בפעם הקודמת עצרת ב…״)'],
   ['almostDoneRemaining', 'כמה עליות נשארו = ״כמעט סיימו״'],
   ['almostDonePercent', 'או מאיזה אחוז = ״כמעט סיימו״'],
 ];
-const SAMPLE = { parasha: 'בראשית', aliyah: 'עלייה שלישית', remaining: 'חמש עליות', done: 'שתי עליות', left: 'נשארו עוד חמש עליות', percent: '41%' };
+const SAMPLE = { parasha: 'בראשית', aliyah: 'עלייה שלישית', remaining: 'חמש עליות', done: 'שתי עליות', left: 'נשארו עוד חמש עליות', percent: '41%', lastAliyah: 'עלייה שלישית', verse: 'פסוק י״ב', when: 'אתמול' };
 
 function render(t: G, gender: 'm' | 'f' | 'p', name: string) {
   let s = typeof t === 'string' ? t : t[gender];
@@ -104,7 +104,7 @@ export function Greetings() {
         <div>
           <h1>משפטי סטטוס</h1>
           <p>
-            המשפט האישי מתחת לברכה בבית ({total} משפטים). מצייני מקום: <code dir="ltr">{'{name} {parasha} {aliyah} {remaining} {done} {left} {percent}'}</code>
+            המשפט האישי מתחת לברכה בבית ({total} משפטים). מצייני מקום: <code dir="ltr">{'{name} {parasha} {aliyah} {remaining} {done} {left} {percent}'}</code> · רק ב״חוזרים״: <code dir="ltr">{'{lastAliyah} {verse} {when}'}</code>
           </p>
         </div>
         <div className="row">

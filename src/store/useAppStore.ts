@@ -31,6 +31,10 @@ interface AppState {
   userGender: 'm' | 'f' | 'p' | null;
   /** מתי סומנה התקדמות לאחרונה (ms) — לזיהוי ״חזרה אחרי הפסקה״ */
   lastActiveAt: number | null;
+  /** מתי נקרא לאחרונה פסוק (המקום השמור) — ל״בפעם הקודמת עצרת ב…״ */
+  lastReadAt: number | null;
+  /** ההזמנה לשם/פנייה פתוחה (נפתחת שוב בלחיצה על הברכה) — לא נשמר */
+  namePromptOpen: boolean;
   /** משפט הסטטוס האחרון שהוצג בכל קטגוריה — כדי לא לחזור עליו ברצף */
   statusLast: Record<string, number>;
 
@@ -51,6 +55,7 @@ interface AppState {
   setUserName: (name: string) => void;
   dismissNamePrompt: () => void;
   setUserGender: (gender: 'm' | 'f' | 'p' | null) => void;
+  openNamePrompt: () => void;
   setStatusLast: (category: string, index: number) => void;
   /** מחיקת הפרטים האישיים (שם, פנייה, היסטוריית משפטים). ההתקדמות נשארת — לה יש ״איפוס התקדמות״. */
   clearPersonalData: () => void;
@@ -67,7 +72,7 @@ export const useAppStore = create<AppState>()(
     (set, get) => ({
       calendarMode: 'israel',
       familyVoice: 'adult',
-      readingView: 'verse',
+      readingView: 'flow',
       activeAliyah: 1,
       lastVerseId: null,
       progress: {},
@@ -78,11 +83,15 @@ export const useAppStore = create<AppState>()(
       namePromptDismissed: false,
       userGender: null,
       lastActiveAt: null,
+      lastReadAt: null,
+      namePromptOpen: false,
       statusLast: {},
 
       setPickedParashaId: (id) => set({ pickedParashaId: id }),
-      setUserName: (name) => set({ userName: name.trim().slice(0, 40), namePromptDismissed: true }),
-      dismissNamePrompt: () => set({ namePromptDismissed: true }),
+      setUserName: (name) =>
+        set({ userName: name.trim().slice(0, 40), namePromptDismissed: true, namePromptOpen: false }),
+      dismissNamePrompt: () => set({ namePromptDismissed: true, namePromptOpen: false }),
+      openNamePrompt: () => set({ namePromptOpen: true }),
       setUserGender: (gender) => set({ userGender: gender }),
       clearPersonalData: () =>
         set({ userName: '', userGender: null, namePromptDismissed: true, statusLast: {}, lastActiveAt: null }),
@@ -93,7 +102,8 @@ export const useAppStore = create<AppState>()(
       setFamilyVoice: (voice) => set({ familyVoice: voice }),
       setReadingView: (view) => set({ readingView: view }),
       setActiveAliyah: (id) => set({ activeAliyah: id }),
-      setLastVerseId: (id) => set({ lastVerseId: id }),
+      setLastVerseId: (id) =>
+        set((state) => (id === state.lastVerseId ? { lastReadAt: Date.now() } : { lastVerseId: id, lastReadAt: id ? Date.now() : null })),
       setOnboardingDone: (done) => set({ onboardingDone: done }),
       openSideMenu: () => set({ sideMenuOpen: true }),
       closeSideMenu: () => set({ sideMenuOpen: false }),
@@ -112,6 +122,7 @@ export const useAppStore = create<AppState>()(
             progress: { ...state.progress, [verseId]: next },
             lastVerseId: verseId,
             lastActiveAt: Date.now(),
+            lastReadAt: Date.now(),
           };
         }),
 
@@ -120,10 +131,11 @@ export const useAppStore = create<AppState>()(
           progress: { ...state.progress, [verseId]: { mikra1: true, mikra2: true, onkelos: true } },
           lastVerseId: verseId,
           lastActiveAt: Date.now(),
+          lastReadAt: Date.now(),
         })),
 
       resetProgress: () =>
-        set({ progress: {}, lastVerseId: null, activeAliyah: 1 }),
+        set({ progress: {}, lastVerseId: null, lastReadAt: null, activeAliyah: 1 }),
     }),
     {
       name: 'paamayim-storage',
@@ -141,8 +153,17 @@ export const useAppStore = create<AppState>()(
         namePromptDismissed: s.namePromptDismissed,
         userGender: s.userGender,
         lastActiveAt: s.lastActiveAt,
+        lastReadAt: s.lastReadAt,
         statusLast: s.statusLast,
       }),
+      // v1: מצב קריאה חדש ״גלילה״ (flow) הוא ברירת המחדל. מי שהיה על ברירת המחדל הקודמת (פסוק־פסוק)
+      // עובר לגלילה פעם אחת; מי שבחר ״מגילה״ נשאר. אפשר תמיד לחזור במתג במסך הקריאה / בהגדרות.
+      version: 1,
+      migrate: (persisted, version) => {
+        const s = (persisted ?? {}) as Partial<AppState>;
+        if (version < 1 && s.readingView === 'verse') s.readingView = 'flow';
+        return s as AppState;
+      },
     }
   )
 );

@@ -7,19 +7,23 @@ import { GlassSurface } from './GlassSurface';
 
 type Props = {
   label: string;
+  /** גוון המעבר (מקרא א׳ / מקרא ב׳ / תרגום) */
+  hue?: { solid: string; ink: string; soft: string };
   Icon: LucideIcon;
   done: boolean;
   onPress: () => void;
 };
 
-export function PassTile({ label, Icon, done, onPress }: Props) {
+export function PassTile({ label, Icon, done, onPress, hue }: Props) {
+  const h = hue ?? { solid: nw.color.tealBright, ink: nw.color.tealIcon, soft: 'rgba(31,158,140,0.16)' };
   return (
     <GlassSurface
       variant="subtle"
       radius={18}
       style={{ flex: 1, height: 108 }}
       padded={false}
-      tint={done ? 'rgba(227,244,240,0.85)' : undefined}
+      tint={done ? h.soft : undefined}
+      borderColor={done ? h.solid : undefined}
       contentStyle={{ alignItems: 'center', justifyContent: 'center', gap: 10, padding: 10 }}
       onPress={onPress}
       accessibilityRole="checkbox"
@@ -32,15 +36,15 @@ export function PassTile({ label, Icon, done, onPress }: Props) {
             width: 40,
             height: 40,
             borderRadius: 20,
-            backgroundColor: nw.color.tealBright,
+            backgroundColor: h.ink,
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
-          <Check size={22} color="#FFFFFF" strokeWidth={3} />
+          <Check size={22} color={nw.color.onAccent} strokeWidth={3} />
         </View>
       ) : (
-        <Icon size={28} color={nw.color.tealIcon} strokeWidth={1.75} />
+        <Icon size={28} color={h.ink} strokeWidth={1.75} />
       )}
       <Text
         numberOfLines={2}

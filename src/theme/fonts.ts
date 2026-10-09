@@ -10,6 +10,7 @@ import {
   FrankRuhlLibre_500Medium,
   FrankRuhlLibre_700Bold,
 } from '@expo-google-fonts/frank-ruhl-libre';
+import { NotoSerifHebrew_400Regular, NotoSerifHebrew_500Medium } from '@expo-google-fonts/noto-serif-hebrew';
 
 export const fontAssets = {
   Assistant_400Regular,
@@ -20,6 +21,8 @@ export const fontAssets = {
   FrankRuhlLibre_400Regular,
   FrankRuhlLibre_500Medium,
   FrankRuhlLibre_700Bold,
+  NotoSerifHebrew_400Regular,
+  NotoSerifHebrew_500Medium,
 };
 
 export const fonts = {
@@ -31,4 +34,7 @@ export const fonts = {
   verse: 'FrankRuhlLibre_500Medium',
   verseBold: 'FrankRuhlLibre_700Bold',
   verseRegular: 'FrankRuhlLibre_400Regular',
+  /** תרגום אונקלוס (ארמית מנוקדת) — Noto Serif Hebrew, רישיון OFL */
+  targum: 'NotoSerifHebrew_400Regular',
+  targumMedium: 'NotoSerifHebrew_500Medium',
 } as const;

@@ -15,7 +15,7 @@ export default function TabsLayout() {
       <Tabs.Screen name="index" options={{ title: 'בית' }} />
       <Tabs.Screen name="path" options={{ title: 'מסלול' }} />
       <Tabs.Screen name="family" options={{ title: 'משפחה' }} />
-      <Tabs.Screen name="more" options={{ title: 'עוד' }} />
+      <Tabs.Screen name="more" options={{ title: 'הגדרות' }} />
     </Tabs>
   );
 }

@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Smile, User } from 'lucide-react-native';
+import { BookOpenText, Smile, Sunrise, User } from 'lucide-react-native';
 import React, { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Animated, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppStore } from '../src/store/useAppStore';
 import { nw } from '../src/theme/design';
@@ -14,7 +14,7 @@ import {
   ScreenBackground,
   ScreenHeader,
   SegmentedTabs,
-  useLayout,
+  useLayout, LargeTitle, useCollapsingTitle,
 } from '../src/ui';
 import { StoryWide } from '../src/wide/StoryWide';
 import { contentImage, useParasha, whyHaftaraFor } from '../src/content';
@@ -51,12 +51,27 @@ function StoryMobile() {
   const body = isChild ? story.child : story.adult;
   const para1 = isChild ? parasha.haftara.storyChild : parasha.haftara.storyAdult;
   const why = whyHaftaraFor(parasha, calendarMode, familyVoice);
+  const t = useCollapsingTitle();
 
   return (
     <ScreenBackground variant="mist" showNav={false}>
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
-        <ScreenHeader title={isHaftara ? 'סיפור ההפטרה' : 'סיפור הפרשה'} />
+        <ScreenHeader title={isHaftara ? 'סיפור ההפטרה' : 'סיפור הפרשה'} scrollY={t.scrollY} />
 
+        <Animated.ScrollView
+          {...t.scrollProps}
+          contentContainerStyle={{
+            paddingHorizontal: nw.space.screenX,
+            paddingBottom: 24,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+        <LargeTitle
+          title={isHaftara ? 'סיפור ההפטרה' : 'סיפור הפרשה'}
+          subtitle={`פרשת ${parasha.name}`}
+          icon={isHaftara ? <Sunrise size={28} color={nw.color.tealIcon} strokeWidth={1.75} /> : <BookOpenText size={28} color={nw.color.tealIcon} strokeWidth={1.75} />}
+          scrollY={t.scrollY}
+        />
         <SegmentedTabs
           size="md"
           options={[
@@ -65,17 +80,8 @@ function StoryMobile() {
           ]}
           value={kind}
           onChange={(id) => setKind(id as 'parasha' | 'haftara')}
-          style={{ marginHorizontal: nw.space.screenX, marginTop: 4 }}
+          style={{ marginBottom: 14 }}
         />
-
-        <ScrollView
-          contentContainerStyle={{
-            paddingHorizontal: nw.space.screenX,
-            paddingTop: 14,
-            paddingBottom: 24,
-          }}
-          showsVerticalScrollIndicator={false}
-        >
           <GlassSurface variant="strong" radius={24} contentStyle={{ padding: 16 }}>
             <IllustrationCard
               source={
@@ -265,7 +271,7 @@ function StoryMobile() {
               }
             }}
           />
-        </ScrollView>
+        </Animated.ScrollView>
       </SafeAreaView>
     </ScreenBackground>
   );

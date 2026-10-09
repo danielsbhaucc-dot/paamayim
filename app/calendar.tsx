@@ -14,10 +14,11 @@ import {
   PrimaryButton,
   ScreenBackground,
   ScreenHeader,
-  useLayout,
+  useLayout, LargeTitle, useCollapsingTitle,
 } from '../src/ui';
 
 export default function CalendarScreen() {
+  const t = useCollapsingTitle();
   const { onboarding } = useLocalSearchParams<{ onboarding?: string }>();
   const router = useRouter();
   const calendarMode = useAppStore((s) => s.calendarMode);
@@ -44,9 +45,12 @@ export default function CalendarScreen() {
       wideMaxWidth={880}
     >
       <SafeAreaView edges={['top', 'bottom']} style={{ flex: 1 }}>
-        <ScreenHeader
+        <ScreenHeader title="בחירת לוח" scrollY={t.scrollY} />
+        <LargeTitle
           title="בחירת לוח"
-          endSlot={<CalendarDays size={24} color={nw.color.tealIcon} strokeWidth={1.75} />}
+          subtitle="איפה קוראים את הפרשה — בישראל או בחו״ל?"
+          icon={<CalendarDays size={28} color={nw.color.tealIcon} strokeWidth={1.75} />}
+          scrollY={t.scrollY}
         />
 
         <View
@@ -78,7 +82,9 @@ export default function CalendarScreen() {
                   width: 72,
                   height: 72,
                   borderRadius: 36,
-                  backgroundColor: nw.surface.solid,
+                  backgroundColor: nw.surface.tile,
+                  borderWidth: 1,
+                  borderColor: nw.surface.border,
                   alignItems: 'center',
                   justifyContent: 'center',
                   ...nw.shadow.card,

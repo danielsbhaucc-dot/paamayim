@@ -50,7 +50,7 @@ h3 { font-size: 17px; font-weight: 700; }
 p { margin: 0; }
 a { color: var(--teal-text); }
 button, input, textarea, select { font: inherit; color: inherit; }
-:focus-visible { outline: 3px solid var(--teal-text); outline-offset: 2px; border-radius: 10px; }
+:focus-visible { outline: 3px solid var(--teal-text); outline-offset: 2px; } /* בלי border-radius קבוע — המסגרת עוקבת אחרי עיגול האלמנט (גלולות נשארות עגולות) */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 .skip { position: absolute; inset-inline-start: 12px; top: -60px; z-index: 100; background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 12px; }
 .skip:focus { top: 12px; }

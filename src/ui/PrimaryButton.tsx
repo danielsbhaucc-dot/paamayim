@@ -84,7 +84,8 @@ export function PrimaryButton({
       accessibilityLabel={title}
       accessibilityState={{ disabled: !!disabled }}
       style={({ pressed }) => [
-        { alignSelf: 'stretch' },
+        // radius גם על העוטף: טבעת הפוקוס / ריחוף / לחיצה עוקבות אחרי הצורה המעוגלת
+        { alignSelf: 'stretch', borderRadius: nw.radius.button },
         disabled && { opacity: 0.45 },
         pressed && !disabled && { opacity: 0.92, transform: [{ scale: 0.985 }] },
         style,
