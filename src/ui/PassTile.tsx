@@ -23,7 +23,6 @@ export function PassTile({ label, Icon, done, onPress, hue }: Props) {
       style={{ flex: 1, height: 108 }}
       padded={false}
       tint={done ? h.soft : undefined}
-      borderColor={done ? h.solid : undefined}
       contentStyle={{ alignItems: 'center', justifyContent: 'center', gap: 10, padding: 10 }}
       onPress={onPress}
       accessibilityRole="checkbox"

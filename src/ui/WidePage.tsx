@@ -17,6 +17,7 @@ import { rtl } from '../theme/rtl';
 import { GlassSurface } from './GlassSurface';
 import { ScreenBackground } from './ScreenBackground';
 import { useLayout } from './useLayout';
+import { SectionHeader } from './Section';
 
 /** טקסט ימני עם אורך שורה מוגבל — לפסקאות ב-web רחב */
 export const wideText = (style: TextStyle, maxWidth: number = nw.layout.textMax): TextStyle => ({
@@ -123,15 +124,9 @@ export function WideCols({
 }
 
 /** כותרת אזור בעמוד רחב */
-export function WideSectionTitle({ children, icon }: { children: string; icon?: React.ReactNode }) {
-  return (
-    <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 10, marginTop: 34, marginBottom: 14 }}>
-      {icon}
-      <Text style={{ ...nw.type.h2, color: nw.color.ink, textAlign: rtl.textRight, writingDirection: 'rtl' }}>
-        {children}
-      </Text>
-    </View>
-  );
+export function WideSectionTitle({ children, icon, subtitle }: { children: string; icon?: React.ReactNode; subtitle?: string }) {
+  // אותה מערכת כותרות־מקטע של כל האפליקציה: ממורכזת, בין שני קווים נמוגים
+  return <SectionHeader title={children} subtitle={subtitle} icon={icon} size="lg" style={{ marginTop: 34, marginBottom: 14 }} />;
 }
 
 /** כותרת עמוד רחב (עלה + כותרת גדולה + תת־כותרת + חזרה). מיוצא למסכים שמנהלים גלילה בעצמם. */

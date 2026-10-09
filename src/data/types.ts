@@ -2,6 +2,8 @@ export type CalendarMode = 'israel' | 'diaspora';
 export type FamilyVoice = 'adult' | 'child';
 /** flow = גלילה (כל העלייה ברצף) · verse = פסוק אחר פסוק · scroll = מגילה */
 export type ReadingView = 'flow' | 'verse' | 'scroll';
+/** פריסת מצב הגלילה: classic = מקרא, מקרא שוב, תרגום (כמו בחומש ״שניים מקרא ואחד תרגום״) */
+export type FlowLayout = 'classic' | 'compact';
 
 export type PassKind = 'mikra1' | 'mikra2' | 'onkelos';
 

@@ -12,15 +12,22 @@ import {
   type NativeSyntheticEvent,
 } from 'react-native';
 import { verseMark } from '../data/hebrew';
-import type { PassKind, Verse, VerseProgress } from '../data/types';
+import type { FlowLayout, PassKind, Verse, VerseProgress } from '../data/types';
 import { useAppStore } from '../store/useAppStore';
-import { aliyahHue, nw, passHue } from '../theme/design';
+import { aliyahHue, nw, passHue, pearl } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { GlassSurface } from '../ui/GlassSurface';
 import { PrimaryButton } from '../ui/PrimaryButton';
+import { SegmentedTabs } from '../ui/SegmentedTabs';
 import { ORDINAL_SHORT, dayName } from './journey';
 import type { ReadingSession } from './useReadingSession';
+import { Divider, SectionHeader } from '../ui/Section';
+
+const FLOW_LAYOUTS = [
+  { id: 'classic', label: 'שניים ואחד' },
+  { id: 'compact', label: 'פסוק ותרגום' },
+];
 
 const PASSES: { kind: PassKind; label: string }[] = [
   { kind: 'mikra1', label: 'מקרא א׳' },
@@ -54,6 +61,10 @@ export function VerseFlow({ r, large = false, header, animatedScrollY, bottomPad
   useAppStore((s) => s.progress);
   const { aliyah, displayVerses, verse, focusSet } = r;
   const h = aliyahHue(aliyah.id);
+  const flowLayout = useAppStore((s) => s.flowLayout);
+  const setFlowLayout = useAppStore((s) => s.setFlowLayout);
+  const classic = flowLayout === 'classic';
+  const Row = classic ? ClassicVerse : FlowVerse;
 
   const scrollRef = useRef<{ scrollTo: (o: { y: number; animated?: boolean }) => void } | null>(null);
   const tops = useRef<Record<string, number>>({});
@@ -147,20 +158,29 @@ export function VerseFlow({ r, large = false, header, animatedScrollY, bottomPad
         }}
         style={{ gap: 12, paddingHorizontal: large ? 0 : nw.space.screenX }}
       >
+        {/* פריסת הגלילה: ״שניים ואחד״ (מקרא, מקרא שוב, תרגום) או ״פסוק ותרגום״ */}
+        <SegmentedTabs
+          size="md"
+          options={FLOW_LAYOUTS}
+          value={flowLayout}
+          onChange={(id) => setFlowLayout(id as FlowLayout)}
+          style={{ maxWidth: 380, width: '100%', alignSelf: 'center' }}
+        />
         {/* כותרת העלייה בגוון שלה */}
         {!focusSet ? (
-          <View style={[styles.aliyahHead, { backgroundColor: h.soft, borderColor: h.solid }]}>
-            <View style={[styles.dot, { backgroundColor: h.solid }]} />
-            <Text style={[styles.aliyahTitle, { color: h.ink }]}>
-              {`עלייה ${ORDINAL_SHORT[aliyah.id - 1]} · ${dayName(aliyah)}`}
-            </Text>
-            <Text style={styles.aliyahMeta}>{`${aliyah.rangeLabel} · ${displayVerses.length} פסוקים`}</Text>
-          </View>
+          <SectionHeader
+            title={`עלייה ${ORDINAL_SHORT[aliyah.id - 1]} · ${dayName(aliyah)}`}
+            subtitle={`${aliyah.rangeLabel} · ${displayVerses.length} פסוקים`}
+            color={h.solid}
+            ink={h.ink}
+            style={{ marginTop: 4, marginBottom: 6 }}
+          />
         ) : null}
 
-        {displayVerses.map((v) => (
+        {displayVerses.map((v, i) => (
           <View key={v.id} onLayout={onItemLayout(v.id)}>
-            <FlowVerse
+            {classic && i > 0 ? <Divider color={h.solid} spacing={2} style={{ marginBottom: 10, marginHorizontal: 24 }} /> : null}
+            <Row
               verse={v}
               large={large}
               current={v.id === verse?.id}
@@ -212,9 +232,8 @@ function FlowVerse({
     <GlassSurface
       variant={current ? 'strong' : 'card'}
       radius={22}
-      borderColor={current ? hue.solid : undefined}
-      borderWidth={current ? 2 : 1}
-      tint={current ? undefined : allDone ? hue.wash : undefined}
+      // הפסוק הנוכחי: זכוכית חזקה + גוון עדין של העלייה — בלי מסגרת צבעונית
+      tint={current || allDone ? hue.wash : undefined}
       contentStyle={{ padding: large ? 22 : 16, gap: 10 }}
     >
       <Pressable onPress={onFocus} accessibilityRole="button" accessibilityLabel={`פסוק ${ref}`} accessibilityState={{ selected: current }} style={{ gap: 8 }}>
@@ -239,10 +258,7 @@ function FlowVerse({
         >
           {verse.hebrew}
         </Text>
-        <View style={{ height: StyleSheet.hairlineWidth, backgroundColor: nw.color.divider }} />
-        <Text style={{ ...nw.type.caption, color: passHue.onkelos.ink, textAlign: rtl.textRight, writingDirection: 'rtl' }}>
-          תרגום אונקלוס
-        </Text>
+        <Divider label="תרגום אונקלוס" color={passHue.onkelos.ink} spacing={2} />
         <Text
           style={{
             ...nw.type.onkelos,
@@ -256,6 +272,27 @@ function FlowVerse({
         </Text>
       </Pressable>
 
+      <VerseActions progress={progress} onToggle={onToggle} onComplete={onComplete} />
+    </GlassSurface>
+  );
+}
+
+/** סימוני המעברים + ״קראתי שניים ואחד״ (נגיעה אחת מסמנת את שלושתם) */
+function VerseActions({
+  progress,
+  onToggle,
+  onComplete,
+  showToggles = true,
+}: {
+  progress: VerseProgress;
+  onToggle: (k: PassKind) => void;
+  onComplete: () => void;
+  showToggles?: boolean;
+}) {
+  const allDone = progress.mikra1 && progress.mikra2 && progress.onkelos;
+  return (
+    <>
+      {showToggles ? (
       <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 6, flexWrap: 'wrap', marginTop: 2 }}>
         {PASSES.map(({ kind, label }) => {
           const done = progress[kind];
@@ -268,44 +305,124 @@ function FlowVerse({
               accessibilityState={{ checked: done }}
               accessibilityLabel={label}
               hitSlop={4}
-              style={[styles.pass, { backgroundColor: ph.soft, borderColor: ph.solid }, done && { backgroundColor: ph.ink, borderColor: ph.ink }]}
+              style={[styles.pass, { backgroundColor: ph.soft, borderColor: 'transparent' }, done && { backgroundColor: ph.ink }]}
             >
               {done ? <Check size={13} color={nw.color.onAccent} strokeWidth={3} /> : null}
               <Text style={[styles.passText, { color: done ? nw.color.onAccent : ph.ink }]}>{label}</Text>
             </Pressable>
           );
         })}
-        <View style={{ flex: 1 }} />
-        <Pressable
-          onPress={onComplete}
-          disabled={allDone}
-          accessibilityRole="button"
-          accessibilityLabel={allDone ? 'הפסוק נקרא שניים ואחד' : 'קראתי שניים ואחד'}
-          accessibilityState={{ disabled: allDone }}
-          style={({ pressed }) => [styles.done, allDone && styles.doneOn, pressed && { opacity: 0.88 }]}
-        >
-          <Check size={15} color={allDone ? nw.color.tealText : nw.color.onAccent} strokeWidth={3} />
-          <Text style={[styles.doneText, allDone && { color: nw.color.tealText }]}>{allDone ? 'נקרא' : 'קראתי שניים ואחד'}</Text>
-        </Pressable>
       </View>
-    </GlassSurface>
+      ) : null}
+      {/* פעולה אחת שמסמנת את שלושת המעברים — בולטת, ברוחב מלא */}
+      <Pressable
+        onPress={onComplete}
+        disabled={allDone}
+        accessibilityRole="button"
+        accessibilityLabel={allDone ? 'הפסוק נקרא שניים ואחד' : 'קראתי שניים ואחד — מסמן מקרא, מקרא ותרגום'}
+        accessibilityState={{ disabled: allDone }}
+        style={({ pressed }) => [styles.done, allDone && styles.doneOn, pressed && { opacity: 0.88 }]}
+      >
+        <Check size={18} color={allDone ? nw.color.tealText : nw.color.onAccent} strokeWidth={3} />
+        <Text style={[styles.doneText, allDone && { color: nw.color.tealText }]}>{allDone ? 'נקרא · שניים מקרא ואחד תרגום' : 'קראתי שניים ואחד'}</Text>
+      </Pressable>
+    </>
+  );
+}
+
+/** פסוק בפריסה הקלאסית: מקרא, מקרא שוב, תרגום — בלי קופסה; התווית של כל מעבר היא גם הסימון שלו */
+function ClassicVerse({
+  verse,
+  large,
+  current,
+  hue,
+  progress,
+  onToggle,
+  onComplete,
+  onFocus,
+}: {
+  verse: Verse;
+  large: boolean;
+  current: boolean;
+  hue: { solid: string; ink: string; soft: string; wash: string };
+  progress: VerseProgress;
+  onToggle: (k: PassKind) => void;
+  onComplete: () => void;
+  onFocus: () => void;
+}) {
+  const ref = `(${verseMark(verse.chapter)}, ${verseMark(verse.verse)})`;
+  const hebrew = {
+    fontFamily: fonts.verse,
+    fontSize: large ? 29 : 24,
+    lineHeight: large ? 52 : 42,
+    color: nw.color.ink,
+    textAlign: rtl.textRight,
+    writingDirection: 'rtl' as const,
+  };
+  const PassLabel = ({ kind, text }: { kind: PassKind; text: string }) => {
+    const ph = passHue[kind];
+    const done = progress[kind];
+    return (
+      <Pressable
+        onPress={() => onToggle(kind)}
+        accessibilityRole="checkbox"
+        accessibilityState={{ checked: done }}
+        accessibilityLabel={`${text} — ${done ? 'סומן' : 'לסמן'}`}
+        hitSlop={6}
+        style={[styles.passLabel, { backgroundColor: done ? ph.ink : ph.soft }]}
+      >
+        {done ? <Check size={12} color={nw.color.onAccent} strokeWidth={3} /> : <View style={[styles.passDot, { backgroundColor: ph.solid }]} />}
+        <Text style={[styles.passLabelText, { color: done ? nw.color.onAccent : ph.ink }]}>{text}</Text>
+      </Pressable>
+    );
+  };
+  return (
+    <View style={[styles.classic, { backgroundColor: current ? pearl(0.46) : pearl(0.26) }]}>
+      {/* הדגשת הפסוק הנוכחי: גוון עדין של העלייה, בלי מסגרת */}
+      {current ? <View pointerEvents="none" style={[StyleSheet.absoluteFill, { borderRadius: 22, backgroundColor: hue.wash }]} /> : null}
+      <Pressable onPress={onFocus} accessibilityRole="button" accessibilityLabel={`פסוק ${ref}`} accessibilityState={{ selected: current }} style={{ gap: 6 }}>
+        <Text style={{ ...nw.type.verseRef, color: hue.ink, textAlign: rtl.textRight }}>{ref}</Text>
+      </Pressable>
+      <View style={{ gap: 4 }}>
+        <PassLabel kind="mikra1" text="מקרא" />
+        <Text style={hebrew}>{verse.hebrew}</Text>
+      </View>
+      <View style={{ gap: 4 }}>
+        <PassLabel kind="mikra2" text="מקרא שוב" />
+        <Text style={hebrew}>{verse.hebrew}</Text>
+      </View>
+      <View style={{ gap: 4 }}>
+        <PassLabel kind="onkelos" text="תרגום" />
+        <Text
+          style={{
+            ...nw.type.onkelos,
+            ...(large ? { fontSize: 22, lineHeight: 40 } : null),
+            color: nw.color.targumInk,
+            textAlign: rtl.textRight,
+            writingDirection: 'rtl',
+          }}
+        >
+          {verse.onkelos}
+        </Text>
+      </View>
+      <VerseActions progress={progress} onToggle={onToggle} onComplete={onComplete} showToggles={false} />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  aliyahHead: {
+  classic: { gap: 12, paddingVertical: 14, paddingHorizontal: 14, borderRadius: 22 },
+  passLabel: {
     flexDirection: rtl.row,
     alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    borderRadius: 16,
-    borderWidth: 1,
+    alignSelf: rtl.alignRight,
+    gap: 5,
+    paddingHorizontal: 10,
+    minHeight: 28,
+    borderRadius: 14,
   },
-  dot: { width: 10, height: 10, borderRadius: 5 },
-  aliyahTitle: { fontFamily: fonts.uiExtra, fontSize: 17, writingDirection: 'rtl' },
-  aliyahMeta: { fontFamily: fonts.uiSemi, fontSize: 13, color: nw.color.inkSoft, writingDirection: 'rtl' },
+  passDot: { width: 6, height: 6, borderRadius: 3 },
+  passLabelText: { fontFamily: fonts.uiBold, fontSize: 13, writingDirection: 'rtl' },
   twice: {
     flexDirection: rtl.row,
     alignItems: 'center',
@@ -329,13 +446,17 @@ const styles = StyleSheet.create({
   done: {
     flexDirection: rtl.row,
     alignItems: 'center',
-    gap: 6,
-    minHeight: 40,
-    paddingHorizontal: 14,
-    borderRadius: 20,
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    gap: 8,
+    minHeight: 48,
+    marginTop: 4,
+    paddingHorizontal: 18,
+    borderRadius: 24,
     backgroundColor: nw.color.teal,
+    ...nw.shadow.active,
   },
-  doneOn: { backgroundColor: nw.color.tealSoft },
-  doneText: { fontFamily: fonts.uiBold, fontSize: 14, color: nw.color.onAccent, writingDirection: 'rtl' },
+  doneOn: { backgroundColor: nw.color.tealSoft, shadowOpacity: 0, elevation: 0 },
+  doneText: { fontFamily: fonts.uiBold, fontSize: 16, color: nw.color.onAccent, writingDirection: 'rtl' },
 });
 

@@ -1,13 +1,13 @@
 import { BookOpen, Languages, Repeat } from 'lucide-react-native';
 import React from 'react';
-import { Text, type StyleProp, type ViewStyle } from 'react-native';
+import { type StyleProp, type ViewStyle } from 'react-native';
 import type { Aliyah } from '../data/types';
 import { ORDINAL_SHORT, dayName } from '../reading/journey';
 import { useAppStore } from '../store/useAppStore';
-import { aliyahHue, nw, passHue } from '../theme/design';
-import { rtl } from '../theme/rtl';
+import { aliyahHue, passHue } from '../theme/design';
 import { CheckRow } from './CheckRow';
 import { GlassSurface } from './GlassSurface';
+import { SectionHeader } from './Section';
 
 /** שניים מקרא ואחד תרגום — התקדמות כל מעבר בעלייה הנבחרת, כל מעבר בגוון משלו */
 export function PassProgressCard({ aliyah, style, wide }: { aliyah: Aliyah; style?: StyleProp<ViewStyle>; wide?: boolean }) {
@@ -30,9 +30,13 @@ export function PassProgressCard({ aliyah, style, wide }: { aliyah: Aliyah; styl
   });
   return (
     <GlassSurface variant="card" radius={22} style={style} contentStyle={{ paddingVertical: 10, paddingHorizontal: wide ? 24 : 18 }}>
-      <Text style={{ ...nw.type.label, color: aliyahHue(aliyah.id).ink, textAlign: rtl.textRight, writingDirection: 'rtl', marginTop: 6 }}>
-        {`שניים מקרא ואחד תרגום · ${dayName(aliyah)} · עלייה ${ORDINAL_SHORT[aliyah.id - 1]}`}
-      </Text>
+      <SectionHeader
+        title="שניים מקרא ואחד תרגום"
+        subtitle={`${dayName(aliyah)} · עלייה ${ORDINAL_SHORT[aliyah.id - 1]}`}
+        size="sm"
+        color={aliyahHue(aliyah.id).solid}
+        style={{ marginTop: 8, marginBottom: 2 }}
+      />
       <CheckRow label="מקרא – קריאה ראשונה" Icon={BookOpen} hue={passHue.mikra1} {...row(m1)} />
       <CheckRow label="מקרא – קריאה שנייה" Icon={Repeat} hue={passHue.mikra2} {...row(m2)} />
       <CheckRow label="תרגום אונקלוס" Icon={Languages} hue={passHue.onkelos} {...row(onk)} last />

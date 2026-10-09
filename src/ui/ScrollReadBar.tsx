@@ -52,7 +52,7 @@ export function ScrollReadBar({ verse, progress, onToggle, onCompleteNext, style
               accessibilityRole="checkbox"
               accessibilityState={{ checked: done }}
               accessibilityLabel={label}
-              style={[styles.chip, { backgroundColor: h.soft, borderColor: h.solid }, done && { backgroundColor: h.ink, borderColor: h.ink }]}
+              style={[styles.chip, { backgroundColor: h.soft, borderColor: 'transparent' }, done && { backgroundColor: h.ink }]}
             >
               {done ? <Check size={14} color={nw.color.onAccent} strokeWidth={3} /> : null}
               <Text style={[styles.chipText, { color: h.ink }, done && { color: nw.color.onAccent }]}>{label}</Text>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     backgroundColor: nw.surface.chip,
     borderWidth: 1,
-    borderColor: 'rgba(31,158,140,0.35)',
+    borderColor: 'transparent',
   },
   chipDone: { backgroundColor: nw.color.teal, borderColor: nw.color.teal },
   chipText: { fontFamily: fonts.uiSemi, fontSize: 13, color: nw.color.ink },

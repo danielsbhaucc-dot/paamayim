@@ -8,6 +8,7 @@ import { nw } from '../src/theme/design';
 import { img } from '../src/theme/images';
 import { rtl } from '../src/theme/rtl';
 import {
+  SectionHeader,
   GlassSurface,
   IllustrationCard,
   PrimaryButton,
@@ -156,18 +157,7 @@ function StoryMobile() {
                     {parasha.haftara.specialReason}
                   </Text>
                 ) : null}
-                <Text
-                  accessibilityRole="header"
-                  style={{
-                    ...nw.type.h2,
-                    color: nw.color.ink,
-                    marginTop: parasha.haftara.specialReason ? 2 : 18,
-                    textAlign: rtl.textRight,
-                    writingDirection: 'rtl',
-                  }}
-                >
-                  למה קוראים דווקא את ההפטרה הזו?
-                </Text>
+                <SectionHeader title="למה קוראים דווקא את ההפטרה הזו?" style={{ marginTop: parasha.haftara.specialReason ? 8 : 18, marginBottom: 2 }} />
                 <Text
                   style={{
                     ...nw.type.body,
@@ -181,18 +171,7 @@ function StoryMobile() {
                 </Text>
                 {para1.trim() ? (
                   <>
-                    <Text
-                      accessibilityRole="header"
-                      style={{
-                        ...nw.type.h3,
-                        color: nw.color.ink,
-                        marginTop: 18,
-                        textAlign: rtl.textRight,
-                        writingDirection: 'rtl',
-                      }}
-                    >
-                      מה מסופר בהפטרה
-                    </Text>
+                    <SectionHeader title="מה מסופר בהפטרה" size="sm" ornament="leaf" style={{ marginTop: 18, marginBottom: 2 }} />
                     <Text
                       style={{
                         ...nw.type.body,

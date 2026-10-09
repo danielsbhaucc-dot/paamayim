@@ -6,6 +6,7 @@ import { nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { GlassSurface } from './GlassSurface';
+import { SectionHeader } from './Section';
 
 type Props = {
   items: ContentItem[];
@@ -23,10 +24,12 @@ export function LifeLessonsCard({ items, wide = false, columns = 1, child = fals
   const cols = wide ? columns : 1;
   return (
     <GlassSurface variant="card" radius={wide ? 24 : 22} style={style} contentStyle={{ padding: wide ? 24 : 20 }}>
-      <View style={{ flexDirection: rtl.row, gap: 10, alignItems: 'center' }}>
-        <Sprout size={24} color={nw.color.tealIcon} strokeWidth={1.75} />
-        <Text style={[styles.rtl, { ...nw.type.h3, color: nw.color.ink }]}>מה אפשר לקחת לחיים</Text>
-      </View>
+      <SectionHeader
+        title="מה אפשר לקחת לחיים"
+        icon={<Sprout size={22} color={nw.color.tealIcon} strokeWidth={1.75} />}
+        ornament="leaf"
+        style={{ marginTop: 0, marginBottom: 4 }}
+      />
       {child ? (
         <Text style={[styles.rtl, { ...nw.type.label, color: nw.color.tealText, marginTop: 4 }]}>
           בשביל הילדים

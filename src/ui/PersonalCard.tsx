@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     backgroundColor: nw.surface.input,
     borderWidth: 1,
-    borderColor: 'rgba(31,158,140,0.38)', // גבול טורקיז עדין — השדה מזוהה גם על זכוכית
+    borderColor: 'rgba(11,42,74,0.16)', // גבול ניטרלי עדין — השדה מזוהה גם על זכוכית
     fontFamily: fonts.ui,
     fontSize: 16,
     color: nw.color.ink,

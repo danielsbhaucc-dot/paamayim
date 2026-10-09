@@ -30,3 +30,4 @@ export { PrivacyNote } from './PrivacyNote';
 export { PersonalCard } from './PersonalCard';
 export { WeeklyJourney } from './WeeklyJourney';
 export { PassProgressCard } from './PassProgressCard';
+export { Divider, SectionHeader } from './Section';

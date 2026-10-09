@@ -133,7 +133,6 @@ export function NamePrompt({ style }: { style?: StyleProp<ViewStyle> }) {
       variant="frost"
       tint={pearl(0.24)}
       radius={22}
-      borderColor="rgba(31,158,140,0.35)"
       style={[{ maxWidth: 560, width: '100%', alignSelf: 'center' }, style]}
       contentStyle={styles.promptBody}
     >
@@ -185,7 +184,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: nw.color.tealSoft,
     borderWidth: 1,
-    borderColor: 'rgba(31,158,140,0.3)',
+    borderColor: nw.glass.border,
   },
   pickedRow: {
     flexDirection: rtl.row,
@@ -201,7 +200,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     backgroundColor: nw.surface.input,
     borderWidth: 1,
-    borderColor: 'rgba(31,158,140,0.38)', // גבול טורקיז עדין — השדה מזוהה גם על זכוכית
+    borderColor: 'rgba(11,42,74,0.16)', // גבול ניטרלי עדין — השדה מזוהה גם על זכוכית
     fontFamily: fonts.ui,
     fontSize: 16,
     color: nw.color.ink,

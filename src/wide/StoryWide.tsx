@@ -7,6 +7,7 @@ import { nw } from '../theme/design';
 import { img } from '../theme/images';
 import { rtl } from '../theme/rtl';
 import {
+  SectionHeader,
   GlassSurface,
   IllustrationCard,
   PrimaryButton,
@@ -81,9 +82,7 @@ export function StoryWide({ kind, setKind }: Props) {
           </Text>
           {para1.trim() ? (
             <>
-              <Text accessibilityRole="header" style={{ ...wideText(nw.type.h3), fontSize: 21, lineHeight: 28, color: nw.color.ink, marginTop: 24 }}>
-                מה מסופר בהפטרה
-              </Text>
+              <SectionHeader title="מה מסופר בהפטרה" ornament="leaf" style={{ marginTop: 24, marginBottom: 2 }} />
               <Text style={{ ...wideText(nw.type.body), fontSize: 18, lineHeight: 32, color: nw.color.inkSoft, marginTop: 8 }}>
                 {para1}
               </Text>

@@ -9,6 +9,7 @@ import { rtl } from '../theme/rtl';
 import { GlassSurface } from './GlassSurface';
 import { PassTile } from './PassTile';
 import { PrimaryButton } from './PrimaryButton';
+import { Divider, SectionHeader } from './Section';
 
 type Props = {
   verse: Verse;
@@ -94,24 +95,7 @@ export function VerseFocusCard({
 
         {/* התרגום תמיד גלוי — קוראים פסוק, פסוק שוב, ותרגום, בלי לחיצות מיותרות */}
         <View>
-          <View
-            style={{
-              height: StyleSheet.hairlineWidth,
-              backgroundColor: nw.color.divider,
-              marginTop: 18,
-            }}
-          />
-          <Text
-            style={{
-              ...nw.type.caption,
-              color: passHue.onkelos.ink,
-              textAlign: 'center',
-              writingDirection: 'rtl',
-              marginTop: 12,
-            }}
-          >
-            תרגום אונקלוס
-          </Text>
+          <Divider label="תרגום אונקלוס" color={passHue.onkelos.ink} style={{ marginTop: 18, marginBottom: 6 }} spacing={0} />
           <Text
             style={{
               ...nw.type.onkelos,
@@ -143,20 +127,12 @@ export function VerseFocusCard({
         style={{ marginTop: 14 }}
         contentStyle={{ padding: 18 }}
       >
-        <View style={{ flexDirection: rtl.row, gap: 8, alignItems: 'center' }}>
-          <Lightbulb size={22} color={nw.color.tealIcon} strokeWidth={1.75} />
-          <Text
-            style={{
-              fontFamily: fonts.uiBold,
-              fontSize: 16,
-              color: nw.color.ink,
-              textAlign: rtl.textRight,
-              writingDirection: 'rtl',
-            }}
-          >
-            מה אונקלוס עשה כאן?
-          </Text>
-        </View>
+        <SectionHeader
+          title="מה אונקלוס עשה כאן?"
+          icon={<Lightbulb size={20} color={nw.color.tealIcon} strokeWidth={1.75} />}
+          size="sm"
+          style={{ marginTop: 0, marginBottom: 4 }}
+        />
         {verse.onkelosExplanation ? (
           // הסבר שנכתב במערכת התוכן ופורסם — גובר על ההסבר האוטומטי
           <Text

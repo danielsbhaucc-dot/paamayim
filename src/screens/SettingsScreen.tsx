@@ -11,13 +11,14 @@ import {
 import React, { useState } from 'react';
 import { Alert, Animated, Platform, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import type { CalendarMode, FamilyVoice, ReadingView } from '../data/types';
+import type { FlowLayout, CalendarMode, FamilyVoice, ReadingView } from '../data/types';
 import { READING_MODES } from '../reading/modes';
 import { useAppStore } from '../store/useAppStore';
 import { APP_NAME } from '../theme/brand';
 import { nw } from '../theme/design';
 import { rtl } from '../theme/rtl';
 import {
+  SectionHeader,
   GlassSurface,
   LargeTitle,
   PersonalCard,
@@ -34,7 +35,7 @@ import {
 const T = { textAlign: rtl.textRight, writingDirection: 'rtl' } as const;
 
 const MODE_HELP: Record<ReadingView, string> = {
-  flow: 'כל העלייה ברצף: מקרא ותרגום לכל פסוק, והמקום נשמר תוך כדי גלילה.',
+  flow: 'כל העלייה ברצף: לכל פסוק מקרא, מקרא שוב ותרגום, והמקום נשמר תוך כדי גלילה.',
   verse: 'פסוק אחד בכל פעם, עם כרטיסי ״מה אונקלוס עשה כאן״ — לעיון מעמיק.',
   scroll: 'טקסט רציף כמו במגילה, והתרגום של הפסוק המסומן בפס שמתחת.',
 };
@@ -99,10 +100,8 @@ function SettingsWide() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <View style={{ marginBottom: 18 }}>
-      <Text accessibilityRole="header" style={{ ...nw.type.h3, color: nw.color.ink, marginBottom: 10, ...T }}>
-        {title}
-      </Text>
+    <View style={{ marginBottom: 10 }}>
+      <SectionHeader title={title} style={{ marginTop: 8 }} />
       {children}
     </View>
   );
@@ -130,6 +129,8 @@ function ReadingSection() {
   const router = useRouter();
   const readingView = useAppStore((s) => s.readingView);
   const setReadingView = useAppStore((s) => s.setReadingView);
+  const flowLayout = useAppStore((s) => s.flowLayout);
+  const setFlowLayout = useAppStore((s) => s.setFlowLayout);
   const calendarMode = useAppStore((s) => s.calendarMode);
   const setCalendarMode = useAppStore((s) => s.setCalendarMode);
   const familyVoice = useAppStore((s) => s.familyVoice);
@@ -141,6 +142,22 @@ function ReadingSection() {
         <Field label="מצב קריאה" help={MODE_HELP[readingView]}>
           <SegmentedTabs size="md" options={READING_MODES} value={readingView} onChange={(id) => setReadingView(id as ReadingView)} />
         </Field>
+        {readingView === 'flow' ? (
+          <Field
+            label="פריסת הגלילה"
+            help={flowLayout === 'classic' ? 'כמו בחומש: מקרא, מקרא שוב ותרגום — כל פסוק בתורו.' : 'הפסוק ותרגום אונקלוס מתחתיו, עם סימן ״פעמיים״.'}
+          >
+            <SegmentedTabs
+              size="md"
+              options={[
+                { id: 'classic', label: 'שניים ואחד' },
+                { id: 'compact', label: 'פסוק ותרגום' },
+              ]}
+              value={flowLayout}
+              onChange={(id) => setFlowLayout(id as FlowLayout)}
+            />
+          </Field>
+        ) : null}
         <Field label="לוח" help="קובע איזו פרשה והפטרה נקראות השבוע.">
           <SegmentedTabs
             size="md"

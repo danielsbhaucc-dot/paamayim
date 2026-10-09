@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: nw.color.tealSoft,
     borderWidth: 1,
-    borderColor: 'rgba(31,158,140,0.28)',
+    borderColor: 'transparent',
     maxWidth: '100%',
   },
   resumeText: { fontFamily: fonts.uiSemi, fontSize: 13, lineHeight: 18, color: nw.color.tealText, writingDirection: 'rtl', flexShrink: 1 },

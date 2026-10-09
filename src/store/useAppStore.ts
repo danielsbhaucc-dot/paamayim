@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import type {
+  FlowLayout,
   CalendarMode,
   FamilyVoice,
   PassKind,
@@ -15,6 +16,8 @@ interface AppState {
   calendarMode: CalendarMode;
   familyVoice: FamilyVoice;
   readingView: ReadingView;
+  /** פריסת מצב גלילה: ״שניים ואחד״ (פסוק, פסוק שוב, תרגום) או ״רצוף״ (פסוק ותרגום) */
+  flowLayout: FlowLayout;
   activeAliyah: number;
   lastVerseId: string | null;
   progress: ProgressMap;
@@ -41,6 +44,7 @@ interface AppState {
   setCalendarMode: (mode: CalendarMode) => void;
   setFamilyVoice: (voice: FamilyVoice) => void;
   setReadingView: (view: ReadingView) => void;
+  setFlowLayout: (layout: FlowLayout) => void;
   setActiveAliyah: (id: number) => void;
   setLastVerseId: (id: string | null) => void;
   togglePass: (verseId: string, kind: PassKind) => void;
@@ -73,6 +77,7 @@ export const useAppStore = create<AppState>()(
       calendarMode: 'israel',
       familyVoice: 'adult',
       readingView: 'flow',
+      flowLayout: 'classic',
       activeAliyah: 1,
       lastVerseId: null,
       progress: {},
@@ -101,6 +106,7 @@ export const useAppStore = create<AppState>()(
       setCalendarMode: (mode) => set({ calendarMode: mode }),
       setFamilyVoice: (voice) => set({ familyVoice: voice }),
       setReadingView: (view) => set({ readingView: view }),
+      setFlowLayout: (flowLayout) => set({ flowLayout }),
       setActiveAliyah: (id) => set({ activeAliyah: id }),
       setLastVerseId: (id) =>
         set((state) => (id === state.lastVerseId ? { lastReadAt: Date.now() } : { lastVerseId: id, lastReadAt: id ? Date.now() : null })),
@@ -144,6 +150,7 @@ export const useAppStore = create<AppState>()(
         calendarMode: s.calendarMode,
         familyVoice: s.familyVoice,
         readingView: s.readingView,
+        flowLayout: s.flowLayout,
         activeAliyah: s.activeAliyah,
         lastVerseId: s.lastVerseId,
         progress: s.progress,

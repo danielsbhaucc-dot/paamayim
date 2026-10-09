@@ -58,8 +58,7 @@ export function PathWide() {
               onPress={() => setActiveAliyah(a.id)}
               accessibilityLabel={`עלייה ${a.id}`}
               accessibilityState={{ selected: active }}
-              borderColor={active ? h.solid : undefined}
-              borderWidth={active ? 2 : 1}
+              tint={active ? h.soft : undefined}
               style={{ flexBasis: isDesktop ? '12%' : '22%', flexGrow: 1 }}
               contentStyle={{ padding: 18, gap: 6 }}
             >

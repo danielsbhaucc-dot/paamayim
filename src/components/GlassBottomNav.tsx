@@ -137,6 +137,6 @@ const styles = StyleSheet.create({
   tileActive: {
     // במקום אריח כמעט לבן: גוון טורקיז עדין על הזכוכית
     backgroundColor: nw.color.tealSoft,
-    borderColor: 'rgba(31,158,140,0.32)',
+    borderColor: 'transparent',
   },
 });

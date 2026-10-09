@@ -9,6 +9,8 @@ import { nw } from '../../src/theme/design';
 import { img } from '../../src/theme/images';
 import { rtl } from '../../src/theme/rtl';
 import {
+  Divider,
+  SectionHeader,
   GlassSurface,
   IllustrationCard,
   PillButton,
@@ -67,10 +69,16 @@ function FamilyMobile() {
             style={{ marginTop: 12 }}
           />
 
+          <SectionHeader
+            title={isChild ? 'הסיפור בשביל הילדים' : 'הסיפור של השבוע'}
+            subtitle={`פרשת ${parasha.name}`}
+            ornament="leaf"
+            style={{ marginTop: 18, marginBottom: 10 }}
+          />
           <GlassSurface
             variant="strong"
             radius={24}
-            style={{ marginTop: 16 }}
+            style={{ marginTop: 0 }}
             contentStyle={{ padding: 12 }}
           >
             <IllustrationCard
@@ -116,6 +124,7 @@ function FamilyMobile() {
             </View>
           </GlassSurface>
 
+          <Divider style={{ marginVertical: 18, marginHorizontal: 40 }} />
           <PrimaryButton
             variant="solid"
             title={
@@ -123,7 +132,7 @@ function FamilyMobile() {
                 ? 'הצג את הפסוקים שהסיפור נשען עליהם'
                 : 'עבור לכרטיס הקריאה'
             }
-            style={{ marginTop: 16 }}
+            style={{ marginTop: 0 }}
             onPress={() =>
               router.push({
                 pathname: '/reading',

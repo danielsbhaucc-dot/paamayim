@@ -40,11 +40,10 @@ export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, o
       variant="subtle"
       radius={16}
       padded={false}
-      tint={today ? h.ink : done ? h.soft : undefined}
-      borderColor={selected && !today ? h.solid : today ? h.ink : undefined}
-      borderWidth={selected && !today ? 2 : 1}
-      shadow={today ? 'none' : 'card'}
-      style={[{ height: 96 }, width ? { width } : { flex: 1, minWidth: 0 }, today ? nw.shadow.active : null]}
+      // בחירה מסומנת בגוון ובהרמה — בלי מסגרת צבעונית
+      tint={today ? h.ink : selected || done ? h.soft : undefined}
+      shadow={today || selected ? 'none' : 'card'}
+      style={[{ height: 96 }, width ? { width } : { flex: 1, minWidth: 0 }, today || selected ? nw.shadow.active : null]}
       contentStyle={{ alignItems: 'center', justifyContent: 'center', gap: 2, paddingTop: 6, paddingHorizontal: 4 }}
       onPress={onPress}
       accessibilityRole="tab"

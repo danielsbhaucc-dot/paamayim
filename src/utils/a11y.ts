@@ -47,7 +47,7 @@ export function capFontScaling() {
 
 /**
  * Web בלבד: האתר נבנה כ-SPA (index.html של Expo עם lang="en"), לכן קובעים כאן
- * lang="he" (קוראי מסך יקראו בקול עברי), טבעת פוקוס ברורה למקלדת,
+ * lang="he" (קוראי מסך יקראו בקול עברי), פוקוס מקלדת עדין בלבד (בלי טבעת בעכבר/מגע),
  * וכיבוד ״הפחתת תנועה״ של מערכת ההפעלה.
  */
 export function applyWebA11y() {
@@ -60,8 +60,10 @@ export function applyWebA11y() {
   const style = document.createElement('style');
   style.id = 'nw-a11y';
   style.textContent = `
-:focus-visible { outline: 3px solid #1D5A57 !important; outline-offset: 2px; }
-:focus:not(:focus-visible) { outline: none; }
+/* עכבר/מגע: בלי שום מסגרת (גם לא בלחיצה/ריחוף). מקלדת בלבד (:focus-visible): קו דק ועדין
+   שעוקב אחרי עיגול האלמנט — לא ריבוע ולא ירוק בולט. */
+*:focus { outline: none !important; }
+*:focus-visible { outline: 1.5px solid rgba(31, 120, 112, 0.38) !important; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }`;

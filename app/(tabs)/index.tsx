@@ -26,6 +26,7 @@ import { img, imgReady } from '../../src/theme/images';
 import { rtl } from '../../src/theme/rtl';
 import { assets, radii, spacing } from '../../src/theme/tokens';
 import {
+  SectionHeader,
   CalendarPill,
   GlassSurface,
   GreetingHeader,
@@ -324,19 +325,11 @@ function HomeMobile() {
             style={{ marginHorizontal: nw.space.screenX, marginTop: 14 }}
             contentStyle={{ padding: 20 }}
           >
-            <View style={{ flexDirection: rtl.row, gap: 10, alignItems: 'center' }}>
-              <BookOpenText size={24} color={nw.color.tealIcon} strokeWidth={1.75} />
-              <Text
-                style={{
-                  ...nw.type.h3,
-                  color: nw.color.ink,
-                  textAlign: rtl.textRight,
-                  writingDirection: 'rtl',
-                }}
-              >
-                סיפור הפרשה
-              </Text>
-            </View>
+            <SectionHeader
+              title="סיפור הפרשה"
+              icon={<BookOpenText size={22} color={nw.color.tealIcon} strokeWidth={1.75} />}
+              style={{ marginTop: 0, marginBottom: 2 }}
+            />
             <Text
               style={{
                 ...nw.type.bodyStrong,
