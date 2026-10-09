@@ -10,7 +10,7 @@ import { Platform } from 'react-native';
  */
 export const DEFAULT_NATIVE_CONTENT_BASE_URL = 'https://paamayim.pages.dev';
 
-/** דף הנחיתה (Cloudflare Pages — פרויקט landing). לעדכן אחרי יצירת הפרויקט. */
+/** דף הנחיתה (Cloudflare Pages). */
 export const LANDING_URL = 'https://nehora-landing.pages.dev';
 
 export const CONTENT_BASE_URL: string = (
