@@ -1,0 +1,41 @@
+# Render Blueprint — שרת ניהול התוכן (admin)
+# חינמי: Web Service על התוכנית Free (נרדם אחרי חוסר פעילות).
+# חשוב: STORAGE=github — הדיסק של Render נמחק; כל שמירה היא commit ל-GitHub.
+services:
+  - type: web
+    name: nehora-admin
+    runtime: node
+    plan: free
+    rootDir: admin
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: STORAGE
+        value: github
+      - key: GITHUB_REPO
+        value: danielsbhaucc-dot/paamayim
+      - key: GITHUB_BRANCH
+        value: master
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: TRUST_PROXY
+        value: "1"
+      # סודות — להגדיר ידנית ב-Render Dashboard (לא ב-git):
+      - key: ADMIN_PASSWORD_HASH
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+      # PORT מסופק אוטומטית ע״י Render
