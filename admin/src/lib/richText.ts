@@ -4,7 +4,7 @@
  * - שורה שמתחילה ב־>  → ציטוט מעוצב
  * - שורה ריקה → פיסקה חדשה
  *
- * עותק מקביל ב־admin/src/lib/richText.ts (בנייה בבידוד בלי expo).
+ * עותק מכוון של src/content/richText.ts — האדמין נבנה בבידוד (בלי expo).
  */
 export type RichSpan = { text: string; bold?: boolean };
 export type RichBlock = { type: 'p' | 'quote'; spans: RichSpan[] };

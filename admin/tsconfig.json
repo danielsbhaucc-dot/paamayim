@@ -16,5 +16,5 @@
     "types": ["node"],
     "noEmit": true
   },
-  "include": ["server", "src", "tests", "vite.config.ts", "../scripts/content/lib.d.mts", "../src/content/richText.ts"]
+  "include": ["server", "src", "tests", "vite.config.ts", "../scripts/content/lib.d.mts"]
 }

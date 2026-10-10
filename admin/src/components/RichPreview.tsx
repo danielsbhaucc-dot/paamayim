@@ -1,5 +1,5 @@
 /** תצוגה חיה של עיצוב טקסט (*הדגשה*, ציטוט >) — כמו באפליקציה */
-import { parseRichText } from '../../../src/content/richText';
+import { parseRichText } from '../lib/richText';
 
 export function RichPreview({ text, className = 'rich-live' }: { text: string; className?: string }) {
   const blocks = parseRichText(text);
