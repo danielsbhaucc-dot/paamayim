@@ -47,3 +47,36 @@ export function mikraPlain(raw: string, teamim: boolean): string {
 export const SETUMA_GAP = '\u00A0'.repeat(16);
 /** בכרטיס פסוק בודד — רווח קצר יותר */
 export const SETUMA_GAP_SHORT = '\u00A0'.repeat(8);
+
+/** חלק בתוך קטע: טקסט רגיל, או קרי (הנקרא, מנוקד ומוטעם) עם הכתיב (בלי ניקוד) */
+export type MikraPart = { kind: 'text'; text: string } | { kind: 'kq'; qere: string; ketiv: string };
+
+const KQ_RE = /([\u05D0-\u05EA]*)\u05BE?\s*((?:\[[^\]]+\]\s*)+)/g;
+
+/**
+ * מפרק קטע לכתיב/קרי. במקור: ״הוצא [הַיְצֵ֣א]״, וכשהקרי שתי מילים: ״בגד [בָּ֣א] [גָ֑ד]״.
+ * קורין את הקרי — לכן הוא הטקסט הראשי; הכתיב מוצג בקטן ובצבע רך.
+ * קרי ולא כתיב (סוגריים בלי כתיב) → ketiv ריק.
+ */
+export function mikraParts(text: string, teamim: boolean): MikraPart[] {
+  const parts: MikraPart[] = [];
+  let last = 0;
+  const clean = (v: string) => (teamim ? v : stripTeamim(v));
+  for (const m of text.matchAll(KQ_RE)) {
+    const start = m.index ?? 0;
+    let ketiv = m[1];
+    // הכתיב חייב להיות מילה שלמה (אחרי רווח, מקף או בתחילת הקטע)
+    const before = text[start - 1];
+    if (ketiv && start > 0 && before !== ' ' && before !== '\u05BE') ketiv = '';
+    const kStart = ketiv ? start : start + m[1].length;
+    if (kStart > last) parts.push({ kind: 'text', text: text.slice(last, kStart) });
+    const groups = [...m[2].matchAll(/\[([^\]]+)\]/g)].map((g) => g[1].trim());
+    const qere = groups.reduce((acc, g) => (acc && !acc.endsWith('\u05BE') ? `${acc} ${g}` : acc + g), '');
+    parts.push({ kind: 'kq', qere: clean(qere), ketiv });
+    last = start + m[0].length;
+    // הרווח שאחרי הסוגריים נבלע ב-regex — מחזירים אותו
+    if (/\s$/.test(m[0]) && !qere.endsWith('\u05BE')) parts.push({ kind: 'text', text: ' ' });
+  }
+  if (last < text.length) parts.push({ kind: 'text', text: text.slice(last) });
+  return parts.map((p) => (p.kind === 'text' ? { kind: 'text', text: p.text } : p));
+}

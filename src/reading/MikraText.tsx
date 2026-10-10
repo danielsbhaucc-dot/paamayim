@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, StyleSheet, Text, View, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
 import { useAppStore } from '../store/useAppStore';
 import { fonts } from '../theme/fonts';
-import { mikraSegments, SETUMA_GAP, SETUMA_GAP_SHORT, type ParashaBreak } from './mikra';
+import { mikraParts, mikraSegments, SETUMA_GAP, SETUMA_GAP_SHORT, type ParashaBreak } from './mikra';
 
 /**
  * צבע הטעמים: טורקיז עמוק ורך. הניקוד נשאר בצבע הדיו של האותיות,
@@ -35,19 +35,36 @@ export function MikraRuns({
   teamim,
   layer,
   inScroll = false,
+  fontSize = 22,
 }: {
   raw: string;
   teamim: boolean;
   layer: MikraLayer;
   /** במגילה: פתוחה = שורה חדשה. בכרטיס פסוק: גם פתוחה וגם סתומה = רווח */
   inScroll?: boolean;
+  /** גודל הפונט של הפסוק (לכתיב הקטן) */
+  fontSize?: number;
 }) {
   const segs = mikraSegments(raw, teamim);
   return (
     <>
       {segs.map((s, i) => (
         <React.Fragment key={i}>
-          {s.text}
+          {mikraParts(s.text, teamim).map((p, j) =>
+            p.kind === 'text' ? (
+              <React.Fragment key={j}>{p.text}</React.Fragment>
+            ) : (
+              <React.Fragment key={j}>
+                {p.qere}
+                {p.ketiv ? (
+                  <Text
+                    style={ghost(layer, [styles.ketiv, { fontSize: Math.round(fontSize * 0.55) }])}
+                    accessibilityLabel={`כתיב: ${p.ketiv}`}
+                  >{`\u2009°${p.ketiv}`}</Text>
+                ) : null}
+              </React.Fragment>
+            )
+          )}
           {s.brk ? breakText(s.brk, inScroll) : null}
         </React.Fragment>
       ))}
@@ -88,7 +105,7 @@ export function MikraText({ text, style, containerStyle, teamim, brk, accessibil
       accessibilityLabel={layer === 'base' ? accessibilityLabel : undefined}
       selectable={layer === 'base' && Platform.OS === 'web'}
     >
-      <MikraRuns raw={text} teamim={on} layer={layer} />
+      <MikraRuns raw={text} teamim={on} layer={layer} fontSize={flat.fontSize ?? 22} />
       {brk ? <Text style={ghost(layer, [styles.brk, { fontSize: Math.round((flat.fontSize ?? 22) * 0.55) }])}>{`  ${brk === 'p' ? 'פ' : 'ס'}`}</Text> : null}
     </Text>
   );
@@ -108,4 +125,6 @@ const styles = StyleSheet.create({
   // בלי ריפוד פונט באנדרואיד, כדי ששתי השכבות יהיו מיושרות ושהטעמים העליונים/התחתונים לא ייחתכו
   text: { includeFontPadding: false, letterSpacing: 0 },
   brk: { fontFamily: fonts.uiBold, color: '#A08A70' },
+  /** הכתיב: קטן, בצבע חום־אפור רך, עם עיגול מסורה קטן — הקרי הוא שנקרא */
+  ketiv: { fontFamily: fonts.mikra, color: '#9A8670' },
 });

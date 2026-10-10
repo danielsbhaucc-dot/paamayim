@@ -7,7 +7,7 @@ import { test } from 'node:test';
 import { HDate, Sedra } from '@hebcal/core';
 import { getCurrentParasha, getShabbatReading } from '../../src/data/parashot';
 import { CORPUS } from '../../src/data/corpus';
-import { mikraSegments, stripTeamim } from '../../src/reading/mikra';
+import { mikraParts, mikraSegments, stripTeamim } from '../../src/reading/mikra';
 import type { CalendarMode } from '../../src/data/types';
 
 /** כל השבתות מאוקטובר 2026 עד סוף 2032 (כ־6 שנים) */
@@ -164,4 +164,32 @@ test('petuchot/setumot from the Masoretic markers', () => {
   assert.deepEqual(segs.slice(0, 3).map((x) => x.brk), ['s', 's', 's']);
   // נון הפוכה בלי סוגריים
   assert.ok(mikraSegments(CORPUS.Numbers.chapters[9][33].h, true)[0].text.endsWith('\u05C6'));
+});
+
+test('ketiv/qere: every bracket parsed; qere is the main text, ketiv unpointed', () => {
+  let n = 0;
+  for (const book of Object.values(CORPUS)) for (const ch of book.chapters) for (const row of ch) {
+    for (const seg of mikraSegments(row.h, true)) {
+      for (const p of mikraParts(seg.text, true)) {
+        if (p.kind === 'text') {
+          assert.doesNotMatch(p.text, /[\[\]]/, row.h);
+          // אין ״כתיב ולא קרי״ חבוי: כל מילה מחוץ לקרי/כתיב מנוקדת
+          for (const w of p.text.split(/[\s\u05BE]+/)) {
+            if (/[\u05D0-\u05EA]{2,}/.test(w)) assert.match(w, /[\u05B0-\u05BC\u05C7]/, `unpointed "${w}" in ${row.h}`);
+          }
+        } else {
+          n++;
+          assert.match(p.qere, /[\u05B0-\u05BC]/);
+          assert.doesNotMatch(p.ketiv, /[\u0591-\u05C7]/);
+        }
+      }
+    }
+  }
+  assert.ok(n >= 60, `kq ${n}`);
+  const g = mikraParts(mikraSegments(CORPUS.Genesis.chapters[29][10].h, true)[0].text, true).find((p) => p.kind === 'kq');
+  assert.deepEqual(g && g.kind === 'kq' ? [g.ketiv, g.qere.normalize('NFC')] : null, ['בגד', 'בָּ֣א גָ֑ד'.normalize('NFC')]);
+  const e = mikraParts(mikraSegments(CORPUS.Exodus.chapters[3][1].h, false)[0].text, false).find((p) => p.kind === 'kq');
+  assert.deepEqual(e && e.kind === 'kq' ? [e.ketiv, e.qere.normalize('NFC')] : null, ['מזה', 'מַה־זֶּה'.normalize('NFC')]);
+  const j = mikraParts(CORPUS.Genesis.chapters[35][4].h, true).find((p) => p.kind === 'kq');
+  assert.equal(j && j.kind === 'kq' ? j.ketiv : '', 'יעיש'); // אחרי מקף
 });

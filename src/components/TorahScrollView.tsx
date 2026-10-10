@@ -77,7 +77,7 @@ export function TorahScrollView({ verses, aliyah, parashaName, currentVerseId, o
               accessibilityState={current ? { selected: true } : undefined}
             >
               <Text style={ghost(layer, styles.verseNum)}>{`\u200F(${verseMark(v.verse)}) `}</Text>
-              <MikraRuns raw={v.hebrew} teamim={teamim} layer={layer} inScroll />
+              <MikraRuns raw={v.hebrew} teamim={teamim} layer={layer} inScroll fontSize={22} />
             </Text>
             {i < verses.length - 1 ? (v.brk ? breakText(v.brk, true) : ' ') : ''}
           </Text>
