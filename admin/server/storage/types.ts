@@ -19,6 +19,8 @@ export interface Storage {
   promoteToProd?(message?: string): Promise<{ commit: string; files: number; empty?: boolean }>;
   /** רק במצב GitHub: האם לטוקן יש push (Contents write). null = לא ידוע. */
   canPush?(): Promise<boolean | null>;
+  /** רק במצב GitHub: אבחון בטוח (בלי לחשוף את הטוקן). */
+  diagnose?(): Promise<Record<string, unknown>>;
 }
 
 export async function readText(s: Storage, path: string) {

@@ -14,7 +14,22 @@ const DEFAULT_DRAFT_BRANCH = 'content-drafts';
 
 /** הודעה כשהטוקן תקף אבל בלי Contents: Write (או בלי גישה לריפו) */
 export const GITHUB_WRITE_DENIED =
-  'אין הרשאת כתיבה ל-GitHub (GITHUB_TOKEN). צרו Fine-grained PAT עם Contents: Read and write לריפו paamayim, והדביקו ב-Render → Environment → GITHUB_TOKEN. ראו admin/README.md סעיף 5.';
+  'אין הרשאת כתיבה ל-GitHub (GITHUB_TOKEN). בדקו בהגדרות → אבחון GitHub. צרו טוקן מחשבון בעל הריפו: Fine-grained עם Contents: Read and write, או Classic עם הרשאת public_repo — והדביקו ב-Render → GITHUB_TOKEN (בלי גרשיים).';
+
+export type GithubDiagnose = {
+  repo: string;
+  draftBranch: string;
+  prodBranch: string;
+  tokenKind: 'fine-grained' | 'classic' | 'unknown';
+  tokenLength: number;
+  tokenPrefix: string;
+  login: string | null;
+  repoFullName: string | null;
+  permissions: { push?: boolean; pull?: boolean; admin?: boolean } | null;
+  blobWrite: 'ok' | 'fail' | 'skipped';
+  blobError: string | null;
+  hint: string | null;
+};
 
 function isContentPath(p: string) {
   return p.startsWith('content/') || p.startsWith('src/data/corpus/') || p === 'src/content/bundled.json';
@@ -23,7 +38,13 @@ function isContentPath(p: string) {
 function isAuthDenied(e: any): boolean {
   if (e?.status !== 401 && e?.status !== 403) return false;
   const msg = String(e?.message ?? '');
-  return /Resource not accessible|Bad credentials|Requires authentication|403|401/i.test(msg) || e?.status === 401 || e?.status === 403;
+  return /Resource not accessible|Bad credentials|Requires authentication|not accessible by personal access/i.test(msg) || e?.status === 401 || e?.status === 403;
+}
+
+function tokenKindOf(token: string): GithubDiagnose['tokenKind'] {
+  if (token.startsWith('github_pat_')) return 'fine-grained';
+  if (token.startsWith('ghp_')) return 'classic';
+  return 'unknown';
 }
 
 export type GithubStorageOpts = {
@@ -41,6 +62,7 @@ export type GithubStorage = Storage & {
   draftBranch: string;
   /** האם לטוקן יש push על הריפו (Contents write). null אם הבדיקה נכשלה ברשת. */
   canPush(): Promise<boolean | null>;
+  diagnose(): Promise<GithubDiagnose>;
   promoteToProd(message?: string): Promise<{ commit: string; files: number; empty?: boolean }>;
 };
 
@@ -231,22 +253,94 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
 
   let pushCache: { at: number; value: boolean | null } | null = null;
 
+  async function probeBlobWrite(): Promise<{ ok: boolean; error: string | null }> {
+    try {
+      await gh('/git/blobs', {
+        method: 'POST',
+        body: JSON.stringify({ content: Buffer.from('nehora-write-probe').toString('base64'), encoding: 'base64' }),
+      });
+      return { ok: true, error: null };
+    } catch (e: any) {
+      return { ok: false, error: String(e?.message ?? e).slice(0, 300) };
+    }
+  }
+
   async function canPush(): Promise<boolean | null> {
     if (pushCache && Date.now() - pushCache.at < 60_000) return pushCache.value;
-    try {
-      // GET /repos/{owner}/{repo} — מחזיר permissions.push לפי הטוקן
-      const r = await gh('');
-      const value = r?.permissions?.push === true;
-      pushCache = { at: Date.now(), value };
-      return value;
-    } catch (e: any) {
-      if (isAuthDenied(e)) {
-        pushCache = { at: Date.now(), value: false };
-        return false;
-      }
-      pushCache = { at: Date.now(), value: null };
-      return null;
+    // בדיקה אמיתית: יצירת blob (לא רק permissions.push — לפעמים חסר/מטעה ב-fine-grained)
+    const probe = await probeBlobWrite();
+    if (probe.ok) {
+      pushCache = { at: Date.now(), value: true };
+      return true;
     }
+    if (/403|401|Resource not accessible|Bad credentials/i.test(probe.error || '')) {
+      pushCache = { at: Date.now(), value: false };
+      return false;
+    }
+    pushCache = { at: Date.now(), value: null };
+    return null;
+  }
+
+  async function diagnose(): Promise<GithubDiagnose> {
+    const kind = tokenKindOf(opts.token);
+    const out: GithubDiagnose = {
+      repo: opts.repo,
+      draftBranch,
+      prodBranch,
+      tokenKind: kind,
+      tokenLength: opts.token.length,
+      tokenPrefix: opts.token.slice(0, Math.min(12, opts.token.length)) + '…',
+      login: null,
+      repoFullName: null,
+      permissions: null,
+      blobWrite: 'skipped',
+      blobError: null,
+      hint: null,
+    };
+    try {
+      const ureq = await f('https://api.github.com/user', {
+        headers: {
+          Accept: 'application/vnd.github+json',
+          Authorization: `Bearer ${opts.token}`,
+          'X-GitHub-Api-Version': '2022-11-28',
+          'User-Agent': 'paamayim-admin',
+        },
+        signal: AbortSignal.timeout(15000),
+      });
+      if (ureq.ok) {
+        const u = (await ureq.json()) as { login?: string };
+        out.login = u.login ?? null;
+      } else {
+        out.hint = `אימות טוקן נכשל (HTTP ${ureq.status}). בדקו שהטוקן הודבק בשלמותו ב-Render.`;
+      }
+    } catch (e: any) {
+      out.hint = `לא ניתן לפנות ל-GitHub: ${String(e?.message ?? e).slice(0, 120)}`;
+    }
+    try {
+      const r = await gh('');
+      out.repoFullName = r.full_name ?? null;
+      out.permissions = r.permissions ?? null;
+    } catch (e: any) {
+      out.hint = out.hint || String(e?.message ?? e).slice(0, 200);
+    }
+    const probe = await probeBlobWrite();
+    out.blobWrite = probe.ok ? 'ok' : 'fail';
+    out.blobError = probe.error;
+    if (!probe.ok) {
+      if (kind === 'fine-grained') {
+        out.hint =
+          'Fine-grained: Resource owner = בעל הריפו, Repository access = paamayim בלבד, Contents = Read and write. חלופה קלה יותר: Classic PAT (ghp_) עם public_repo.';
+      } else if (kind === 'classic') {
+        out.hint = 'Classic PAT: סמנו את ההרשאה public_repo (הריפו ציבורי) או repo, והדביקו מחדש ב-Render.';
+      } else {
+        out.hint = 'הטוקן לא נראה כ-github_pat_ או ghp_. צרו טוקן חדש והדביקו בלי גרשיים.';
+      }
+      if (out.login && out.permissions?.push === false) {
+        out.hint += ` המשתמש המחובר הוא «${out.login}» — אם אין לו הרשאת כתיבה בריפו, הטוקן לא יוכל לכתוב.`;
+      }
+    }
+    pushCache = { at: Date.now(), value: probe.ok };
+    return out;
   }
 
   return {
@@ -255,6 +349,7 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
     draftBranch,
     describe: () => `github:${opts.repo}@${draftBranch}→${prodBranch}`,
     canPush,
+    diagnose,
     promoteToProd,
     async read(path) {
       assertAllowed(path);

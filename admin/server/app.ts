@@ -286,6 +286,10 @@ export function createApp(cfg: Config, storage: Storage, opts: { distDir?: strin
     }
     return c.json(await gitStatus(cfg.repoRoot));
   });
+  app.get('/api/git/diagnose', async (c) => {
+    if (!storage.diagnose) throw new HttpError(400, 'זמין רק במצב GitHub');
+    return c.json(await storage.diagnose());
+  });
   app.post('/api/git/sync', async (c) => {
     if (storage.kind !== 'local') throw new HttpError(400, 'זמין רק במצב מקומי');
     const b = await c.req.json().catch(() => ({}));

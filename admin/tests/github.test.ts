@@ -136,10 +136,11 @@ test('github storage: 403 על יצירת blob → הודעת הרשאות בע�
   const refs = new Map([['master', 'c0'], ['content-drafts', 'c0']]);
   const fetchImpl = (async (url: any, init: any = {}) => {
     const u = new URL(String(url));
+    if (u.pathname === '/user') return Response.json({ login: 'alice' });
     const p = u.pathname.replace('/repos/o/r', '');
     const m = init.method ?? 'GET';
     if (m === 'GET' && (p === '' || p === '/')) {
-      return Response.json({ permissions: { push: false, pull: true } });
+      return Response.json({ full_name: 'o/r', permissions: { push: false, pull: true } });
     }
     if (m === 'GET' && p.startsWith('/git/ref/heads/')) {
       return Response.json({ object: { sha: refs.get(decodeURIComponent(p.slice('/git/ref/heads/'.length))) } });
@@ -154,8 +155,12 @@ test('github storage: 403 על יצירת blob → הודעת הרשאות בע�
     return new Response('nope', { status: 404 });
   }) as typeof fetch;
 
-  const s = githubStorage({ token: 'tok', repo: 'o/r', branch: 'master', draftBranch: 'content-drafts', fetchImpl });
+  const s = githubStorage({ token: 'github_pat_xxx', repo: 'o/r', branch: 'master', draftBranch: 'content-drafts', fetchImpl });
   assert.equal(await s.canPush(), false);
+  const d = await s.diagnose();
+  assert.equal(d.blobWrite, 'fail');
+  assert.equal(d.login, 'alice');
+  assert.equal(d.tokenKind, 'fine-grained');
   await assert.rejects(
     () => s.write([{ path: 'content/parashot/bereshit.json', content: '{}' }], 'טיוטה', { skipBuild: true }),
     (e: any) => e.status === 502 && e.message === GITHUB_WRITE_DENIED

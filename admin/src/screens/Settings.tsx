@@ -1,8 +1,23 @@
 /** הגדרות: אחסון, סנכרון ל-GitHub (מקומי), פרסום ל-master (מאורח), סטטוס מפתחות AI, התנתקות */
-import { GitBranch, LogOut, RefreshCw, Upload } from 'lucide-react';
+import { GitBranch, LogOut, RefreshCw, Stethoscope, Upload } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { api } from '../api';
 import { useApp } from '../ctx';
+
+type GhDiagnose = {
+  repo: string;
+  tokenKind: string;
+  tokenLength: number;
+  tokenPrefix: string;
+  login: string | null;
+  repoFullName: string | null;
+  permissions: { push?: boolean; pull?: boolean; admin?: boolean } | null;
+  blobWrite: 'ok' | 'fail' | 'skipped';
+  blobError: string | null;
+  hint: string | null;
+  draftBranch: string;
+  prodBranch: string;
+};
 
 export function Settings({ onLogout }: { onLogout: () => void }) {
   const { session, toast } = useApp();
@@ -10,10 +25,22 @@ export function Settings({ onLogout }: { onLogout: () => void }) {
   const [msg, setMsg] = useState('עדכון תוכן מהאדמין');
   const [busy, setBusy] = useState(false);
   const [publishing, setPublishing] = useState(false);
+  const [diag, setDiag] = useState<GhDiagnose | null>(null);
+  const [diagBusy, setDiagBusy] = useState(false);
   const load = () => api('/git/status').then(setGit, () => {});
   useEffect(() => {
     load();
   }, []);
+  const runDiagnose = async () => {
+    setDiagBusy(true);
+    try {
+      setDiag(await api<GhDiagnose>('/git/diagnose'));
+    } catch (e: any) {
+      toast(e.message, true);
+    } finally {
+      setDiagBusy(false);
+    }
+  };
   const sync = async () => {
     setBusy(true);
     try {
@@ -73,10 +100,53 @@ export function Settings({ onLogout }: { onLogout: () => void }) {
           </p>
           {session.storage === 'github' && session.githubCanPush === false && (
             <p className="error" role="alert">
-              הטוקן הנוכחי לא יכול לכתוב לריפו (GitHub 403). צרו Fine-grained PAT ב־github.com/settings/personal-access-tokens/new → Repository access: paamayim → Permissions → Contents: Read and write → הדביקו ב-Render → Environment → GITHUB_TOKEN → Save.
+              הטוקן הנוכחי לא יכול לכתוב לריפו. לחצו «אבחון GitHub» למטה — או נסו Classic PAT (ghp_) עם public_repo.
             </p>
           )}
         </section>
+
+        {session.storage === 'github' && (
+          <section className="card stack" aria-labelledby="diag-h">
+            <h2 id="diag-h">
+              <Stethoscope size={18} aria-hidden /> אבחון GitHub
+            </h2>
+            <p className="small">בודק את הטוקן שב-Render מול GitHub (בלי לחשוף את הערך המלא).</p>
+            <div className="actions">
+              <button type="button" className="btn" disabled={diagBusy} onClick={runDiagnose} aria-label="אבחון GitHub">
+                {diagBusy ? 'בודק…' : 'הרץ אבחון'}
+              </button>
+            </div>
+            {diag && (
+              <div className="stack" style={{ gap: 6 }}>
+                <p className="small" dir="ltr">
+                  token: {diag.tokenKind} · {diag.tokenPrefix} · len={diag.tokenLength}
+                </p>
+                <p className="small" dir="ltr">
+                  login: {diag.login ?? '—'} · repo: {diag.repoFullName ?? diag.repo}
+                </p>
+                <p className="small" dir="ltr">
+                  permissions.push: {diag.permissions?.push === true ? 'true' : diag.permissions?.push === false ? 'false' : '—'} · blobWrite:{' '}
+                  {diag.blobWrite}
+                </p>
+                {diag.blobError && (
+                  <p className="error" role="alert" dir="ltr" style={{ fontSize: 13, fontWeight: 500 }}>
+                    {diag.blobError}
+                  </p>
+                )}
+                {diag.hint && (
+                  <p className={diag.blobWrite === 'ok' ? 'help' : 'error'} role={diag.blobWrite === 'ok' ? undefined : 'alert'}>
+                    {diag.hint}
+                  </p>
+                )}
+                {diag.blobWrite === 'ok' && <p className="help">הכתיבה ל-GitHub עובדת — נסו שוב שמירת טיוטה.</p>}
+              </div>
+            )}
+            <p className="help">
+              חלופה מומלצת אם Fine-grained נכשל: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) → generate → סמנו{' '}
+              <b dir="ltr">public_repo</b> → הדביקו ב-Render → GITHUB_TOKEN.
+            </p>
+          </section>
+        )}
 
         {session.storage === 'github' && (
           <section className="card stack" aria-labelledby="pub-h">

@@ -49,6 +49,14 @@ export type Config = {
   };
 };
 
+/** מנקה GITHUB_TOKEN שהודבק ב-Render עם רווחים, שורות או גרשיים/Bearer */
+export function sanitizeGithubToken(raw: string): string {
+  let t = raw.replace(/[\r\n\t]/g, '').trim();
+  if ((t.startsWith('"') && t.endsWith('"')) || (t.startsWith("'") && t.endsWith("'"))) t = t.slice(1, -1).trim();
+  if (/^bearer\s+/i.test(t)) t = t.replace(/^bearer\s+/i, '').trim();
+  return t;
+}
+
 export function readConfig(env: NodeJS.ProcessEnv = process.env): Config {
   const storage = env.STORAGE === 'github' ? 'github' : 'local';
   const secret = env.SESSION_SECRET ?? '';
@@ -81,8 +89,10 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env): Config {
     const repo = env.GITHUB_REPO || '';
     if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) throw new Error('GITHUB_REPO צריך להיות בפורמט owner/name');
     if (!env.GITHUB_TOKEN) throw new Error('STORAGE=github דורש GITHUB_TOKEN');
+    const token = sanitizeGithubToken(env.GITHUB_TOKEN);
+    if (!token) throw new Error('STORAGE=github דורש GITHUB_TOKEN');
     cfg.github = {
-      token: env.GITHUB_TOKEN,
+      token,
       repo,
       branch: env.GITHUB_BRANCH || 'master',
       draftBranch: env.GITHUB_DRAFT_BRANCH || 'content-drafts',
