@@ -1,6 +1,7 @@
 import { BookOpen, Languages, Lightbulb, Repeat, Sparkles } from 'lucide-react-native';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { MikraText } from '../reading/MikraText';
 import { verseMark } from '../data/hebrew';
 import type { PassKind, Verse, VerseProgress } from '../data/types';
 import { nw, passHue } from '../theme/design';
@@ -34,22 +35,23 @@ export function VerseFocusCard({
   return (
     <View>
       <GlassSurface reading variant="strong" radius={24} contentStyle={{ padding: 22 }}>
-        <Text
+        <MikraText
+          text={verse.hebrew}
+          brk={verse.brk}
           style={{
             ...nw.type.verseXL,
-            ...(long ? { fontSize: 26, lineHeight: 44 } : null),
+            lineHeight: 64,
+            ...(long ? { fontSize: 26, lineHeight: 54 } : null),
             ...(large
               ? long
-                ? { fontSize: 30, lineHeight: 52 }
-                : { fontSize: 36, lineHeight: 62 }
+                ? { fontSize: 30, lineHeight: 62 }
+                : { fontSize: 36, lineHeight: 74 }
               : null),
             color: nw.color.ink,
             textAlign: rtl.textRight,
             writingDirection: 'rtl',
           }}
-        >
-          {verse.hebrew}
-        </Text>
+        />
         <Text
           style={{
             ...nw.type.verseRef,

@@ -1,3 +1,4 @@
+import { ShabbatReadingCard } from '../ui/ShabbatReadingCard';
 import { useRouter } from 'expo-router';
 import {
   BookOpenText,
@@ -50,6 +51,9 @@ export function HomeWide() {
     <WidePage>
       {/* פתיחה: ברכה + סטטוס, כרטיסי זכוכית (המרכזי זוהר), כפתור המשך ופס גל */}
       <HomeHero />
+
+      {/* שבת מיוחדת / חג: מה קוראים בבית הכנסת, ולצד זה פרשת השבוע לשניים מקרא */}
+      <ShabbatReadingCard mode={calendarMode} style={{ marginTop: 16 }} />
 
       {/* פרשה + הפטרה זו לצד זו */}
       <WideCols style={{ marginTop: 16 }}>

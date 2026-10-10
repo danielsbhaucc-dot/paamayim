@@ -42,6 +42,7 @@ import {
   useLayout,
 } from '../../src/ui';
 import { HomeWide } from '../../src/wide/HomeWide';
+import { ShabbatReadingCard } from '../../src/ui/ShabbatReadingCard';
 import { lifeLessonsFor, useParasha, useParashaEyebrow } from '../../src/content';
 import { useG } from '../../src/greeting/useG';
 import { UI } from '../../src/greeting/uiTexts';
@@ -321,6 +322,8 @@ function HomeMobile() {
               </GlassSurface>
             </Pressable>
           </View>
+
+          <ShabbatReadingCard mode={calendarMode} style={{ marginHorizontal: nw.space.screenX, marginTop: 14 }} />
 
           <GlassSurface
             variant="card"

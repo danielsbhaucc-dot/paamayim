@@ -18,6 +18,8 @@ interface AppState {
   readingView: ReadingView;
   /** פריסת מצב גלילה: ״שניים ואחד״ (פסוק, פסוק שוב, תרגום) או ״רצוף״ (פסוק ותרגום) */
   flowLayout: FlowLayout;
+  /** טעמי המקרא בטקסט (ברירת מחדל: מוצגים). הניקוד תמיד מוצג. */
+  showTeamim: boolean;
   activeAliyah: number;
   lastVerseId: string | null;
   progress: ProgressMap;
@@ -45,6 +47,7 @@ interface AppState {
   setFamilyVoice: (voice: FamilyVoice) => void;
   setReadingView: (view: ReadingView) => void;
   setFlowLayout: (layout: FlowLayout) => void;
+  setShowTeamim: (on: boolean) => void;
   setActiveAliyah: (id: number) => void;
   setLastVerseId: (id: string | null) => void;
   togglePass: (verseId: string, kind: PassKind) => void;
@@ -78,6 +81,7 @@ export const useAppStore = create<AppState>()(
       familyVoice: 'adult',
       readingView: 'flow',
       flowLayout: 'classic',
+      showTeamim: true,
       activeAliyah: 1,
       lastVerseId: null,
       progress: {},
@@ -107,6 +111,7 @@ export const useAppStore = create<AppState>()(
       setFamilyVoice: (voice) => set({ familyVoice: voice }),
       setReadingView: (view) => set({ readingView: view }),
       setFlowLayout: (flowLayout) => set({ flowLayout }),
+      setShowTeamim: (showTeamim) => set({ showTeamim }),
       setActiveAliyah: (id) => set({ activeAliyah: id }),
       setLastVerseId: (id) =>
         set((state) => (id === state.lastVerseId ? { lastReadAt: Date.now() } : { lastVerseId: id, lastReadAt: id ? Date.now() : null })),
@@ -151,6 +156,7 @@ export const useAppStore = create<AppState>()(
         familyVoice: s.familyVoice,
         readingView: s.readingView,
         flowLayout: s.flowLayout,
+        showTeamim: s.showTeamim,
         activeAliyah: s.activeAliyah,
         lastVerseId: s.lastVerseId,
         progress: s.progress,

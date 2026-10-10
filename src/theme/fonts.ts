@@ -12,7 +12,16 @@ import {
 } from '@expo-google-fonts/frank-ruhl-libre';
 import { NotoSerifHebrew_400Regular, NotoSerifHebrew_500Medium } from '@expo-google-fonts/noto-serif-hebrew';
 
+/**
+ * מקרא עם ניקוד וטעמים: שני פונטים שנבנו מ-Ezra SIL (SIL OFL 1.1) — scripts/fonts/build-mikra-fonts.py.
+ * NehoraMikra = אותיות + ניקוד, NehoraMikraTeamim = רק הטעמים, באותה גיאומטריה בדיוק.
+ */
+const NehoraMikra = require('../../assets/fonts/NehoraMikra.ttf');
+const NehoraMikraTeamim = require('../../assets/fonts/NehoraMikraTeamim.ttf');
+
 export const fontAssets = {
+  NehoraMikra,
+  NehoraMikraTeamim,
   Assistant_400Regular,
   Assistant_500Medium,
   Assistant_600SemiBold,
@@ -32,6 +41,10 @@ export const fonts = {
   uiBold: 'Assistant_700Bold',
   uiExtra: 'Assistant_800ExtraBold',
   verse: 'FrankRuhlLibre_500Medium',
+  /** טקסט המקרא (אותיות + ניקוד) */
+  mikra: 'NehoraMikra',
+  /** שכבת הטעמים בלבד */
+  mikraTeamim: 'NehoraMikraTeamim',
   verseBold: 'FrankRuhlLibre_700Bold',
   verseRegular: 'FrankRuhlLibre_400Regular',
   /** תרגום אונקלוס (ארמית מנוקדת) — Noto Serif Hebrew, רישיון OFL */

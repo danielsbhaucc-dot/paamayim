@@ -11,7 +11,9 @@ import {
 } from 'react-native';
 import { hebrewNumber, verseMark } from '../data/hebrew';
 import type { Aliyah, Verse } from '../data/types';
+import { breakText, ghost, layerStyle, MikraRuns, useShowTeamim, type MikraLayer } from '../reading/MikraText';
 import { fonts } from '../theme/fonts';
+import { rtl } from '../theme/rtl';
 import { assets, colors } from '../theme/tokens';
 
 type Props = {
@@ -48,6 +50,41 @@ export function TorahScrollView({ verses, aliyah, parashaName, currentVerseId, o
   const parchmentW = scrollW * PARCHMENT_RATIO;
 
   const chapter = useMemo(() => verses[0]?.chapter, [verses]);
+  const teamim = useShowTeamim();
+
+  /**
+   * גוף המגילה לשכבה אחת. פרשה פתוחה = הטקסט ממשיך בשורה חדשה (שאר השורה ריק),
+   * סתומה = רווח בתוך השורה, כמו בספר תורה.
+   */
+  const renderBlock = (layer: MikraLayer) => (
+    <Text
+      style={[styles.verseBlock, layerStyle(layer)]}
+      accessibilityElementsHidden={layer === 'teamim'}
+      importantForAccessibility={layer === 'teamim' ? 'no-hide-descendants' : undefined}
+    >
+      {verses.map((v, i) => {
+        const chapterBreak = i > 0 && verses[i - 1].chapter !== v.chapter;
+        const current = layer === 'base' && v.id === currentVerseId;
+        return (
+          <Text key={v.id}>
+            {chapterBreak ? (
+              <Text style={ghost(layer, styles.chapterInline)}>{`${verses[i - 1].brk === 'p' ? '' : '\n'}פרק ${hebrewNumber(v.chapter)}\n`}</Text>
+            ) : null}
+            <Text
+              nativeID={layer === 'base' ? `tsv-${v.id}` : undefined}
+              style={current ? styles.current : undefined}
+              onPress={layer === 'base' && onVersePress ? () => onVersePress(v.id) : undefined}
+              accessibilityState={current ? { selected: true } : undefined}
+            >
+              <Text style={ghost(layer, styles.verseNum)}>{`\u200F(${verseMark(v.verse)}) `}</Text>
+              <MikraRuns raw={v.hebrew} teamim={teamim} layer={layer} inScroll />
+            </Text>
+            {i < verses.length - 1 ? (v.brk ? breakText(v.brk, true) : ' ') : ''}
+          </Text>
+        );
+      })}
+    </Text>
+  );
 
   // גלילה אוטומטית לפסוק הנוכחי
   const scrollRef = useRef<ScrollView>(null);
@@ -150,28 +187,15 @@ export function TorahScrollView({ verses, aliyah, parashaName, currentVerseId, o
             </Text>
           ) : null}
 
-          <Text style={styles.verseBlock}>
-            {verses.map((v, i) => {
-              const chapterBreak = i > 0 && verses[i - 1].chapter !== v.chapter;
-              return (
-                <Text key={v.id}>
-                  {chapterBreak ? (
-                    <Text style={styles.chapterInline}>{`\nפרק ${hebrewNumber(v.chapter)}\n`}</Text>
-                  ) : null}
-                  <Text
-                    nativeID={`tsv-${v.id}`}
-                    style={v.id === currentVerseId ? styles.current : undefined}
-                    onPress={onVersePress ? () => onVersePress(v.id) : undefined}
-                    accessibilityState={v.id === currentVerseId ? { selected: true } : undefined}
-                  >
-                    <Text style={styles.verseNum}>{`\u200F(${verseMark(v.verse)}) `}</Text>
-                    {v.hebrew}
-                  </Text>
-                  {i < verses.length - 1 ? ' ' : ''}
-                </Text>
-              );
-            })}
-          </Text>
+          {/* שתי שכבות זהות: אותיות וניקוד בדיו, ומעליהן הטעמים בצבע רך (בלי לגעת בלחיצות) */}
+          <View style={{ position: 'relative' }}>
+            {renderBlock('base')}
+            {teamim ? (
+              <View style={StyleSheet.absoluteFill} pointerEvents="none">
+                {renderBlock('teamim')}
+              </View>
+            ) : null}
+          </View>
         </ScrollView>
       </View>
 
@@ -262,12 +286,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   verseBlock: {
-    fontFamily: fonts.verse,
     fontSize: 22,
-    lineHeight: 44,
+    lineHeight: 48,
     color: '#2A1810',
-    textAlign: 'center',
+    // יישור לימין (בלי מתיחה, שמפרקת את המילים בטלפון); פרשה פתוחה = שורה חדשה, סתומה = רווח בתוך השורה
+    textAlign: rtl.textRight,
     writingDirection: 'rtl',
+    includeFontPadding: false,
+    letterSpacing: 0,
   },
   current: {
     backgroundColor: HIGHLIGHT,

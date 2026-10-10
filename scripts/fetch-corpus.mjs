@@ -1,5 +1,5 @@
 /**
- * מוריד מקרא מנוקד ותרגום אונקלוס מספריא, רק מגרסאות Public Domain.
+ * מוריד מקרא מנוקד ומוטעם (ניקוד + טעמי המקרא) ותרגום אונקלוס מספריא, רק מגרסאות Public Domain.
  * ספר שלם עלול לחזור ריק, לכן ההורדה היא בטווחי פרקים.
  *
  * הרצה: node scripts/fetch-corpus.mjs
@@ -13,7 +13,7 @@ import { getLeyningForParsha } from '@hebcal/leyning';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_DIR = path.join(ROOT, 'src', 'data', 'corpus');
 
-const HEBREW_VERSION = 'Tanach with Nikkud';
+const HEBREW_VERSION = "Tanach with Ta'amei Hamikra";
 const ALLOWED_LICENSES = new Set(['Public Domain', 'CC0', 'PD', 'PDM']);
 const CHUNK = 8;
 
@@ -44,6 +44,13 @@ function clean(value, ref) {
     .trim();
   if (!text) throw new Error(`פסוק ריק אחרי ניקוי: ${ref}`);
   return text;
+}
+
+/** מפריד סימן פרשה פתוחה/סתומה בסוף הפסוק: (פ) / (ס) / {פ} / {ס} */
+function splitBreak(value) {
+  const m = /\s*[({]([פס])[)}]\s*$/.exec(value);
+  if (!m) return { text: value, b: undefined };
+  return { text: value.slice(0, m.index), b: m[1] === 'פ' ? 'p' : 's' };
 }
 
 function asChapters(text, from, to) {
@@ -123,10 +130,17 @@ async function fetchBook(spec) {
         );
       }
       chapters.push(
-        heVerses.map((h, verseIndex) => ({
-          h: clean(h, `${spec.book} ${chapterNo}:${verseIndex + 1} מקרא`),
-          o: clean(onkVerses[verseIndex], `${spec.book} ${chapterNo}:${verseIndex + 1} אונקלוס`),
-        }))
+        heVerses.map((h, verseIndex) => {
+          const ref = `${spec.book} ${chapterNo}:${verseIndex + 1}`;
+          const raw = typeof h === 'string' ? h.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim() : h;
+          const { text, b } = splitBreak(raw);
+          const row = {
+          h: clean(text, `${ref} מקרא`),
+          o: clean(onkVerses[verseIndex], `${ref} אונקלוס`),
+          };
+          if (b) row.b = b;
+          return row;
+        })
       );
     }
 
@@ -213,8 +227,8 @@ const totals = BOOKS.map((spec) => {
 
 const license = {
   source: 'Sefaria',
-  retrieved: '2026-10-08',
-  use: 'הטקסטים בנחלת הכלל. מותר להשתמש בהם לכל מטרה, כולל מסחרית, בלי חובת קרדיט.',
+  retrieved: '2026-10-10',
+  use: 'הטקסטים בנחלת הכלל. מקרא עם ניקוד וטעמים: Tanach with Ta\'amei Hamikra (ספריא, מבוסס על כתב יד לנינגרד / Tanach.us, נחלת הכלל). מותר להשתמש בהם לכל מטרה, כולל מסחרית.',
   hebrew: {
     version: HEBREW_VERSION,
     license: corpusByBook.Genesis.hebrewLicense,

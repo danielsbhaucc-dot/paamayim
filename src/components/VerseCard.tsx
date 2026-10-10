@@ -1,3 +1,4 @@
+import { MikraText } from '../reading/MikraText';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -27,9 +28,7 @@ export function VerseCard({ verse, progress, onToggle }: Props) {
           </View>
         </View>
 
-        <Text style={styles.hebrew} accessibilityLabel={`מקרא: ${verse.hebrew}`}>
-          {verse.hebrew}
-        </Text>
+        <MikraText text={verse.hebrew} brk={verse.brk} style={styles.hebrew} accessibilityLabel="מקרא" />
 
         <PassToggles progress={progress} onToggle={onToggle} />
 
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
   hebrew: {
     fontFamily: fonts.verse,
     fontSize: 28,
-    lineHeight: 46,
+    lineHeight: 58,
     color: colors.text,
     textAlign: 'center',
     writingDirection: 'rtl',

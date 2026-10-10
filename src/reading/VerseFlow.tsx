@@ -1,3 +1,4 @@
+import { MikraText } from './MikraText';
 import { Check, Repeat } from 'lucide-react-native';
 import React, { useEffect, useRef } from 'react';
 import {
@@ -247,18 +248,17 @@ function FlowVerse({
             <Text style={styles.twiceText}>פעמיים</Text>
           </View>
         </View>
-        <Text
+        <MikraText
+          text={verse.hebrew}
+          brk={verse.brk}
           style={{
-            fontFamily: fonts.verse,
             fontSize: large ? 30 : 25,
-            lineHeight: large ? 54 : 44,
+            lineHeight: large ? 62 : 52,
             color: nw.color.ink,
             textAlign: rtl.textRight,
             writingDirection: 'rtl',
           }}
-        >
-          {verse.hebrew}
-        </Text>
+        />
         <Divider label="תרגום אונקלוס" color={passHue.onkelos.ink} spacing={2} />
         <Text
           style={{
@@ -353,9 +353,8 @@ function ClassicVerse({
 }) {
   const ref = `(${verseMark(verse.chapter)}, ${verseMark(verse.verse)})`;
   const hebrew = {
-    fontFamily: fonts.verse,
     fontSize: large ? 29 : 24,
-    lineHeight: large ? 52 : 42,
+    lineHeight: large ? 60 : 50,
     color: nw.color.ink,
     textAlign: rtl.textRight,
     writingDirection: 'rtl' as const,
@@ -385,11 +384,11 @@ function ClassicVerse({
       </Pressable>
       <View style={{ gap: 4 }}>
         <PassLabel kind="mikra1" text="מקרא" />
-        <Text style={hebrew}>{verse.hebrew}</Text>
+        <MikraText text={verse.hebrew} brk={verse.brk} style={hebrew} />
       </View>
       <View style={{ gap: 4 }}>
         <PassLabel kind="mikra2" text="מקרא שוב" />
-        <Text style={hebrew}>{verse.hebrew}</Text>
+        <MikraText text={verse.hebrew} brk={verse.brk} style={hebrew} />
       </View>
       <View style={{ gap: 4 }}>
         <PassLabel kind="onkelos" text="תרגום" />

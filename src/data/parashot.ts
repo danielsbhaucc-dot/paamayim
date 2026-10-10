@@ -125,6 +125,7 @@ function slicePortion(portion: LeyningAliyah): Verse[] {
         verse,
         book: book.he,
         hebrew: row.h,
+        ...(row.b ? { brk: row.b } : null),
         onkelos: row.o,
         onkelosNote: HAND_NOTES[id] ?? explainOnkelos(row.h, row.o),
       });
@@ -355,4 +356,70 @@ export function countPasses(
   }
   const total = parasha.verses.length;
   return { mikra1, mikra2, onkelos, total };
+}
+
+/** מה קוראים בפועל בבית הכנסת בשבת הקרובה (שבתות מיוחדות, חגים), לצד פרשת השבוע לשניים מקרא */
+export type ShabbatReading = {
+  /** regular = פרשת השבוע כרגיל · special = פרשה + מפטיר/הפטרה מיוחדים · chag = חג/חול המועד במקום הפרשה */
+  kind: 'regular' | 'special' | 'chag';
+  /** התאריך הלועזי של השבת */
+  date: Date;
+  /** למשל ״שבת שקלים״, ״שבת חול המועד פסח״, ״שבת ראש חודש״ */
+  title: string;
+  /** קריאת התורה (תקציר מקורות, עברית) */
+  torah?: string;
+  /** מפטיר מיוחד (אם יש) */
+  maftir?: string;
+  /** ההפטרה (מקורות) */
+  haftara?: string;
+  /** פרשת השבוע לשניים מקרא (שם עברי) — בחג: הפרשה של השבת הבאה */
+  weekly: string;
+};
+
+function heName(value: string | undefined): string {
+  if (!value) return '';
+  const v = stripNikud(value).replace(/\s*\(בשבת\)/, '').trim();
+  if (/^חנוכה/.test(v)) return 'שבת חנוכה';
+  if (/פינחס/.test(v)) return 'פינחס אחרי י״ז בתמוז — הפטרת ״דברי ירמיהו״';
+  return v.replace(/\bחל המועד\b|חל המועד/, 'חול המועד').replace(/החדש$/, 'החודש');
+}
+
+/** השבת הקרובה (במוצ״ש — השבת הבאה) */
+export function upcomingShabbat(date = new Date()): HDate {
+  const start = new HDate(date);
+  return shabbatOnOrAfter(isAfterShabbat(date) ? new HDate(start.abs() + 1) : start);
+}
+
+export function getShabbatReading(mode: CalendarMode, date = new Date()): ShabbatReading {
+  const il = mode === 'israel';
+  const hd = upcomingShabbat(date);
+  const sedra = new Sedra(hd.getFullYear(), il).lookup(hd);
+  const weekly = getCurrentParasha(mode, date).name;
+  const raw = getLeyningOnDate(hd, il, false, 'he');
+  const l = (Array.isArray(raw) ? raw[0] : raw) as
+    | {
+        name?: { he?: string };
+        reason?: { haftara?: string; M?: string };
+        fullkriyah?: Record<string, { k?: string; b?: string; e?: string } | undefined>;
+        haft?: unknown;
+        haftara?: string;
+        summary?: string;
+      }
+    | undefined;
+  const torah = l?.summary ? stripNikud(l.summary) : undefined;
+  const haftara = l?.haftara ? stripNikud(l.haftara) : undefined;
+  const m = l?.fullkriyah?.M;
+  const sameChapter = m?.b && m?.e && m.b.split(':')[0] === m.e.split(':')[0];
+  const maftir =
+    m?.k && m.b && m.e ? stripNikud(`${m.k} ${m.b}-${sameChapter ? m.e.split(':')[1] : m.e}`) : undefined;
+  const base = { date: hd.greg(), weekly, torah, haftara };
+
+  if (sedra.chag) {
+    return { ...base, kind: 'chag', title: heName(l?.name?.he) || 'שבת חג', maftir };
+  }
+  const reasons = [...new Set([l?.reason?.M, l?.reason?.haftara].filter(Boolean).map((r) => heName(r)))];
+  if (reasons.length) {
+    return { ...base, kind: 'special', title: reasons.join(' · '), maftir: l?.reason?.M ? maftir : undefined };
+  }
+  return { ...base, kind: 'regular', title: `שבת פרשת ${weekly}` };
 }

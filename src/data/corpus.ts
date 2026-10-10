@@ -9,6 +9,8 @@ import numbersJson from './corpus/numbers.json';
 export type CorpusVerse = {
   h: string;
   o: string;
+  /** פרשה פתוחה (p) / סתומה (s) אחרי הפסוק */
+  b?: 'p' | 's';
 };
 
 export type CorpusBook = {

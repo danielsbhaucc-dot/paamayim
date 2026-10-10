@@ -69,10 +69,23 @@ export default function LegalScreen() {
                 marginBottom: 10,
               }}
             >
-              המקרא המנוקד ותרגום אונקלוס הורדו מספריא ב־8 באוקטובר 2026.
-              המקרא הוא הגרסה «{CORPUS_LICENSE.hebrew.version}». אונקלוס הוא חמש
-              הגרסאות «Onkelos Genesis», «Onkelos Exodus», «Onkelos Leviticus»,
-              «Onkelos Numbers» ו־«Onkelos Deuteronomy».
+              המקרא, עם ניקוד וטעמי המקרא, ותרגום אונקלוס הורדו מספריא ב־10 באוקטובר 2026.
+              המקרא הוא הגרסה «{CORPUS_LICENSE.hebrew.version}» (מבוססת על כתב יד לנינגרד, דרך
+              Tanach.us), בנחלת הכלל. אונקלוס הוא חמש הגרסאות «Onkelos Genesis», «Onkelos Exodus»,
+              «Onkelos Leviticus», «Onkelos Numbers» ו־«Onkelos Deuteronomy», בנחלת הכלל.
+            </Text>
+            <Text
+              style={{
+                ...nw.type.bodySm,
+                color: nw.color.inkSoft,
+                textAlign: rtl.textRight,
+                writingDirection: 'rtl',
+                marginBottom: 10,
+              }}
+            >
+              גופן המקרא «Nehora Mikra» הוא גרסה של Ezra SIL ‏(© SIL International, ‏SIL Open Font
+              License 1.1, ‏scripts.sil.org/OFL), שבה הטעמים מופרדים לשכבה נפרדת כדי לצבוע אותם.
+              ממשק הלוגיקה של העברית בגופן: © Ralph Hancock ו־John Hudson, רישיון MIT.
             </Text>
             <Text
               style={{

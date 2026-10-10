@@ -1,0 +1,46 @@
+import { CalendarDays } from 'lucide-react-native';
+import React, { useMemo } from 'react';
+import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { getShabbatReading } from '../data/parashot';
+import type { CalendarMode } from '../data/types';
+import { useAppStore } from '../store/useAppStore';
+import { nw } from '../theme/design';
+import { fonts } from '../theme/fonts';
+import { rtl } from '../theme/rtl';
+import { GlassSurface } from './GlassSurface';
+
+/**
+ * ״מה קוראים השבת בבית הכנסת״ — מוצג רק כשהשבת מיוחדת (שקלים, זכור, פרה, החודש, ראש חודש,
+ * מחר חודש, חנוכה, חול המועד, יום טוב בשבת). שניים מקרא תמיד הולך לפי פרשת השבוע.
+ */
+export function ShabbatReadingCard({ mode, style }: { mode?: CalendarMode; style?: StyleProp<ViewStyle> }) {
+  const storeMode = useAppStore((s) => s.calendarMode);
+  const m = mode ?? storeMode;
+  const r = useMemo(() => getShabbatReading(m), [m]);
+  if (r.kind === 'regular') return null;
+  const line = (label: string, value?: string) =>
+    value ? (
+      <Text style={{ fontFamily: fonts.ui, fontSize: 15, lineHeight: 22, color: nw.color.inkSoft, textAlign: rtl.textRight, writingDirection: 'rtl' }}>
+        <Text style={{ fontFamily: fonts.uiBold, color: nw.color.ink }}>{label}: </Text>
+        {value}
+      </Text>
+    ) : null;
+  return (
+    <GlassSurface variant="card" radius={22} style={style} contentStyle={{ padding: 18, gap: 6 }}>
+      <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 8 }}>
+        <CalendarDays size={20} color={nw.color.tealIcon} strokeWidth={1.9} />
+        <Text style={{ fontFamily: fonts.uiBold, fontSize: 17, color: nw.color.ink, writingDirection: 'rtl', flex: 1, textAlign: rtl.textRight }}>
+          {r.kind === 'chag' ? `השבת: ${r.title}` : r.title}
+        </Text>
+      </View>
+      {r.kind === 'chag' ? line('קריאת התורה בבית הכנסת', r.torah) : null}
+      {line('מפטיר', r.maftir)}
+      {line('הפטרה', r.haftara)}
+      <Text style={{ fontFamily: fonts.uiSemi, fontSize: 14, lineHeight: 21, color: nw.color.tealText, textAlign: rtl.textRight, writingDirection: 'rtl', marginTop: 4 }}>
+        {r.kind === 'chag'
+          ? `השבת לא קוראים פרשת שבוע. שניים מקרא ואחד תרגום — על פרשת ${r.weekly}, שנקראת בשבת הבאה.`
+          : `שניים מקרא ואחד תרגום — על פרשת ${r.weekly}, כרגיל.`}
+      </Text>
+    </GlassSurface>
+  );
+}

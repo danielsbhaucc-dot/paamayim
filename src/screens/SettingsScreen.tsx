@@ -134,6 +134,8 @@ function ReadingSection() {
   const setReadingView = useAppStore((s) => s.setReadingView);
   const flowLayout = useAppStore((s) => s.flowLayout);
   const setFlowLayout = useAppStore((s) => s.setFlowLayout);
+  const showTeamim = useAppStore((s) => s.showTeamim);
+  const setShowTeamim = useAppStore((s) => s.setShowTeamim);
   const calendarMode = useAppStore((s) => s.calendarMode);
   const setCalendarMode = useAppStore((s) => s.setCalendarMode);
   const familyVoice = useAppStore((s) => s.familyVoice);
@@ -161,6 +163,24 @@ function ReadingSection() {
             />
           </Field>
         ) : null}
+        <Field
+          label="טעמי המקרא"
+          help={
+            showTeamim
+              ? 'הטעמים מוצגים בצבע רך, כדי שלא יתערבבו עם הניקוד. הניקוד תמיד מוצג.'
+              : 'רק אותיות וניקוד — לקריאה נקייה. הניקוד תמיד מוצג.'
+          }
+        >
+          <SegmentedTabs
+            size="md"
+            options={[
+              { id: 'on', label: 'עם טעמים' },
+              { id: 'off', label: 'ניקוד בלבד' },
+            ]}
+            value={showTeamim ? 'on' : 'off'}
+            onChange={(id) => setShowTeamim(id === 'on')}
+          />
+        </Field>
         <Field label="לוח" help="קובע איזו פרשה והפטרה נקראות השבוע.">
           <SegmentedTabs
             size="md"

@@ -19,7 +19,10 @@ export interface Verse {
   verse: number;
   /** שם החומש בעברית */
   book: string;
+  /** המקרא עם ניקוד וטעמים (הסרת הטעמים לפי ההגדרות — ב-MikraText) */
   hebrew: string;
+  /** הפסקת פרשה אחרי הפסוק: p = פתוחה, s = סתומה */
+  brk?: 'p' | 's';
   onkelos: string;
   /** הסבר קצר: מה אונקלוס עשה כאן */
   onkelosNote: {
