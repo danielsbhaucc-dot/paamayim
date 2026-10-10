@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
-import { parseRichText, type RichBlock } from '../content/richText';
+import { HEBREW_LETTERS, parseRichText, type RichSpan } from '../content/richText';
 import { nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
@@ -13,7 +13,7 @@ type Props = {
   large?: boolean;
 };
 
-/** מציג טקסט עם *הדגשה* וציטוטי > לפי parseRichText */
+/** מציג טקסט עשיר לפי parseRichText (הדגשה, ציטוט, רשימות, כותרת, מפריד) */
 export function RichText({ children, style, quoteStyle, large }: Props) {
   const blocks = parseRichText(children);
   if (!blocks.length) return null;
@@ -24,43 +24,114 @@ export function RichText({ children, style, quoteStyle, large }: Props) {
     textAlign: rtl.textRight,
     writingDirection: 'rtl',
   };
+  const quoteBorder = rtl.isNativeRTL
+    ? { borderLeftWidth: 3, borderLeftColor: nw.color.tealBright, paddingLeft: 14, paddingRight: 4 }
+    : { borderRightWidth: 3, borderRightColor: nw.color.tealBright, paddingRight: 14, paddingLeft: 4 };
+
   return (
     <View style={{ gap: 12 }}>
-      {blocks.map((b, i) =>
-        b.type === 'quote' ? (
-          <View
-            key={i}
-            style={[
-              {
-                // פס ציטוט בצד ההתחלה הוויזואלי (ימין בעברית)
-                ...(rtl.isNativeRTL
-                  ? { borderLeftWidth: 3, borderLeftColor: nw.color.tealBright, paddingLeft: 14, paddingRight: 4 }
-                  : { borderRightWidth: 3, borderRightColor: nw.color.tealBright, paddingRight: 14, paddingLeft: 4 }),
-                paddingVertical: 8,
-                backgroundColor: nw.color.mint,
-                borderRadius: nw.radius.xs,
-              },
-              quoteStyle,
-            ]}
-          >
-            <Text style={[base, { fontFamily: fonts.verseRegular, color: nw.color.ink, fontStyle: 'italic' }, style]}>
-              {renderSpans(b)}
+      {blocks.map((b, i) => {
+        if (b.type === 'hr') {
+          return (
+            <View
+              key={i}
+              accessibilityRole="none"
+              style={{
+                height: 1,
+                marginVertical: 6,
+                backgroundColor: 'rgba(43,107,106,0.28)',
+              }}
+            />
+          );
+        }
+        if (b.type === 'h') {
+          return (
+            <Text
+              key={i}
+              style={[
+                base,
+                {
+                  fontFamily: fonts.uiBold,
+                  fontSize: large ? 20 : 18,
+                  lineHeight: large ? 30 : 26,
+                  color: nw.color.ink,
+                },
+                style,
+              ]}
+            >
+              {renderSpans(b.spans)}
             </Text>
-          </View>
-        ) : (
+          );
+        }
+        if (b.type === 'quote') {
+          return (
+            <View
+              key={i}
+              style={[
+                {
+                  ...quoteBorder,
+                  paddingVertical: 8,
+                  backgroundColor: nw.color.mint,
+                  borderRadius: nw.radius.xs,
+                },
+                quoteStyle,
+              ]}
+            >
+              <Text style={[base, { fontFamily: fonts.verseRegular, color: nw.color.ink, fontStyle: 'italic' }, style]}>
+                {renderSpans(b.spans)}
+              </Text>
+            </View>
+          );
+        }
+        if (b.type === 'ul' || b.type === 'ol' || b.type === 'ol-letter') {
+          return (
+            <View key={i} style={{ gap: 6 }}>
+              {b.items.map((item, j) => {
+                const mark =
+                  b.type === 'ul' ? '•' : b.type === 'ol' ? `${j + 1}.` : `${HEBREW_LETTERS[j] ?? j + 1}.`;
+                return (
+                  <View key={j} style={{ flexDirection: rtl.row, gap: 8, alignItems: 'flex-start' }}>
+                    <Text
+                      style={[
+                        base,
+                        {
+                          fontFamily: fonts.uiSemi,
+                          color: nw.color.tealText,
+                          minWidth: b.type === 'ul' ? 14 : 22,
+                        },
+                        style,
+                      ]}
+                    >
+                      {mark}
+                    </Text>
+                    <Text style={[base, { flex: 1 }, style]}>{renderSpans(item)}</Text>
+                  </View>
+                );
+              })}
+            </View>
+          );
+        }
+        return (
           <Text key={i} style={[base, style]}>
-            {renderSpans(b)}
+            {renderSpans(b.spans)}
           </Text>
-        )
-      )}
+        );
+      })}
     </View>
   );
 }
 
-function renderSpans(b: RichBlock) {
-  return b.spans.map((s, i) =>
+function renderSpans(spans: RichSpan[]) {
+  return spans.map((s, i) =>
     s.bold ? (
-      <Text key={i} style={{ fontFamily: fonts.uiBold, color: nw.color.ink }}>
+      <Text
+        key={i}
+        style={{
+          fontFamily: fonts.uiBold,
+          color: nw.color.ink,
+          // הדגשה עדינה: משקל 700 + ink, לא «שחור» גס
+        }}
+      >
         {s.text}
       </Text>
     ) : (

@@ -23,9 +23,9 @@
   --shadow: 0 10px 30px rgba(11, 42, 74, 0.1), 0 2px 6px rgba(11, 42, 74, 0.06);
   --radius: 22px;
   --radius-sm: 14px;
-  /* UI עברי = Assistant; פסוקים/ציטוטים = Frank Ruhl Libre. בלי system-ui/serif גנרי כעדיפות ראשונה */
-  --ui: 'Assistant', 'Frank Ruhl Libre', sans-serif;
-  --serif: 'Frank Ruhl Libre', 'Assistant', serif;
+  /* UI עברי = Assistant; פסוקים/ציטוטים = Frank Ruhl Libre. בלי system-ui/Arial כעדיפות ראשונה */
+  --ui: 'Assistant', 'Frank Ruhl Libre', Tahoma, sans-serif;
+  --serif: 'Frank Ruhl Libre', 'Assistant', Tahoma, serif;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
@@ -172,8 +172,74 @@ label.field { display: flex; flex-direction: column; gap: 6px; font-weight: 700;
 }
 .input:focus { border-color: rgba(11, 42, 74, 0.38); outline: none; }
 textarea.input { resize: vertical; line-height: 1.7; min-height: 120px; }
-textarea.input.rich-source { font-family: var(--ui); }
-.help { color: var(--ink-soft); font-size: 13.5px; font-weight: 500; }
+textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
+.help { color: var(--ink-soft); font-size: 13.5px; font-weight: 500; font-family: var(--ui); }
+
+/* ---------- עורך עשיר (WYSIWYG) ---------- */
+.rich-editor { width: 100%; }
+.rich-toolbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+  padding: 6px 8px; border-radius: var(--radius-sm);
+  background: rgba(var(--pearl-rgb), 0.62);
+  border: 1px solid rgba(43, 107, 106, 0.18);
+}
+.rich-toolbar .btn.active-mode {
+  background: rgba(43, 107, 106, 0.12);
+  color: var(--teal-text);
+}
+.rich-wysiwyg {
+  min-height: 160px; max-height: 480px; overflow: auto;
+  padding: 14px 16px; line-height: 1.75;
+  font-family: var(--ui); font-weight: 500; font-size: 16.5px;
+  color: var(--ink-soft);
+  background: rgba(var(--pearl-rgb), 0.55);
+  white-space: pre-wrap;
+}
+.rich-wysiwyg.is-empty::before {
+  content: attr(data-placeholder);
+  color: var(--ink-muted);
+  font-weight: 500; pointer-events: none;
+}
+.rich-wysiwyg:focus { border-color: rgba(43, 107, 106, 0.45); }
+.rich-wysiwyg p { margin: 0 0 0.65em; font-family: var(--ui); }
+.rich-wysiwyg p:last-child { margin-bottom: 0; }
+.rich-wysiwyg h3 {
+  margin: 0.4em 0 0.55em; font-family: var(--ui); font-weight: 700;
+  font-size: 1.15em; color: var(--ink); line-height: 1.35;
+}
+.rich-wysiwyg blockquote,
+.rich-live .rich-quote {
+  margin: 0.5em 0; padding: 10px 14px;
+  border-inline-start: 3px solid var(--teal-bright);
+  background: var(--mint); border-radius: 10px;
+  font-family: var(--serif); color: var(--ink); font-style: italic; font-weight: 400;
+}
+.rich-wysiwyg ul, .rich-live .rich-ul { margin: 0.4em 0; padding-inline-start: 1.35em; list-style: disc; }
+.rich-wysiwyg ol, .rich-live .rich-ol { margin: 0.4em 0; padding-inline-start: 1.5em; list-style: decimal; }
+.rich-wysiwyg ol.letters, .rich-live .rich-ol.letters {
+  list-style: hebrew;
+}
+.rich-wysiwyg li, .rich-live li { margin: 0.2em 0; font-family: var(--ui); }
+.rich-wysiwyg hr, .rich-live .rich-hr {
+  border: 0; height: 1px; margin: 14px 0;
+  background: linear-gradient(90deg, transparent, rgba(43, 107, 106, 0.35), transparent);
+}
+/* הדגשה מקצועית: משקל 700 + ink, הילה טורקיז עדינה — לא bold גס */
+.rich-wysiwyg strong, .rich-live strong {
+  font-family: var(--ui);
+  font-weight: 700;
+  color: var(--ink);
+  font-style: normal;
+  letter-spacing: 0.01em;
+  background: linear-gradient(transparent 62%, rgba(31, 158, 140, 0.16) 62%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.rich-live .rich-h {
+  margin: 0; font-family: var(--ui); font-weight: 700; font-size: 1.12em;
+  color: var(--ink); line-height: 1.35;
+}
+.rich-live-hint, .rich-source-hint { margin: 0; font-size: 12.5px; }
 .error { color: var(--danger); background: var(--danger-bg); padding: 10px 14px; border-radius: var(--radius-sm); font-weight: 600; }
 
 .tabs { display: flex; gap: 6px; overflow-x: auto; padding: 4px; border-radius: 999px; background: rgba(var(--pearl-rgb), 0.55); border: 1px solid rgba(var(--pearl-rgb), 0.9); scrollbar-width: none; }
@@ -249,17 +315,6 @@ textarea.input.rich-source { font-family: var(--ui); }
 .rich-live { display: grid; gap: 10px; font-size: 16px; line-height: 1.7; color: var(--ink-soft); font-family: var(--ui); }
 .rich-live.compact { gap: 8px; font-size: 15px; }
 .rich-live .rich-p { margin: 0; white-space: pre-wrap; font-family: var(--ui); }
-.rich-live .rich-quote {
-  margin: 0;
-  padding: 8px 14px;
-  border-inline-start: 3px solid var(--teal-bright);
-  background: var(--mint);
-  border-radius: 10px;
-  font-family: var(--serif);
-  color: var(--ink);
-  font-style: italic;
-}
-.rich-live strong { color: var(--ink); font-weight: 800; font-family: var(--ui); }
 .story-divider {
   display: flex; align-items: center; gap: 10px; margin: 14px 0 8px;
   color: var(--teal-text); font-size: 12px; font-weight: 700; font-family: var(--ui);

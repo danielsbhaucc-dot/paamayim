@@ -1,9 +1,11 @@
 /* Assistant + Frank Ruhl Libre כולל hebrew/latin (unicode-range) — כמו באפליקציה */
 import '@fontsource/assistant/400.css';
+import '@fontsource/assistant/500.css';
 import '@fontsource/assistant/600.css';
 import '@fontsource/assistant/700.css';
 import '@fontsource/assistant/800.css';
 import '@fontsource/frank-ruhl-libre/400.css';
+import '@fontsource/frank-ruhl-libre/500.css';
 import '@fontsource/frank-ruhl-libre/700.css';
 import './styles.css';
 import { StrictMode } from 'react';
