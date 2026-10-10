@@ -85,25 +85,58 @@ export function RichText({ children, style, quoteStyle, large }: Props) {
         }
         if (b.type === 'ul' || b.type === 'ol' || b.type === 'ol-letter') {
           return (
-            <View key={i} style={{ gap: 6 }}>
+            <View key={i} style={{ gap: 8 }}>
               {b.items.map((item, j) => {
-                const mark =
-                  b.type === 'ul' ? '•' : b.type === 'ol' ? `${j + 1}.` : `${HEBREW_LETTERS[j] ?? j + 1}.`;
+                if (b.type === 'ul') {
+                  return (
+                    <View key={j} style={{ flexDirection: rtl.row, gap: 8, alignItems: 'flex-start' }}>
+                      <Text
+                        style={[
+                          base,
+                          {
+                            fontFamily: fonts.uiSemi,
+                            color: nw.color.tealText,
+                            minWidth: 14,
+                          },
+                          style,
+                        ]}
+                      >
+                        •
+                      </Text>
+                      <Text style={[base, { flex: 1 }, style]}>{renderSpans(item)}</Text>
+                    </View>
+                  );
+                }
+                const mark = b.type === 'ol' ? String(j + 1) : (HEBREW_LETTERS[j] ?? String(j + 1));
+                const badge = large ? 28 : 26;
                 return (
-                  <View key={j} style={{ flexDirection: rtl.row, gap: 8, alignItems: 'flex-start' }}>
-                    <Text
-                      style={[
-                        base,
-                        {
-                          fontFamily: fonts.uiSemi,
-                          color: nw.color.tealText,
-                          minWidth: b.type === 'ul' ? 14 : 22,
-                        },
-                        style,
-                      ]}
+                  <View key={j} style={{ flexDirection: rtl.row, gap: 10, alignItems: 'flex-start' }}>
+                    <View
+                      style={{
+                        width: badge,
+                        height: badge,
+                        borderRadius: badge / 2,
+                        backgroundColor: nw.color.mint,
+                        borderWidth: 1,
+                        borderColor: nw.color.tealSoft,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginTop: 1,
+                      }}
+                      accessibilityElementsHidden
+                      importantForAccessibility="no-hide-descendants"
                     >
-                      {mark}
-                    </Text>
+                      <Text
+                        style={{
+                          fontFamily: fonts.uiBold,
+                          fontSize: large ? 14 : 13,
+                          lineHeight: large ? 18 : 16,
+                          color: nw.color.tealDeep,
+                        }}
+                      >
+                        {mark}
+                      </Text>
+                    </View>
                     <Text style={[base, { flex: 1 }, style]}>{renderSpans(item)}</Text>
                   </View>
                 );
@@ -128,8 +161,9 @@ function renderSpans(spans: RichSpan[]) {
         key={i}
         style={{
           fontFamily: fonts.uiBold,
+          // הדגשה בצבע: ink כהה מול inkSoft של הגוף (לא רק משקל)
           color: nw.color.ink,
-          // הדגשה עדינה: משקל 700 + ink, לא «שחור» גס
+          letterSpacing: 0.015,
         }}
       >
         {s.text}

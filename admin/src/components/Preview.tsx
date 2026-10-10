@@ -116,14 +116,30 @@ export function Preview({ slug, meta, version, verse }: { slug: string; meta: an
                     {byAliyah
                       .slice()
                       .sort((a, b) => (Number(a.aliyah) || 99) - (Number(b.aliyah) || 99))
-                      .map((s, i) => (
-                        <div key={i} style={{ marginTop: i ? 12 : 0 }}>
-                          {i > 0 ? <div className="story-divider" /> : null}
-                          <div className="app-eyebrow">עלייה {s.aliyah}</div>
-                          {s.title ? <h3 style={{ fontSize: 16 }}>{s.title}</h3> : null}
-                          {s.text ? <RichStory text={s.text} /> : null}
-                        </div>
-                      ))}
+                      .map((s, i) => {
+                        const n = Math.min(7, Math.max(1, Number(s.aliyah) || i + 1));
+                        return (
+                          <div key={i}>
+                            {i > 0 ? <div className="story-divider" /> : null}
+                            <div className="aliyah-card" data-aliyah={n}>
+                              <div className="aliyah-card-head">
+                                <span className="aliyah-num" aria-hidden>
+                                  {n}
+                                </span>
+                                <div className="grow">
+                                  <div className="app-eyebrow">עלייה {s.aliyah ?? n}</div>
+                                  {s.title ? <h3 style={{ fontSize: 16 }}>{s.title}</h3> : null}
+                                </div>
+                              </div>
+                              {s.text ? (
+                                <div style={{ marginTop: 8 }}>
+                                  <RichStory text={s.text} />
+                                </div>
+                              ) : null}
+                            </div>
+                          </div>
+                        );
+                      })}
                   </div>
                 ) : null}
               </>

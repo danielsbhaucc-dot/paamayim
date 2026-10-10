@@ -7,6 +7,7 @@
   --ink-muted: #435a6b;
   --teal: #2b6b6a;
   --teal-text: #1d5a57;
+  --teal-deep: #1e5557;
   --teal-bright: #1f9e8c;
   --mint: #e3f1ec;
   --amber: #8a5a00;
@@ -16,10 +17,19 @@
   --line: rgba(11, 42, 74, 0.12);
   --glass: rgba(var(--pearl-rgb), 0.72);
   --glass-strong: rgba(var(--pearl-rgb), 0.9);
-  --surface-input: rgba(var(--pearl-rgb), 0.55);
-  --surface-tile: rgba(var(--pearl-rgb), 0.42);
-  --surface-soft: rgba(var(--pearl-rgb), 0.5);
+  /* משטחים — תמיד פנינה/שמנת, אף פעם לא לבן טהור (#fff) */
+  --surface-input: rgba(var(--pearl-rgb), 0.78);
+  --surface-tile: rgba(var(--pearl-rgb), 0.62);
+  --surface-soft: rgba(var(--pearl-rgb), 0.7);
   --on-accent: #ffffff; /* טקסט/אייקון על טורקיז בלבד — לא משטח */
+  /* גווני עליות (כמו aliyahHue באפליקציה) */
+  --aliyah-1: #2c928c; --aliyah-1-ink: #206b66; --aliyah-1-rgb: 44,146,140;
+  --aliyah-2: #3f86c6; --aliyah-2-ink: #2d6496; --aliyah-2-rgb: 63,134,198;
+  --aliyah-3: #7275c4; --aliyah-3-ink: #5559b8; --aliyah-3-rgb: 114,117,196;
+  --aliyah-4: #b0679a; --aliyah-4-ink: #8f4a7b; --aliyah-4-rgb: 176,103,154;
+  --aliyah-5: #cc6446; --aliyah-5-ink: #a2472d; --aliyah-5-rgb: 204,100,70;
+  --aliyah-6: #ab7826; --aliyah-6-ink: #815b1d; --aliyah-6-rgb: 171,120,38;
+  --aliyah-7: #668d4e; --aliyah-7-ink: #4b693a; --aliyah-7-rgb: 102,141,78;
   --shadow: 0 10px 30px rgba(11, 42, 74, 0.1), 0 2px 6px rgba(11, 42, 74, 0.06);
   --radius: 22px;
   --radius-sm: 14px;
@@ -55,6 +65,26 @@ h3 { font-size: 17px; font-weight: 700; }
 p { margin: 0; }
 a { color: var(--teal-text); }
 button, input, textarea, select { font: inherit; font-family: var(--ui); color: inherit; }
+/* נעילת רקע לבן של הדפדפן — כל פקד/עריכה = פנינה */
+input:not([type='checkbox']):not([type='radio']):not([type='file']):not([type='range']):not([type='hidden']),
+textarea,
+select,
+[contenteditable='true'] {
+  background-color: var(--surface-input);
+  color: var(--ink);
+  border-color: rgba(11, 42, 74, 0.18);
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--ink);
+  caret-color: var(--ink);
+  box-shadow: 0 0 0 1000px var(--pearl) inset;
+  transition: background-color 99999s ease-in-out 0s;
+}
+option { background-color: var(--pearl); color: var(--ink); }
 :focus { outline: none; }
 :focus-visible { outline: 1.5px solid rgba(43, 107, 106, 0.38); outline-offset: 2px; } /* מקלדת בלבד, דק ועדין, עוקב אחרי העיגול */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
@@ -180,7 +210,7 @@ textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
 .rich-toolbar {
   display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;
   padding: 6px 8px; border-radius: var(--radius-sm);
-  background: rgba(var(--pearl-rgb), 0.62);
+  background: rgba(var(--pearl-rgb), 0.88);
   border: 1px solid rgba(43, 107, 106, 0.18);
 }
 .rich-toolbar .btn.active-mode {
@@ -192,7 +222,9 @@ textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
   padding: 14px 16px; line-height: 1.75;
   font-family: var(--ui); font-weight: 500; font-size: 16.5px;
   color: var(--ink-soft);
-  background: rgba(var(--pearl-rgb), 0.55);
+  background: var(--surface-input);
+  border: 1px solid rgba(11, 42, 74, 0.18);
+  border-radius: var(--radius-sm);
   white-space: pre-wrap;
 }
 .rich-wysiwyg.is-empty::before {
@@ -215,23 +247,45 @@ textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
   font-family: var(--serif); color: var(--ink); font-style: italic; font-weight: 400;
 }
 .rich-wysiwyg ul, .rich-live .rich-ul { margin: 0.4em 0; padding-inline-start: 1.35em; list-style: disc; }
-.rich-wysiwyg ol, .rich-live .rich-ol { margin: 0.4em 0; padding-inline-start: 1.5em; list-style: decimal; }
-.rich-wysiwyg ol.letters, .rich-live .rich-ol.letters {
-  list-style: hebrew;
+/* רשימה ממוספרת: מספר בתוך עיגול מנטה (כמו באפליקציה) */
+.rich-wysiwyg ol, .rich-live .rich-ol {
+  margin: 0.45em 0; padding: 0; list-style: none; counter-reset: rich-ol;
+  display: flex; flex-direction: column; gap: 0.4em;
 }
-.rich-wysiwyg li, .rich-live li { margin: 0.2em 0; font-family: var(--ui); }
+.rich-wysiwyg ol > li, .rich-live .rich-ol > li {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin: 0; font-family: var(--ui); counter-increment: rich-ol;
+}
+.rich-wysiwyg ol > li::before, .rich-live .rich-ol > li::before {
+  content: counter(rich-ol);
+  flex: none;
+  width: 26px; height: 26px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--mint);
+  border: 1px solid rgba(31, 158, 140, 0.22);
+  color: var(--teal-deep);
+  font-family: var(--ui); font-weight: 700; font-size: 13px; line-height: 1;
+  margin-top: 1px;
+}
+.rich-wysiwyg ol.letters, .rich-live .rich-ol.letters { counter-reset: rich-ol-he; }
+.rich-wysiwyg ol.letters > li, .rich-live .rich-ol.letters > li { counter-increment: rich-ol-he; }
+.rich-wysiwyg ol.letters > li::before, .rich-live .rich-ol.letters > li::before {
+  content: counter(rich-ol-he, hebrew);
+  font-size: 12px;
+}
+.rich-wysiwyg ul li, .rich-live .rich-ul li { margin: 0.2em 0; font-family: var(--ui); }
 .rich-wysiwyg hr, .rich-live .rich-hr {
   border: 0; height: 1px; margin: 14px 0;
   background: linear-gradient(90deg, transparent, rgba(43, 107, 106, 0.35), transparent);
 }
-/* הדגשה מקצועית: משקל 700 + ink, הילה טורקיז עדינה — לא bold גס */
+/* הדגשה: משקל 700 + ink כהה מול ink-soft של הגוף, הילה טורקיז */
 .rich-wysiwyg strong, .rich-live strong {
   font-family: var(--ui);
   font-weight: 700;
   color: var(--ink);
   font-style: normal;
-  letter-spacing: 0.01em;
-  background: linear-gradient(transparent 62%, rgba(31, 158, 140, 0.16) 62%);
+  letter-spacing: 0.015em;
+  background: linear-gradient(transparent 58%, rgba(31, 158, 140, 0.22) 58%);
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
@@ -323,6 +377,48 @@ textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
   content: ''; flex: 1; height: 1px;
   background: linear-gradient(90deg, transparent, rgba(35, 122, 112, 0.35), transparent);
 }
+/* כרטיס עלייה בתצוגה מקדימה — כמו AliyahStoriesBody */
+.aliyah-card {
+  --a-solid: var(--aliyah-1);
+  --a-ink: var(--aliyah-1-ink);
+  --a-rgb: var(--aliyah-1-rgb);
+  position: relative;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(var(--a-rgb), 0.08);
+  border: 1px solid rgba(var(--pearl-rgb), 0.65);
+  overflow: hidden;
+}
+.aliyah-card::before {
+  content: '';
+  position: absolute;
+  inset-block: 10px;
+  inset-inline-end: 0;
+  width: 4px;
+  border-radius: 2px;
+  background: var(--a-solid);
+}
+.aliyah-card[data-aliyah='2'] { --a-solid: var(--aliyah-2); --a-ink: var(--aliyah-2-ink); --a-rgb: var(--aliyah-2-rgb); }
+.aliyah-card[data-aliyah='3'] { --a-solid: var(--aliyah-3); --a-ink: var(--aliyah-3-ink); --a-rgb: var(--aliyah-3-rgb); }
+.aliyah-card[data-aliyah='4'] { --a-solid: var(--aliyah-4); --a-ink: var(--aliyah-4-ink); --a-rgb: var(--aliyah-4-rgb); }
+.aliyah-card[data-aliyah='5'] { --a-solid: var(--aliyah-5); --a-ink: var(--aliyah-5-ink); --a-rgb: var(--aliyah-5-rgb); }
+.aliyah-card[data-aliyah='6'] { --a-solid: var(--aliyah-6); --a-ink: var(--aliyah-6-ink); --a-rgb: var(--aliyah-6-rgb); }
+.aliyah-card[data-aliyah='7'] { --a-solid: var(--aliyah-7); --a-ink: var(--aliyah-7-ink); --a-rgb: var(--aliyah-7-rgb); }
+.aliyah-card-head {
+  display: flex; flex-direction: row-reverse; align-items: center; gap: 10px;
+}
+.aliyah-num {
+  flex: none;
+  width: 32px; height: 32px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(var(--a-rgb), 0.16);
+  border: 1.5px solid var(--a-solid);
+  color: var(--a-ink);
+  font-family: var(--ui); font-weight: 800; font-size: 15px; line-height: 1;
+}
+.aliyah-card .app-eyebrow { color: var(--a-ink); margin: 0; }
+.aliyah-card h3 { margin: 2px 0 0; color: var(--ink); }
 .app-verse { font-family: var(--serif); font-size: 24px; line-height: 1.7; }
 .lesson { padding: 10px 0; border-top: 1px solid var(--line); }
 .lesson:first-of-type { border-top: 0; }

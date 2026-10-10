@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, View, type StyleProp, type TextStyle } from 'react-native';
+import { Pressable, Text, View, type StyleProp, type TextStyle } from 'react-native';
 import type { AliyahStory, StorySection } from '../data/types';
 import { aliyahOrdinal } from '../greeting/hebrewNumbers';
-import { nw } from '../theme/design';
+import { aliyahHue, nw } from '../theme/design';
+import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { Divider } from './Section';
 import { RichText } from './RichText';
@@ -110,7 +111,7 @@ type AliyahProps = {
   onOpenAliyah?: (n: number) => void;
 };
 
-/** לשונית «לפי עליות» */
+/** לשונית «לפי עליות» — כרטיס לכל עלייה עם פס גוון, מספר בולט וכותרת */
 export function AliyahStoriesBody({ rows, textStyle, large, onOpenAliyah }: AliyahProps) {
   const list = sortedAliyahStories(rows);
   if (!list.length) {
@@ -121,62 +122,133 @@ export function AliyahStoriesBody({ rows, textStyle, large, onOpenAliyah }: Aliy
     );
   }
   return (
-    <View style={{ marginTop: 8 }}>
+    <View style={{ marginTop: 12, gap: 4 }}>
       {list.map((row, i) => {
         const n = Number(row.aliyah) || i + 1;
         const label = aliyahOrdinal(n);
+        const h = aliyahHue(n);
+        const numSize = large ? 40 : 34;
         return (
           <View key={`${n}-${i}`}>
-            {i > 0 ? <Divider ornament="diamond" spacing={20} /> : null}
-            <Text
+            {i > 0 ? <Divider ornament="diamond" spacing={14} color={h.solid} line={h.soft} /> : null}
+            <View
               style={{
-                ...nw.type.caption,
-                color: nw.color.tealText,
-                marginTop: i === 0 ? 8 : 0,
-                textAlign: rtl.textRight,
-                writingDirection: 'rtl',
+                borderRadius: nw.radius.tile,
+                backgroundColor: h.wash,
+                borderWidth: 1,
+                borderColor: nw.surface.border,
+                overflow: 'hidden',
+                paddingVertical: large ? 18 : 14,
+                paddingHorizontal: large ? 18 : 14,
               }}
             >
-              {label}
-            </Text>
-            {row.title ? (
-              <Text
-                accessibilityRole="header"
+              {/* פס גוון בעין ימין */}
+              <View
+                pointerEvents="none"
                 style={{
-                  ...nw.type.h3,
-                  ...(large ? { fontSize: 24, lineHeight: 32 } : null),
-                  color: nw.color.ink,
-                  marginTop: 2,
-                  textAlign: rtl.textRight,
-                  writingDirection: 'rtl',
+                  position: 'absolute',
+                  top: 10,
+                  bottom: 10,
+                  width: 4,
+                  borderRadius: 2,
+                  backgroundColor: h.solid,
+                  ...rtl.right(0),
+                }}
+              />
+              <View
+                style={{
+                  flexDirection: rtl.row,
+                  alignItems: 'center',
+                  gap: 12,
                 }}
               >
-                {row.title}
-              </Text>
-            ) : null}
-            {row.text ? (
-              <View style={{ marginTop: 8 }}>
-                <RichText large={large} style={textStyle}>
-                  {row.text}
-                </RichText>
+                <View
+                  style={{
+                    width: numSize,
+                    height: numSize,
+                    borderRadius: numSize / 2,
+                    backgroundColor: h.soft,
+                    borderWidth: 1.5,
+                    borderColor: h.solid,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  accessibilityElementsHidden
+                  importantForAccessibility="no-hide-descendants"
+                >
+                  <Text
+                    style={{
+                      fontFamily: fonts.uiExtra,
+                      fontSize: large ? 20 : 17,
+                      lineHeight: large ? 24 : 20,
+                      color: h.ink,
+                    }}
+                  >
+                    {n}
+                  </Text>
+                </View>
+                <View style={{ flex: 1, gap: 2 }}>
+                  <Text
+                    style={{
+                      ...nw.type.caption,
+                      fontFamily: fonts.uiBold,
+                      color: h.ink,
+                      textAlign: rtl.textRight,
+                      writingDirection: 'rtl',
+                      letterSpacing: 0.2,
+                    }}
+                  >
+                    {label}
+                  </Text>
+                  {row.title ? (
+                    <Text
+                      accessibilityRole="header"
+                      style={{
+                        ...nw.type.h3,
+                        ...(large ? { fontSize: 24, lineHeight: 32 } : null),
+                        color: nw.color.ink,
+                        textAlign: rtl.textRight,
+                        writingDirection: 'rtl',
+                      }}
+                    >
+                      {row.title}
+                    </Text>
+                  ) : null}
+                </View>
               </View>
-            ) : null}
-            {onOpenAliyah ? (
-              <Text
-                accessibilityRole="link"
-                onPress={() => onOpenAliyah(n)}
-                style={{
-                  ...nw.type.label,
-                  color: nw.color.tealText,
-                  marginTop: 10,
-                  textAlign: rtl.textRight,
-                  writingDirection: 'rtl',
-                  textDecorationLine: 'underline',
-                }}
-              >
-                {`לקריאת ${label} ←`}
-              </Text>
-            ) : null}
+              {row.text ? (
+                <View style={{ marginTop: row.title ? 12 : 10 }}>
+                  <RichText large={large} style={textStyle}>
+                    {row.text}
+                  </RichText>
+                </View>
+              ) : null}
+              {onOpenAliyah ? (
+                <Pressable
+                  accessibilityRole="link"
+                  accessibilityLabel={`לקריאת ${label}`}
+                  onPress={() => onOpenAliyah(n)}
+                  style={{
+                    marginTop: 12,
+                    alignSelf: rtl.alignRight,
+                    minHeight: 44,
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Text
+                    style={{
+                      ...nw.type.label,
+                      fontFamily: fonts.uiBold,
+                      color: h.ink,
+                      textAlign: rtl.textRight,
+                      writingDirection: 'rtl',
+                    }}
+                  >
+                    {`לקריאת ${label} ←`}
+                  </Text>
+                </Pressable>
+              ) : null}
+            </View>
           </View>
         );
       })}
