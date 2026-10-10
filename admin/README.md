@@ -100,7 +100,9 @@ npm run admin
 כפתור **«פרסם הכול»** בהגדרות מעתיק את קובצי התוכן ל־**`master`** ב-commit אחד — ורק אז Cloudflare Pages בונה מחדש (חיסכון במכסת 500 בניות/חודש).
 
 1. **ענף טיוטות (פעם אחת):** אם `content-drafts` עדיין לא קיים בריפו — צרו אותו מ־`master` (GitHub → Branches → New branch, או `git push origin master:content-drafts`). חלק מהטוקנים הצרים לא מצליחים ליצור ענף חדש (403) אבל כן קוראים וכותבים לענף קיים.
-2. **טוקן GitHub מצומצם:** https://github.com/settings/personal-access-tokens/new → *Fine-grained* → Repository access: **Only select repositories** → `paamayim` → Permissions → **Contents: Read and write** (שאר ההרשאות: אין). תוקף: עד שנה.
+2. **טוקן GitHub מצומצם:** https://github.com/settings/personal-access-tokens/new → *Fine-grained* → Resource owner: בעל הריפו → Repository access: **Only select repositories** → `paamayim` → Permissions → **Contents: Read and write** (לא Read בלבד; שאר ההרשאות: אין). תוקף: עד שנה. אחרי יצירה — להדביק ב-Render → Environment → `GITHUB_TOKEN` → Save (השירות יופעל מחדש).
+
+   אם מופיע `GitHub 403: Resource not accessible by personal access token` בשמירת טיוטה — הטוקן בלי הרשאת כתיבה או בלי גישה לריפו. צרו טוקן חדש לפי השורה למעלה והחליפו ב-Render.
 3. **גיבוב סיסמה** (במחשב): `npm --prefix admin run hash-password` → מעתיקים את השורה.
 4. **מפתח session:** `node -e "console.log(require('crypto').randomBytes(36).toString('base64url'))"`
 5. אצל ספק האירוח (Render לדוגמה: New → Web Service → מהריפו):

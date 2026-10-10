@@ -158,6 +158,11 @@ export function App() {
           {session.storage === 'github' && <span className="badge published" title={session.storageLabel}>GitHub</span>}
         </header>
         <main className="main" id="main" tabIndex={-1}>
+          {session.storage === 'github' && session.githubCanPush === false && (
+            <p className="error banner" role="alert">
+              אין הרשאת כתיבה ל-GitHub. ב-Render → Environment עדכנו את GITHUB_TOKEN: Fine-grained PAT עם Contents: Read and write לריפו paamayim (לא Read בלבד). פרטים בהגדרות / admin/README.md סעיף 5.
+            </p>
+          )}
           {screen}
         </main>
         <nav className="bottomnav" aria-label="ניווט ראשי (טלפון)">

@@ -12,8 +12,18 @@ type TreeEntry = { path: string; sha: string; type: string };
 
 const DEFAULT_DRAFT_BRANCH = 'content-drafts';
 
+/** הודעה כשהטוקן תקף אבל בלי Contents: Write (או בלי גישה לריפו) */
+export const GITHUB_WRITE_DENIED =
+  'אין הרשאת כתיבה ל-GitHub (GITHUB_TOKEN). צרו Fine-grained PAT עם Contents: Read and write לריפו paamayim, והדביקו ב-Render → Environment → GITHUB_TOKEN. ראו admin/README.md סעיף 5.';
+
 function isContentPath(p: string) {
   return p.startsWith('content/') || p.startsWith('src/data/corpus/') || p === 'src/content/bundled.json';
+}
+
+function isAuthDenied(e: any): boolean {
+  if (e?.status !== 401 && e?.status !== 403) return false;
+  const msg = String(e?.message ?? '');
+  return /Resource not accessible|Bad credentials|Requires authentication|403|401/i.test(msg) || e?.status === 401 || e?.status === 403;
 }
 
 export type GithubStorageOpts = {
@@ -29,6 +39,8 @@ export type GithubStorageOpts = {
 export type GithubStorage = Storage & {
   prodBranch: string;
   draftBranch: string;
+  /** האם לטוקן יש push על הריפו (Contents write). null אם הבדיקה נכשלה ברשת. */
+  canPush(): Promise<boolean | null>;
   promoteToProd(message?: string): Promise<{ commit: string; files: number; empty?: boolean }>;
 };
 
@@ -177,39 +189,64 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
   }
 
   async function promoteToProd(message = 'פרסום תוכן מהאדמין (content-drafts → master)') {
-    const draft = await loadTree(draftBranch, true);
-    const prodRef = await gh(`/git/ref/heads/${encodeURIComponent(prodBranch)}`);
-    const prodParent = prodRef.object.sha as string;
-    const prodCommit = await gh(`/git/commits/${prodParent}`);
-    const prodTreeRaw = await gh(`/git/trees/${prodCommit.tree.sha}?recursive=1`);
-    const prodFiles = new Map<string, TreeEntry>();
-    for (const e of prodTreeRaw.tree as TreeEntry[]) {
-      if (e.type === 'blob' && isContentPath(e.path)) prodFiles.set(e.path, e);
-    }
-
-    const entries: { path: string; mode: string; type: string; sha: string | null }[] = [];
-    for (const [path, e] of draft.files) {
-      const pe = prodFiles.get(path);
-      if (!pe || pe.sha !== e.sha) entries.push({ path, mode: '100644', type: 'blob', sha: e.sha });
-    }
-    for (const [path] of prodFiles) {
-      if (!draft.files.has(path)) entries.push({ path, mode: '100644', type: 'blob', sha: null });
-    }
-    if (!entries.length) return { commit: prodParent, files: 0, empty: true };
-
-    const nt = await gh('/git/trees', { method: 'POST', body: JSON.stringify({ base_tree: prodCommit.tree.sha, tree: entries }) });
-    const commit = await gh('/git/commits', {
-      method: 'POST',
-      body: JSON.stringify({ message, tree: nt.sha, parents: [prodParent] }),
-    });
     try {
-      await gh(`/git/refs/heads/${encodeURIComponent(prodBranch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha, force: false }) });
+      const draft = await loadTree(draftBranch, true);
+      const prodRef = await gh(`/git/ref/heads/${encodeURIComponent(prodBranch)}`);
+      const prodParent = prodRef.object.sha as string;
+      const prodCommit = await gh(`/git/commits/${prodParent}`);
+      const prodTreeRaw = await gh(`/git/trees/${prodCommit.tree.sha}?recursive=1`);
+      const prodFiles = new Map<string, TreeEntry>();
+      for (const e of prodTreeRaw.tree as TreeEntry[]) {
+        if (e.type === 'blob' && isContentPath(e.path)) prodFiles.set(e.path, e);
+      }
+
+      const entries: { path: string; mode: string; type: string; sha: string | null }[] = [];
+      for (const [path, e] of draft.files) {
+        const pe = prodFiles.get(path);
+        if (!pe || pe.sha !== e.sha) entries.push({ path, mode: '100644', type: 'blob', sha: e.sha });
+      }
+      for (const [path] of prodFiles) {
+        if (!draft.files.has(path)) entries.push({ path, mode: '100644', type: 'blob', sha: null });
+      }
+      if (!entries.length) return { commit: prodParent, files: 0, empty: true };
+
+      const nt = await gh('/git/trees', { method: 'POST', body: JSON.stringify({ base_tree: prodCommit.tree.sha, tree: entries }) });
+      const commit = await gh('/git/commits', {
+        method: 'POST',
+        body: JSON.stringify({ message, tree: nt.sha, parents: [prodParent] }),
+      });
+      try {
+        await gh(`/git/refs/heads/${encodeURIComponent(prodBranch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha, force: false }) });
+      } catch (e: any) {
+        if (e?.status !== 422 && e?.status !== 409) throw e;
+        // מישהו דחף ל-master בינתיים — ניסיון נוסף
+        return promoteToProd(message);
+      }
+      return { commit: commit.sha as string, files: entries.length };
     } catch (e: any) {
-      if (e?.status !== 422 && e?.status !== 409) throw e;
-      // מישהו דחף ל-master בינתיים — ניסיון נוסף
-      return promoteToProd(message);
+      if (isAuthDenied(e)) throw ghErr(502, GITHUB_WRITE_DENIED);
+      throw e;
     }
-    return { commit: commit.sha as string, files: entries.length };
+  }
+
+  let pushCache: { at: number; value: boolean | null } | null = null;
+
+  async function canPush(): Promise<boolean | null> {
+    if (pushCache && Date.now() - pushCache.at < 60_000) return pushCache.value;
+    try {
+      // GET /repos/{owner}/{repo} — מחזיר permissions.push לפי הטוקן
+      const r = await gh('');
+      const value = r?.permissions?.push === true;
+      pushCache = { at: Date.now(), value };
+      return value;
+    } catch (e: any) {
+      if (isAuthDenied(e)) {
+        pushCache = { at: Date.now(), value: false };
+        return false;
+      }
+      pushCache = { at: Date.now(), value: null };
+      return null;
+    }
   }
 
   return {
@@ -217,6 +254,7 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
     prodBranch,
     draftBranch,
     describe: () => `github:${opts.repo}@${draftBranch}→${prodBranch}`,
+    canPush,
     promoteToProd,
     async read(path) {
       assertAllowed(path);
@@ -238,18 +276,26 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
     },
     async write(changes, message, o) {
       for (const ch of changes) assertAllowed(ch.path);
-      await ensureDraftBranch();
-      // טיוטות על content-drafts — Cloudflare לא בונה מענף זה; [CF-Pages-Skip] נשאר להגנה נוספת
-      const msg = o?.skipBuild ? `${message} [CF-Pages-Skip]` : message;
-      let sha: string;
       try {
-        sha = await writeOnce(draftBranch, changes, msg);
+        await ensureDraftBranch();
+        // טיוטות על content-drafts — Cloudflare לא בונה מענף זה; [CF-Pages-Skip] נשאר להגנה נוספת
+        const msg = o?.skipBuild ? `${message} [CF-Pages-Skip]` : message;
+        let sha: string;
+        try {
+          sha = await writeOnce(draftBranch, changes, msg);
+        } catch (e: any) {
+          if (e?.status !== 422 && e?.status !== 409) throw e;
+          sha = await writeOnce(draftBranch, changes, msg);
+        }
+        await loadTree(draftBranch, true);
+        pushCache = null; // אחרי כתיבה מוצלחת — לרענן את בדיקת ההרשאות
+        return { commit: sha };
       } catch (e: any) {
-        if (e?.status !== 422 && e?.status !== 409) throw e;
-        sha = await writeOnce(draftBranch, changes, msg);
+        // הודעת יצירת ענף כבר בעברית (502) — לא לדרוס
+        if (e?.status === 502 && /^[\u0590-\u05FF]/.test(String(e.message ?? ''))) throw e;
+        if (isAuthDenied(e)) throw ghErr(502, GITHUB_WRITE_DENIED);
+        throw e;
       }
-      await loadTree(draftBranch, true);
-      return { commit: sha };
     },
   };
 }

@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import { test } from 'node:test';
-import { githubStorage } from '../server/storage/github';
+import { GITHUB_WRITE_DENIED, githubStorage } from '../server/storage/github';
 
 function fakeGitHub() {
   const blobs = new Map<string, Buffer>();
@@ -36,6 +36,9 @@ function fakeGitHub() {
     assert.equal(init.headers.Authorization, 'Bearer tok');
     const body = init.body ? JSON.parse(init.body) : null;
 
+    if (m === 'GET' && (p === '' || p === '/')) {
+      return Response.json({ permissions: { push: true, pull: true } });
+    }
     if (m === 'GET' && p.startsWith('/git/ref/heads/')) {
       const br = decodeURIComponent(p.slice('/git/ref/heads/'.length));
       const h = refs.get(br);
@@ -125,4 +128,36 @@ test('github storage: drafts on content-drafts, promote to master', async () => 
   const again = await s.promoteToProd();
   assert.equal(again.empty, true);
   assert.equal(again.files, 0);
+
+  assert.equal(await s.canPush(), true);
+});
+
+test('github storage: 403 על יצירת blob → הודעת הרשאות בעברית', async () => {
+  const refs = new Map([['master', 'c0'], ['content-drafts', 'c0']]);
+  const fetchImpl = (async (url: any, init: any = {}) => {
+    const u = new URL(String(url));
+    const p = u.pathname.replace('/repos/o/r', '');
+    const m = init.method ?? 'GET';
+    if (m === 'GET' && (p === '' || p === '/')) {
+      return Response.json({ permissions: { push: false, pull: true } });
+    }
+    if (m === 'GET' && p.startsWith('/git/ref/heads/')) {
+      return Response.json({ object: { sha: refs.get(decodeURIComponent(p.slice('/git/ref/heads/'.length))) } });
+    }
+    if (m === 'GET' && p.startsWith('/git/commits/')) return Response.json({ tree: { sha: 't0' } });
+    if (m === 'POST' && p === '/git/blobs') {
+      return new Response(JSON.stringify({ message: 'Resource not accessible by personal access token', status: '403' }), {
+        status: 403,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    return new Response('nope', { status: 404 });
+  }) as typeof fetch;
+
+  const s = githubStorage({ token: 'tok', repo: 'o/r', branch: 'master', draftBranch: 'content-drafts', fetchImpl });
+  assert.equal(await s.canPush(), false);
+  await assert.rejects(
+    () => s.write([{ path: 'content/parashot/bereshit.json', content: '{}' }], 'טיוטה', { skipBuild: true }),
+    (e: any) => e.status === 502 && e.message === GITHUB_WRITE_DENIED
+  );
 });

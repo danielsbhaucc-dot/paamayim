@@ -17,6 +17,8 @@ export interface Storage {
    * זה מה שמפעיל בנייה ב-Cloudflare Pages.
    */
   promoteToProd?(message?: string): Promise<{ commit: string; files: number; empty?: boolean }>;
+  /** רק במצב GitHub: האם לטוקן יש push (Contents write). null = לא ידוע. */
+  canPush?(): Promise<boolean | null>;
 }
 
 export async function readText(s: Storage, path: string) {

@@ -30,6 +30,8 @@ export type Session = {
   storageLabel: string;
   draftBranch?: string | null;
   prodBranch?: string | null;
+  /** false = לטוקן אין Contents write — שמירת טיוטה תיכשל עד שיעדכנו GITHUB_TOKEN ב-Render */
+  githubCanPush?: boolean | null;
   ai: null | { deepseek: { configured: boolean; defaultModel: string }; openrouter: { configured: boolean; defaultModel: string }; defaultProvider: 'deepseek' | 'openrouter'; mock: boolean; maxJobUsd: number; peakNow: boolean };
 };
 

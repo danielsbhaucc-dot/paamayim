@@ -295,6 +295,7 @@ textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
 }
 .rich-live-hint, .rich-source-hint { margin: 0; font-size: 12.5px; }
 .error { color: var(--danger); background: var(--danger-bg); padding: 10px 14px; border-radius: var(--radius-sm); font-weight: 600; }
+.error.banner { margin: 0 0 14px; }
 
 .tabs { display: flex; gap: 6px; overflow-x: auto; padding: 4px; border-radius: 999px; background: rgba(var(--pearl-rgb), 0.55); border: 1px solid rgba(var(--pearl-rgb), 0.9); scrollbar-width: none; }
 .tabs [role='tab'], .tabs a { flex: none; border: 0; background: transparent; padding: 8px 14px; border-radius: 999px; font-weight: 700; color: var(--ink-soft); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; font-family: var(--ui); }

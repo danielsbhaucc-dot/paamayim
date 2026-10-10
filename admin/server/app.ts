@@ -124,9 +124,11 @@ export function createApp(cfg: Config, storage: Storage, opts: { distDir?: strin
   // ---------- session ----------
   app.get('/api/health', (c) => c.json({ ok: true }));
 
-  app.get('/api/session', (c) => {
+  app.get('/api/session', async (c) => {
     const s = c.get('session');
     const gh = cfg.github;
+    let githubCanPush: boolean | null = null;
+    if (s && storage.canPush) githubCanPush = await storage.canPush();
     return c.json({
       authenticated: !!s,
       csrf: s && !c.get('viaToken') ? csrfFor(cfg.sessionSecret, s) : null,
@@ -134,6 +136,7 @@ export function createApp(cfg: Config, storage: Storage, opts: { distDir?: strin
       storageLabel: storage.describe().replace(/^local:.*/, 'local'),
       draftBranch: gh?.draftBranch ?? null,
       prodBranch: gh?.branch ?? null,
+      githubCanPush,
       ai: s ? ai.providers() : null,
     });
   });

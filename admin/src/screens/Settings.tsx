@@ -71,6 +71,11 @@ export function Settings({ onLogout }: { onLogout: () => void }) {
               ? 'כדי שהשינויים יגיעו לאתר ול-APK: ״שמירה ל-GitHub״ (commit + push). Cloudflare Pages בונה מחדש לבד.'
               : `שמירת טיוטה / פרסום שדה נשמרים לענף ${draftBr} (בלי בנייה ב-Cloudflare). «פרסם הכול» מעביר ל־${prodBr} ב-commit אחד ומפעיל בנייה אחת.`}
           </p>
+          {session.storage === 'github' && session.githubCanPush === false && (
+            <p className="error" role="alert">
+              הטוקן הנוכחי לא יכול לכתוב לריפו (GitHub 403). צרו Fine-grained PAT ב־github.com/settings/personal-access-tokens/new → Repository access: paamayim → Permissions → Contents: Read and write → הדביקו ב-Render → Environment → GITHUB_TOKEN → Save.
+            </p>
+          )}
         </section>
 
         {session.storage === 'github' && (
