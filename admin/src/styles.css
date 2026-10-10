@@ -16,11 +16,16 @@
   --line: rgba(11, 42, 74, 0.12);
   --glass: rgba(var(--pearl-rgb), 0.72);
   --glass-strong: rgba(var(--pearl-rgb), 0.9);
+  --surface-input: rgba(var(--pearl-rgb), 0.55);
+  --surface-tile: rgba(var(--pearl-rgb), 0.42);
+  --surface-soft: rgba(var(--pearl-rgb), 0.5);
+  --on-accent: #ffffff; /* טקסט/אייקון על טורקיז בלבד — לא משטח */
   --shadow: 0 10px 30px rgba(11, 42, 74, 0.1), 0 2px 6px rgba(11, 42, 74, 0.06);
   --radius: 22px;
   --radius-sm: 14px;
-  --ui: 'Assistant', system-ui, sans-serif;
-  --serif: 'Frank Ruhl Libre', 'David', serif;
+  /* UI עברי = Assistant; פסוקים/ציטוטים = Frank Ruhl Libre. בלי system-ui/serif גנרי כעדיפות ראשונה */
+  --ui: 'Assistant', 'Frank Ruhl Libre', sans-serif;
+  --serif: 'Frank Ruhl Libre', 'Assistant', serif;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
@@ -43,17 +48,17 @@ body::before {
   z-index: -1;
   pointer-events: none;
 }
-h1, h2, h3, h4 { margin: 0; line-height: 1.25; }
+h1, h2, h3, h4 { margin: 0; line-height: 1.25; font-family: var(--ui); }
 h1 { font-size: 28px; font-weight: 800; }
 h2 { font-size: 21px; font-weight: 800; }
 h3 { font-size: 17px; font-weight: 700; }
 p { margin: 0; }
 a { color: var(--teal-text); }
-button, input, textarea, select { font: inherit; color: inherit; }
+button, input, textarea, select { font: inherit; font-family: var(--ui); color: inherit; }
 :focus { outline: none; }
 :focus-visible { outline: 1.5px solid rgba(43, 107, 106, 0.38); outline-offset: 2px; } /* מקלדת בלבד, דק ועדין, עוקב אחרי העיגול */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
-.skip { position: absolute; inset-inline-start: 12px; top: -60px; z-index: 100; background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 12px; }
+.skip { position: absolute; inset-inline-start: 12px; top: -60px; z-index: 100; background: var(--ink); color: var(--on-accent); padding: 10px 16px; border-radius: 12px; }
 .skip:focus { top: 12px; }
 
 /* ---------- מבנה ---------- */
@@ -68,7 +73,7 @@ button, input, textarea, select { font: inherit; color: inherit; }
 }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); padding-inline-start: 8px; }
 .brand img { width: 30px; height: 38px; object-fit: contain; }
-.brand b { font-size: 20px; font-weight: 800; display: block; line-height: 1.1; }
+.brand b { font-size: 20px; font-weight: 800; display: block; line-height: 1.1; font-family: var(--ui); }
 .brand small { color: var(--ink-soft); font-size: 12px; }
 .nav { display: flex; gap: 4px; margin-inline-start: auto; }
 .nav a {
@@ -112,14 +117,31 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .pagehead { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
 .pagehead p { color: var(--ink-soft); margin-top: 4px; }
 
+/* כותרת מקטע + חוצץ — מארגנת מסכים «זרוקים» */
+.section-head {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  margin: 22px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.section-head:first-child { margin-top: 0; }
+.section-head h2, .section-head .section-title {
+  margin: 0; font-size: 15px; font-weight: 800; color: var(--teal-text);
+  letter-spacing: 0.02em; font-family: var(--ui);
+}
+.section-head p, .section-head .section-desc {
+  margin: 0; flex: 1; min-width: 160px; font-size: 13.5px; font-weight: 500; color: var(--ink-muted);
+}
+.settings-stack { display: flex; flex-direction: column; gap: 14px; max-width: 720px; }
+
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line);
   background: rgba(var(--pearl-rgb), 0.85); color: var(--ink); font-weight: 700; cursor: pointer; text-decoration: none; white-space: nowrap;
+  font-family: var(--ui);
 }
 .btn:hover { background: var(--pearl); border-color: rgba(11, 42, 74, 0.22); }
 .btn:disabled { opacity: 0.55; cursor: not-allowed; }
-.btn.primary { background: var(--teal); border-color: var(--teal); color: #fff; box-shadow: 0 6px 16px rgba(43, 107, 106, 0.3); }
+.btn.primary { background: var(--teal); border-color: var(--teal); color: var(--on-accent); box-shadow: 0 6px 16px rgba(43, 107, 106, 0.3); }
 .btn.primary:hover { background: var(--teal-text); }
 .btn.danger { color: var(--danger); }
 .btn.ghost { background: transparent; border-color: transparent; }
@@ -142,35 +164,38 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .progress { height: 8px; border-radius: 8px; background: rgba(11, 42, 74, 0.08); overflow: hidden; }
 .progress > span { display: block; height: 100%; background: linear-gradient(90deg, var(--teal-bright), var(--teal)); border-radius: 8px; margin-inline-start: 0; }
 
-label.field { display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 14.5px; }
+label.field { display: flex; flex-direction: column; gap: 6px; font-weight: 700; font-size: 14.5px; font-family: var(--ui); }
 .input, textarea.input, select.input {
   width: 100%; min-height: 44px; padding: 10px 14px; border-radius: var(--radius-sm);
-  border: 1px solid rgba(11, 42, 74, 0.18); background: rgba(255, 255, 255, 0.55); font-weight: 500;
+  border: 1px solid rgba(11, 42, 74, 0.18); background: var(--surface-input); font-weight: 500;
+  font-family: var(--ui);
 }
 .input:focus { border-color: rgba(11, 42, 74, 0.38); outline: none; }
 textarea.input { resize: vertical; line-height: 1.7; min-height: 120px; }
+textarea.input.rich-source { font-family: var(--ui); }
 .help { color: var(--ink-soft); font-size: 13.5px; font-weight: 500; }
 .error { color: var(--danger); background: var(--danger-bg); padding: 10px 14px; border-radius: var(--radius-sm); font-weight: 600; }
 
 .tabs { display: flex; gap: 6px; overflow-x: auto; padding: 4px; border-radius: 999px; background: rgba(var(--pearl-rgb), 0.55); border: 1px solid rgba(var(--pearl-rgb), 0.9); scrollbar-width: none; }
-.tabs [role='tab'], .tabs a { flex: none; border: 0; background: transparent; padding: 8px 14px; border-radius: 999px; font-weight: 700; color: var(--ink-soft); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; }
+.tabs [role='tab'], .tabs a { flex: none; border: 0; background: transparent; padding: 8px 14px; border-radius: 999px; font-weight: 700; color: var(--ink-soft); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; font-family: var(--ui); }
 .tabs [aria-selected='true'], .tabs a[aria-current='page'] { background: var(--pearl); color: var(--ink); box-shadow: 0 2px 8px rgba(11, 42, 74, 0.1); }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.chip { border: 1px solid var(--line); background: rgba(var(--pearl-rgb), 0.7); padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 14px; cursor: pointer; min-height: 36px; }
-.chip[aria-pressed='true'] { background: var(--teal); color: #fff; border-color: var(--teal); }
+.chip { border: 1px solid var(--line); background: rgba(var(--pearl-rgb), 0.7); padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 14px; cursor: pointer; min-height: 36px; font-family: var(--ui); }
+.chip[aria-pressed='true'] { background: var(--teal); color: var(--on-accent); border-color: var(--teal); }
 
 .toast-wrap { position: fixed; z-index: 60; bottom: 96px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 8px; width: min(420px, calc(100% - 24px)); pointer-events: none; }
-.toast { background: var(--ink); color: #fff; padding: 12px 16px; border-radius: 16px; box-shadow: var(--shadow); font-weight: 600; pointer-events: auto; }
+.toast { background: var(--ink); color: var(--on-accent); padding: 12px 16px; border-radius: 16px; box-shadow: var(--shadow); font-weight: 600; pointer-events: auto; font-family: var(--ui); }
 .toast.err { background: var(--danger); }
 
 /* ---------- רשימת פרשות ---------- */
-.book { margin-top: 22px; }
-.book h2 { margin-bottom: 10px; }
+.book { margin-top: 8px; }
+.book + .book { margin-top: 8px; }
 .pcard { display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit; transition: transform 0.15s ease; }
 .pcard:hover { transform: translateY(-2px); }
 .pcard .name { font-size: 22px; font-weight: 800; font-family: var(--serif); }
 .stat { display: flex; flex-direction: column; gap: 2px; }
-.stat b { font-size: 26px; font-weight: 800; }
+.stat b { font-size: 26px; font-weight: 800; font-family: var(--ui); }
+.parasha-title { font-family: var(--serif); }
 
 /* ---------- עורך ---------- */
 .editor { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 18px; align-items: start; }
@@ -178,12 +203,12 @@ textarea.input { resize: vertical; line-height: 1.7; min-height: 120px; }
 @media (max-width: 1100px) { .editor { grid-template-columns: minmax(0, 1fr); } }
 .fieldcard { display: flex; flex-direction: column; gap: 12px; }
 .fieldhead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.fieldhead h2 { flex: 1; min-width: 160px; font-size: 18px; }
+.fieldhead h2 { flex: 1; min-width: 160px; font-size: 18px; font-family: var(--ui); }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.published-box { border-inline-start: 3px solid var(--teal-bright); padding: 8px 12px; background: rgba(227, 241, 236, 0.6); border-radius: 10px; white-space: pre-wrap; font-size: 15px; color: var(--ink-soft); }
-.listitem { display: grid; gap: 8px; padding: 12px; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.35); border: 1px solid var(--line); }
+.published-box { border-inline-start: 3px solid var(--teal-bright); padding: 8px 12px; background: rgba(227, 241, 236, 0.6); border-radius: 10px; white-space: pre-wrap; font-size: 15px; color: var(--ink-soft); font-family: var(--ui); }
+.listitem { display: grid; gap: 8px; padding: 12px; border-radius: var(--radius-sm); background: var(--surface-tile); border: 1px solid var(--line); }
 .menu { position: relative; }
-.menu-pop { position: absolute; z-index: 40; inset-inline-end: 0; top: calc(100% + 6px); width: min(330px, 86vw); padding: 12px; border-radius: 18px; background: var(--pearl); border: 1px solid var(--line); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+.menu-pop { position: absolute; z-index: 40; inset-inline-end: 0; top: calc(100% + 6px); width: min(330px, 86vw); padding: 12px; border-radius: 18px; background: var(--pearl); border: 1px solid var(--line); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; font-family: var(--ui); }
 .sticky-actions { position: sticky; top: 84px; z-index: 10; background: rgba(var(--pearl-rgb), 0.96); backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%); }
 @media (max-width: 760px) { .sticky-actions { top: 70px; } }
 
@@ -192,13 +217,13 @@ textarea.input { resize: vertical; line-height: 1.7; min-height: 120px; }
 .verselist { max-height: calc(100vh - 200px); overflow: auto; padding: 8px; display: flex; flex-direction: column; gap: 2px; }
 /* טלפון/טאבלט: העורך קודם, רשימת הפסוקים קומפקטית מתחתיו (מעבר מהיר בחיצים שבעורך) */
 @media (max-width: 900px) { .verses { grid-template-columns: minmax(0, 1fr); } .verselist { max-height: 240px; order: 2; } }
-.verselist button { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: transparent; padding: 8px 10px; border-radius: 12px; cursor: pointer; text-align: start; font-weight: 600; color: var(--ink-soft); min-height: 40px; }
+.verselist button { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: transparent; padding: 8px 10px; border-radius: 12px; cursor: pointer; text-align: start; font-weight: 600; color: var(--ink-soft); min-height: 40px; font-family: var(--ui); }
 .verselist button[aria-current='true'] { background: var(--pearl); color: var(--ink); box-shadow: 0 2px 8px rgba(11, 42, 74, 0.08); }
-.verselist .aliyah { font-size: 12.5px; font-weight: 800; color: var(--teal-text); padding: 10px 10px 2px; }
+.verselist .aliyah { font-size: 12.5px; font-weight: 800; color: var(--teal-text); padding: 10px 10px 2px; font-family: var(--ui); }
 .hebrew { font-family: var(--serif); font-size: 30px; line-height: 1.75; color: var(--ink); }
 .aramaic { font-family: var(--serif); font-size: 23px; line-height: 1.75; color: var(--ink-soft); }
 @media (max-width: 760px) { .hebrew { font-size: 25px; } .aramaic { font-size: 20px; } }
-.kbd { font-family: ui-monospace, monospace; font-size: 12px; padding: 1px 6px; border-radius: 6px; background: rgba(11, 42, 74, 0.08); }
+.kbd { font-family: ui-monospace, 'Assistant', monospace; font-size: 12px; padding: 1px 6px; border-radius: 6px; background: rgba(11, 42, 74, 0.08); }
 
 /* ---------- תצוגה מקדימה (כמו באפליקציה) ---------- */
 .phone {
@@ -209,18 +234,21 @@ textarea.input { resize: vertical; line-height: 1.7; min-height: 120px; }
 .app-hero { border-radius: 24px; overflow: hidden; position: relative; min-height: 170px; display: flex; align-items: flex-end; background: center / cover no-repeat; }
 .app-hero .glass { margin: 12px; padding: 12px 16px; border-radius: 18px; background: rgba(var(--pearl-rgb), 0.42); backdrop-filter: blur(16px); border: 1px solid rgba(var(--pearl-rgb), 0.85); width: 100%; text-align: center; }
 .app-card { background: rgba(var(--pearl-rgb), 0.78); border: 1px solid rgba(var(--pearl-rgb), 0.95); border-radius: 22px; padding: 16px; box-shadow: 0 6px 18px rgba(11, 42, 74, 0.08); }
-.app-card h3, .app-card h4 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
-.app-eyebrow { color: var(--teal-text); font-weight: 800; font-size: 13px; }
-.app-text { font-size: 16px; line-height: 1.7; color: var(--ink-soft); white-space: pre-wrap; }
+.app-card h3, .app-card h4 { font-size: 18px; font-weight: 800; margin-bottom: 6px; font-family: var(--ui); }
+.app-eyebrow { color: var(--teal-text); font-weight: 800; font-size: 13px; font-family: var(--ui); }
+.app-name { font-family: var(--serif); font-size: 34px; font-weight: 700; color: var(--ink); }
+.app-targum { font-family: var(--serif); font-size: 18px; color: var(--ink-soft); }
+.app-text { font-size: 16px; line-height: 1.7; color: var(--ink-soft); white-space: pre-wrap; font-family: var(--ui); }
+.preview-panel h2 { font-family: var(--ui); }
 .rich-live-wrap {
   border: 1px dashed rgba(43, 107, 106, 0.35);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
   background: rgba(227, 241, 236, 0.45);
 }
-.rich-live { display: grid; gap: 10px; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+.rich-live { display: grid; gap: 10px; font-size: 16px; line-height: 1.7; color: var(--ink-soft); font-family: var(--ui); }
 .rich-live.compact { gap: 8px; font-size: 15px; }
-.rich-live .rich-p { margin: 0; white-space: pre-wrap; }
+.rich-live .rich-p { margin: 0; white-space: pre-wrap; font-family: var(--ui); }
 .rich-live .rich-quote {
   margin: 0;
   padding: 8px 14px;
@@ -231,10 +259,10 @@ textarea.input { resize: vertical; line-height: 1.7; min-height: 120px; }
   color: var(--ink);
   font-style: italic;
 }
-.rich-live strong { color: var(--ink); font-weight: 800; }
+.rich-live strong { color: var(--ink); font-weight: 800; font-family: var(--ui); }
 .story-divider {
   display: flex; align-items: center; gap: 10px; margin: 14px 0 8px;
-  color: var(--teal-text); font-size: 12px; font-weight: 700;
+  color: var(--teal-text); font-size: 12px; font-weight: 700; font-family: var(--ui);
 }
 .story-divider::before, .story-divider::after {
   content: ''; flex: 1; height: 1px;
@@ -243,18 +271,20 @@ textarea.input { resize: vertical; line-height: 1.7; min-height: 120px; }
 .app-verse { font-family: var(--serif); font-size: 24px; line-height: 1.7; }
 .lesson { padding: 10px 0; border-top: 1px solid var(--line); }
 .lesson:first-of-type { border-top: 0; }
-.draftmark { background: var(--amber-bg); color: var(--amber); border-radius: 6px; padding: 0 6px; font-size: 12px; font-weight: 800; margin-inline-start: 6px; }
+.lesson b { font-family: var(--ui); }
+.draftmark { background: var(--amber-bg); color: var(--amber); border-radius: 6px; padding: 0 6px; font-size: 12px; font-weight: 800; margin-inline-start: 6px; font-family: var(--ui); }
 
 /* ---------- כניסה ---------- */
 .login { min-height: 100%; display: grid; place-items: center; padding: 24px; }
 .login .card { width: min(420px, 100%); padding: 30px 26px; text-align: center; }
 .login img { width: 54px; height: 68px; object-fit: contain; }
+.login h1 { font-family: var(--serif); font-weight: 700; }
 
-.table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.table { width: 100%; border-collapse: collapse; font-size: 14.5px; font-family: var(--ui); }
 .table th, .table td { text-align: start; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
 .estimate { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-.estimate div { background: rgba(255, 255, 255, 0.45); border-radius: 14px; padding: 10px 12px; }
-.estimate b { display: block; font-size: 22px; }
+.estimate div { background: var(--surface-soft); border-radius: 14px; padding: 10px 12px; border: 1px solid var(--line); }
+.estimate b { display: block; font-size: 22px; font-family: var(--ui); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }

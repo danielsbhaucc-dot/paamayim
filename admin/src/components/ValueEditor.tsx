@@ -88,7 +88,7 @@ function LongtextEditor({
         <textarea
           id={id}
           ref={ref}
-          className="input"
+          className={`input${rich ? ' rich-source' : ''}`}
           rows={autoRows(value, minRows)}
           value={value ?? ''}
           onChange={(e) => onChange(e.target.value)}

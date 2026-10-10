@@ -1,13 +1,42 @@
 /** עורך פרשה: לשוניות לפי הסכמה, שדות טיוטה/פרסום, אונקלוס לכל פסוק ותצוגה מקדימה */
 import { ChevronLeft, ChevronRight, CloudUpload, Eye, EyeOff } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState, type ReactNode } from 'react';
 import { api } from '../api';
 import { FieldBlock } from '../components/FieldCard';
 import { Preview } from '../components/Preview';
 import { useApp } from '../ctx';
 import { go } from '../router';
-import type { ParashaFull } from '../types';
+import type { Field, ParashaFull } from '../types';
 import { Verses } from './Verses';
+
+/** כותרות מקטע לפני שדות — במיוחד בלשונית סיפור שיש בה כמה מצבי עריכה */
+const FIELD_SECTION_HEADS: Record<string, { title: string; desc?: string }> = {
+  storyTitle: { title: 'סיפור יחיד', desc: 'כשיש סיפור אחד רציף לפרשה' },
+  stories: { title: 'כמה סיפורים', desc: 'מחליף את הסיפור היחיד כשהרשימה מלאה' },
+  storyByAliyah: { title: 'לפי עליות', desc: 'הסבר קצר לכל עלייה (1–7)' },
+  storyAnchors: { title: 'פסוקי עוגן', desc: 'פסוקים שהסיפור נשען עליהם' },
+  haftaraStory: { title: 'תוכן ההפטרה' },
+  haftaraConnections: { title: 'חיבור לפרשה' },
+  lifeLessons: { title: 'לקחים' },
+  chidushim: { title: 'חידושים' },
+};
+
+function withSectionHeads(fields: Field[], render: (f: Field) => ReactNode) {
+  return fields.map((f) => {
+    const head = FIELD_SECTION_HEADS[f.key];
+    return (
+      <Fragment key={f.key}>
+        {head ? (
+          <header className="section-head">
+            <h2 className="section-title">{head.title}</h2>
+            {head.desc ? <p className="section-desc">{head.desc}</p> : null}
+          </header>
+        ) : null}
+        {render(f)}
+      </Fragment>
+    );
+  });
+}
 
 export function Parasha({ slug, section, query }: { slug: string; section?: string; query: URLSearchParams }) {
   const { schema, toast } = useApp();
@@ -59,7 +88,7 @@ export function Parasha({ slug, section, query }: { slug: string; section?: stri
             <button type="button" className="btn icon small ghost" disabled={!data.prev} aria-label="הפרשה הקודמת" onClick={() => data.prev && go(`/p/${data.prev}/${current}`)}>
               <ChevronRight size={20} aria-hidden />
             </button>
-            <h1 style={{ fontFamily: 'var(--serif)' }}>פרשת {doc.meta.name}</h1>
+            <h1 className="parasha-title">פרשת {doc.meta.name}</h1>
             <button type="button" className="btn icon small ghost" disabled={!data.next} aria-label="הפרשה הבאה" onClick={() => data.next && go(`/p/${data.next}/${current}`)}>
               <ChevronLeft size={20} aria-hidden />
             </button>
@@ -89,12 +118,18 @@ export function Parasha({ slug, section, query }: { slug: string; section?: stri
           {current === 'onkelos' ? (
             <Verses slug={slug} data={data} index={verseIndex} onIndex={(i) => go(`/p/${slug}/onkelos?v=${i + 1}`)} onSaved={onSaved} />
           ) : (
-            fields.map((f) => <FieldBlock key={`${slug}-${f.key}`} slug={slug} field={f} entries={doc.fields} onSaved={onSaved} />)
+            withSectionHeads(fields, (f) => (
+              <FieldBlock slug={slug} field={f} entries={doc.fields} onSaved={onSaved} />
+            ))
           )}
           {current !== 'onkelos' && !fields.length && <p className="muted">אין שדות בחלק הזה.</p>}
         </div>
         {showPreview && (
-          <aside aria-label="תצוגה מקדימה" style={{ position: 'sticky', top: 140 }}>
+          <aside className="preview-panel sticky-side" aria-label="תצוגה מקדימה">
+            <header className="section-head" style={{ marginTop: 0 }}>
+              <h2 className="section-title">תצוגה מקדימה</h2>
+              <p className="section-desc">כמו באפליקציה</p>
+            </header>
             <Preview slug={slug} meta={doc.meta} version={version} verse={current === 'onkelos' ? data.verses[verseIndex] : undefined} />
           </aside>
         )}

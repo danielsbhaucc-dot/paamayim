@@ -154,7 +154,7 @@ export function Verses({ slug, data, index, onIndex, onSaved }: { slug: string; 
             </p>
             {sefaria && (
               <div className="published-box">
-                <b className="small">Sefaria:</b> <span style={{ fontFamily: 'var(--serif)', fontSize: 19 }}>{sefaria}</span>
+                <b className="small">Sefaria:</b> <span className="aramaic" style={{ fontSize: 19 }}>{sefaria}</span>
                 {sefaria.replace(/[^\u05D0-\u05EA ]/g, '').trim() === shownOnkelos.replace(/[^\u05D0-\u05EA ]/g, '').trim() ? <p className="help">האותיות זהות לנוסח שלנו.</p> : <p className="help">יש הבדל באותיות — כדאי לבדוק.</p>}
               </div>
             )}

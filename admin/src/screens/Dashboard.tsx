@@ -49,6 +49,10 @@ export function Dashboard() {
           <p>כל התוכן של האפליקציה. טיוטה לא מוצגת עד שמפרסמים.</p>
         </div>
       </div>
+      <header className="section-head">
+        <h2 className="section-title">סקירה</h2>
+        <p className="section-desc">מצב הטיוטות והפרסום בכל הפרשות</p>
+      </header>
       <div className="grid stats" style={{ marginBottom: 14 }}>
         <div className="card stat">
           <span className="muted small">טיוטות שממתינות לאישור</span>
@@ -66,6 +70,9 @@ export function Dashboard() {
           <span className="help">פרשות מחוברות מתמזגות באפליקציה</span>
         </div>
       </div>
+      <header className="section-head">
+        <h2 className="section-title">חיפוש וסינון</h2>
+      </header>
       <div className="card row" style={{ padding: 12 }}>
         <label className="row grow searchbox" style={{ gap: 8 }}>
           <Search size={18} aria-hidden className="muted" />
@@ -86,9 +93,18 @@ export function Dashboard() {
           ))}
         </div>
       </div>
+      <header className="section-head">
+        <h2 className="section-title">לפי ספר</h2>
+        <p className="section-desc">{shown.length} פרשות מוצגות</p>
+      </header>
       {books.map(([book, ps]) => (
         <section className="book" key={book} aria-labelledby={`b-${book}`}>
-          <h2 id={`b-${book}`}>ספר {book}</h2>
+          <header className="section-head" style={{ marginTop: 4 }}>
+            <h2 id={`b-${book}`} className="section-title">
+              ספר {book}
+            </h2>
+            <p className="section-desc">{ps.length} פרשות</p>
+          </header>
           <div className="grid">
             {ps.map((p) => (
               <a key={p.slug} className="card pcard" href={`#/p/${p.slug}`}>

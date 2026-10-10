@@ -54,7 +54,11 @@ export function Settings({ onLogout }: { onLogout: () => void }) {
           <LogOut size={18} aria-hidden /> התנתקות
         </button>
       </div>
-      <div className="grid">
+      <div className="settings-stack">
+        <header className="section-head">
+          <h2 className="section-title">מערכת</h2>
+          <p className="section-desc">איפה נשמר התוכן ואיך הוא מגיע לאתר</p>
+        </header>
         <section className="card stack" aria-labelledby="s-h">
           <h2 id="s-h">אחסון</h2>
           <p>
@@ -129,6 +133,10 @@ export function Settings({ onLogout }: { onLogout: () => void }) {
             )}
           </section>
         )}
+        <header className="section-head">
+          <h2 className="section-title">כלים</h2>
+          <p className="section-desc">מפתחות AI וגישת API</p>
+        </header>
         <section className="card stack" aria-labelledby="a-h">
           <h2 id="a-h">AI</h2>
           <p className="small">DeepSeek: {session.ai?.deepseek.configured ? '✓ מוגדר' : '✗ אין DEEPSEEK_API_KEY'}</p>

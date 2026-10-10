@@ -41,7 +41,6 @@ export function Preview({ slug, meta, version, verse }: { slug: string; meta: an
   return (
     <div className="stack">
       <div className="row spread">
-        <h2 className="small" style={{ fontSize: 17 }}>תצוגה מקדימה</h2>
         <div className="chips" role="group" aria-label="אפשרויות תצוגה">
           <button type="button" className="chip" aria-pressed={drafts} onClick={() => setDrafts((d) => !d)}>
             כולל טיוטות
@@ -56,7 +55,7 @@ export function Preview({ slug, meta, version, verse }: { slug: string; meta: an
           <div className="app-hero" style={{ backgroundImage: `url(${hero})` }}>
             <div className="glass">
               <div className="app-eyebrow">פרשת השבוע</div>
-              <div style={{ fontFamily: 'var(--serif)', fontSize: 34, fontWeight: 700 }}>{meta?.name}</div>
+              <div className="app-name">{meta?.name}</div>
               <div className="small muted">{meta?.rangeHe}</div>
             </div>
           </div>
@@ -64,9 +63,7 @@ export function Preview({ slug, meta, version, verse }: { slug: string; meta: an
             <div className="app-card">
               <div className="app-eyebrow">{verse.ref}</div>
               <p className="app-verse">{verse.h}</p>
-              <p className="small muted" style={{ fontFamily: 'var(--serif)', fontSize: 18 }}>
-                {verse.o}
-              </p>
+              <p className="app-targum">{verse.o}</p>
               {verseRow?.onkelosExplanation && (
                 <div style={{ marginTop: 10 }}>
                   <h3 style={{ fontSize: 15 }}>
