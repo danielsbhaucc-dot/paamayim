@@ -80,7 +80,7 @@ export function HomeHero() {
       ) : null}
       {/* כותרת */}
       <View style={[center, { gap: 6, paddingHorizontal: 12 }]}>
-        <Image source={img.logoLeaf} style={{ width: 40, height: 48 }} contentFit="contain" />
+        <Image source={img.logoMark} style={{ width: 46, height: 48 }} contentFit="contain" />
         <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 10 }}>
           <Text accessibilityRole="header" style={{ ...T, fontFamily: fonts.uiExtra, fontSize: isDesktop ? 46 : 36, lineHeight: isDesktop ? 56 : 46, color: nw.color.ink, ...frostText }}>
             {g.line1}
@@ -132,7 +132,7 @@ export function HomeHero() {
                 />
               ) : (
                 <View style={{ width: 64, height: 64, borderRadius: 32, backgroundColor: nw.color.mint, borderWidth: 1, borderColor: nw.surface.border, alignItems: 'center', justifyContent: 'center' }}>
-                  <Image source={img.logoLeaf} style={{ width: 30, height: 36 }} contentFit="contain" />
+                  <Image source={img.logoMark} style={{ width: 35, height: 36 }} contentFit="contain" />
                 </View>
               )}
               <Text style={{ ...T, fontFamily: fonts.uiSemi, fontSize: 16, color: nw.color.ink, marginTop: 4 }}>{eyebrow}</Text>

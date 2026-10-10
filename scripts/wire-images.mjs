@@ -52,7 +52,7 @@ const COPIES = [
 ];
 
 const PNG_CONVERTS = [
-  { dest: 'logo-leaf.png', sources: ['logo-leaf.png', 'logo-leaf.jpg'] },
+  { dest: 'logo-mark.png', sources: ['logo-leaf.png', 'logo-leaf.jpg'] },
   { dest: 'trophy.png', sources: ['trophy.png', 'trophy.jpg'] },
   { dest: 'confetti-leaves.png', sources: ['confetti-leaves.png', 'confetti-leaves.jpg'] },
 ];

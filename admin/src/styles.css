@@ -102,7 +102,7 @@ option { background-color: var(--pearl); color: var(--ink); }
   border: 1px solid rgba(var(--pearl-rgb), 0.9); box-shadow: var(--shadow);
 }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); padding-inline-start: 8px; }
-.brand img { width: 30px; height: 38px; object-fit: contain; }
+.brand img { width: 38px; height: 40px; object-fit: contain; }
 .brand b { font-size: 20px; font-weight: 800; display: block; line-height: 1.1; font-family: var(--ui); }
 .brand small { color: var(--ink-soft); font-size: 12px; }
 .nav { display: flex; gap: 4px; margin-inline-start: auto; }

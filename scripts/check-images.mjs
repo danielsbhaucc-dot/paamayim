@@ -15,7 +15,7 @@ const FILES = [
   'haftara-prophet.jpg',
   'family-child-rainbow.jpg',
   'family-adult-study.jpg',
-  'logo-leaf.png',
+  'logo-mark.png',
   'trophy.png',
   'confetti-leaves.png',
   'app-icon-1024.png',

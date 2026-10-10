@@ -131,7 +131,7 @@ export const assets = {
   jerusalem: require('../../assets/bg-jerusalem.jpg'),
   /** ברירת מחדל — תאימות לאחור */
   landscape: require('../../assets/bg-galilee.jpg'),
-  icon: require('../../assets/icon-source.jpg'),
+  icon: require('../../assets/brand-icon.jpg'),
   megillah: require('../../assets/megillah-scroll.png'),
   megillahTop: require('../../assets/megillah-top.png'),
   megillahMid: require('../../assets/megillah-mid.png'),

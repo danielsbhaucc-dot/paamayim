@@ -1,7 +1,7 @@
 import { LogIn } from 'lucide-react';
 import { useState, type FormEvent } from 'react';
 import { api } from '../api';
-import leaf from '../assets/leaf.png';
+import leaf from '../assets/logo-mark.png';
 
 export function Login({ onLogin }: { onLogin: () => Promise<void> }) {
   const [password, setPassword] = useState('');

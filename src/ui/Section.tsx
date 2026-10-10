@@ -31,7 +31,7 @@ function FadeLine({ toCenter, color = LINE, style }: { toCenter: 'left' | 'right
 function Mark({ ornament, color }: { ornament: Ornament; color: string }) {
   if (ornament === 'none') return null;
   if (ornament === 'leaf') {
-    return <Image source={img.logoLeaf} style={{ width: 14, height: 18, opacity: 0.85 }} contentFit="contain" />;
+    return <Image source={img.logoMark} style={{ width: 18, height: 19, opacity: 0.85 }} contentFit="contain" />;
   }
   if (ornament === 'dot') {
     return <View style={{ width: 5, height: 5, borderRadius: 3, backgroundColor: color, opacity: 0.7 }} />;

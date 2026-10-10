@@ -67,7 +67,7 @@ export function TopNav() {
           accessibilityLabel={APP_NAME}
           style={{ flexDirection: rtl.row, alignItems: 'center', gap: 10 }}
         >
-          <Image source={img.logoLeaf} style={{ width: 34, height: 44 }} contentFit="contain" />
+          <Image source={img.logoMark} style={{ width: 42, height: 44 }} contentFit="contain" />
           <View>
             <Text
               style={{

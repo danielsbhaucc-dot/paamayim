@@ -169,7 +169,7 @@ export function LargeTitle({
   return (
     <Animated.View style={[{ alignItems: 'center', paddingHorizontal: nw.space.screenX, paddingTop: 2, paddingBottom: 16 }, fade]}>
       <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 10 }}>
-        {icon ?? <Image source={img.logoLeaf} style={{ width: 26, height: 32 }} contentFit="contain" />}
+        {icon ?? <Image source={img.logoMark} style={{ width: 32, height: 33 }} contentFit="contain" />}
         <Text
           accessibilityRole="header"
           style={{ fontFamily: fonts.uiExtra, fontSize: 30, lineHeight: 38, color: ink, textAlign: 'center', writingDirection: 'rtl' }}

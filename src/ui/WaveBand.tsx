@@ -37,9 +37,9 @@ export function WaveBand({ height = 96 }: { height?: number }) {
         <Path d={WAVE} fill="none" stroke={pearl(0.95)} strokeWidth={1.5} />
       </Svg>
       <Image
-        source={img.logoLeaf}
+        source={img.logoMark}
         contentFit="contain"
-        style={{ position: 'absolute', width: 34, height: 40, left: width / 2 - 17, top: height * 0.38 }}
+        style={{ position: 'absolute', width: 38, height: 40, left: width / 2 - 19, top: height * 0.38 }}
       />
     </View>
   );

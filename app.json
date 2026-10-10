@@ -9,9 +9,9 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/app-icon-1024.png",
+      "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0B3D4A"
+      "backgroundColor": "#14284B"
     },
     "ios": {
       "supportsTablet": true,
@@ -24,13 +24,13 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon-foreground.png",
-        "backgroundColor": "#2B6B6A"
+        "backgroundColor": "#14284B"
       },
       "package": "com.paamayim.app"
     },
     "web": {
       "bundler": "metro",
-      "favicon": "./assets/images/app-icon-1024.png"
+      "favicon": "./assets/images/favicon.png"
     },
     "runtimeVersion": {
       "policy": "appVersion"

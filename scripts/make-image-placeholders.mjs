@@ -19,7 +19,7 @@ const copies = [
 ];
 
 const transparentPngs = [
-  'assets/images/logo-leaf.png',
+  'assets/images/logo-mark.png',
   'assets/images/trophy.png',
   'assets/images/confetti-leaves.png',
 ];

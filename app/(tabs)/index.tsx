@@ -92,9 +92,9 @@ function HomeMobile() {
 
           <View style={{ flex: 1, paddingHorizontal: nw.space.screenX }}>
             <View style={{ marginTop: 28, alignItems: 'center' }}>
-              {imgReady.logoLeaf ? (
+              {imgReady.logoMark ? (
                 <ExpoImage
-                  source={img.logoLeaf}
+                  source={img.logoMark}
                   style={{ width: 112, height: 112 }}
                   contentFit="contain"
                 />

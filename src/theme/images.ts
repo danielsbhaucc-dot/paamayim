@@ -10,7 +10,7 @@ export const img = {
   haftaraProphet: require('../../assets/images/haftara-prophet.jpg'),
   familyChild: require('../../assets/images/family-child-rainbow.jpg'),
   familyAdult: require('../../assets/images/family-adult-study.jpg'),
-  logoLeaf: require('../../assets/images/logo-leaf.png'),
+  logoMark: require('../../assets/images/logo-mark.png'),
   trophy: require('../../assets/images/trophy.png'),
   confettiLeaves: require('../../assets/images/confetti-leaves.png'),
   /** ענפי זית לשוליים בפריסה רחבה (PNG שקוף) */
@@ -19,7 +19,7 @@ export const img = {
 } as const;
 /** false = עדיין placeholder שקוף 4×4. ה-UI מציג fallback בקוד. מתעדכן ל-true רק אחרי שהקובץ האמיתי נוסף. */
 export const imgReady = {
-  logoLeaf: true,
+  logoMark: true,
   trophy: true,
   confettiLeaves: true,
 };

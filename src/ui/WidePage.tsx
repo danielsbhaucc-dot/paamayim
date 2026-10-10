@@ -136,7 +136,7 @@ export function WidePageHead({ title, subtitle, icon, back }: { title: string; s
   return (
     <View style={{ alignItems: 'center', marginTop: isDesktop ? 18 : 12, marginBottom: isDesktop ? 26 : 20 }}>
       <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 12 }}>
-        {icon ?? <Image source={img.logoLeaf} style={{ width: 30, height: 38 }} contentFit="contain" />}
+        {icon ?? <Image source={img.logoMark} style={{ width: 38, height: 40 }} contentFit="contain" />}
         <Text
           accessibilityRole="header"
           style={{

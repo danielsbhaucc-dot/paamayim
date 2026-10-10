@@ -1,7 +1,7 @@
 /** מעטפת האדמין: בדיקת התחברות, ניווט עליון (מחשב) ותחתון (טלפון), ניתוב */
 import { Bot, LayoutGrid, MessageSquareQuote, Settings as Cog } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
-import logo from './assets/leaf.png';
+import logo from './assets/logo-mark.png';
 import { api, setCsrf, setOnUnauthorized } from './api';
 import { AppProvider } from './ctx';
 import { go, useRoute } from './router';
