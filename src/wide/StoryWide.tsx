@@ -8,10 +8,13 @@ import { img } from '../theme/images';
 import { rtl } from '../theme/rtl';
 import {
   SectionHeader,
+  AliyahStoriesBody,
   GlassSurface,
   IllustrationCard,
   PrimaryButton,
   SegmentedTabs,
+  StorySectionsBody,
+  storySections,
   WideCols,
   WidePage,
   useLayout,
@@ -19,9 +22,10 @@ import {
 } from '../ui';
 import { contentImage, useParasha, whyHaftaraFor } from '../content';
 
-type Props = { kind: 'parasha' | 'haftara'; setKind: (k: 'parasha' | 'haftara') => void };
+type StoryTab = 'parasha' | 'aliyot' | 'haftara';
+type Props = { kind: StoryTab; setKind: (k: StoryTab) => void };
 
-/** סיפור הפרשה / ההפטרה — web רחב: טקסט מימין (שורה מוגבלת), איור ופרטים משמאל. */
+/** סיפור הפרשה / לפי עליות / ההפטרה — web רחב */
 export function StoryWide({ kind, setKind }: Props) {
   const router = useRouter();
   const { isDesktop } = useLayout();
@@ -31,8 +35,13 @@ export function StoryWide({ kind, setKind }: Props) {
   const parasha = useParasha(calendarMode);
   const isChild = familyVoice === 'child';
   const isHaftara = kind === 'haftara';
+  const isAliyot = kind === 'aliyot';
   const story = parasha.story;
-  const body = isChild ? story.child : story.adult;
+  const sections = storySections(
+    isChild ? parasha.extras?.stories?.child : parasha.extras?.stories?.adult,
+    { title: story.title, text: isChild ? story.child : story.adult }
+  );
+  const aliyahRows = isChild ? parasha.extras?.storyByAliyah?.child : parasha.extras?.storyByAliyah?.adult;
   const para1 = isChild ? parasha.haftara.storyChild : parasha.haftara.storyAdult;
   const why = whyHaftaraFor(parasha, calendarMode, familyVoice);
   const source =
@@ -42,6 +51,8 @@ export function StoryWide({ kind, setKind }: Props) {
     kind === 'parasha'
       ? router.push({ pathname: '/reading', params: { focus: parasha.story.verseIds.join(',') } })
       : router.push('/reading');
+
+  const pageTitle = isHaftara ? 'סיפור ההפטרה' : isAliyot ? 'סיפור לפי עליות' : 'סיפור הפרשה';
 
   const text = (
     <GlassSurface variant="strong" radius={26} style={isDesktop ? { flex: 1.25 } : undefined} contentStyle={{ padding: isDesktop ? 32 : 24 }}>
@@ -57,15 +68,21 @@ export function StoryWide({ kind, setKind }: Props) {
             onChange={(id) => setFamilyVoice(id as 'adult' | 'child')}
             style={{ maxWidth: 360, alignSelf: rtl.alignRight, width: '100%' }}
           />
-          <Text style={{ ...wideText(nw.type.label), color: nw.color.tealText, marginTop: 22 }}>
-            {`פרשת ${parasha.name}`}
-          </Text>
-          <Text accessibilityRole="header" style={{ ...wideText(nw.type.h2), fontSize: 30, lineHeight: 40, color: nw.color.ink, marginTop: 2 }}>
-            {story.title}
-          </Text>
-          <Text style={{ ...wideText(nw.type.body), fontSize: 18, lineHeight: 32, color: nw.color.inkSoft, marginTop: 14 }}>
-            {body}
-          </Text>
+          {isAliyot ? (
+            <AliyahStoriesBody
+              rows={aliyahRows ?? []}
+              large
+              textStyle={wideText({})}
+              onOpenAliyah={(n) => router.push({ pathname: '/reading', params: { aliyah: String(n) } })}
+            />
+          ) : (
+            <StorySectionsBody
+              sections={sections}
+              large
+              eyebrow={`פרשת ${parasha.name}`}
+              textStyle={wideText({})}
+            />
+          )}
         </>
       ) : (
         <>
@@ -114,7 +131,7 @@ export function StoryWide({ kind, setKind }: Props) {
   const infoCard = (
     <GlassSurface variant="card" radius={22} contentStyle={{ padding: 22, gap: 8 }}>
       <Text style={{ ...wideText(nw.type.h3), color: nw.color.ink }}>
-        {isHaftara ? 'הקשר לפרשה' : 'על הפרשה'}
+        {isHaftara ? 'הקשר לפרשה' : isAliyot ? 'לפי עליות' : 'על הפרשה'}
       </Text>
       {isHaftara ? (
         parasha.haftara.connectionPoints.map((p) => (
@@ -125,7 +142,9 @@ export function StoryWide({ kind, setKind }: Props) {
         ))
       ) : (
         <Text style={{ ...wideText(nw.type.bodySm), color: nw.color.inkSoft }}>
-          {`פרשת ${parasha.name} · ${parasha.rangeLabel}`}
+          {isAliyot
+            ? `הסבר קצר לכל עלייה בפרשת ${parasha.name}`
+            : `פרשת ${parasha.name} · ${parasha.rangeLabel}`}
         </Text>
       )}
       <Text style={{ ...wideText(nw.type.caption), color: nw.color.inkMuted, marginTop: 6 }}>
@@ -142,16 +161,17 @@ export function StoryWide({ kind, setKind }: Props) {
   );
 
   return (
-    <WidePage title={isHaftara ? 'סיפור ההפטרה' : 'סיפור הפרשה'} back>
+    <WidePage title={pageTitle} back>
       <SegmentedTabs
         size="md"
         options={[
-          { id: 'parasha', label: 'סיפור הפרשה' },
-          { id: 'haftara', label: 'סיפור ההפטרה' },
+          { id: 'parasha', label: 'סיפור' },
+          { id: 'aliyot', label: 'לפי עליות' },
+          { id: 'haftara', label: 'הפטרה' },
         ]}
         value={kind}
-        onChange={(id) => setKind(id as 'parasha' | 'haftara')}
-        style={{ maxWidth: 440, width: '100%', alignSelf: 'center', marginBottom: 24 }}
+        onChange={(id) => setKind(id as StoryTab)}
+        style={{ maxWidth: 520, width: '100%', alignSelf: 'center', marginBottom: 24 }}
       />
       {isDesktop ? (
         <WideCols align="flex-start">
@@ -159,7 +179,6 @@ export function StoryWide({ kind, setKind }: Props) {
           {side}
         </WideCols>
       ) : (
-        // טאבלט: תמונה רחבה למעלה, הטקסט מתחת — ממלא את הגובה בלי חלל ריק
         <View style={{ gap: 20 }}>
           {imageCard}
           {text}

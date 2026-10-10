@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { BookOpenText, Smile, Sunrise, User } from 'lucide-react-native';
+import { BookOpenText, ListOrdered, Smile, Sunrise, User } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Animated, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,16 +9,23 @@ import { img } from '../src/theme/images';
 import { rtl } from '../src/theme/rtl';
 import {
   SectionHeader,
+  AliyahStoriesBody,
   GlassSurface,
   IllustrationCard,
   PrimaryButton,
   ScreenBackground,
   ScreenHeader,
   SegmentedTabs,
-  useLayout, LargeTitle, useCollapsingTitle,
+  StorySectionsBody,
+  storySections,
+  useLayout,
+  LargeTitle,
+  useCollapsingTitle,
 } from '../src/ui';
 import { StoryWide } from '../src/wide/StoryWide';
 import { contentImage, useParasha, whyHaftaraFor } from '../src/content';
+
+type StoryTab = 'parasha' | 'aliyot' | 'haftara';
 
 export default function StoryScreen() {
   const { isWide } = useLayout();
@@ -27,8 +34,8 @@ export default function StoryScreen() {
 
 function StoryWideRoute() {
   const params = useLocalSearchParams<{ kind?: string }>();
-  const [kind, setKind] = useState<'parasha' | 'haftara'>(
-    params.kind === 'haftara' ? 'haftara' : 'parasha'
+  const [kind, setKind] = useState<StoryTab>(
+    params.kind === 'haftara' ? 'haftara' : params.kind === 'aliyot' ? 'aliyot' : 'parasha'
   );
   return <StoryWide kind={kind} setKind={setKind} />;
 }
@@ -36,8 +43,8 @@ function StoryWideRoute() {
 function StoryMobile() {
   const router = useRouter();
   const params = useLocalSearchParams<{ kind?: string }>();
-  const [kind, setKind] = useState<'parasha' | 'haftara'>(
-    params.kind === 'haftara' ? 'haftara' : 'parasha'
+  const [kind, setKind] = useState<StoryTab>(
+    params.kind === 'haftara' ? 'haftara' : params.kind === 'aliyot' ? 'aliyot' : 'parasha'
   );
 
   const calendarMode = useAppStore((s) => s.calendarMode);
@@ -47,17 +54,25 @@ function StoryMobile() {
   const parasha = useParasha(calendarMode);
   const isChild = familyVoice === 'child';
   const isHaftara = kind === 'haftara';
+  const isAliyot = kind === 'aliyot';
   const story = parasha.story;
 
-  const body = isChild ? story.child : story.adult;
+  const sections = storySections(
+    isChild ? parasha.extras?.stories?.child : parasha.extras?.stories?.adult,
+    { title: story.title, text: isChild ? story.child : story.adult }
+  );
+  const aliyahRows = isChild ? parasha.extras?.storyByAliyah?.child : parasha.extras?.storyByAliyah?.adult;
   const para1 = isChild ? parasha.haftara.storyChild : parasha.haftara.storyAdult;
   const why = whyHaftaraFor(parasha, calendarMode, familyVoice);
   const t = useCollapsingTitle();
 
+  const title =
+    kind === 'haftara' ? 'סיפור ההפטרה' : kind === 'aliyot' ? 'סיפור לפי עליות' : 'סיפור הפרשה';
+
   return (
     <ScreenBackground variant="mist" showNav={false}>
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
-        <ScreenHeader title={isHaftara ? 'סיפור ההפטרה' : 'סיפור הפרשה'} scrollY={t.scrollY} />
+        <ScreenHeader title={title} scrollY={t.scrollY} />
 
         <Animated.ScrollView
           {...t.scrollProps}
@@ -67,22 +82,31 @@ function StoryMobile() {
           }}
           showsVerticalScrollIndicator={false}
         >
-        <LargeTitle
-          title={isHaftara ? 'סיפור ההפטרה' : 'סיפור הפרשה'}
-          subtitle={`פרשת ${parasha.name}`}
-          icon={isHaftara ? <Sunrise size={28} color={nw.color.tealIcon} strokeWidth={1.75} /> : <BookOpenText size={28} color={nw.color.tealIcon} strokeWidth={1.75} />}
-          scrollY={t.scrollY}
-        />
-        <SegmentedTabs
-          size="md"
-          options={[
-            { id: 'parasha', label: 'סיפור הפרשה' },
-            { id: 'haftara', label: 'סיפור ההפטרה' },
-          ]}
-          value={kind}
-          onChange={(id) => setKind(id as 'parasha' | 'haftara')}
-          style={{ marginBottom: 14 }}
-        />
+          <LargeTitle
+            title={title}
+            subtitle={`פרשת ${parasha.name}`}
+            icon={
+              isHaftara ? (
+                <Sunrise size={28} color={nw.color.tealIcon} strokeWidth={1.75} />
+              ) : isAliyot ? (
+                <ListOrdered size={28} color={nw.color.tealIcon} strokeWidth={1.75} />
+              ) : (
+                <BookOpenText size={28} color={nw.color.tealIcon} strokeWidth={1.75} />
+              )
+            }
+            scrollY={t.scrollY}
+          />
+          <SegmentedTabs
+            size="md"
+            options={[
+              { id: 'parasha', label: 'סיפור' },
+              { id: 'aliyot', label: 'לפי עליות' },
+              { id: 'haftara', label: 'הפטרה' },
+            ]}
+            value={kind}
+            onChange={(id) => setKind(id as StoryTab)}
+            style={{ marginBottom: 14 }}
+          />
           <GlassSurface variant="strong" radius={24} contentStyle={{ padding: 16 }}>
             <IllustrationCard
               source={
@@ -95,7 +119,7 @@ function StoryMobile() {
               aspectRatio={16 / 9}
             />
 
-            {kind === 'parasha' ? (
+            {kind === 'parasha' || kind === 'aliyot' ? (
               <>
                 <SegmentedTabs
                   size="md"
@@ -107,40 +131,14 @@ function StoryMobile() {
                   onChange={(id) => setFamilyVoice(id as 'adult' | 'child')}
                   style={{ marginTop: 14 }}
                 />
-                <Text
-                  style={{
-                    ...nw.type.caption,
-                    color: nw.color.tealText,
-                    marginTop: 16,
-                    textAlign: rtl.textRight,
-                    writingDirection: 'rtl',
-                  }}
-                >
-                  {`פרשת ${parasha.name}`}
-                </Text>
-                <Text
-                  accessibilityRole="header"
-                  style={{
-                    ...nw.type.h2,
-                    color: nw.color.ink,
-                    marginTop: 2,
-                    textAlign: rtl.textRight,
-                    writingDirection: 'rtl',
-                  }}
-                >
-                  {parasha.story.title}
-                </Text>
-                <Text
-                  style={{
-                    ...nw.type.body,
-                    color: nw.color.inkSoft,
-                    marginTop: 10,
-                    textAlign: rtl.textRight,
-                    writingDirection: 'rtl',
-                  }}
-                >
-                  {body}
-                </Text>
+                {kind === 'parasha' ? (
+                  <StorySectionsBody sections={sections} eyebrow={`פרשת ${parasha.name}`} />
+                ) : (
+                  <AliyahStoriesBody
+                    rows={aliyahRows ?? []}
+                    onOpenAliyah={(n) => router.push({ pathname: '/reading', params: { aliyah: String(n) } })}
+                  />
+                )}
               </>
             ) : (
               <>
@@ -158,31 +156,33 @@ function StoryMobile() {
                   </Text>
                 ) : null}
                 <SectionHeader title="למה קוראים דווקא את ההפטרה הזו?" style={{ marginTop: parasha.haftara.specialReason ? 8 : 18, marginBottom: 2 }} />
-                <Text
-                  style={{
-                    ...nw.type.body,
-                    color: nw.color.inkSoft,
-                    marginTop: 10,
-                    textAlign: rtl.textRight,
-                    writingDirection: 'rtl',
-                  }}
-                >
-                  {why}
-                </Text>
+                <View style={{ marginTop: 10 }}>
+                  <Text
+                    style={{
+                      ...nw.type.body,
+                      color: nw.color.inkSoft,
+                      textAlign: rtl.textRight,
+                      writingDirection: 'rtl',
+                    }}
+                  >
+                    {why}
+                  </Text>
+                </View>
                 {para1.trim() ? (
                   <>
                     <SectionHeader title="מה מסופר בהפטרה" size="sm" ornament="leaf" style={{ marginTop: 18, marginBottom: 2 }} />
-                    <Text
-                      style={{
-                        ...nw.type.body,
-                        color: nw.color.inkSoft,
-                        marginTop: 8,
-                        textAlign: rtl.textRight,
-                        writingDirection: 'rtl',
-                      }}
-                    >
-                      {para1}
-                    </Text>
+                    <View style={{ marginTop: 8 }}>
+                      <Text
+                        style={{
+                          ...nw.type.body,
+                          color: nw.color.inkSoft,
+                          textAlign: rtl.textRight,
+                          writingDirection: 'rtl',
+                        }}
+                      >
+                        {para1}
+                      </Text>
+                    </View>
                   </>
                 ) : null}
                 {parasha.haftara.connectionPoints.map((p) => (
@@ -245,6 +245,8 @@ function StoryMobile() {
                   pathname: '/reading',
                   params: { focus: parasha.story.verseIds.join(',') },
                 });
+              } else if (kind === 'aliyot') {
+                router.push('/reading');
               } else {
                 router.push('/reading');
               }

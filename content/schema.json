@@ -28,20 +28,53 @@
     },
     {
       "key": "storyTitle",
-      "label": "כותרת הסיפור",
+      "label": "כותרת הסיפור (יחיד)",
       "type": "text",
       "scope": "parasha",
       "section": "story",
-      "help": "כותרת קצרה (3–6 מילים)."
+      "help": "כותרת קצרה כשיש סיפור אחד בלבד. אם ממלאים «סיפורים בפרשה» — הכותרות שם גוברות."
     },
     {
       "key": "story",
-      "label": "סיפור הפרשה",
+      "label": "סיפור הפרשה (יחיד)",
       "type": "longtext",
       "scope": "parasha",
       "section": "story",
       "variants": ["adult", "child"],
-      "ai": "story"
+      "format": "rich",
+      "ai": "story",
+      "help": "סיפור אחד רציף. אם יש כמה סיפורים בפרשה — השתמשו בשדה «סיפורים בפרשה» למטה. עיצוב: *הדגשה* · שורה שמתחילה ב־> לציטוט."
+    },
+    {
+      "key": "stories",
+      "label": "סיפורים בפרשה",
+      "type": "list",
+      "scope": "parasha",
+      "section": "story",
+      "variants": ["adult", "child"],
+      "min": 1,
+      "max": 8,
+      "item": [
+        { "key": "title", "label": "כותרת הסיפור", "type": "text" },
+        { "key": "text", "label": "הסיפור", "type": "longtext", "format": "rich" }
+      ],
+      "help": "כשיש שני סיפורים או יותר בפרשה (למשל בבראשית: בריאה, גן עדן, קין והבל) — הוסיפו פריט לכל סיפור. באפליקציה יופיעו עם חוצץ ביניהם. אם הרשימה מלאה היא מחליפה את «סיפור יחיד»."
+    },
+    {
+      "key": "storyByAliyah",
+      "label": "סיפור לפי עליות",
+      "type": "list",
+      "scope": "parasha",
+      "section": "story",
+      "variants": ["adult", "child"],
+      "min": 1,
+      "max": 7,
+      "item": [
+        { "key": "aliyah", "label": "מספר עלייה (1–7)", "type": "text" },
+        { "key": "title", "label": "כותרת קצרה (לא חובה)", "type": "text" },
+        { "key": "text", "label": "הסבר לעלייה", "type": "longtext", "format": "rich" }
+      ],
+      "help": "הסבר מסודר לכל עלייה. מוצג בלשונית «לפי עליות» במסך הסיפור. מספר עלייה: 1 עד 7."
     },
     {
       "key": "storyAnchors",

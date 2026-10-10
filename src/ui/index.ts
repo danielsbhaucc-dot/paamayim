@@ -32,3 +32,5 @@ export { WeeklyJourney } from './WeeklyJourney';
 export { PassProgressCard } from './PassProgressCard';
 export { Divider, SectionHeader } from './Section';
 export { ParashaDot } from './ParashaDot';
+export { RichText } from './RichText';
+export { AliyahStoriesBody, StorySectionsBody, sortedAliyahStories, storySections } from './StoryBody';

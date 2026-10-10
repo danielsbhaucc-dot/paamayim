@@ -1,10 +1,21 @@
 /** תצוגה מקדימה "כמו באפליקציה": אותם כרטיסי פנינה/זכוכית, עם סימון של מה שעדיין טיוטה */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { api } from '../api';
 import type { Verse } from '../types';
 import heroImg from '../../../assets/images/bg-hero-sunrise.jpg';
+import { RichPreview } from './RichPreview';
 
 type Proj = { fields: Record<string, any>; verses: Record<string, Record<string, any>> };
+
+function RichStory({ text, mark }: { text: string; mark?: ReactNode }) {
+  if (!text?.trim()) return null;
+  return (
+    <div className="app-text" style={{ whiteSpace: 'normal' }}>
+      <RichPreview text={text} className="rich-live compact" />
+      {mark}
+    </div>
+  );
+}
 
 export function Preview({ slug, meta, version, verse }: { slug: string; meta: any; version: number; verse?: Verse }) {
   const [drafts, setDrafts] = useState(true);
@@ -66,19 +77,61 @@ export function Preview({ slug, meta, version, verse }: { slug: string; meta: an
               )}
             </div>
           )}
-          {(f.storyTitle || V('story')) && (
-            <div className="app-card">
-              <div className="app-eyebrow">סיפור הפרשה</div>
-              <h3>
-                {f.storyTitle}
-                <Mark k="storyTitle" />
-              </h3>
-              <p className="app-text">
-                {V('story')}
-                <Mark k={Vk('story')} />
-              </p>
-            </div>
-          )}
+          {(() => {
+            const stories = V('stories') as { title?: string; text?: string }[] | undefined;
+            const byAliyah = V('storyByAliyah') as { aliyah?: string; title?: string; text?: string }[] | undefined;
+            const hasStories = Array.isArray(stories) && stories.length > 0;
+            const hasSingle = !!(f.storyTitle || V('story'));
+            if (!hasStories && !hasSingle && !(Array.isArray(byAliyah) && byAliyah.length)) return null;
+            return (
+              <>
+                {(hasStories || hasSingle) && (
+                  <div className="app-card">
+                    <div className="app-eyebrow">סיפור הפרשה</div>
+                    {hasStories ? (
+                      stories!.map((s, i) => (
+                        <div key={i}>
+                          {i > 0 ? <div className="story-divider">סיפור {i + 1}</div> : null}
+                          {s.title ? (
+                            <h3>
+                              {s.title}
+                              <Mark k={Vk('stories')} />
+                            </h3>
+                          ) : null}
+                          {s.text ? <RichStory text={s.text} /> : null}
+                        </div>
+                      ))
+                    ) : (
+                      <>
+                        <h3>
+                          {f.storyTitle}
+                          <Mark k="storyTitle" />
+                        </h3>
+                        <RichStory text={String(V('story') ?? '')} mark={<Mark k={Vk('story')} />} />
+                      </>
+                    )}
+                  </div>
+                )}
+                {Array.isArray(byAliyah) && byAliyah.length ? (
+                  <div className="app-card">
+                    <div className="app-eyebrow">לפי עליות</div>
+                    <Mark k={Vk('storyByAliyah')} />
+                    {byAliyah
+                      .slice()
+                      .sort((a, b) => (Number(a.aliyah) || 99) - (Number(b.aliyah) || 99))
+                      .map((s, i) => (
+                        <div key={i} style={{ marginTop: i ? 12 : 0 }}>
+                          {i > 0 ? <div className="story-divider" /> : null}
+                          <div className="app-eyebrow">עלייה {s.aliyah}</div>
+                          {s.title ? <h3 style={{ fontSize: 16 }}>{s.title}</h3> : null}
+                          {s.text ? <RichStory text={s.text} /> : null}
+                        </div>
+                      ))}
+                  </div>
+                ) : null}
+              </>
+            );
+          })()}
           {(V('haftaraStory') || V('whyThisHaftara')) && (
             <div className="app-card">
               <div className="app-eyebrow">סיפור ההפטרה · {meta?.haftara?.ashkenazi?.refHe}</div>

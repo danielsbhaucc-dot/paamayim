@@ -43,9 +43,27 @@ export interface ContentItem {
   source?: string;
 }
 
+/** מקטע סיפור (כשיש כמה סיפורים בפרשה אחת) */
+export interface StorySection {
+  title?: string;
+  text?: string;
+}
+
+/** הסבר סיפור לפי עלייה */
+export interface AliyahStory {
+  /** "1"…"7" */
+  aliyah?: string;
+  title?: string;
+  text?: string;
+}
+
 /** תוכן נוסף שמגיע ממערכת התוכן (content/) — רק ערכים שפורסמו */
 export interface ParashaExtras {
   explanation?: { adult?: string; child?: string };
+  /** כמה סיפורים בפרשה — כשקיים מחליף את story.adult/child בתצוגה */
+  stories?: { adult?: StorySection[]; child?: StorySection[] };
+  /** הסבר מסודר לפי עליות (לשונית «לפי עליות») */
+  storyByAliyah?: { adult?: AliyahStory[]; child?: AliyahStory[] };
   lifeLessons?: { adult?: ContentItem[]; child?: ContentItem[] };
   chidushim?: ContentItem[];
   kids?: ContentItem[];

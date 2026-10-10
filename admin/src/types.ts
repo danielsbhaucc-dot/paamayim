@@ -7,13 +7,15 @@ export type Field = {
   scope?: 'parasha' | 'verse';
   section: string;
   variants?: string[];
-  item?: { key: string; label: string; type: string }[];
+  item?: { key: string; label: string; type: string; format?: string }[];
   subfields?: { key: string; label: string; type: string }[];
   help?: string;
   ai?: string;
   legacy?: boolean;
   min?: number;
   max?: number;
+  /** longtext: עיצוב קל (*הדגשה*, ציטוט >) + תצוגה חיה */
+  format?: 'rich' | string;
 };
 export type Schema = { variants: Record<string, { label: string }>; sections: { key: string; label: string; icon: string }[]; fields: Field[] };
 export type Doc = { slug: string; meta: any; fields: Record<string, Entry>; verses: Record<string, Record<string, Entry>> };

@@ -93,6 +93,8 @@ export function applyContent(base: Parasha, docs: Record<string, ContentProjecti
   };
   const extras = {
     explanation: { adult: joined(parts, 'explanation.adult', '\n\n'), child: joined(parts, 'explanation.child', '\n\n') },
+    stories: { adult: concat(parts, 'stories.adult'), child: concat(parts, 'stories.child') },
+    storyByAliyah: { adult: concat(parts, 'storyByAliyah.adult'), child: concat(parts, 'storyByAliyah.child') },
     lifeLessons: { adult: concat(parts, 'lifeLessons.adult'), child: concat(parts, 'lifeLessons.child') },
     chidushim,
     kids: concat(parts, 'kids'),

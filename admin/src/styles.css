@@ -212,6 +212,34 @@ textarea.input { resize: vertical; line-height: 1.7; min-height: 120px; }
 .app-card h3, .app-card h4 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
 .app-eyebrow { color: var(--teal-text); font-weight: 800; font-size: 13px; }
 .app-text { font-size: 16px; line-height: 1.7; color: var(--ink-soft); white-space: pre-wrap; }
+.rich-live-wrap {
+  border: 1px dashed rgba(43, 107, 106, 0.35);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  background: rgba(227, 241, 236, 0.45);
+}
+.rich-live { display: grid; gap: 10px; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+.rich-live.compact { gap: 8px; font-size: 15px; }
+.rich-live .rich-p { margin: 0; white-space: pre-wrap; }
+.rich-live .rich-quote {
+  margin: 0;
+  padding: 8px 14px;
+  border-inline-start: 3px solid var(--teal-bright);
+  background: var(--mint);
+  border-radius: 10px;
+  font-family: var(--serif);
+  color: var(--ink);
+  font-style: italic;
+}
+.rich-live strong { color: var(--ink); font-weight: 800; }
+.story-divider {
+  display: flex; align-items: center; gap: 10px; margin: 14px 0 8px;
+  color: var(--teal-text); font-size: 12px; font-weight: 700;
+}
+.story-divider::before, .story-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(35, 122, 112, 0.35), transparent);
+}
 .app-verse { font-family: var(--serif); font-size: 24px; line-height: 1.7; }
 .lesson { padding: 10px 0; border-top: 1px solid var(--line); }
 .lesson:first-of-type { border-top: 0; }

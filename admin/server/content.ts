@@ -49,6 +49,9 @@ export class ContentService {
   private chain: Promise<unknown> = Promise.resolve();
   private corpusCache = new Map<string, Corpus>();
   private schemaCache: any = null;
+  /** מטמון קצר לרשימת הפרשות — מונע קריאה סדרתית של 54 קבצים בכל ניווט */
+  private docsCache: { at: number; docs: ContentDoc[] } | null = null;
+  private static DOCS_TTL_MS = 12_000;
 
   constructor(public storage: Storage) {}
 
@@ -57,6 +60,10 @@ export class ContentService {
     const next = this.chain.then(fn, fn);
     this.chain = next.catch(() => undefined);
     return next;
+  }
+
+  private invalidateDocs() {
+    this.docsCache = null;
   }
 
   async schema() {
@@ -87,10 +94,14 @@ export class ContentService {
     return d;
   }
 
-  async allDocs(): Promise<ContentDoc[]> {
-    const out: ContentDoc[] = [];
-    for (const s of await this.slugs()) out.push(await this.doc(s));
-    return out;
+  async allDocs(force = false): Promise<ContentDoc[]> {
+    if (!force && this.docsCache && Date.now() - this.docsCache.at < ContentService.DOCS_TTL_MS) {
+      return this.docsCache.docs;
+    }
+    const slugs = await this.slugs();
+    const docs = await Promise.all(slugs.map((s) => this.doc(s)));
+    this.docsCache = { at: Date.now(), docs };
+    return docs;
   }
 
   private orderKey(d: ContentDoc) {
@@ -101,7 +112,7 @@ export class ContentService {
 
   async list() {
     const schema = await this.schema();
-    const docs = (await this.allDocs()).sort((a, b) => this.orderKey(a) - this.orderKey(b));
+    const docs = (await this.allDocs()).slice().sort((a, b) => this.orderKey(a) - this.orderKey(b));
     return docs.map((d) => ({
       slug: d.slug,
       name: d.meta?.name ?? d.slug,
@@ -138,8 +149,8 @@ export class ContentService {
 
   async get(slug: string) {
     const schema = await this.schema();
-    const doc = await this.doc(slug);
-    const list = await this.list();
+    const [doc, ordered] = await Promise.all([this.doc(slug), this.allDocs()]);
+    const list = ordered.slice().sort((a, b) => this.orderKey(a) - this.orderKey(b));
     const i = list.findIndex((p) => p.slug === slug);
     return {
       doc,
@@ -158,6 +169,7 @@ export class ContentService {
       const changes: Change[] = [{ path: paths.parasha(slug), content: json(doc) }];
       if (opts.publish) changes.push(...(await this.bundledChange(doc)));
       const res = await this.storage.write(changes, message, { skipBuild: !opts.publish });
+      this.invalidateDocs();
       return { doc, stats: docStats(doc, schema), commit: res.commit };
     });
   }
