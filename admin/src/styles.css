@@ -386,8 +386,11 @@ textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
   margin-top: 10px;
   padding: 12px 14px;
   border-radius: 16px;
-  background: rgba(var(--a-rgb), 0.08);
-  border: 1px solid rgba(var(--pearl-rgb), 0.65);
+  /* פנינה אטומה + שטיפת גוון (לא לבן / לא שקיפות שנראית לבנה) */
+  background:
+    linear-gradient(rgba(var(--a-rgb), 0.16), rgba(var(--a-rgb), 0.16)),
+    var(--pearl);
+  border: 1px solid rgba(var(--pearl-rgb), 0.9);
   overflow: hidden;
 }
 .aliyah-card::before {
@@ -412,7 +415,7 @@ textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
   flex: none;
   width: 32px; height: 32px; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
-  background: rgba(var(--a-rgb), 0.16);
+  background: var(--mint);
   border: 1.5px solid var(--a-solid);
   color: var(--a-ink);
   font-family: var(--ui); font-weight: 800; font-size: 15px; line-height: 1;

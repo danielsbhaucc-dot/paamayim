@@ -134,7 +134,8 @@ export function AliyahStoriesBody({ rows, textStyle, large, onOpenAliyah }: Aliy
             <View
               style={{
                 borderRadius: nw.radius.tile,
-                backgroundColor: h.wash,
+                // בסיס פנינה אטום (#FAF7F0) + שטיפת גוון — לא לבן טהור
+                backgroundColor: nw.surface.solid,
                 borderWidth: 1,
                 borderColor: nw.surface.border,
                 overflow: 'hidden',
@@ -142,6 +143,10 @@ export function AliyahStoriesBody({ rows, textStyle, large, onOpenAliyah }: Aliy
                 paddingHorizontal: large ? 18 : 14,
               }}
             >
+              <View
+                pointerEvents="none"
+                style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, backgroundColor: h.soft }}
+              />
               {/* פס גוון בעין ימין */}
               <View
                 pointerEvents="none"
@@ -167,7 +172,7 @@ export function AliyahStoriesBody({ rows, textStyle, large, onOpenAliyah }: Aliy
                     width: numSize,
                     height: numSize,
                     borderRadius: numSize / 2,
-                    backgroundColor: h.soft,
+                    backgroundColor: nw.color.mint,
                     borderWidth: 1.5,
                     borderColor: h.solid,
                     alignItems: 'center',
