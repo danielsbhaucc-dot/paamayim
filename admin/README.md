@@ -96,13 +96,14 @@ npm run admin
 ## 5. בהמשך: אירוח האדמין (כדי לערוך מהטלפון)
 
 האדמין צריך שרת Node (בגלל עיבוד התמונות) — **לא** Cloudflare Pages/Workers. מתאים: Render, Railway, Fly.io, או מחשב בבית.
-במצב מאורח (`STORAGE=github`) שמירות נכתבות לענף **`content-drafts`** (נוצר אוטומטית אם חסר).
+במצב מאורח (`STORAGE=github`) שמירות נכתבות לענף **`content-drafts`** (נוצר אוטומטית בכתיבה הראשונה אם חסר; קריאה עובדת גם בלי הענף — מ־`master`).
 כפתור **«פרסם הכול»** בהגדרות מעתיק את קובצי התוכן ל־**`master`** ב-commit אחד — ורק אז Cloudflare Pages בונה מחדש (חיסכון במכסת 500 בניות/חודש).
 
-1. **טוקן GitHub מצומצם:** https://github.com/settings/personal-access-tokens/new → *Fine-grained* → Repository access: **Only select repositories** → `paamayim` → Permissions → **Contents: Read and write** (שאר ההרשאות: אין). תוקף: עד שנה.
-2. **גיבוב סיסמה** (במחשב): `npm --prefix admin run hash-password` → מעתיקים את השורה.
-3. **מפתח session:** `node -e "console.log(require('crypto').randomBytes(36).toString('base64url'))"`
-4. אצל ספק האירוח (Render לדוגמה: New → Web Service → מהריפו):
+1. **ענף טיוטות (פעם אחת):** אם `content-drafts` עדיין לא קיים בריפו — צרו אותו מ־`master` (GitHub → Branches → New branch, או `git push origin master:content-drafts`). חלק מהטוקנים הצרים לא מצליחים ליצור ענף חדש (403) אבל כן קוראים וכותבים לענף קיים.
+2. **טוקן GitHub מצומצם:** https://github.com/settings/personal-access-tokens/new → *Fine-grained* → Repository access: **Only select repositories** → `paamayim` → Permissions → **Contents: Read and write** (שאר ההרשאות: אין). תוקף: עד שנה.
+3. **גיבוב סיסמה** (במחשב): `npm --prefix admin run hash-password` → מעתיקים את השורה.
+4. **מפתח session:** `node -e "console.log(require('crypto').randomBytes(36).toString('base64url'))"`
+5. אצל ספק האירוח (Render לדוגמה: New → Web Service → מהריפו):
    - Build command: `npm --prefix admin ci --include=dev && npm --prefix admin run build`
    - Start command: `npm --prefix admin start`
    - משתני סביבה:
@@ -122,7 +123,7 @@ npm run admin
      OPENROUTER_API_KEY=…
      ```
      (את `PORT` הספק נותן לבד.)
-5. מומלץ מאוד להוסיף שכבה שנייה: **Cloudflare Access** (Zero Trust → Access → Application) על הכתובת של האדמין, עם התחברות במייל שלך בלבד.
+6. מומלץ מאוד להוסיף שכבה שנייה: **Cloudflare Access** (Zero Trust → Access → Application) על הכתובת של האדמין, עם התחברות במייל שלך בלבד.
 
 האבטחה כבר מובנית: סיסמה (scrypt), עוגייה HttpOnly+Secure+SameSite=Strict ל-12 שעות, CSRF ו-Origin לכל שינוי, הגבלת ניסיונות התחברות (5 לדקה, 30 לשעה), הגבלת קצב ל-API ול-AI, רשימה סגורה של נתיבים שאפשר לכתוב אליהם, בדיקת תמונות (חתימת קובץ, גודל, מידות) והמרה ל-WebP, כותרות CSP ואבטחה.
 

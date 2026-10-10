@@ -3,7 +3,7 @@ import { useState, type FormEvent } from 'react';
 import { api } from '../api';
 import leaf from '../assets/leaf.png';
 
-export function Login({ onLogin }: { onLogin: () => void }) {
+export function Login({ onLogin }: { onLogin: () => Promise<void> }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -13,9 +13,10 @@ export function Login({ onLogin }: { onLogin: () => void }) {
     setError('');
     try {
       await api('/login', { json: { password } });
-      onLogin();
+      // ממתין לטעינת session+schema כדי לעבור ללוח הבקרה בלי רענון
+      await onLogin();
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'ההתחברות נכשלה');
     } finally {
       setBusy(false);
     }

@@ -23,27 +23,43 @@ const NAV = [
 export function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [schema, setSchema] = useState<Schema | null>(null);
-  const [error, setError] = useState('');
+  /** שגיאת אתחול כשאין session בכלל (שרת לא זמין) */
+  const [bootError, setBootError] = useState('');
+  /** שגיאה אחרי התחברות (למשל schema / GitHub) — בלי לרענן */
+  const [appError, setAppError] = useState('');
   const route = useRoute();
 
   const load = useCallback(async () => {
-    try {
-      const s = await api<Session>('/session');
-      setCsrf(s.csrf);
-      if (s.authenticated) setSchema(await api<Schema>('/schema'));
-      setSession(s);
-      setError('');
-    } catch (e: any) {
-      setError(e.message || 'השרת לא זמין');
+    const s = await api<Session>('/session');
+    setCsrf(s.csrf);
+    setSession(s);
+    setBootError('');
+    if (s.authenticated) {
+      try {
+        setSchema(await api<Schema>('/schema'));
+        setAppError('');
+      } catch (e: any) {
+        setSchema(null);
+        setAppError(e.message || 'שגיאת טעינה');
+        throw e;
+      }
+    } else {
+      setSchema(null);
+      setAppError('');
     }
   }, []);
+
   useEffect(() => {
     setOnUnauthorized(() => {
       setSession((s) => (s ? { ...s, authenticated: false, csrf: null } : s));
+      setSchema(null);
       setCsrf(null);
     });
-    load();
+    load().catch((e: any) => {
+      setBootError(e.message || 'השרת לא זמין');
+    });
   }, [load]);
+
   useEffect(() => {
     const title = route.path.startsWith('/p/') ? 'עריכת פרשה' : (NAV.find((n) => n.match(route.path))?.label ?? '');
     document.title = `${title ? title + ' · ' : ''}נהורא — ניהול תוכן`;
@@ -53,24 +69,62 @@ export function App() {
     await api('/logout', { method: 'POST' }).catch(() => {});
     setCsrf(null);
     setSchema(null);
+    setAppError('');
     setSession((s) => (s ? { ...s, authenticated: false, csrf: null } : s));
     go('/');
   };
 
-  if (error && !session)
+  if (bootError && !session)
     return (
       <main className="login" id="main">
         <div className="card login-card stack">
           <h1>אין חיבור לשרת</h1>
-          <p className="muted">{error}</p>
-          <button type="button" className="btn primary" onClick={load}>
+          <p className="muted">{bootError}</p>
+          <button
+            type="button"
+            className="btn primary"
+            onClick={() => {
+              setBootError('');
+              load().catch((e: any) => setBootError(e.message || 'השרת לא זמין'));
+            }}
+          >
             ניסיון נוסף
           </button>
         </div>
       </main>
     );
   if (!session) return <p className="muted" style={{ padding: 30 }} role="status">טוען…</p>;
-  if (!session.authenticated || !schema) return <Login onLogin={load} />;
+  if (!session.authenticated) return <Login onLogin={load} />;
+
+  if (!schema)
+    return (
+      <main className="login" id="main">
+        <div className="card login-card stack">
+          <h1>טוען את לוח הבקרה…</h1>
+          {appError ? (
+            <>
+              <p className="error" role="alert">
+                {appError}
+              </p>
+              <button
+                type="button"
+                className="btn primary"
+                onClick={() => {
+                  setAppError('');
+                  load().catch(() => {});
+                }}
+              >
+                ניסיון נוסף
+              </button>
+            </>
+          ) : (
+            <p className="muted" role="status">
+              רגע אחד…
+            </p>
+          )}
+        </div>
+      </main>
+    );
 
   const [p0, p1, p2] = route.parts;
   let screen;

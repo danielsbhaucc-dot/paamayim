@@ -1,6 +1,7 @@
 /**
  * אחסון ב-GitHub (כשהאדמין מתארח בשרת):
- * - קריאה וכתיבה (טיוטות + פרסום שדות) → ענף content-drafts (נוצר אוטומטית מ-master אם חסר)
+ * - קריאה → content-drafts אם קיים, אחרת ענף הייצור (בלי ליצור ענף)
+ * - כתיבה (טיוטות + פרסום שדות) → content-drafts (נוצר אוטומטית מ-master אם חסר)
  * - «פרסם הכול» → מעתיק את קובצי התוכן ל-master ב-commit אחד (מפעיל בנייה אחת ב-Cloudflare)
  * הטוקן: Fine-grained PAT עם Contents: Read and write לריפו הזה בלבד.
  */
@@ -87,17 +88,39 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
     return res.json() as Promise<any>;
   }
 
-  /** אם ענף הטיוטות לא קיים — יוצרים אותו מ-HEAD של ענף הייצור */
+  function ghErr(status: number, message: string): Error & { status: number } {
+    const err = new Error(message) as Error & { status: number };
+    err.status = status;
+    return err;
+  }
+
+  /** קריאה: drafts אם קיים, אחרת prod — בלי ליצור ענף (יצירה דורשת הרשאה נפרדת ויכולה להפיל את כל האדמין) */
+  async function resolveReadBranch(): Promise<string> {
+    const existing = await ghMaybe(`/git/ref/heads/${encodeURIComponent(draftBranch)}`);
+    return existing ? draftBranch : prodBranch;
+  }
+
+  /** אם ענף הטיוטות לא קיים — יוצרים אותו מ-HEAD של ענף הייצור (רק בכתיבה) */
   async function ensureDraftBranch() {
     if (!draftReady) {
       draftReady = (async () => {
         const existing = await ghMaybe(`/git/ref/heads/${encodeURIComponent(draftBranch)}`);
         if (existing) return;
         const prod = await gh(`/git/ref/heads/${encodeURIComponent(prodBranch)}`);
-        await gh('/git/refs', {
-          method: 'POST',
-          body: JSON.stringify({ ref: `refs/heads/${draftBranch}`, sha: prod.object.sha }),
-        });
+        try {
+          await gh('/git/refs', {
+            method: 'POST',
+            body: JSON.stringify({ ref: `refs/heads/${draftBranch}`, sha: prod.object.sha }),
+          });
+        } catch (e: any) {
+          if (e?.status === 403 || e?.status === 404) {
+            throw ghErr(
+              502,
+              `אין הרשאה ליצור את הענף ${draftBranch}. צרו אותו ידנית ב-GitHub מ-${prodBranch}, או עדכנו את GITHUB_TOKEN (Fine-grained: Contents Read and write לריפו).`
+            );
+          }
+          throw e;
+        }
       })().catch((e) => {
         draftReady = null;
         throw e;
@@ -107,9 +130,16 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
   }
 
   async function loadTree(branch: string, force = false) {
-    if (branch === draftBranch) await ensureDraftBranch();
     if (tree && tree.branch === branch && !force && Date.now() - tree.at < 15000) return tree;
-    const ref = await gh(`/git/ref/heads/${encodeURIComponent(branch)}`);
+    let ref: any;
+    try {
+      ref = await gh(`/git/ref/heads/${encodeURIComponent(branch)}`);
+    } catch (e: any) {
+      if (e?.status === 403 || e?.status === 401) {
+        throw ghErr(502, 'אין גישה ל-GitHub (בדיקת GITHUB_TOKEN והרשאות Contents לריפו).');
+      }
+      throw e;
+    }
     const commit = ref.object.sha as string;
     if (tree && tree.branch === branch && tree.commit === commit) {
       tree.at = Date.now();
@@ -126,7 +156,6 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
   }
 
   async function writeOnce(branch: string, changes: Change[], message: string) {
-    if (branch === draftBranch) await ensureDraftBranch();
     const ref = await gh(`/git/ref/heads/${encodeURIComponent(branch)}`);
     const parent = ref.object.sha as string;
     const pc = await gh(`/git/commits/${parent}`);
@@ -191,7 +220,7 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
     promoteToProd,
     async read(path) {
       assertAllowed(path);
-      const t = await loadTree(draftBranch);
+      const t = await loadTree(await resolveReadBranch());
       const e = t.files.get(path);
       if (!e) return null;
       const hit = blobCache.get(e.sha);
@@ -203,12 +232,13 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
     },
     async list(dir) {
       assertAllowed(dir, 'dir');
-      const t = await loadTree(draftBranch);
+      const t = await loadTree(await resolveReadBranch());
       const prefix = dir + '/';
       return [...t.files.keys()].filter((p) => p.startsWith(prefix) && !p.slice(prefix.length).includes('/')).map((p) => p.slice(prefix.length));
     },
     async write(changes, message, o) {
       for (const ch of changes) assertAllowed(ch.path);
+      await ensureDraftBranch();
       // טיוטות על content-drafts — Cloudflare לא בונה מענף זה; [CF-Pages-Skip] נשאר להגנה נוספת
       const msg = o?.skipBuild ? `${message} [CF-Pages-Skip]` : message;
       let sha: string;

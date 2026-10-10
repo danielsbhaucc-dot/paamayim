@@ -85,15 +85,14 @@ test('github storage: drafts on content-drafts, promote to master', async () => 
   const gh = fakeGitHub();
   const s = githubStorage({ token: 'tok', repo: 'o/r', branch: 'master', draftBranch: 'content-drafts', fetchImpl: gh.fetchImpl });
 
-  // קריאה ראשונה יוצרת את content-drafts מ-master
+  // קריאה ראשונה — מ-master בלי ליצור content-drafts (יצירה רק בכתיבה)
   assert.equal((await s.read('content/schema.json'))?.toString(), '{"v":1}');
-  assert.ok(gh.refs.has('content-drafts'));
-  assert.equal(gh.refs.get('content-drafts'), gh.refs.get('master'));
+  assert.ok(!gh.refs.has('content-drafts'));
   assert.deepEqual(await s.list('content/parashot'), ['bereshit.json']);
   await assert.rejects(() => s.read('README.md'));
   await assert.rejects(() => s.write([{ path: '.github/workflows/x.yml', content: 'x' }], 'evil'));
 
-  // טיוטה: commit ל-content-drafts עם [CF-Pages-Skip] — master לא זז
+  // כתיבה ראשונה יוצרת את content-drafts מ-master
   const masterBefore = gh.refs.get('master');
   const img = Buffer.from([0x52, 0x49, 0x46, 0x46, 1, 2, 3]);
   await s.write(
@@ -104,6 +103,7 @@ test('github storage: drafts on content-drafts, promote to master', async () => 
     'טיוטה: bereshit',
     { skipBuild: true }
   );
+  assert.ok(gh.refs.has('content-drafts'));
   assert.equal(gh.refs.get('master'), masterBefore);
   assert.notEqual(gh.refs.get('content-drafts'), masterBefore);
   assert.match(gh.commits().get(gh.refs.get('content-drafts')!)!.message, /\[CF-Pages-Skip\]$/);

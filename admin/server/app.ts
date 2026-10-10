@@ -56,9 +56,21 @@ export function createApp(cfg: Config, storage: Storage, opts: { distDir?: strin
 
   // ---------- שגיאות ----------
   app.onError((err, c) => {
-    const status = err instanceof HttpError ? err.status : err instanceof PathError ? 400 : /^השדה|צריך/.test(err.message) ? 400 : 500;
+    const tagged = typeof (err as any).status === 'number' ? (err as any).status : 0;
+    const status =
+      err instanceof HttpError
+        ? err.status
+        : err instanceof PathError
+          ? 400
+          : tagged >= 400 && tagged < 600
+            ? tagged
+            : /^השדה|צריך/.test(err.message)
+              ? 400
+              : 500;
     if (status >= 500) console.error('[admin]', err);
-    return c.json({ error: status >= 500 ? 'שגיאת שרת. פרטים ביומן השרת.' : err.message }, status as any);
+    // הודעות עברית מפורשות (למשל שגיאת GitHub 502) — מציגים למשתמש; אחרת מסתירים פרטי שרת
+    const hebrew = /^[\u0590-\u05FF]/.test(err.message);
+    return c.json({ error: status >= 500 && !hebrew ? 'שגיאת שרת. פרטים ביומן השרת.' : err.message }, status as any);
   });
 
   app.use('/api/*', bodyLimit({ maxSize: 12 * 1024 * 1024, onError: (c) => c.json({ error: 'הבקשה גדולה מדי' }, 413) }));
