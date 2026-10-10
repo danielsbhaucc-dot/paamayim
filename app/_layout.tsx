@@ -1,4 +1,5 @@
 import { useFonts } from 'expo-font';
+import * as Font from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -7,7 +8,7 @@ import { I18nManager } from 'react-native';
 import { AppLoadingScreen } from '../src/components/AppLoadingScreen';
 import { startContentSync } from '../src/content';
 import { SideMenuHost } from '../src/components/SideMenuHost';
-import { fontAssets } from '../src/theme/fonts';
+import { coreFontAssets, mikraFontAssets, setMikraFontsReady } from '../src/theme/fonts';
 import { colors } from '../src/theme/tokens';
 import { applyWebA11y, capFontScaling, enforceRTL } from '../src/utils/a11y';
 
@@ -17,7 +18,8 @@ capFontScaling();
 applyWebA11y();
 
 export default function RootLayout() {
-  const [loaded] = useFonts(fontAssets);
+  // רק פונטי UI — בלי NehoraMikra (באנדרואיד טעינתם קורסת את ה-APK בפתיחה)
+  const [loaded, fontError] = useFonts(coreFontAssets);
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
@@ -33,17 +35,29 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (loaded) {
+    if (!loaded && !fontError) return;
+    const assets = mikraFontAssets;
+    if (!Object.keys(assets).length) {
+      setMikraFontsReady(false);
+      return;
+    }
+    Font.loadAsync(assets)
+      .then(() => setMikraFontsReady(true))
+      .catch(() => setMikraFontsReady(false));
+  }, [loaded, fontError]);
+
+  useEffect(() => {
+    if (loaded || fontError) {
       // מסך הטעינה המותאם מחליף את ה-native splash
       SplashScreen.hideAsync().catch(() => undefined);
     }
-  }, [loaded]);
+  }, [loaded, fontError]);
 
   const onLoaderFinish = useCallback(() => {
     setShowLoader(false);
   }, []);
 
-  if (!loaded) return null;
+  if (!loaded && !fontError) return null;
 
   return (
     <>
@@ -66,7 +80,7 @@ export default function RootLayout() {
         <Stack.Screen name="parashot" options={{ presentation: 'card' }} />
       </Stack>
       <SideMenuHost />
-      {showLoader ? <AppLoadingScreen ready={loaded} onFinish={onLoaderFinish} /> : null}
+      {showLoader ? <AppLoadingScreen ready={!!loaded || !!fontError} onFinish={onLoaderFinish} /> : null}
     </>
   );
 }

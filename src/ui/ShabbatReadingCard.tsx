@@ -16,7 +16,14 @@ import { GlassSurface } from './GlassSurface';
 export function ShabbatReadingCard({ mode, style }: { mode?: CalendarMode; style?: StyleProp<ViewStyle> }) {
   const storeMode = useAppStore((s) => s.calendarMode);
   const m = mode ?? storeMode;
-  const r = useMemo(() => getShabbatReading(m), [m]);
+  const r = useMemo(() => {
+    try {
+      return getShabbatReading(m);
+    } catch {
+      // לא להפיל את מסך הבית אם hebcal/leyning זורק
+      return { kind: 'regular' as const, date: new Date(), title: '', weekly: '' };
+    }
+  }, [m]);
   if (r.kind === 'regular') return null;
   const line = (label: string, value?: string) =>
     value ? (

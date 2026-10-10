@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
 import { useAppStore } from '../store/useAppStore';
-import { fonts } from '../theme/fonts';
+import { canColorTeamim, fonts, mikraFamily, mikraTeamimFamily, useMikraFontsReady } from '../theme/fonts';
 import { mikraParts, mikraSegments, SETUMA_GAP, SETUMA_GAP_SHORT, type ParashaBreak } from './mikra';
 
 /**
@@ -20,8 +20,8 @@ export function useShowTeamim(): boolean {
 /** סגנון הטקסט לשכבה. בשכבת הטעמים כל השאר שקוף, והרקע מבוטל. */
 export function layerStyle(layer: MikraLayer, teamimColor = TEAMIM_COLOR): TextStyle {
   return layer === 'base'
-    ? { fontFamily: fonts.mikra }
-    : { fontFamily: fonts.mikraTeamim, color: teamimColor, backgroundColor: 'transparent' };
+    ? { fontFamily: mikraFamily() }
+    : { fontFamily: mikraTeamimFamily(), color: teamimColor, backgroundColor: 'transparent' };
 }
 
 /** טקסט עזר (מספר פסוק, כותרת) בתוך שכבת הטעמים: אותו גודל, שקוף */
@@ -58,7 +58,7 @@ export function MikraRuns({
                 {p.qere}
                 {p.ketiv ? (
                   <Text
-                    style={ghost(layer, [styles.ketiv, { fontSize: Math.round(fontSize * 0.55) }])}
+                    style={ghost(layer, [styles.ketiv, { fontFamily: mikraFamily(), fontSize: Math.round(fontSize * 0.55) }])}
                     accessibilityLabel={`כתיב: ${p.ketiv}`}
                   >{`\u2009°${p.ketiv}`}</Text>
                 ) : null}
@@ -95,8 +95,11 @@ type Props = {
  */
 export function MikraText({ text, style, containerStyle, teamim, brk, accessibilityLabel }: Props) {
   const setting = useShowTeamim();
+  useMikraFontsReady(); // רענון כשפונטי Nehora נטענים (iOS/web)
   const on = teamim ?? setting;
+  const layered = on && canColorTeamim();
   const flat = StyleSheet.flatten(style) ?? {};
+  const fs = flat.fontSize ?? 22;
   const render = (layer: MikraLayer) => (
     <Text
       style={[flat, styles.text, layerStyle(layer)]}
@@ -105,11 +108,12 @@ export function MikraText({ text, style, containerStyle, teamim, brk, accessibil
       accessibilityLabel={layer === 'base' ? accessibilityLabel : undefined}
       selectable={layer === 'base' && Platform.OS === 'web'}
     >
-      <MikraRuns raw={text} teamim={on} layer={layer} fontSize={flat.fontSize ?? 22} />
-      {brk ? <Text style={ghost(layer, [styles.brk, { fontSize: Math.round((flat.fontSize ?? 22) * 0.55) }])}>{`  ${brk === 'p' ? 'פ' : 'ס'}`}</Text> : null}
+      <MikraRuns raw={text} teamim={on} layer={layer} fontSize={fs} />
+      {brk ? <Text style={ghost(layer, [styles.brk, { fontSize: Math.round(fs * 0.55) }])}>{`  ${brk === 'p' ? 'פ' : 'ס'}`}</Text> : null}
     </Text>
   );
-  if (!on) return <View style={containerStyle}>{render('base')}</View>;
+  // בלי פונטי Nehora (אנדרואיד): שכבה אחת ב-Frank Ruhl — הטעמים באותו צבע אם מופעלים
+  if (!layered) return <View style={containerStyle}>{render('base')}</View>;
   return (
     <View style={[containerStyle, styles.wrap]}>
       {render('base')}
@@ -126,5 +130,5 @@ const styles = StyleSheet.create({
   text: { includeFontPadding: false, letterSpacing: 0 },
   brk: { fontFamily: fonts.uiBold, color: '#A08A70' },
   /** הכתיב: קטן, בצבע חום־אפור רך, עם עיגול מסורה קטן — הקרי הוא שנקרא */
-  ketiv: { fontFamily: fonts.mikra, color: '#9A8670' },
+  ketiv: { color: '#9A8670' },
 });

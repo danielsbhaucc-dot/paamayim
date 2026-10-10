@@ -12,7 +12,7 @@ import {
 import { hebrewNumber, verseMark } from '../data/hebrew';
 import type { Aliyah, Verse } from '../data/types';
 import { breakText, ghost, layerStyle, MikraRuns, useShowTeamim, type MikraLayer } from '../reading/MikraText';
-import { fonts } from '../theme/fonts';
+import { canColorTeamim, fonts, useMikraFontsReady } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { assets, colors } from '../theme/tokens';
 
@@ -51,6 +51,8 @@ export function TorahScrollView({ verses, aliyah, parashaName, currentVerseId, o
 
   const chapter = useMemo(() => verses[0]?.chapter, [verses]);
   const teamim = useShowTeamim();
+  useMikraFontsReady();
+  const layered = teamim && canColorTeamim();
 
   /**
    * גוף המגילה לשכבה אחת. פרשה פתוחה = הטקסט ממשיך בשורה חדשה (שאר השורה ריק),
@@ -187,10 +189,10 @@ export function TorahScrollView({ verses, aliyah, parashaName, currentVerseId, o
             </Text>
           ) : null}
 
-          {/* שתי שכבות זהות: אותיות וניקוד בדיו, ומעליהן הטעמים בצבע רך (בלי לגעת בלחיצות) */}
+          {/* שתי שכבות (Nehora) או שכבה אחת (אנדרואיד / בלי פונטי טעמים) */}
           <View style={{ position: 'relative' }}>
             {renderBlock('base')}
-            {teamim ? (
+            {layered ? (
               <View style={StyleSheet.absoluteFill} pointerEvents="none">
                 {renderBlock('teamim')}
               </View>
