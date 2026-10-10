@@ -102,7 +102,8 @@ export function GlassSurface({
           pointerEvents="none"
           intensity={reading ? nw.glass.blurIntensityReading : denser ? nw.glass.blurIntensityDense : frost ? nw.glass.blurIntensityFrost : nw.glass.blurIntensity}
           tint={Platform.OS === 'ios' ? 'systemUltraThinMaterialLight' : 'light'}
-          {...(Platform.OS === 'android' ? { experimentalBlurMethod: 'dimezisBlurView' as const } : {})}
+          // Android: בלי dimezisBlurView — ידוע כגורם לקריסה בפתיחה (New Arch / מכשירים מסוימים).
+          // המילוי הפנינה למטה נשאר, אז המראה עדיין זכוכיתי.
           style={StyleSheet.absoluteFill}
         />
       )}

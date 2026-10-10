@@ -46,7 +46,7 @@ export function GlassBottomNav() {
             pointerEvents="none"
             intensity={nw.glass.blurIntensity}
             tint={Platform.OS === 'ios' ? 'systemUltraThinMaterialLight' : 'light'}
-            {...(Platform.OS === 'android' ? { experimentalBlurMethod: 'dimezisBlurView' as const } : {})}
+            // Android: בלי dimezisBlurView (קריסות native בפתיחה). המילוי למטה מספיק.
             style={StyleSheet.absoluteFill}
           />
         )}
