@@ -14,7 +14,7 @@ export type Field = {
   legacy?: boolean;
   min?: number;
   max?: number;
-  /** longtext: עיצוב קל (*הדגשה*, ציטוט >) + תצוגה חיה */
+  /** longtext: עיצוב קל (WYSIWYG + מקור) */
   format?: 'rich' | string;
 };
 export type Schema = { variants: Record<string, { label: string }>; sections: { key: string; label: string; icon: string }[]; fields: Field[] };
