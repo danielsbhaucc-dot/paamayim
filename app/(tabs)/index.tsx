@@ -43,6 +43,8 @@ import {
 } from '../../src/ui';
 import { HomeWide } from '../../src/wide/HomeWide';
 import { ShabbatReadingCard } from '../../src/ui/ShabbatReadingCard';
+import { TodayPlanCard } from '../../src/ui/TodayPlanCard';
+import { SiyumBanner } from '../../src/ui/SiyumCard';
 import { lifeLessonsFor, useParasha, useParashaEyebrow } from '../../src/content';
 import { useG } from '../../src/greeting/useG';
 import { UI } from '../../src/greeting/uiTexts';
@@ -323,6 +325,8 @@ function HomeMobile() {
             </Pressable>
           </View>
 
+          <SiyumBanner style={{ marginHorizontal: nw.space.screenX, marginTop: 14 }} />
+          <TodayPlanCard style={{ marginHorizontal: nw.space.screenX, marginTop: 14 }} />
           <ShabbatReadingCard mode={calendarMode} style={{ marginHorizontal: nw.space.screenX, marginTop: 14 }} />
 
           <GlassSurface

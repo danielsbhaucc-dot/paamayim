@@ -1,4 +1,6 @@
 import { ShabbatReadingCard } from '../ui/ShabbatReadingCard';
+import { TodayPlanCard } from '../ui/TodayPlanCard';
+import { SiyumBanner } from '../ui/SiyumCard';
 import { useRouter } from 'expo-router';
 import {
   BookOpenText,
@@ -53,6 +55,8 @@ export function HomeWide() {
       <HomeHero />
 
       {/* שבת מיוחדת / חג: מה קוראים בבית הכנסת, ולצד זה פרשת השבוע לשניים מקרא */}
+      <SiyumBanner style={{ marginTop: 16 }} />
+      <TodayPlanCard style={{ marginTop: 16 }} />
       <ShabbatReadingCard mode={calendarMode} style={{ marginTop: 16 }} />
 
       {/* פרשה + הפטרה זו לצד זו */}

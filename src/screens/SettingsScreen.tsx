@@ -17,6 +17,7 @@ import { LANDING_URL } from '../content/config';
 import type { FlowLayout, CalendarMode, FamilyVoice, ReadingView } from '../data/types';
 import { READING_MODES } from '../reading/modes';
 import { useAppStore } from '../store/useAppStore';
+import { PlanSettings } from './PlanSettings';
 import { APP_NAME } from '../theme/brand';
 import { nw } from '../theme/design';
 import { rtl } from '../theme/rtl';
@@ -71,6 +72,11 @@ function SettingsMobile() {
           />
           <PersonalSection />
           <ReadingSection />
+          <Section title="תוכנית הקריאה">
+            <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18 }}>
+              <PlanSettings />
+            </GlassSurface>
+          </Section>
           <PrivacySection />
           <InfoSection />
         </Animated.ScrollView>
@@ -91,6 +97,11 @@ function SettingsWide() {
         <View style={{ flex: 1 }}>
           <PersonalSection />
           <ReadingSection />
+          <Section title="תוכנית הקריאה">
+            <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18 }}>
+              <PlanSettings />
+            </GlassSurface>
+          </Section>
         </View>
         <View style={{ flex: 1 }}>
           <PrivacySection />

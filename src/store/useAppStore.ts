@@ -20,6 +20,31 @@ interface AppState {
   flowLayout: FlowLayout;
   /** טעמי המקרא בטקסט (ברירת מחדל: מוצגים). הניקוד תמיד מוצג. */
   showTeamim: boolean;
+  /** תוכנית הקריאה: ימי קריאה (0=ראשון … 5=שישי). ברירת מחדל ראשון–חמישי, שישי כרשת ביטחון */
+  readDays: number[];
+  /** היעד: לפני הדלקת נרות, או שבת בבוקר לפני הסעודה */
+  targetMode: 'candles' | 'meal';
+  /** עיר לזמני הדלקת נרות (שם Hebcal) */
+  cityId: string;
+  /** התראות מקומיות (כבויות עד שמפעילים) */
+  notifyOn: boolean;
+  notifyTime: string;
+  /** מהירות קריאה שנלמדה: מילים לדקה בכל מפגש קריאה (האחרונים) */
+  speedSamples: number[];
+  /** מפגש הקריאה הנוכחי (ללמידת המהירות) */
+  session: { start: number; last: number; words: number } | null;
+  /** ״לפזר על שישי״ — לשבוע הזה (מפתח השבת) */
+  spreadFridayFor: string | null;
+  /** היום שבו כבר נענתה ההצעה להשלמה (מפתח תאריך) */
+  catchupAnsweredOn: string | null;
+  /** סיומים: חומש / כל התורה, לפי שנה עברית */
+  siyumim: { key: string; book: string; year: number; at: number; parashot: number }[];
+  /** פרשות שהושלמו בכל שנה עברית */
+  doneParashot: Record<string, string[]>;
+  /** סיום שממתין להצגה (מפתח) */
+  pendingSiyum: string | null;
+  /** כמה נשאר בתחילת היום (לחישוב ״כמה כבר קראתי היום״) */
+  dayBaseline: { day: string; pid: string; remaining: number } | null;
   activeAliyah: number;
   lastVerseId: string | null;
   progress: ProgressMap;
@@ -48,6 +73,14 @@ interface AppState {
   setReadingView: (view: ReadingView) => void;
   setFlowLayout: (layout: FlowLayout) => void;
   setShowTeamim: (on: boolean) => void;
+  setPlanPrefs: (p: Partial<Pick<AppState, 'readDays' | 'targetMode' | 'cityId' | 'notifyOn' | 'notifyTime'>>) => void;
+  recordReading: (words: number, at: number) => void;
+  setSpreadFridayFor: (key: string | null) => void;
+  answerCatchup: (dayKey: string) => void;
+  addSiyum: (s: { key: string; book: string; year: number; parashot: number }) => void;
+  markParashaDone: (year: number, id: string) => void;
+  clearPendingSiyum: () => void;
+  setDayBaseline: (b: { day: string; pid: string; remaining: number }) => void;
   setActiveAliyah: (id: number) => void;
   setLastVerseId: (id: string | null) => void;
   togglePass: (verseId: string, kind: PassKind) => void;
@@ -82,6 +115,19 @@ export const useAppStore = create<AppState>()(
       readingView: 'flow',
       flowLayout: 'classic',
       showTeamim: true,
+      readDays: [0, 1, 2, 3, 4],
+      targetMode: 'candles',
+      cityId: 'Jerusalem',
+      notifyOn: false,
+      notifyTime: '20:30',
+      speedSamples: [],
+      session: null,
+      spreadFridayFor: null,
+      catchupAnsweredOn: null,
+      siyumim: [],
+      doneParashot: {},
+      pendingSiyum: null,
+      dayBaseline: null,
       activeAliyah: 1,
       lastVerseId: null,
       progress: {},
@@ -112,6 +158,36 @@ export const useAppStore = create<AppState>()(
       setReadingView: (view) => set({ readingView: view }),
       setFlowLayout: (flowLayout) => set({ flowLayout }),
       setShowTeamim: (showTeamim) => set({ showTeamim }),
+      setPlanPrefs: (p) => set(p),
+      // מפגש = סימונים ברצף בלי הפסקה של יותר מ-4 דקות; מפגש של 2+ דקות נכנס ללמידת המהירות
+      recordReading: (words, at) =>
+        set((state) => {
+          const s = state.session;
+          if (s && at - s.last <= 4 * 60000) {
+            return { session: { start: s.start, last: at, words: s.words + words } };
+          }
+          const samples = [...state.speedSamples];
+          if (s && s.last - s.start >= 2 * 60000) {
+            const wpm = s.words / ((s.last - s.start) / 60000);
+            if (wpm >= 20 && wpm <= 400) samples.push(Math.round(wpm));
+          }
+          return { session: { start: at, last: at, words: 0 }, speedSamples: samples.slice(-12) };
+        }),
+      setSpreadFridayFor: (spreadFridayFor) => set({ spreadFridayFor }),
+      answerCatchup: (catchupAnsweredOn) => set({ catchupAnsweredOn }),
+      addSiyum: (x) =>
+        set((state) =>
+          state.siyumim.some((y) => y.key === x.key)
+            ? {}
+            : { siyumim: [...state.siyumim, { ...x, at: Date.now() }], pendingSiyum: x.key }
+        ),
+      markParashaDone: (year, id) =>
+        set((state) => {
+          const list = state.doneParashot[year] ?? [];
+          return list.includes(id) ? {} : { doneParashot: { ...state.doneParashot, [year]: [...list, id] } };
+        }),
+      clearPendingSiyum: () => set({ pendingSiyum: null }),
+      setDayBaseline: (dayBaseline) => set({ dayBaseline }),
       setActiveAliyah: (id) => set({ activeAliyah: id }),
       setLastVerseId: (id) =>
         set((state) => (id === state.lastVerseId ? { lastReadAt: Date.now() } : { lastVerseId: id, lastReadAt: id ? Date.now() : null })),
@@ -157,6 +233,19 @@ export const useAppStore = create<AppState>()(
         readingView: s.readingView,
         flowLayout: s.flowLayout,
         showTeamim: s.showTeamim,
+        readDays: s.readDays,
+        targetMode: s.targetMode,
+        cityId: s.cityId,
+        notifyOn: s.notifyOn,
+        notifyTime: s.notifyTime,
+        speedSamples: s.speedSamples,
+        session: s.session,
+        spreadFridayFor: s.spreadFridayFor,
+        catchupAnsweredOn: s.catchupAnsweredOn,
+        siyumim: s.siyumim,
+        doneParashot: s.doneParashot,
+        pendingSiyum: s.pendingSiyum,
+        dayBaseline: s.dayBaseline,
         activeAliyah: s.activeAliyah,
         lastVerseId: s.lastVerseId,
         progress: s.progress,
