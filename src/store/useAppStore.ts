@@ -20,8 +20,22 @@ export type Features = {
   specialShabbat: boolean;
   ketiv: boolean;
   lessons: boolean;
+  /** כרטיס ״מה אונקלוס עשה כאן״ בקריאה */
+  onkelosBonus: boolean;
+  /** חידושים המקושרים לפסוק */
+  chidushim: boolean;
 };
-export const DEFAULT_FEATURES: Features = { plan: true, ring: true, catchup: true, siyum: true, specialShabbat: true, ketiv: true, lessons: true };
+export const DEFAULT_FEATURES: Features = {
+  plan: true,
+  ring: true,
+  catchup: true,
+  siyum: true,
+  specialShabbat: true,
+  ketiv: true,
+  lessons: true,
+  onkelosBonus: true,
+  chidushim: true,
+};
 
 /** מתג תוספת (עמיד לגרסאות ישנות של המצב השמור) */
 export const useFeature = (k: keyof Features) => useAppStore((s) => (s.features ?? DEFAULT_FEATURES)[k] ?? DEFAULT_FEATURES[k]);

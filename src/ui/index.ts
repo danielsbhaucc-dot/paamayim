@@ -33,4 +33,5 @@ export { PassProgressCard } from './PassProgressCard';
 export { Divider, SectionHeader } from './Section';
 export { ParashaDot } from './ParashaDot';
 export { RichText } from './RichText';
+export { BonusFold } from './BonusFold';
 export { AliyahStoriesBody, StorySectionsBody, sortedAliyahStories, storySections } from './StoryBody';

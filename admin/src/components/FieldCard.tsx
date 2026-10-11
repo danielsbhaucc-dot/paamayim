@@ -1,37 +1,62 @@
-/** שדה אחד מהסכמה: עריכה, שמירת טיוטה, פרסום/ביטול, השוואה למפורסם ו-AI — לכל גרסה (מבוגר/ילד) */
-import { Check, CloudUpload, Eye, RotateCcw, Save, Undo2, Upload } from 'lucide-react';
+/** שדה אחד מהסכמה: אקורדיון מסודר, עריכה, טיוטה/פרסום ו-AI */
+import { Check, ChevronDown, CloudUpload, Eye, RotateCcw, Save, Undo2, Upload } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { api } from '../api';
 import { useApp } from '../ctx';
-import { statusOf, type Entry, type Field } from '../types';
+import { STATUS_LABEL, statusOf, type Entry, type Field, type Status } from '../types';
 import { AiMenu } from './AiMenu';
 import { Badge } from './ui';
 import { ValueEditor, ValueView } from './ValueEditor';
 
 type Saved = { doc: any; stats: any };
 
+function worstStatus(statuses: Status[]): Status {
+  if (statuses.includes('changed')) return 'changed';
+  if (statuses.includes('draft')) return 'draft';
+  if (statuses.includes('published')) return 'published';
+  return 'empty';
+}
+
 export function FieldBlock({ slug, field, entries, verseId, onSaved }: { slug: string; field: Field; entries: Record<string, Entry | undefined>; verseId?: string; onSaved: (r: Saved) => void }) {
   const { schema } = useApp();
   const variants = field.variants?.length ? field.variants : [null];
   const [variant, setVariant] = useState(variants[0]);
+  const keys = variants.map((v) => (v ? `${field.key}.${v}` : field.key));
+  const statuses = keys.map((k) => statusOf(entries[k]));
+  const overall = worstStatus(statuses);
+  // פתוח כברירת מחדל רק כשיש טיוטה/שינוי — אחרת האקורדיון שומר על סדר
+  const [open, setOpen] = useState(overall === 'draft' || overall === 'changed');
   const key = variant ? `${field.key}.${variant}` : field.key;
   return (
-    <section className="card fieldcard" aria-labelledby={`h-${field.key}`}>
-      <div className="fieldhead">
+    <section className={`card fieldcard${open ? ' is-open' : ''}`} aria-labelledby={`h-${field.key}`}>
+      <button
+        type="button"
+        className="field-acc-toggle"
+        aria-expanded={open}
+        aria-controls={`body-${field.key}`}
+        onClick={() => setOpen((o) => !o)}
+      >
+        <ChevronDown size={18} aria-hidden className="field-acc-chevron" />
         <h2 id={`h-${field.key}`}>{field.label}</h2>
-        {variants.length > 1 && (
-          <div className="tabs" role="tablist" aria-label={`גרסאות: ${field.label}`}>
-            {variants.map((v) => (
-              <button key={v} role="tab" type="button" aria-selected={v === variant} onClick={() => setVariant(v)}>
-                {schema.variants[v!]?.label ?? v} <span className={`dot ${statusOf(entries[`${field.key}.${v}`])}`} aria-hidden />
-                <span className="sr-only">({statusOf(entries[`${field.key}.${v}`])})</span>
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-      {field.help && <p className="help">{field.help}</p>}
-      <EntryEditor key={key} slug={slug} field={field} storageKey={key} entry={entries[key]} verseId={verseId} onSaved={onSaved} />
+        <Badge status={overall} />
+        <span className="help field-acc-hint">{open ? 'סגור' : STATUS_LABEL[overall]}</span>
+      </button>
+      {open ? (
+        <div className="field-acc-body stack" id={`body-${field.key}`}>
+          {variants.length > 1 && (
+            <div className="tabs" role="tablist" aria-label={`גרסאות: ${field.label}`}>
+              {variants.map((v) => (
+                <button key={v} role="tab" type="button" aria-selected={v === variant} onClick={() => setVariant(v)}>
+                  {schema.variants[v!]?.label ?? v} <span className={`dot ${statusOf(entries[`${field.key}.${v}`])}`} aria-hidden />
+                  <span className="sr-only">({statusOf(entries[`${field.key}.${v}`])})</span>
+                </button>
+              ))}
+            </div>
+          )}
+          {field.help && <p className="help">{field.help}</p>}
+          <EntryEditor key={key} slug={slug} field={field} storageKey={key} entry={entries[key]} verseId={verseId} onSaved={onSaved} />
+        </div>
+      ) : null}
     </section>
   );
 }

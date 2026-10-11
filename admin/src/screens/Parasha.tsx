@@ -112,15 +112,15 @@ export function Parasha({ slug, section, query }: { slug: string; section?: stri
             {doc.meta.rangeHe} · הפטרה: {doc.meta.haftara?.ashkenazi?.refHe}
           </p>
         </div>
-        <div className="row">
-          <button type="button" className="btn" aria-pressed={showPreview} onClick={() => setShowPreview((s) => !s)}>
-            {showPreview ? <EyeOff size={18} aria-hidden /> : <Eye size={18} aria-hidden />} תצוגה מקדימה
+        <div className="page-actions">
+          <button type="button" className="btn small" aria-pressed={showPreview} onClick={() => setShowPreview((s) => !s)}>
+            {showPreview ? <EyeOff size={16} aria-hidden /> : <Eye size={16} aria-hidden />} תצוגה
           </button>
-          <button type="button" className="btn primary" disabled={busy} onClick={publishTouched}>
-            <CloudUpload size={18} aria-hidden /> פרסם מה שעברתי עליו בפרשה
+          <button type="button" className="btn small primary" disabled={busy} onClick={publishTouched} title="רק מה שערכתם או סימנתם כנבדק">
+            <CloudUpload size={16} aria-hidden /> פרסם מה שעברתי
           </button>
-          <button type="button" className="btn" disabled={busy} onClick={publishAll}>
-            <CloudUpload size={18} aria-hidden /> פרסום הפרשה הזאת{pending ? ` (${pending})` : ''}
+          <button type="button" className="btn small" disabled={busy || !pending} onClick={publishAll} title="כל הטיוטות בפרשה הזו">
+            כל הפרשה{pending ? ` (${pending})` : ''}
           </button>
         </div>
       </div>

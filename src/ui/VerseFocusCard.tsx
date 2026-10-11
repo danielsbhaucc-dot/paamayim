@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Pressable } from 'react-native';
 import { alignmentFor, TYPE_LABEL } from '../data/alignment';
 import { aramaicTokens, hebrewTokens } from '../data/alignTokens';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore, useFeature } from '../store/useAppStore';
 import { StyleSheet, Text, View } from 'react-native';
 import { MikraText } from '../reading/MikraText';
 import { verseMark } from '../data/hebrew';
@@ -11,10 +11,11 @@ import type { PassKind, Verse, VerseProgress } from '../data/types';
 import { nw, passHue } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
+import { BonusFold } from './BonusFold';
 import { GlassSurface } from './GlassSurface';
 import { PassTile } from './PassTile';
 import { PrimaryButton } from './PrimaryButton';
-import { Divider, SectionHeader } from './Section';
+import { Divider } from './Section';
 
 type Props = {
   verse: Verse;
@@ -44,6 +45,11 @@ export function VerseFocusCard({
   const arToks = aramaicTokens(verse.onkelos);
   const heToks = ap ? hebrewTokens(verse.hebrew, false) : [];
   const allDone = progress.mikra1 && progress.mikra2 && progress.onkelos;
+  const showOnkelosBonus = useFeature('onkelosBonus');
+  const showChidushim = useFeature('chidushim');
+  const onkelosPreview = verse.onkelosExplanation
+    ? verse.onkelosExplanation.slice(0, 48) + (verse.onkelosExplanation.length > 48 ? '…' : '')
+    : verse.onkelosNote.plain;
 
   return (
     <View>
@@ -169,74 +175,42 @@ export function VerseFocusCard({
         ) : null}
       </GlassSurface>
 
-      <GlassSurface
-        reading
-        variant="card"
-        radius={22}
-        style={{ marginTop: 14 }}
-        contentStyle={{ padding: 18 }}
-      >
-        <SectionHeader
-          title="מה אונקלוס עשה כאן?"
-          icon={<Lightbulb size={20} color={nw.color.tealIcon} strokeWidth={1.75} />}
-          size="sm"
-          style={{ marginTop: 0, marginBottom: 4 }}
-        />
-        {verse.onkelosExplanation ? (
-          // הסבר שנכתב במערכת התוכן ופורסם — גובר על ההסבר האוטומטי
-          <Text
-            style={{
-              ...nw.type.body,
-              color: nw.color.inkSoft,
-              marginTop: 8,
-              textAlign: rtl.textRight,
-              writingDirection: 'rtl',
-              lineHeight: 28,
-            }}
-          >
-            {verse.onkelosExplanation}
-          </Text>
-        ) : (
-          <Text
-            style={{
-              marginTop: 8,
-              textAlign: rtl.textRight,
-              writingDirection: 'rtl',
-              lineHeight: 28,
-            }}
-          >
-            <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink }}>
-              {verse.onkelosNote.plain}.{' '}
-            </Text>
-            <Text style={{ ...nw.type.body, color: nw.color.inkSoft }}>
-              {`${verse.onkelosNote.did}. ${verse.onkelosNote.why}.`}
-            </Text>
-          </Text>
-        )}
-      </GlassSurface>
-
-      {verse.chidushim?.length ? (
-        <GlassSurface
-          reading
-          variant="card"
-          radius={22}
-          style={{ marginTop: 14 }}
-          contentStyle={{ padding: 18 }}
-        >
-          <View style={{ flexDirection: rtl.row, gap: 8, alignItems: 'center' }}>
-            <Sparkles size={20} color={nw.color.tealIcon} strokeWidth={1.75} />
+      {showOnkelosBonus ? (
+        <BonusFold title="מה אונקלוס עשה כאן?" Icon={Lightbulb} preview={onkelosPreview} style={{ marginTop: 14 }}>
+          {verse.onkelosExplanation ? (
             <Text
               style={{
-                fontFamily: fonts.uiBold,
-                fontSize: 16,
-                color: nw.color.ink,
+                ...nw.type.body,
+                color: nw.color.inkSoft,
                 textAlign: rtl.textRight,
                 writingDirection: 'rtl',
+                lineHeight: 28,
               }}
             >
-              {verse.chidushim.length > 1 ? 'חידושים בפסוק' : 'חידוש בפסוק'}
+              {verse.onkelosExplanation}
             </Text>
-          </View>
+          ) : (
+            <Text style={{ textAlign: rtl.textRight, writingDirection: 'rtl', lineHeight: 28 }}>
+              <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink }}>{verse.onkelosNote.plain}. </Text>
+              <Text style={{ ...nw.type.body, color: nw.color.inkSoft }}>
+                {`${verse.onkelosNote.did}. ${verse.onkelosNote.why}.`}
+              </Text>
+            </Text>
+          )}
+        </BonusFold>
+      ) : null}
+
+      {showChidushim && verse.chidushim?.length ? (
+        <BonusFold
+          title={verse.chidushim.length > 1 ? 'חידושים בפסוק' : 'חידוש בפסוק'}
+          Icon={Sparkles}
+          preview={
+            verse.chidushim.length > 1
+              ? `${verse.chidushim.length} חידושים`
+              : verse.chidushim[0]?.title || verse.chidushim[0]?.text?.slice(0, 40) || 'לחיצה לפתיחה'
+          }
+          style={{ marginTop: 14 }}
+        >
           {verse.chidushim.map((c, i) => (
             <View
               key={i}
@@ -248,46 +222,30 @@ export function VerseFocusCard({
                       borderTopWidth: StyleSheet.hairlineWidth,
                       borderTopColor: nw.color.divider,
                     }
-                  : { marginTop: 8 }
+                  : undefined
               }
             >
               {c.title ? (
-                <Text style={[styles.rtlText, { ...nw.type.bodyStrong, color: nw.color.ink }]}>
-                  {c.title}
-                </Text>
+                <Text style={[styles.rtlText, { ...nw.type.bodyStrong, color: nw.color.ink }]}>{c.title}</Text>
               ) : null}
               {c.text ? (
                 <Text
                   style={[
                     styles.rtlText,
-                    {
-                      ...nw.type.body,
-                      color: nw.color.inkSoft,
-                      lineHeight: 28,
-                      marginTop: c.title ? 2 : 0,
-                    },
+                    { ...nw.type.body, color: nw.color.inkSoft, lineHeight: 28, marginTop: c.title ? 2 : 0 },
                   ]}
                 >
                   {c.text}
                 </Text>
               ) : null}
               {c.source ? (
-                <Text
-                  style={[
-                    styles.rtlText,
-                    {
-                      ...nw.type.caption,
-                      color: nw.color.tealText,
-                      marginTop: 4,
-                    },
-                  ]}
-                >
+                <Text style={[styles.rtlText, { ...nw.type.caption, color: nw.color.tealText, marginTop: 4 }]}>
                   {c.source}
                 </Text>
               ) : null}
             </View>
           ))}
-        </GlassSurface>
+        </BonusFold>
       ) : null}
     </View>
   );

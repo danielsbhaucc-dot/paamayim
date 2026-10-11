@@ -1,4 +1,4 @@
-/** רשימת הפרשות: התקדמות, טיוטות שממתינות, חיפוש וסינון */
+/** רשימת הפרשות: התקדמות, טיוטות, חיפוש וסינון — פריסה קומפקטית */
 import { Search } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { api } from '../api';
@@ -46,35 +46,29 @@ export function Dashboard() {
       <div className="pagehead">
         <div>
           <h1>פרשות</h1>
-          <p>כל התוכן של האפליקציה. טיוטה לא מוצגת עד שמפרסמים.</p>
+          <p>בחרו פרשה לעריכה. טיוטה לא מוצגת באפליקציה עד שמפרסמים.</p>
         </div>
       </div>
-      <header className="section-head">
-        <h2 className="section-title">סקירה</h2>
-        <p className="section-desc">מצב הטיוטות והפרסום בכל הפרשות</p>
-      </header>
-      <div className="grid stats" style={{ marginBottom: 14 }}>
-        <div className="card stat">
-          <span className="muted small">טיוטות שממתינות לאישור</span>
+
+      <div className="card dash-bar" role="region" aria-label="סקירה">
+        <div className="stat-inline">
+          <span className="muted small">טיוטות</span>
           <b>{totals.drafts.toLocaleString('he-IL')}</b>
           <span className="help">ב-{totals.withDrafts} פרשות</span>
         </div>
-        <div className="card stat">
-          <span className="muted small">פורסם (ממוצע לפרשה)</span>
+        <div className="stat-inline" style={{ flex: 1, minWidth: 160 }}>
+          <span className="muted small">פורסם</span>
           <b>{Math.round(totals.published * 100)}%</b>
           <Progress value={totals.published} label="אחוז פרסום ממוצע" />
         </div>
-        <div className="card stat">
+        <div className="stat-inline">
           <span className="muted small">פרשות</span>
           <b>{list.length}</b>
-          <span className="help">פרשות מחוברות מתמזגות באפליקציה</span>
         </div>
       </div>
-      <header className="section-head">
-        <h2 className="section-title">חיפוש וסינון</h2>
-      </header>
-      <div className="card row" style={{ padding: 12 }}>
-        <label className="row grow searchbox" style={{ gap: 8 }}>
+
+      <div className="card dash-tools">
+        <label className="row grow searchbox" style={{ gap: 8, flex: 1, minWidth: 180 }}>
           <Search size={18} aria-hidden className="muted" />
           <span className="sr-only">חיפוש פרשה</span>
           <input className="input grow" placeholder="חיפוש פרשה…" value={q} onChange={(e) => setQ(e.target.value)} />
@@ -93,15 +87,12 @@ export function Dashboard() {
           ))}
         </div>
       </div>
-      <header className="section-head">
-        <h2 className="section-title">לפי ספר</h2>
-        <p className="section-desc">{shown.length} פרשות מוצגות</p>
-      </header>
+
       {books.map(([book, ps]) => (
         <section className="book" key={book} aria-labelledby={`b-${book}`}>
           <header className="section-head" style={{ marginTop: 4 }}>
             <h2 id={`b-${book}`} className="section-title">
-              ספר {book}
+              {book}
             </h2>
             <p className="section-desc">{ps.length} פרשות</p>
           </header>
@@ -110,13 +101,10 @@ export function Dashboard() {
               <a key={p.slug} className="card pcard" href={`#/p/${p.slug}`}>
                 <div className="row spread">
                   <span className="name">{p.name}</span>
-                  {p.stats.pendingDrafts > 0 ? <span className="badge draft">{p.stats.pendingDrafts} טיוטות</span> : <span className="badge published">מעודכן</span>}
+                  {p.stats.pendingDrafts > 0 ? <span className="badge draft">{p.stats.pendingDrafts}</span> : <span className="badge published">מעודכן</span>}
                 </div>
                 <span className="muted small">{p.rangeHe}</span>
                 <Progress value={p.stats.publishedRatio} label={`פורסם בפרשת ${p.name}`} />
-                <span className="help">
-                  {p.stats.fields.published + p.stats.fields.changed}/{p.stats.fieldTotal} שדות מפורסמים · {(p.stats.verses.published ?? 0) + (p.stats.verses.changed ?? 0)}/{p.stats.verseTotal} הסברי פסוק
-                </span>
               </a>
             ))}
           </div>

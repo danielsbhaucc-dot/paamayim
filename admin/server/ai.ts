@@ -202,16 +202,56 @@ export const TASKS: Record<Task, string> = {
 
 type CallResult = { json: any; inTokens: number; outTokens: number };
 
+/** חילוץ טקסט מתשובת chat.completions — תומך במחרוזת, מערך חלקים, ו־reasoning */
+function messageText(d: any): string {
+  const m = d?.choices?.[0]?.message;
+  if (!m) return '';
+  const c = m.content;
+  if (typeof c === 'string') return c;
+  if (Array.isArray(c)) {
+    return c
+      .map((p) => (typeof p === 'string' ? p : p?.text ?? p?.content ?? ''))
+      .filter(Boolean)
+      .join('\n');
+  }
+  // חלק מהמודלים (thinking / reasoning) משאירים content ריק ושותלים JSON ב־reasoning
+  for (const k of ['reasoning_content', 'reasoning', 'refusal']) {
+    if (typeof m[k] === 'string' && /[{[]/.test(m[k])) return m[k];
+  }
+  return '';
+}
+
 function parseJson(text: string) {
-  const t = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '');
+  let t = (text ?? '').trim();
+  if (!t) throw new Error('JSON חזר ריק מהמודל');
+  // הסרת גדרות markdown בכל מקום (לא רק בקצוות)
+  t = t.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
+  t = t.replace(/```(?:json)?\s*([\s\S]*?)```/gi, '$1').trim();
+  if (!t) throw new Error('JSON חזר ריק מהמודל');
   try {
     return JSON.parse(t);
   } catch {
-    const i = t.indexOf('{');
-    const j = t.lastIndexOf('}');
-    if (i >= 0 && j > i) return JSON.parse(t.slice(i, j + 1));
-    throw new Error('המודל לא החזיר JSON תקין');
+    /* המשך */
   }
+  const oi = t.indexOf('{');
+  const oj = t.lastIndexOf('}');
+  if (oi >= 0 && oj > oi) {
+    try {
+      return JSON.parse(t.slice(oi, oj + 1));
+    } catch {
+      /* המשך */
+    }
+  }
+  const ai = t.indexOf('[');
+  const aj = t.lastIndexOf(']');
+  if (ai >= 0 && aj > ai) {
+    try {
+      return JSON.parse(t.slice(ai, aj + 1));
+    } catch {
+      /* המשך */
+    }
+  }
+  throw new Error('המודל לא החזיר JSON תקין');
 }
 
 function mockAnswer(user: string): any {
@@ -302,7 +342,11 @@ export class AiService {
         if (res.status === 429 || res.status >= 500) throw Object.assign(new Error(`${provider} ${res.status}`), { retry: true });
         if (!res.ok) throw new Error(`${provider} ${res.status}: ${(await res.text()).slice(0, 160)}`);
         const d = (await res.json()) as any;
-        const text = d.choices?.[0]?.message?.content ?? '';
+        const text = messageText(d);
+        if (!text.trim()) {
+          const reason = d.choices?.[0]?.finish_reason ?? d.choices?.[0]?.native_finish_reason ?? '';
+          throw new Error(reason ? `JSON חזר ריק מהמודל (finish: ${reason})` : 'JSON חזר ריק מהמודל');
+        }
         return { json: parseJson(text), inTokens: d.usage?.prompt_tokens ?? T(system.length + user.length), outTokens: d.usage?.completion_tokens ?? T(text.length) };
       } catch (e: any) {
         lastErr = e;
@@ -584,8 +628,19 @@ ${current ? `הטקסט הנוכחי:\n<<<${typeof current === 'string' ? curren
 החזר/י ${shape}.`;
     const res = await this.call(provider, model, SYSTEM, user, 1800);
     const o = res.json;
-    const value = field.type === 'list' || field.type === 'stringList' ? o?.items : field.type === 'group' ? o : o?.text;
-    if (value == null || (typeof value === 'string' && !value.trim())) throw new HttpError(502, 'המודל החזיר תשובה ריקה');
+    const value =
+      field.type === 'list' || field.type === 'stringList'
+        ? o?.items ?? (Array.isArray(o) ? o : undefined)
+        : field.type === 'group'
+          ? typeof o === 'object' && o && !Array.isArray(o) && o.text == null && o.items == null
+            ? o
+            : o?.data ?? o
+          : typeof o === 'string'
+            ? o
+            : o?.text ?? o?.value ?? o?.content ?? o?.explanation;
+    if (value == null || (typeof value === 'string' && !value.trim()) || (Array.isArray(value) && !value.length)) {
+      throw new HttpError(502, 'JSON חזר ריק מהמודל — נסו מודל אחר או הוראה קצרה יותר');
+    }
     const { price } = await priceFor(provider, model, this.fetchImpl);
     const source = `ai:${provider}:${model}`;
     const saved = verseId ? await this.content.saveVerseField(slug, verseId, key, value, source) : await this.content.saveField(slug, key, value, source);

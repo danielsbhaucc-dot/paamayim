@@ -5,7 +5,7 @@
 
 export type ListKind = 'ul' | 'ol' | 'ol-letter';
 
-function isList(el: Node | null): el is HTMLElement {
+function isList(el: Node | null): el is HTMLUListElement | HTMLOListElement {
   return !!el && (el.nodeName === 'UL' || el.nodeName === 'OL');
 }
 
