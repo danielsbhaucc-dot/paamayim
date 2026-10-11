@@ -130,11 +130,18 @@ export function AppLoadingScreen({ ready, onFinish, minDurationMs = MIN_DURATION
       />
 
       <View style={styles.center}>
-        <Animated.View entering={FadeIn.duration(600)} style={[styles.glass, shadows.glass]}>
+        <Animated.View
+          entering={FadeIn.duration(600)}
+          collapsable={false}
+          style={[
+            styles.glass,
+            shadows.glass,
+            { backgroundColor: Platform.OS === 'android' ? pearl(0.78) : colors.glassCard },
+          ]}
+        >
           {Platform.OS === 'ios' ? (
             <BlurView intensity={42} tint="systemUltraThinMaterialLight" style={StyleSheet.absoluteFill} />
           ) : null}
-          <View style={styles.glassFill} />
 
           <Animated.View style={[styles.brandBlock, logoStyle]}>
             <View style={styles.logoRing}>
@@ -174,11 +181,6 @@ const styles = StyleSheet.create({
     paddingVertical: 36,
     paddingHorizontal: 28,
     alignItems: 'center',
-  },
-  glassFill: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: colors.glassCard,
-    borderRadius: radii.xl,
   },
   brandBlock: {
     alignItems: 'center',

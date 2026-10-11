@@ -48,6 +48,14 @@ const FILL: Record<Variant, string> = {
   frost: nw.glass.fillFrost,
 };
 
+/** כשהעוטף מקבל גובה/flex מפורש — המילוי והתוכן צריכים למלא אותו; אחרת לא (ScrollView + flexGrow = חלון ענק ריק) */
+function styleNeedsFlexFill(style: StyleProp<ViewStyle> | undefined): boolean {
+  const f = StyleSheet.flatten(style) ?? {};
+  if (f.flex != null || f.flexGrow != null || f.height != null || f.minHeight != null) return true;
+  if (f.top != null && f.bottom != null) return true;
+  return false;
+}
+
 export function GlassSurface({
   children,
   variant = 'card',
@@ -70,40 +78,46 @@ export function GlassSurface({
   const shadowStyle = shadow === 'none' ? undefined : nw.shadow[shadow];
   const frost = variant === 'frost';
   const webBlur = reading ? nw.glass.webBlurReading : denser ? nw.glass.webBlurDense : frost ? nw.glass.webBlurFrost : nw.glass.webBlur;
-  const outerBase: StyleProp<ViewStyle> = [
-    shadowStyle,
-    { borderRadius: radius, alignSelf: 'stretch' },
-    style,
-  ];
+  const fillParent = styleNeedsFlexFill(style);
 
-  // Android: BlurView בלי dimezisBlurView מצייר מלבן לבן שלא נחתך ל־radius
-  // (״ריבועים״ בתוך כרטיסים מעוגלים, כפתורים ענקיים, חלונות שקופים ריקים).
-  // המילוי הפנינה מספיק למראה זכוכיתי — iOS/web נשארים עם טשטוש אמיתי.
-  const layerRadius = { borderRadius: radius } as const;
   const baseFill = reading ? nw.glass.fillReading : tint ?? (denser ? nw.glass.fillDense : FILL[variant]);
-  // בלי טשטוש אמיתי צריך מילוי מעט אטום יותר — אחרת נראה ״חלון שקוף ריק״
-  // tint מותאם (למשל מצב ״סיימתי״) נשמר; frost/denser מקבלים חיזוק קבוע.
+  // Android: בלי BlurView אמיתי צריך מילוי אטום יותר; tint מותאם (״סיימתי״) נשמר.
   let fillColor = baseFill;
   if (Platform.OS === 'android' && !reading) {
-    if (frost || denser) fillColor = pearl(0.54);
+    if (frost || denser) fillColor = pearl(0.62);
     else if (!tint) {
       fillColor =
         variant === 'strong'
-          ? pearl(0.7)
+          ? pearl(0.78)
           : variant === 'subtle' || variant === 'onPhoto'
-            ? pearl(0.5)
-            : pearl(0.6);
+            ? pearl(0.58)
+            : pearl(0.7);
     }
   }
 
+  // elevation באנדרואיד מצייר מלבן אם אין backgroundColor על אותו View עם ה־radius
+  const outerBase: StyleProp<ViewStyle> = [
+    shadowStyle,
+    {
+      borderRadius: radius,
+      alignSelf: 'stretch',
+      ...(Platform.OS === 'android' && shadow !== 'none' ? { backgroundColor: fillColor } : null),
+    },
+    style,
+  ];
+
   const inner = (
     <View
+      collapsable={false}
       style={{
         borderRadius: radius,
         overflow: 'hidden',
+        // המילוי על הקונטיינר החותך — באנדרואיד absoluteFill לבד לא נחתך ל־radius בלי backgroundColor כאן
+        backgroundColor: fillColor,
         borderWidth,
         borderColor: borderColor ?? (frost ? nw.glass.borderFrost : nw.glass.border),
-        flexGrow: 1,
+        alignSelf: 'stretch',
+        ...(fillParent ? { flex: 1 } : null),
       }}
     >
       {Platform.OS === 'web' ? (
@@ -122,22 +136,22 @@ export function GlassSurface({
           pointerEvents="none"
           intensity={reading ? nw.glass.blurIntensityReading : denser ? nw.glass.blurIntensityDense : frost ? nw.glass.blurIntensityFrost : nw.glass.blurIntensity}
           tint="systemUltraThinMaterialLight"
-          style={[StyleSheet.absoluteFill, layerRadius]}
+          style={[StyleSheet.absoluteFill, { borderRadius: radius }]}
         />
       ) : null}
-      <View
-        pointerEvents="none"
-        style={[StyleSheet.absoluteFill, layerRadius, { backgroundColor: fillColor }]}
-      />
       {reading && tint ? (
-        <View pointerEvents="none" style={[StyleSheet.absoluteFill, layerRadius, { backgroundColor: tint }]} />
+        <View
+          pointerEvents="none"
+          collapsable={false}
+          style={[StyleSheet.absoluteFill, { borderRadius: radius, backgroundColor: tint }]}
+        />
       ) : null}
       <LinearGradient
         pointerEvents="none"
         colors={[frost ? nw.glass.highlightFrost : nw.glass.highlightFrom, nw.glass.highlightTo]}
-        style={[{ position: 'absolute', top: 0, left: 0, right: 0, height: '45%' }, layerRadius]}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '45%' }}
       />
-      <View style={[{ flexGrow: 1 }, padded && { padding: nw.space.cardPad }, contentStyle]}>
+      <View style={[fillParent ? { flex: 1 } : null, padded && { padding: nw.space.cardPad }, contentStyle]}>
         {children}
       </View>
     </View>

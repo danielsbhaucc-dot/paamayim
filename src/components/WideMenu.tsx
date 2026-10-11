@@ -26,13 +26,15 @@ import { isItemActive, MENU_ITEMS, type MenuItem } from './SideMenu';
 import { motionMs, prefersReducedMotion } from '../ui/reducedMotion';
 
 function Glass({ fill, intensity = 70 }: { fill: string; intensity?: number }) {
+  // Android: בלי BlurView; המילוי על ההורה (tile/close) — כאן רק iOS/web
+  if (Platform.OS === 'android') return null;
   return (
     <>
       {Platform.OS === 'web' ? (
         <View style={[StyleSheet.absoluteFill, styles.webGlass]} pointerEvents="none" />
-      ) : Platform.OS === 'ios' ? (
+      ) : (
         <BlurView intensity={intensity} tint="systemUltraThinMaterialLight" style={StyleSheet.absoluteFill} />
-      ) : null}
+      )}
       <View style={[StyleSheet.absoluteFill, { backgroundColor: fill }]} pointerEvents="none" />
     </>
   );
@@ -198,7 +200,14 @@ export function WideMenu() {
                     accessibilityLabel={item.title}
                     style={({ pressed }) => [
                       styles.tile,
-                      { height: compact ? 116 : 148 },
+                      {
+                        height: compact ? 116 : 148,
+                        backgroundColor: Platform.OS === 'android'
+                          ? active
+                            ? pearl(0.72)
+                            : pearl(0.58)
+                          : 'transparent',
+                      },
                       active && styles.tileActive,
                       pressed && { transform: [{ scale: 0.97 }] },
                     ]}
@@ -224,7 +233,14 @@ export function WideMenu() {
         accessibilityRole="button"
         accessibilityLabel="סגירת תפריט"
         hitSlop={10}
-        style={[styles.close, { top: insets.top + 24, left: 28 }]}
+        style={[
+          styles.close,
+          {
+            top: insets.top + 24,
+            left: 28,
+            backgroundColor: Platform.OS === 'android' ? pearl(0.62) : 'transparent',
+          },
+        ]}
       >
         <Glass fill={pearl(0.45)} intensity={55} />
         <Ionicons name="close" size={30} color={colors.text} />

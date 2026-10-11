@@ -6,7 +6,7 @@ import { useParasha, useWeekParasha } from '../content';
 import { useGreeting } from '../greeting/useGreeting';
 import { NAME_PROMPT } from '../greeting/texts';
 import { useAppStore } from '../store/useAppStore';
-import { nw, pearl } from '../theme/design';
+import { nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { GenderChips } from './GenderChips';
@@ -61,10 +61,12 @@ export function GreetingHeader({ wide = false, style }: { wide?: boolean; style?
         </View>
         <GlassSurface
           variant="subtle"
+          denser
           radius={nw.radius.pill}
           padded={false}
           shadow="none"
-          style={{ alignSelf: 'flex-start', flexShrink: 0, marginTop: wide ? 2 : 0 }}
+          // בלי flexGrow / גובה קבוע — רק גודל התוכן (באנדרואיד flexGrow ב־ScrollView ניפח את הכפתור)
+          style={{ alignSelf: 'flex-start', flexGrow: 0, flexShrink: 0, marginTop: wide ? 2 : 0 }}
           onPress={() => router.push('/parashot' as never)}
           accessibilityLabel="כל הפרשות — בחירת פרשה"
           contentStyle={{ flexDirection: rtl.row, alignItems: 'center', gap: 6, paddingVertical: 8, paddingHorizontal: 12 }}
@@ -131,9 +133,10 @@ export function NamePrompt({ style }: { style?: StyleProp<ViewStyle> }) {
   return (
     <GlassSurface
       variant="frost"
-      tint={pearl(0.24)}
+      denser
       radius={22}
-      style={[{ maxWidth: 560, width: '100%', alignSelf: 'center' }, style]}
+      // בלי tint דליל + בלי flexGrow: באנדרואיד זה יצר חלון שקוף ענק עם פינות חדות
+      style={[{ maxWidth: 560, width: '100%', alignSelf: 'center', flexGrow: 0 }, style]}
       contentStyle={styles.promptBody}
     >
       <View style={styles.promptHead}>

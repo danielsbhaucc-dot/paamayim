@@ -4,7 +4,7 @@ import { House, Map, Settings, Users, type LucideIcon } from 'lucide-react-nativ
 import React from 'react';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { nw } from '../theme/design';
+import { nw, pearl } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { a11y } from '../utils/a11y';
@@ -28,10 +28,12 @@ export function GlassBottomNav() {
   const router = useRouter();
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
+  // Android: מילוי על הבר עצמו (לא absoluteFill) — elevation+radius בלי bg = מלבן; BlurView בלי dimezis = ריבוע לבן
+  const barFill = Platform.OS === 'android' ? pearl(0.78) : nw.glass.fillStrong;
 
   return (
     <View pointerEvents="box-none" style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]}>
-      <View style={styles.bar}>
+      <View collapsable={false} style={[styles.bar, { backgroundColor: barFill }]}>
         {Platform.OS === 'web' ? (
           <View
             pointerEvents="none"
@@ -49,11 +51,6 @@ export function GlassBottomNav() {
             style={[StyleSheet.absoluteFill, { borderRadius: 24 }]}
           />
         ) : null}
-        {/* Android: בלי BlurView — בלי dimezis הוא מצייר מלבן לבן לא חתוך; המילוי מספיק */}
-        <View
-          pointerEvents="none"
-          style={[StyleSheet.absoluteFill, { borderRadius: 24, backgroundColor: nw.glass.fillStrong }]}
-        />
         <View style={styles.row}>
           {NAV_ITEMS.map(({ href, match, label, Icon }) => {
             const active = isNavActive(pathname, match);

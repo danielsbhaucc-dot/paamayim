@@ -33,10 +33,16 @@ export function GlassCard({
 
   return (
     <View
+      collapsable={false}
       style={[
         styles.wrap,
         shadows.glass,
-        { borderRadius: radius, borderColor: colors.glassBorder },
+        {
+          borderRadius: radius,
+          borderColor: colors.glassBorder,
+          // Android: elevation בלי bg על אותו View = מלבן; המילוי על העוטף החותך
+          backgroundColor: bg,
+        },
         style,
       ]}
       accessibilityLabel={accessibilityLabel}
@@ -71,13 +77,7 @@ export function GlassCard({
           </View>
         </BlurView>
       ) : (
-        <View
-          style={[
-            styles.inner,
-            { backgroundColor: bg, borderRadius: radius },
-            padded && styles.pad,
-          ]}
-        >
+        <View style={[styles.inner, { borderRadius: radius }, padded && styles.pad]}>
           {children}
         </View>
       )}
