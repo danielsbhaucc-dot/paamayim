@@ -1,4 +1,4 @@
-import '../polyfills';
+import { installPolyfills } from '../polyfills';
 import { HDate, Location, Sedra, Zmanim, parshiot } from '@hebcal/core';
 import {
   getLeyningForParsha,
@@ -236,17 +236,43 @@ function assemble(
 }
 
 function standardParasha(name: string): Parasha {
-  const reading = getLeyningForParsha(name);
+  installPolyfills(); // ביטוח: Hermes בלי structuredClone (@hebcal/leyning משתמש בו)
+  let reading;
+  try {
+    reading = getLeyningForParsha(name);
+  } catch (e) {
+    (globalThis as any).structuredClone = (v: unknown) => (v === undefined ? v : JSON.parse(JSON.stringify(v)));
+    reading = getLeyningForParsha(name);
+  }
   return assemble([name], reading.fullkriyah, reading.haft);
 }
 
-/** 54 הפרשות, לפי סדר הקריאה, עם העליות הרגילות */
-export const PARASHOT: Record<string, Parasha> = Object.fromEntries(
-  parshiot.map((name) => {
-    const parasha = standardParasha(name);
-    return [parasha.id, parasha];
-  })
-);
+/** 54 הפרשות — נבנות בעצלתיים בגישה הראשונה (לא בטעינת המודול) */
+let built: Record<string, Parasha> | null = null;
+function allParashot(): Record<string, Parasha> {
+  if (!built) {
+    const out: Record<string, Parasha> = {};
+    for (const name of parshiot) {
+      try {
+        const p = standardParasha(name);
+        out[p.id] = p;
+      } catch (e) {
+        console.warn('parasha build failed', name, e);
+      }
+    }
+    built = out;
+  }
+  return built;
+}
+export const PARASHOT: Record<string, Parasha> = new Proxy({} as Record<string, Parasha>, {
+  get: (_t, k) => (typeof k === 'string' ? allParashot()[k] : undefined),
+  has: (_t, k) => k in allParashot(),
+  ownKeys: () => Reflect.ownKeys(allParashot()),
+  getOwnPropertyDescriptor: (_t, k) => {
+    const v = allParashot()[k as string];
+    return v ? { value: v, enumerable: true, configurable: true, writable: false } : undefined;
+  },
+});
 
 export function listParashot(): Parasha[] {
   return parshiot.map((name) => PARASHOT[parashaId([name])]);
