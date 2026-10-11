@@ -1,3 +1,4 @@
+import '../polyfills';
 import { HDate, Location, Sedra, Zmanim, parshiot } from '@hebcal/core';
 import {
   getLeyningForParsha,
@@ -279,8 +280,13 @@ const JERUSALEM = Location.lookup('Jerusalem');
 /** האם השבת כבר יצאה (מוצ״ש, צאת הכוכבים בירושלים) — אז עוברים לפרשה של השבוע הבא */
 export function isAfterShabbat(date: Date): boolean {
   if (date.getDay() !== 6 || !JERUSALEM) return false;
-  const tzeit = new Zmanim(JERUSALEM, date, false).tzeit(8.5);
-  return !Number.isNaN(tzeit.getTime()) && date.getTime() >= tzeit.getTime();
+  try {
+    const tzeit = new Zmanim(JERUSALEM, date, false).tzeit(8.5);
+    if (!Number.isNaN(tzeit.getTime())) return date.getTime() >= tzeit.getTime();
+  } catch {
+    // זמנים תלויים ב-Intl; אם המנוע לא תומך — הערכה שמרנית
+  }
+  return date.getHours() >= 19;
 }
 
 /** שם/ות הפרשה (באנגלית של hebcal) שנקראת בשבת הקרובה, וה-HDate של אותה שבת */
