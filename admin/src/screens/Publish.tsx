@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { api } from '../api';
 import { useApp } from '../ctx';
 
-type Item = { id: string; key: string; verseId: string | null; label: string; kind: 'draft' | 'unpromoted' | 'file'; before: unknown; after: unknown; reviewed: boolean };
+type Item = { id: string; key: string; verseId: string | null; label: string; kind: 'draft' | 'unpromoted' | 'file'; before: unknown; after: unknown; reviewed: boolean; touched: boolean; source: string | null };
 type Group = { slug: string; name: string; items: Item[] };
 
 const show = (v: unknown): string => {
@@ -53,15 +53,35 @@ export function Publish() {
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [filter, setFilter] = useState<'all' | 'touched' | 'ai'>('all');
   const load = () =>
     api('/pending')
-      .then((d) => setData(d))
+      .then((d: { parashot: Group[]; mode: string }) => {
+        setData(d);
+        // ברירת מחדל: מסומן מראש כל מה שמנהל עבר עליו
+        setSel(new Set(d.parashot.flatMap((g) => g.items.filter((i) => i.touched).map((i) => i.id))));
+      })
       .catch((e) => setError(e.message));
   useEffect(() => {
     load();
   }, []);
 
   const total = useMemo(() => data?.parashot.reduce((n, g) => n + g.items.length, 0) ?? 0, [data]);
+  const touchedCount = useMemo(() => data?.parashot.reduce((n, g) => n + g.items.filter((i) => i.touched).length, 0) ?? 0, [data]);
+  const shown = (i: Item) => filter === 'all' || (filter === 'touched' ? i.touched : !i.touched);
+  const publishTouched = async () => {
+    if (!confirm(`לפרסם את ${touchedCount} הפריטים שמנהל עבר עליהם? טיוטות AI שלא נגעו בהן נשארות טיוטה.`)) return;
+    setBusy(true);
+    try {
+      const r = await api('/publish-touched', { json: {} });
+      toast(`פורסמו ${r.published} פריטים · commit אחד`);
+      await load();
+    } catch (e: any) {
+      toast(e.message, true);
+    } finally {
+      setBusy(false);
+    }
+  };
   const toggle = (ids: string[], on: boolean) =>
     setSel((s) => {
       const n = new Set(s);
@@ -103,22 +123,43 @@ export function Publish() {
         <div>
           <h1>פרסום</h1>
           <p>בוחרים מה עולה לאתר. כל מה שלא נבחר נשאר טיוטה — לא נמחק ולא משתנה.</p>
+          <p className="help">
+            <b>מנהל עבר: {touchedCount}</b> · AI בלבד: {total - touchedCount}. ״מנהל עבר״ = נערך ידנית (גם שדה שנוצר ב-AI), סומן ״נבדק״, או כבר אושר.
+          </p>
         </div>
         <div className="row">
+          <button type="button" className="btn primary" disabled={!touchedCount || busy} onClick={publishTouched}>
+            <CheckCircle2 size={18} aria-hidden /> פרסם את כל מה שמנהל עבר עליו ({touchedCount})
+          </button>
           <button type="button" className="btn ghost" disabled={!total} onClick={() => toggle(data.parashot.flatMap((g) => g.items.map((i) => i.id)), sel.size < total)}>
             {sel.size < total ? 'סמן הכול' : 'נקה בחירה'}
           </button>
-          <button type="button" className="btn primary" disabled={!sel.size || busy} onClick={publish}>
+          <button type="button" className="btn" disabled={!sel.size || busy} onClick={publish}>
             <CloudUpload size={18} aria-hidden /> פרסום הנבחרים ({sel.size})
           </button>
         </div>
+      </div>
+      <div className="row" role="group" aria-label="סינון" style={{ gap: 6 }}>
+        {(
+          [
+            ['all', `הכול (${total})`],
+            ['touched', `מנהל עבר (${touchedCount})`],
+            ['ai', `AI בלבד (${total - touchedCount})`],
+          ] as const
+        ).map(([k, l]) => (
+          <button key={k} type="button" className="chip" aria-pressed={filter === k} onClick={() => setFilter(k)}>
+            {l}
+          </button>
+        ))}
       </div>
       {!total && (
         <div className="card">
           <p className="muted">אין שום דבר שממתין לפרסום. הכול כבר באתר.</p>
         </div>
       )}
-      {data.parashot.map((g) => {
+      {data.parashot.map((g0) => {
+        const g = { ...g0, items: g0.items.filter(shown) };
+        if (!g.items.length) return null;
         const ids = g.items.map((i) => i.id);
         const all = ids.every((id) => sel.has(id));
         const some = !all && ids.some((id) => sel.has(id));
@@ -130,7 +171,7 @@ export function Publish() {
                 <input type="checkbox" checked={all} ref={(el) => { if (el) el.indeterminate = some; }} onChange={() => toggle(ids, !all)} aria-label={`בחירת כל ${g.name}`} />
                 <b className="pubname">{g.slug === '__files' ? g.name : `פרשת ${g.name}`}</b>
                 <span className="help">
-                  {g.items.length} פריטים · {g.items.filter((i) => i.reviewed).length} נבדקו
+                  {g.items.length} פריטים · מנהל עבר: {g.items.filter((i) => i.touched).length}
                 </span>
               </label>
               <button type="button" className="btn icon small ghost" aria-expanded={isOpen} aria-label="פירוט" onClick={() => setOpen((o) => ({ ...o, [g.slug]: !isOpen }))}>
@@ -147,6 +188,7 @@ export function Publish() {
                         <b>{it.label}</b>
                         {it.verseId && <span className="help"> · {verseLabel(it.verseId)}</span>}
                         <span className={`pill ${it.kind}`}>{KIND[it.kind]}</span>
+                        {it.kind !== 'file' && <span className={`pill ${it.touched ? 'unpromoted' : 'file'}`}>{it.touched ? 'מנהל עבר' : 'AI בלבד'}</span>}
                       </span>
                     </label>
                     {it.kind !== 'file' && (

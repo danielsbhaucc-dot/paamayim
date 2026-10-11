@@ -385,15 +385,19 @@ export class ContentService {
         const open = e.draft !== undefined;
         if (!open && !(this.storage.readProd && ContentService.differs(after, before))) return;
         if (!ContentService.differs(after, before) && !open) return;
+        const reviewed = !!(e as any).reviewedAt && (!e.updatedAt || (e as any).reviewedAt >= e.updatedAt);
         items.push({
           id: `${d.slug}|${k.storageKey}|${verseId ?? ''}`,
+          source: e.source ?? null,
+          // ״מנהל עבר עליו״: עריכה ידנית (source=admin, גם על שדה שנוצר ב-AI), סימון ״נבדק״, או ערך שכבר אושר (פורסם בטיוטות)
+          touched: e.source === 'admin' || reviewed || !open,
           key: k.storageKey,
           verseId: verseId ?? null,
           label: label(k),
           kind: open ? 'draft' : 'unpromoted',
           before: before ?? null,
           after: after ?? null,
-          reviewed: !!(e as any).reviewedAt && (!e.updatedAt || (e as any).reviewedAt >= e.updatedAt),
+          reviewed,
           updatedAt: e.updatedAt ?? null,
         });
       };
@@ -410,7 +414,7 @@ export class ContentService {
         const rel = `${paths.alignmentDir()}/${f}`;
         const a = (await this.storage.read(rel))?.toString('utf8') ?? null;
         const b = (await this.storage.readProd(rel))?.toString('utf8') ?? null;
-        if (a !== null && a !== b) files.push({ id: `file|${rel}|`, key: rel, verseId: null, label: `יישור עברית–ארמית · ${f.replace('.json', '')}`, kind: 'file', before: null, after: null, reviewed: false });
+        if (a !== null && a !== b) files.push({ id: `file|${rel}|`, key: rel, verseId: null, label: `יישור עברית–ארמית · ${f.replace('.json', '')}`, kind: 'file', source: null, touched: false, before: null, after: null, reviewed: false });
       }
       if (files.length) out.push({ slug: '__files', name: 'קבצים נוספים', items: files });
     }
@@ -519,6 +523,14 @@ export class ContentService {
       this.invalidateDocs();
       return { published: count, commit: res.commit };
     });
+  }
+
+  /** ״פרסם את כל מה שמנהל עבר עליו״ (אופציונלי: רק בפרשה אחת). טיוטות AI שלא נגעו בהן נשארות טיוטה. */
+  async publishTouched(slug?: string) {
+    const { parashot } = await this.pending();
+    const ids = parashot.filter((p: any) => !slug || p.slug === slug).flatMap((p: any) => p.items.filter((i: any) => i.touched).map((i: any) => i.id));
+    if (!ids.length) throw new HttpError(400, 'אין פריטים שמנהל עבר עליהם');
+    return this.publishSelected(ids);
   }
 
   /** ״פרסום הפרשה הזאת״ — כל מה שממתין בה */

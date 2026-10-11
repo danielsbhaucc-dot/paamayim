@@ -117,3 +117,40 @@ test('mark reviewed flag shows in pending and resets after a new edit', async ()
   it = (await content.pending()).parashot.find((p: any) => p.slug === 'noach').items.find((i: any) => i.key === 'storyTitle');
   assert.equal(it.reviewed, false);
 });
+
+test('publish-touched: manager edits + reviewed marks go live, AI-only drafts stay drafts', async () => {
+  const { gh, content } = setup();
+  await content.saveField('noach', 'storyTitle', 'עריכת מנהל');
+  await content.saveField('noach', 'story.adult', 'טקסט AI', 'ai:openrouter:x');
+  await content.saveField('noach', 'story.child', 'AI שמנהל סימן', 'ai:openrouter:x');
+  await content.markReviewed('noach', 'story.child', undefined, true);
+  await content.saveField('bereshit', 'storyTitle', 'AI שמנהל ערך', 'ai:openrouter:x');
+  await content.saveField('bereshit', 'storyTitle', 'AI שמנהל ערך — מתוקן'); // עריכה ידנית של שדה AI
+  await content.saveField('bereshit', 'story.adult', 'AI בלבד בבראשית', 'ai:openrouter:x');
+  const items = (await content.pending()).parashot.flatMap((p: any) => p.items);
+  const t = (id: string) => items.find((i: any) => i.id === id)?.touched;
+  assert.equal(t('noach|storyTitle|'), true);
+  assert.equal(t('noach|story.child|'), true);
+  assert.equal(t('noach|story.adult|'), false);
+  assert.equal(t('bereshit|storyTitle|'), true);
+  assert.equal(t('bereshit|story.adult|'), false);
+
+  // פרשה אחת בלבד
+  await content.publishTouched('noach');
+  let n = JSON.parse(gh.fileAt('master', 'content/parashot/noach.json')!);
+  assert.equal(n.fields.storyTitle.published, 'עריכת מנהל');
+  assert.equal(n.fields['story.child'].published, 'AI שמנהל סימן');
+  assert.notEqual(n.fields['story.adult']?.published, 'טקסט AI');
+  let b = JSON.parse(gh.fileAt('master', 'content/parashot/bereshit.json')!);
+  assert.notEqual(b.fields.storyTitle?.published, 'AI שמנהל ערך — מתוקן');
+
+  // הכול
+  await content.publishTouched();
+  b = JSON.parse(gh.fileAt('master', 'content/parashot/bereshit.json')!);
+  assert.equal(b.fields.storyTitle.published, 'AI שמנהל ערך — מתוקן');
+  assert.notEqual(b.fields['story.adult']?.published, 'AI בלבד בבראשית');
+  const d = JSON.parse(gh.fileAt('content-drafts', 'content/parashot/bereshit.json')!);
+  assert.equal(d.fields['story.adult'].draft, 'AI בלבד בבראשית');
+  n = JSON.parse(gh.fileAt('content-drafts', 'content/parashot/noach.json')!);
+  assert.equal(n.fields['story.adult'].draft, 'טקסט AI');
+});

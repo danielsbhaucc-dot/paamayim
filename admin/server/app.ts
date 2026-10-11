@@ -228,6 +228,8 @@ export function createApp(cfg: Config, storage: Storage, opts: { distDir?: strin
   // ---------- פרסום סלקטיבי ----------
   app.get('/api/pending', async (c) => c.json(await content.pending()));
   app.post('/api/publish-selected', async (c) => c.json(await content.publishSelected((await jsonBody(c))?.ids)));
+  app.post('/api/publish-touched', async (c) => c.json(await content.publishTouched()));
+  app.post('/api/parashot/:slug/publish-touched', async (c) => c.json(await content.publishTouched(slugParam(c))));
   app.post('/api/parashot/:slug/publish-live', async (c) => c.json(await content.publishParasha(slugParam(c))));
   app.post('/api/parashot/:slug/reviewed', async (c) => {
     const b = await jsonBody(c);

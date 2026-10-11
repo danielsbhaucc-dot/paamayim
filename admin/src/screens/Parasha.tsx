@@ -78,6 +78,20 @@ export function Parasha({ slug, section, query }: { slug: string; section?: stri
     }
   };
 
+  const publishTouched = async () => {
+    if (!confirm(`לפרסם בפרשת ${doc.meta.name} רק את מה שעברת עליו (עריכה ידנית / ״נבדק״)? טיוטות AI שלא נגעת בהן נשארות טיוטה.`)) return;
+    setBusy(true);
+    try {
+      const r = await api(`/parashot/${slug}/publish-touched`, { json: {} });
+      onSaved(await api(`/parashot/${slug}`));
+      toast(`פורסמו ${r.published} פריטים שעברת עליהם`);
+    } catch (e: any) {
+      toast(e.message, true);
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const verseIndex = Math.max(0, Math.min(data.verses.length - 1, Number(query.get('v') ?? 1) - 1));
   const fields = schema.fields.filter((f) => f.section === current && (f.scope ?? 'parasha') === 'parasha' && !f.legacy);
 
@@ -102,7 +116,10 @@ export function Parasha({ slug, section, query }: { slug: string; section?: stri
           <button type="button" className="btn" aria-pressed={showPreview} onClick={() => setShowPreview((s) => !s)}>
             {showPreview ? <EyeOff size={18} aria-hidden /> : <Eye size={18} aria-hidden />} תצוגה מקדימה
           </button>
-          <button type="button" className="btn primary" disabled={busy} onClick={publishAll}>
+          <button type="button" className="btn primary" disabled={busy} onClick={publishTouched}>
+            <CloudUpload size={18} aria-hidden /> פרסם מה שעברתי עליו בפרשה
+          </button>
+          <button type="button" className="btn" disabled={busy} onClick={publishAll}>
             <CloudUpload size={18} aria-hidden /> פרסום הפרשה הזאת{pending ? ` (${pending})` : ''}
           </button>
         </div>
