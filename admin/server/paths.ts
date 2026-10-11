@@ -23,6 +23,10 @@ export const paths = {
     assertSlug(slug);
     return `content/parashot/${slug}.json`;
   },
+  alignment(slug: string) {
+    if (!['bereshit', 'noach'].includes(slug)) throw new PathError('אין יישור לפרשה הזו');
+    return `content/alignment/${slug}.json`;
+  },
   statusLines: () => 'content/greetings/status-lines.json',
   statusLinesDraft: () => 'content/greetings/status-lines.draft.json',
   bundled: () => 'src/content/bundled.json',
@@ -48,6 +52,7 @@ const ALLOWED = [
   /^content\/schema\.json$/,
   /^content\/parashot\/[a-z0-9-]+\.json$/,
   /^content\/greetings\/status-lines(\.draft)?\.json$/,
+  /^content\/alignment\/(bereshit|noach)\.json$/,
   /^content\/images\/[a-z0-9-]+\/[a-z0-9][a-z0-9.-]{0,80}\.webp$/,
   /^src\/content\/bundled\.json$/,
   /^src\/data\/corpus\/(genesis|exodus|leviticus|numbers|deuteronomy)\.json$/,

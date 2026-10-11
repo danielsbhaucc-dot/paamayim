@@ -3,7 +3,7 @@ import React from 'react';
 import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { usePlan } from '../schedule/usePlan';
 import { useWeekParasha } from '../content';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore, useFeature } from '../store/useAppStore';
 import { nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
@@ -40,7 +40,10 @@ export function TodayPlanCard({ style }: { style?: StyleProp<ViewStyle> }) {
   const setSpread = useAppStore((s) => s.setSpreadFridayFor);
   const answer = useAppStore((s) => s.answerCatchup);
   const answered = useAppStore((s) => s.catchupAnsweredOn);
-  if (!view) return null;
+  const on = useFeature('plan');
+  const ringOn = useFeature('ring');
+  const catchupOn = useFeature('catchup');
+  if (!view || !on) return null;
   const { plan, deadline } = view;
   const cd = countdownText(deadline.at.getTime() - now.getTime());
   const todayKey = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
@@ -62,19 +65,13 @@ export function TodayPlanCard({ style }: { style?: StyleProp<ViewStyle> }) {
     sub = `עד ${plan.endLabel}`;
   }
 
-  const showCatchup = plan.offerFriday && answered !== todayKey && !view.useFriday;
+  const showCatchup = catchupOn && plan.offerFriday && answered !== todayKey && !view.useFriday;
   const targetText = `עד ${deadline.label}`;
 
   return (
     <GlassSurface variant="card" radius={22} style={style} contentStyle={{ padding: 18, gap: 12 }}>
       <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 16 }}>
-        <ProgressRing
-          current={pct}
-          total={100}
-          size={96}
-          stroke={8}
-          label={cd.big}
-        />
+        {ringOn ? <ProgressRing current={pct} total={100} size={88} stroke={7} label={cd.big} /> : null}
         <View style={{ flex: 1, gap: 2 }}>
           <Text accessibilityRole="header" style={T({ fontFamily: fonts.uiExtra, fontSize: 26, lineHeight: 34, color: nw.color.ink })}>
             {headline}

@@ -84,13 +84,14 @@ const hhmm = (d: Date) => `${String(d.getHours()).padStart(2, '0')}:${String(d.g
  * היעד לפרשת השבוע: השבת שבה היא נקראת (לפי Hebcal; בשבוע של חג — השבת הבאה שבה יש פרשה).
  * candles = לפני הדלקת נרות בערב אותה שבת. meal = שבת בבוקר, לפני סעודת שחרית (12:00).
  */
-export function deadlineFor(mode: CalendarMode, target: TargetMode, cityId: string, now = new Date()): Deadline {
+export function deadlineFor(mode: CalendarMode, target: TargetMode, cityId: string, now = new Date(), mealTime = '12:00'): Deadline {
   const il = mode === 'israel';
   const { hdate } = weekSedra(mode, now);
   const shabbat = dayStart(hdate.greg());
   if (target === 'meal') {
-    const at = new Date(shabbat.getFullYear(), shabbat.getMonth(), shabbat.getDate(), 12, 0);
-    return { at, shabbat, label: 'שבת בבוקר, לפני הסעודה' };
+    const [mh, mm] = (/^\d{1,2}:\d{2}$/.test(mealTime) ? mealTime : '12:00').split(':').map(Number);
+    const at = new Date(shabbat.getFullYear(), shabbat.getMonth(), shabbat.getDate(), mh, mm);
+    return { at, shabbat, label: `סעודת שבת (${mealTime})` };
   }
   const friday = addDays(shabbat, -1);
   const at = candleLighting(friday, cityId, il) ?? new Date(friday.getFullYear(), friday.getMonth(), friday.getDate(), 16, 0);

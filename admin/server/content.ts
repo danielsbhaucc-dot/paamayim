@@ -341,6 +341,39 @@ export class ContentService {
     });
   }
 
+  // ---------- יישור עברית–ארמית (פיילוט) ----------
+  async alignment(slug: string) {
+    return (await readJson(this.storage, paths.alignment(slug))) ?? null;
+  }
+
+  /** עדכון סטטוס/סוג/הערה של ביטויים (שמירה אחת לכל המקבץ). האינדקסים לא משתנים מכאן. */
+  saveAlignment(slug: string, edits: unknown) {
+    if (!Array.isArray(edits) || edits.length > 2000) throw new HttpError(400, 'עריכות לא תקינות');
+    return this.serial(async () => {
+      const doc = await readJson<any>(this.storage, paths.alignment(slug));
+      if (!doc) throw new HttpError(404, 'אין קובץ יישור');
+      for (const e of edits as any[]) {
+        const p = doc.verses?.[e?.verseId]?.[e?.index];
+        if (!p) throw new HttpError(400, 'ביטוי לא נמצא');
+        if (e.status !== undefined) {
+          if (!['approved', 'draft', 'uncertain', 'rejected'].includes(e.status)) throw new HttpError(400, 'סטטוס לא תקין');
+          p.status = e.status;
+        }
+        if (e.type !== undefined) {
+          if (!['literal', 'reverence', 'expansion', 'reorder'].includes(e.type)) throw new HttpError(400, 'סוג לא תקין');
+          p.type = e.type;
+        }
+        if (e.note !== undefined) {
+          if (typeof e.note !== 'string' || e.note.length > 160) throw new HttpError(400, 'הערה ארוכה מדי');
+          if (e.note.trim()) p.note = e.note.trim();
+          else delete p.note;
+        }
+      }
+      await this.storage.write([{ path: paths.alignment(slug), content: json(doc) }], `יישור: ${slug} (${(edits as any[]).length} עדכונים)`);
+      return doc;
+    });
+  }
+
   // ---------- ברכות ומשפטי סטטוס ----------
   async greetings() {
     const published = await readJson(this.storage, paths.statusLines());

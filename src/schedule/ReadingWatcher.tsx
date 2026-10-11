@@ -49,7 +49,7 @@ export function ReadingWatcher() {
         if (!isParashaComplete(p, state.progress) || isParashaComplete(p, prev.progress)) continue;
         state.markParashaDone(year, p.id);
         const ended = bookEndedBy(p);
-        if (ended) {
+        if (ended && (state.features?.siyum ?? true)) {
           const done = [...(useAppStore.getState().doneParashot[year] ?? [])];
           state.addSiyum({ key: `${year}-${ended.book}`, book: ended.book, year, parashot: countBookParashot(done, ended.book) });
           if (ended.book === 'deuteronomy') {

@@ -225,6 +225,10 @@ export function createApp(cfg: Config, storage: Storage, opts: { distDir?: strin
     return new Response(new Uint8Array(buf), { headers: { 'Content-Type': 'image/webp', 'Cache-Control': 'private, max-age=300' } });
   });
 
+  // ---------- יישור עברית–ארמית ----------
+  app.get('/api/alignment/:slug', async (c) => c.json(await content.alignment(slugParam(c))));
+  app.put('/api/alignment/:slug', async (c) => c.json(await content.saveAlignment(slugParam(c), (await jsonBody(c))?.edits)));
+
   // ---------- ברכות / משפטי סטטוס ----------
   app.get('/api/greetings', async (c) => c.json(await content.greetings()));
   app.put('/api/greetings', async (c) => c.json(await content.saveGreetingsDraft(await jsonBody(c))));

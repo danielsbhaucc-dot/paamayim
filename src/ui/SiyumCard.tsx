@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import React, { forwardRef } from 'react';
 import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { BOOK_HE, consecutiveTorahYears } from '../schedule/siyum';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore, useFeature } from '../store/useAppStore';
 import { nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { img } from '../theme/images';
@@ -53,8 +53,9 @@ export function SiyumBanner({ style }: { style?: StyleProp<ViewStyle> }) {
   const pending = useAppStore((s) => s.pendingSiyum);
   const siyumim = useAppStore((s) => s.siyumim);
   const clear = useAppStore((s) => s.clearPendingSiyum);
+  const on = useFeature('siyum');
   const s = siyumim.find((x) => x.key === pending);
-  if (!s) return null;
+  if (!s || !on) return null;
   const l = siyumLines(s, siyumim);
   return (
     <GlassSurface variant="card" radius={22} style={style} contentStyle={{ padding: 16, flexDirection: rtl.row, alignItems: 'center', gap: 12 }}>

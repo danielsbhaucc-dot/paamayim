@@ -12,6 +12,20 @@ import type {
 
 type ProgressMap = Record<string, VerseProgress>;
 
+export type Features = {
+  plan: boolean;
+  ring: boolean;
+  catchup: boolean;
+  siyum: boolean;
+  specialShabbat: boolean;
+  ketiv: boolean;
+  lessons: boolean;
+};
+export const DEFAULT_FEATURES: Features = { plan: true, ring: true, catchup: true, siyum: true, specialShabbat: true, ketiv: true, lessons: true };
+
+/** מתג תוספת (עמיד לגרסאות ישנות של המצב השמור) */
+export const useFeature = (k: keyof Features) => useAppStore((s) => (s.features ?? DEFAULT_FEATURES)[k] ?? DEFAULT_FEATURES[k]);
+
 interface AppState {
   calendarMode: CalendarMode;
   familyVoice: FamilyVoice;
@@ -45,6 +59,14 @@ interface AppState {
   pendingSiyum: string | null;
   /** כמה נשאר בתחילת היום (לחישוב ״כמה כבר קראתי היום״) */
   dayBaseline: { day: string; pid: string; remaining: number } | null;
+  /** מתגים לכל תוספת (ברירת מחדל: מופעל) */
+  features: Features;
+  /** שעת סעודת שבת (כשהיעד ״לפני הסעודה״) */
+  mealTime: string;
+  /** יישור עברית–ארמית: כבוי / רק שינויים / כל הביטויים */
+  alignMode: 'off' | 'changes' | 'all';
+  /** להציג גם טיוטות יישור שלא אושרו (לבדיקה) */
+  alignDrafts: boolean;
   activeAliyah: number;
   lastVerseId: string | null;
   progress: ProgressMap;
@@ -80,6 +102,8 @@ interface AppState {
   addSiyum: (s: { key: string; book: string; year: number; parashot: number }) => void;
   markParashaDone: (year: number, id: string) => void;
   clearPendingSiyum: () => void;
+  setFeature: (k: keyof Features, on: boolean) => void;
+  setMisc: (p: Partial<Pick<AppState, 'mealTime' | 'alignMode' | 'alignDrafts'>>) => void;
   setDayBaseline: (b: { day: string; pid: string; remaining: number }) => void;
   setActiveAliyah: (id: number) => void;
   setLastVerseId: (id: string | null) => void;
@@ -128,6 +152,10 @@ export const useAppStore = create<AppState>()(
       doneParashot: {},
       pendingSiyum: null,
       dayBaseline: null,
+      features: { ...DEFAULT_FEATURES },
+      mealTime: '12:00',
+      alignMode: 'changes',
+      alignDrafts: false,
       activeAliyah: 1,
       lastVerseId: null,
       progress: {},
@@ -188,6 +216,8 @@ export const useAppStore = create<AppState>()(
         }),
       clearPendingSiyum: () => set({ pendingSiyum: null }),
       setDayBaseline: (dayBaseline) => set({ dayBaseline }),
+      setFeature: (k, on) => set((st) => ({ features: { ...DEFAULT_FEATURES, ...st.features, [k]: on } })),
+      setMisc: (p) => set(p),
       setActiveAliyah: (id) => set({ activeAliyah: id }),
       setLastVerseId: (id) =>
         set((state) => (id === state.lastVerseId ? { lastReadAt: Date.now() } : { lastVerseId: id, lastReadAt: id ? Date.now() : null })),
@@ -246,6 +276,10 @@ export const useAppStore = create<AppState>()(
         doneParashot: s.doneParashot,
         pendingSiyum: s.pendingSiyum,
         dayBaseline: s.dayBaseline,
+        features: s.features,
+        mealTime: s.mealTime,
+        alignMode: s.alignMode,
+        alignDrafts: s.alignDrafts,
         activeAliyah: s.activeAliyah,
         lastVerseId: s.lastVerseId,
         progress: s.progress,

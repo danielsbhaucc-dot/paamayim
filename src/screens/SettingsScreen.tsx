@@ -17,7 +17,7 @@ import { LANDING_URL } from '../content/config';
 import type { FlowLayout, CalendarMode, FamilyVoice, ReadingView } from '../data/types';
 import { READING_MODES } from '../reading/modes';
 import { useAppStore } from '../store/useAppStore';
-import { PlanSettings } from './PlanSettings';
+import { DisplaySettings, NotifySettings, PlanSettings } from './PlanSettings';
 import { APP_NAME } from '../theme/brand';
 import { nw } from '../theme/design';
 import { rtl } from '../theme/rtl';
@@ -72,11 +72,7 @@ function SettingsMobile() {
           />
           <PersonalSection />
           <ReadingSection />
-          <Section title="תוכנית הקריאה">
-            <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18 }}>
-              <PlanSettings />
-            </GlassSurface>
-          </Section>
+          <PlanGroups />
           <PrivacySection />
           <InfoSection />
         </Animated.ScrollView>
@@ -97,11 +93,7 @@ function SettingsWide() {
         <View style={{ flex: 1 }}>
           <PersonalSection />
           <ReadingSection />
-          <Section title="תוכנית הקריאה">
-            <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18 }}>
-              <PlanSettings />
-            </GlassSurface>
-          </Section>
+          <PlanGroups />
         </View>
         <View style={{ flex: 1 }}>
           <PrivacySection />
@@ -112,12 +104,53 @@ function SettingsWide() {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+/** אקורדיון: כותרת + שורת תקציר; התוכן נפתח בלחיצה */
+function Section({ title, sub, children, defaultOpen = false }: { title: string; sub?: string; children: React.ReactNode; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
   return (
     <View style={{ marginBottom: 10 }}>
-      <SectionHeader title={title} style={{ marginTop: 8 }} />
-      {children}
+      <Pressable
+        accessibilityRole="button"
+        accessibilityState={{ expanded: open }}
+        onPress={() => setOpen(!open)}
+        style={{ flexDirection: rtl.row, alignItems: 'center', paddingVertical: 14, paddingHorizontal: 4, borderBottomWidth: open ? 0 : 1, borderBottomColor: 'rgba(31,158,140,0.18)' }}
+      >
+        <View style={{ flex: 1 }}>
+          <Text style={{ ...nw.type.bodyStrong, fontSize: 18, color: nw.color.ink, ...T }}>{title}</Text>
+          {sub && !open ? <Text style={{ ...nw.type.bodySm, fontSize: 14, color: nw.color.inkSoft, ...T }}>{sub}</Text> : null}
+        </View>
+        <Text style={{ fontSize: 18, color: nw.color.tealText, transform: [{ rotate: open ? '180deg' : '0deg' }] }}>˅</Text>
+      </Pressable>
+      {open ? <View style={{ paddingTop: 4 }}>{children}</View> : null}
     </View>
+  );
+}
+
+const Card = ({ children }: { children: React.ReactNode }) => (
+  <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18 }}>
+    {children}
+  </GlassSurface>
+);
+
+function PlanGroups() {
+  return (
+    <>
+      <Section title="תוכנית הקריאה" sub="ימים, יעד ועיר">
+        <Card>
+          <PlanSettings />
+        </Card>
+      </Section>
+      <Section title="תזכורות" sub="כבויות עד שמפעילים">
+        <Card>
+          <NotifySettings />
+        </Card>
+      </Section>
+      <Section title="מה מוצג" sub="להפעיל ולכבות כל תוספת">
+        <Card>
+          <DisplaySettings />
+        </Card>
+      </Section>
+    </>
   );
 }
 
@@ -133,7 +166,7 @@ function Field({ label, help, children }: { label: string; help?: string; childr
 
 function PersonalSection() {
   return (
-    <Section title="הפרטים שלך">
+    <Section title="הפרטים שלך" sub="שם ופנייה">
       <PersonalCard title="שם ופנייה" />
     </Section>
   );
@@ -153,7 +186,7 @@ function ReadingSection() {
   const setFamilyVoice = useAppStore((s) => s.setFamilyVoice);
   const setOnboardingDone = useAppStore((s) => s.setOnboardingDone);
   return (
-    <Section title="קריאה ותצוגה">
+    <Section title="קריאה" sub="מצב קריאה, טעמים, לוח" defaultOpen>
       <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18, gap: 18 }}>
         <Field label="מצב קריאה" help={MODE_HELP[readingView]}>
           <SegmentedTabs size="md" options={READING_MODES} value={readingView} onChange={(id) => setReadingView(id as ReadingView)} />
@@ -241,7 +274,7 @@ function PrivacySection() {
     ]);
   };
   return (
-    <Section title="פרטיות ונתונים">
+    <Section title="פרטיות ונתונים" sub="מה נשמר ואיפוס">
       <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18, gap: 6 }}>
         <PrivacyNote />
         <Row
@@ -260,7 +293,7 @@ function PrivacySection() {
 function InfoSection() {
   const router = useRouter();
   return (
-    <Section title="מידע">
+    <Section title="מידע" sub="מקורות, צבעים, אתר">
       <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18, gap: 10 }}>
         <Row Icon={Palette} title="מקרא צבעים" sub="למה לכל פרשה יש גוון משלה" onPress={() => router.push('/colors' as never)} />
         <Row Icon={FileText} title="משפטי ומקורות" sub="מקור הטקסטים, הרישיון ומה שלא כלול" onPress={() => router.push('/legal')} />

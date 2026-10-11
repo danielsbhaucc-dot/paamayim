@@ -1,5 +1,7 @@
 import { Sprout } from 'lucide-react-native';
-import React from 'react';
+import React, { useState } from 'react';
+import { Pressable } from 'react-native';
+import { useFeature } from '../store/useAppStore';
 import { StyleSheet, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import type { ContentItem } from '../data/types';
 import { nw } from '../theme/design';
@@ -20,8 +22,12 @@ type Props = {
 
 /** ״מה אפשר לקחת לחיים״ — כרטיס זכוכית עם עיגולי מנטה ממוספרים. לא מוצג בלי תוכן מפורסם. */
 export function LifeLessonsCard({ items, wide = false, columns = 1, child = false, style }: Props) {
-  if (!items.length) return null;
+  const on = useFeature('lessons');
+  const [open, setOpen] = useState(false);
+  if (!items.length || !on) return null;
   const cols = wide ? columns : 1;
+  // בטלפון: רק הראשון, והשאר בלחיצה — בלי עומס
+  const shown = wide || open ? items : items.slice(0, 1);
   return (
     <GlassSurface variant="card" radius={wide ? 24 : 22} style={style} contentStyle={{ padding: wide ? 24 : 20 }}>
       <SectionHeader
@@ -43,7 +49,7 @@ export function LifeLessonsCard({ items, wide = false, columns = 1, child = fals
           marginTop: 16,
         }}
       >
-        {items.map((item, i) => (
+        {shown.map((item, i) => (
           <View
             key={i}
             style={{
@@ -81,6 +87,13 @@ export function LifeLessonsCard({ items, wide = false, columns = 1, child = fals
           </View>
         ))}
       </View>
+      {!wide && items.length > 1 ? (
+        <Pressable accessibilityRole="button" accessibilityState={{ expanded: open }} onPress={() => setOpen(!open)} hitSlop={8} style={{ marginTop: 14 }}>
+          <Text style={[styles.rtl, { fontFamily: fonts.uiBold, fontSize: 15, color: nw.color.tealText }]}>
+            {open ? 'פחות ˄' : `עוד ${items.length - 1} ˅`}
+          </Text>
+        </Pressable>
+      ) : null}
     </GlassSurface>
   );
 }

@@ -15,12 +15,12 @@ export function usePlan(parasha: Parasha): PlanView | null {
   const minuteKey = Math.floor(now.getTime() / 60000);
   const deadline = useMemo(() => {
     try {
-      return deadlineFor(s.calendarMode, s.targetMode, s.cityId, now);
+      return deadlineFor(s.calendarMode, s.targetMode, s.cityId, now, s.mealTime);
     } catch {
       return null;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [s.calendarMode, s.targetMode, s.cityId, Math.floor(minuteKey / 30)]);
+  }, [s.calendarMode, s.targetMode, s.cityId, s.mealTime, Math.floor(minuteKey / 30)]);
   const units = useMemo(() => buildUnits(parasha, s.progress), [parasha, s.progress]);
   const remaining = useMemo(() => totals(units).remaining, [units]);
   const today = dateKey(now);

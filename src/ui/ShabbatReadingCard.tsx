@@ -1,9 +1,9 @@
 import { CalendarDays } from 'lucide-react-native';
-import React, { useMemo } from 'react';
-import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { Pressable, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { getShabbatReading } from '../data/parashot';
 import type { CalendarMode } from '../data/types';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore, useFeature } from '../store/useAppStore';
 import { nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
@@ -24,7 +24,9 @@ export function ShabbatReadingCard({ mode, style }: { mode?: CalendarMode; style
       return { kind: 'regular' as const, date: new Date(), title: '', weekly: '' };
     }
   }, [m]);
-  if (r.kind === 'regular') return null;
+  const on = useFeature('specialShabbat');
+  const [open, setOpen] = useState(false);
+  if (r.kind === 'regular' || !on) return null;
   const line = (label: string, value?: string) =>
     value ? (
       <Text style={{ fontFamily: fonts.ui, fontSize: 15, lineHeight: 22, color: nw.color.inkSoft, textAlign: rtl.textRight, writingDirection: 'rtl' }}>
@@ -40,14 +42,23 @@ export function ShabbatReadingCard({ mode, style }: { mode?: CalendarMode; style
           {r.kind === 'chag' ? `השבת: ${r.title}` : r.title}
         </Text>
       </View>
-      {r.kind === 'chag' ? line('קריאת התורה בבית הכנסת', r.torah) : null}
-      {line('מפטיר', r.maftir)}
-      {line('הפטרה', r.haftara)}
+      {open ? (
+        <>
+          {r.kind === 'chag' ? line('קריאת התורה בבית הכנסת', r.torah) : null}
+          {line('מפטיר', r.maftir)}
+          {line('הפטרה', r.haftara)}
+        </>
+      ) : null}
       <Text style={{ fontFamily: fonts.uiSemi, fontSize: 14, lineHeight: 21, color: nw.color.tealText, textAlign: rtl.textRight, writingDirection: 'rtl', marginTop: 4 }}>
         {r.kind === 'chag'
           ? `השבת לא קוראים פרשת שבוע. שניים מקרא ואחד תרגום — על פרשת ${r.weekly}, שנקראת בשבת הבאה.`
           : `שניים מקרא ואחד תרגום — על פרשת ${r.weekly}, כרגיל.`}
       </Text>
+      <Pressable accessibilityRole="button" accessibilityState={{ expanded: open }} onPress={() => setOpen(!open)} hitSlop={8}>
+        <Text style={{ fontFamily: fonts.uiBold, fontSize: 14, color: nw.color.tealText, textAlign: rtl.textRight, writingDirection: 'rtl' }}>
+          {open ? 'פחות ˄' : 'מפטיר והפטרה ˅'}
+        </Text>
+      </Pressable>
     </GlassSurface>
   );
 }

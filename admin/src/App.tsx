@@ -1,5 +1,5 @@
 /** מעטפת האדמין: בדיקת התחברות, ניווט עליון (מחשב) ותחתון (טלפון), ניתוב */
-import { Bot, LayoutGrid, MessageSquareQuote, Settings as Cog } from 'lucide-react';
+import { Bot, Languages, LayoutGrid, MessageSquareQuote, Settings as Cog } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import logo from './assets/logo-mark.png';
 import { api, setCsrf, setOnUnauthorized } from './api';
@@ -8,6 +8,7 @@ import { go, useRoute } from './router';
 import { Ai } from './screens/Ai';
 import { Dashboard } from './screens/Dashboard';
 import { Greetings } from './screens/Greetings';
+import { Align } from './screens/Align';
 import { Login } from './screens/Login';
 import { Parasha } from './screens/Parasha';
 import { Settings } from './screens/Settings';
@@ -16,6 +17,7 @@ import type { Schema, Session } from './types';
 const NAV = [
   { to: '/', match: (p: string) => p === '/' || p.startsWith('/p/'), label: 'פרשות', Icon: LayoutGrid },
   { to: '/greetings', match: (p: string) => p === '/greetings', label: 'משפטי סטטוס', Icon: MessageSquareQuote },
+  { to: '/align', match: (p: string) => p === '/align', label: 'יישור', Icon: Languages },
   { to: '/ai', match: (p: string) => p === '/ai', label: 'AI', Icon: Bot },
   { to: '/settings', match: (p: string) => p === '/settings', label: 'הגדרות', Icon: Cog },
 ];
@@ -131,6 +133,7 @@ export function App() {
   if (p0 === 'p' && p1) screen = <Parasha key={p1} slug={p1} section={p2} query={route.query} />;
   else if (p0 === 'greetings') screen = <Greetings />;
   else if (p0 === 'ai') screen = <Ai />;
+  else if (p0 === 'align') screen = <Align />;
   else if (p0 === 'settings') screen = <Settings onLogout={logout} />;
   else screen = <Dashboard />;
 

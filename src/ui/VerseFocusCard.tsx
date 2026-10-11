@@ -1,5 +1,9 @@
 import { BookOpen, Languages, Lightbulb, Repeat, Sparkles } from 'lucide-react-native';
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Pressable } from 'react-native';
+import { alignmentFor, TYPE_LABEL } from '../data/alignment';
+import { aramaicTokens, hebrewTokens } from '../data/alignTokens';
+import { useAppStore } from '../store/useAppStore';
 import { StyleSheet, Text, View } from 'react-native';
 import { MikraText } from '../reading/MikraText';
 import { verseMark } from '../data/hebrew';
@@ -30,6 +34,15 @@ export function VerseFocusCard({
   large = false,
 }: Props) {
   const long = verse.hebrew.length > 110;
+  const alignMode = useAppStore((st) => st.alignMode ?? 'changes');
+  const alignDrafts = useAppStore((st) => st.alignDrafts ?? false);
+  const pairs = useMemo(() => alignmentFor(verse.id, alignMode, alignDrafts), [verse.id, alignMode, alignDrafts]);
+  const [active, setActive] = useState<number | null>(null);
+  useEffect(() => setActive(null), [verse.id]);
+  const marks = pairs.map((p, i) => ({ key: String(i), from: p.he[0], to: p.he[1], deviant: p.type !== 'literal' }));
+  const ap = active != null ? pairs[active] : null;
+  const arToks = aramaicTokens(verse.onkelos);
+  const heToks = ap ? hebrewTokens(verse.hebrew, false) : [];
   const allDone = progress.mikra1 && progress.mikra2 && progress.onkelos;
 
   return (
@@ -38,6 +51,9 @@ export function VerseFocusCard({
         <MikraText
           text={verse.hebrew}
           brk={verse.brk}
+          phrases={marks}
+          activePhrase={active != null ? String(active) : null}
+          onPhrase={(k) => setActive(active === Number(k) ? null : Number(k))}
           style={{
             ...nw.type.verseXL,
             lineHeight: 64,
@@ -63,6 +79,27 @@ export function VerseFocusCard({
         >
           {`(${verseMark(verse.chapter)}, ${verseMark(verse.verse)})`}
         </Text>
+
+        {ap ? (
+          <GlassSurface variant="card" radius={18} style={{ marginTop: 12 }} contentStyle={{ padding: 14, gap: 6 }}>
+            <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 8 }}>
+              <View style={{ paddingHorizontal: 10, paddingVertical: 3, borderRadius: 999, backgroundColor: ap.type === 'literal' ? 'rgba(31,158,140,0.12)' : 'rgba(183,121,43,0.14)' }}>
+                <Text style={{ fontFamily: fonts.uiBold, fontSize: 13, color: ap.type === 'literal' ? nw.color.tealText : '#8A5A1C' }}>{TYPE_LABEL[ap.type]}</Text>
+              </View>
+              {ap.status === 'draft' ? <Text style={{ fontFamily: fonts.ui, fontSize: 12, color: nw.color.inkSoft }}>טיוטה</Text> : null}
+              <View style={{ flex: 1 }} />
+              <Pressable accessibilityRole="button" accessibilityLabel="סגירה" onPress={() => setActive(null)} hitSlop={10}>
+                <Text style={{ fontSize: 18, color: nw.color.inkSoft }}>×</Text>
+              </Pressable>
+            </View>
+            <Text style={{ fontFamily: fonts.uiSemi, fontSize: 17, lineHeight: 26, color: nw.color.ink, textAlign: rtl.textRight, writingDirection: 'rtl' }}>
+              {`${heToks.slice(ap.he[0], ap.he[1] + 1).join(' ')}  ←  ${arToks.slice(ap.ar[0], ap.ar[1] + 1).join(' ')}`}
+            </Text>
+            {ap.note ? (
+              <Text style={{ fontFamily: fonts.ui, fontSize: 15, lineHeight: 22, color: nw.color.inkSoft, textAlign: rtl.textRight, writingDirection: 'rtl' }}>{ap.note}</Text>
+            ) : null}
+          </GlassSurface>
+        ) : null}
 
         <View
           style={{
@@ -108,7 +145,16 @@ export function VerseFocusCard({
               marginTop: 4,
             }}
           >
-            {verse.onkelos}
+            {ap
+              ? arToks.map((w, i) => {
+                  const on = i >= ap.ar[0] && i <= ap.ar[1];
+                  return (
+                    <Text key={i} style={on ? { backgroundColor: ap.type === 'literal' ? 'rgba(31,158,140,0.18)' : 'rgba(183,121,43,0.2)', borderRadius: 6 } : undefined}>
+                      {w + (i < arToks.length - 1 ? ' ' : '')}
+                    </Text>
+                  );
+                })
+              : verse.onkelos}
           </Text>
         </View>
 
