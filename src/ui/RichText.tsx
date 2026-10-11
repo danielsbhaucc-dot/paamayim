@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
 import { HEBREW_LETTERS, parseRichText, type RichSpan } from '../content/richText';
-import { nw } from '../theme/design';
+import { aliyahHues, nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 
@@ -109,6 +109,7 @@ export function RichText({ children, style, quoteStyle, large }: Props) {
                 }
                 const mark = b.type === 'ol' ? String(j + 1) : (HEBREW_LETTERS[j] ?? String(j + 1));
                 const badge = large ? 28 : 26;
+                const hue = aliyahHues[j % aliyahHues.length];
                 return (
                   <View key={j} style={{ flexDirection: rtl.row, gap: 10, alignItems: 'flex-start' }}>
                     <View
@@ -116,9 +117,9 @@ export function RichText({ children, style, quoteStyle, large }: Props) {
                         width: badge,
                         height: badge,
                         borderRadius: badge / 2,
-                        backgroundColor: nw.color.mint,
+                        backgroundColor: hue.soft,
                         borderWidth: 1,
-                        borderColor: nw.color.tealSoft,
+                        borderColor: hue.solid,
                         alignItems: 'center',
                         justifyContent: 'center',
                         marginTop: 1,
@@ -131,7 +132,7 @@ export function RichText({ children, style, quoteStyle, large }: Props) {
                           fontFamily: fonts.uiBold,
                           fontSize: large ? 14 : 13,
                           lineHeight: large ? 18 : 16,
-                          color: nw.color.tealDeep,
+                          color: hue.ink,
                         }}
                       >
                         {mark}

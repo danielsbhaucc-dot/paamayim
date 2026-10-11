@@ -217,6 +217,25 @@ textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
   background: rgba(43, 107, 106, 0.12);
   color: var(--teal-text);
 }
+.rich-toolbar-sep {
+  width: 1px; align-self: stretch; min-height: 28px;
+  background: rgba(11, 42, 74, 0.12); margin-inline: 2px;
+}
+.rich-list-group {
+  display: inline-flex; align-items: center; gap: 2px;
+  padding: 2px; border-radius: 999px;
+  background: rgba(43, 107, 106, 0.08);
+  border: 1px solid rgba(43, 107, 106, 0.16);
+}
+.rich-list-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  min-height: 36px; padding-inline: 10px !important;
+}
+.rich-list-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.rich-list-label {
+  font-size: 12.5px; font-weight: 800; letter-spacing: 0.02em;
+  color: var(--teal-text); font-variant-numeric: tabular-nums;
+}
 .rich-wysiwyg {
   min-height: 160px; max-height: 480px; overflow: auto;
   padding: 14px 16px; line-height: 1.75;
@@ -247,7 +266,7 @@ textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
   font-family: var(--serif); color: var(--ink); font-style: italic; font-weight: 400;
 }
 .rich-wysiwyg ul, .rich-live .rich-ul { margin: 0.4em 0; padding-inline-start: 1.35em; list-style: disc; }
-/* רשימה ממוספרת: מספר בתוך עיגול מנטה (כמו באפליקציה) */
+/* רשימה ממוספרת: כל מספר/אות בצבע עלייה אחר (מחזור 7) */
 .rich-wysiwyg ol, .rich-live .rich-ol {
   margin: 0.45em 0; padding: 0; list-style: none; counter-reset: rich-ol;
   display: flex; flex-direction: column; gap: 0.4em;
@@ -261,17 +280,39 @@ textarea.input.rich-source { font-family: var(--ui); font-size: 15px; }
   flex: none;
   width: 26px; height: 26px; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
-  background: var(--mint);
-  border: 1px solid rgba(31, 158, 140, 0.22);
-  color: var(--teal-deep);
-  font-family: var(--ui); font-weight: 700; font-size: 13px; line-height: 1;
+  font-family: var(--ui); font-weight: 800; font-size: 13px; line-height: 1;
   margin-top: 1px;
+  background: rgba(var(--aliyah-1-rgb), 0.16);
+  border: 1px solid rgba(var(--aliyah-1-rgb), 0.35);
+  color: var(--aliyah-1-ink);
 }
 .rich-wysiwyg ol.letters, .rich-live .rich-ol.letters { counter-reset: rich-ol-he; }
 .rich-wysiwyg ol.letters > li, .rich-live .rich-ol.letters > li { counter-increment: rich-ol-he; }
 .rich-wysiwyg ol.letters > li::before, .rich-live .rich-ol.letters > li::before {
   content: counter(rich-ol-he, hebrew);
   font-size: 12px;
+}
+/* צבע שונה לכל מיקום (1…7 ואז חוזר) — מספרים ואותיות */
+.rich-wysiwyg ol > li:nth-child(7n+1)::before, .rich-live .rich-ol > li:nth-child(7n+1)::before {
+  background: rgba(var(--aliyah-1-rgb), 0.16); border-color: rgba(var(--aliyah-1-rgb), 0.35); color: var(--aliyah-1-ink);
+}
+.rich-wysiwyg ol > li:nth-child(7n+2)::before, .rich-live .rich-ol > li:nth-child(7n+2)::before {
+  background: rgba(var(--aliyah-2-rgb), 0.16); border-color: rgba(var(--aliyah-2-rgb), 0.35); color: var(--aliyah-2-ink);
+}
+.rich-wysiwyg ol > li:nth-child(7n+3)::before, .rich-live .rich-ol > li:nth-child(7n+3)::before {
+  background: rgba(var(--aliyah-3-rgb), 0.16); border-color: rgba(var(--aliyah-3-rgb), 0.35); color: var(--aliyah-3-ink);
+}
+.rich-wysiwyg ol > li:nth-child(7n+4)::before, .rich-live .rich-ol > li:nth-child(7n+4)::before {
+  background: rgba(var(--aliyah-4-rgb), 0.16); border-color: rgba(var(--aliyah-4-rgb), 0.35); color: var(--aliyah-4-ink);
+}
+.rich-wysiwyg ol > li:nth-child(7n+5)::before, .rich-live .rich-ol > li:nth-child(7n+5)::before {
+  background: rgba(var(--aliyah-5-rgb), 0.16); border-color: rgba(var(--aliyah-5-rgb), 0.35); color: var(--aliyah-5-ink);
+}
+.rich-wysiwyg ol > li:nth-child(7n+6)::before, .rich-live .rich-ol > li:nth-child(7n+6)::before {
+  background: rgba(var(--aliyah-6-rgb), 0.16); border-color: rgba(var(--aliyah-6-rgb), 0.35); color: var(--aliyah-6-ink);
+}
+.rich-wysiwyg ol > li:nth-child(7n)::before, .rich-live .rich-ol > li:nth-child(7n)::before {
+  background: rgba(var(--aliyah-7-rgb), 0.16); border-color: rgba(var(--aliyah-7-rgb), 0.35); color: var(--aliyah-7-ink);
 }
 .rich-wysiwyg ul li, .rich-live .rich-ul li { margin: 0.2em 0; font-family: var(--ui); }
 .rich-wysiwyg hr, .rich-live .rich-hr {

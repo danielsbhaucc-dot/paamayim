@@ -4,7 +4,7 @@ import { Pressable } from 'react-native';
 import { useFeature } from '../store/useAppStore';
 import { StyleSheet, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import type { ContentItem } from '../data/types';
-import { nw } from '../theme/design';
+import { aliyahHues, nw } from '../theme/design';
 import { fonts } from '../theme/fonts';
 import { rtl } from '../theme/rtl';
 import { GlassSurface } from './GlassSurface';
@@ -49,7 +49,9 @@ export function LifeLessonsCard({ items, wide = false, columns = 1, child = fals
           marginTop: 16,
         }}
       >
-        {shown.map((item, i) => (
+        {shown.map((item, i) => {
+          const hue = aliyahHues[i % aliyahHues.length];
+          return (
           <View
             key={i}
             style={{
@@ -59,8 +61,8 @@ export function LifeLessonsCard({ items, wide = false, columns = 1, child = fals
               ...(cols > 1 ? { flexBasis: cols === 4 ? '22%' : '45%', flexGrow: 1 } : null),
             }}
           >
-            <View style={styles.num}>
-              <Text style={styles.numText}>{i + 1}</Text>
+            <View style={[styles.num, { backgroundColor: hue.soft, borderColor: hue.solid }]}>
+              <Text style={[styles.numText, { color: hue.ink }]}>{i + 1}</Text>
             </View>
             <View style={{ flex: 1 }}>
               {item.title ? (
@@ -85,7 +87,8 @@ export function LifeLessonsCard({ items, wide = false, columns = 1, child = fals
               ) : null}
             </View>
           </View>
-        ))}
+          );
+        })}
       </View>
       {!wide && items.length > 1 ? (
         <Pressable accessibilityRole="button" accessibilityState={{ expanded: open }} onPress={() => setOpen(!open)} hitSlop={8} style={{ marginTop: 14 }}>
