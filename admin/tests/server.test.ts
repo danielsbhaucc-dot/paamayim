@@ -189,6 +189,26 @@ test('AI: estimate → signed token → job saves drafts only', async () => {
   assert.match(e.source, /^ai:openrouter:/);
 });
 
+test('AI alignment: estimate needs confirm-token, respects the cap, saves a draft file only', async () => {
+  const body = { task: 'alignVerses', slugs: ['lech-lecha'], provider: 'openrouter', model: 'anthropic/claude-haiku-5.5', mode: 'all' };
+  const est = await (await write('/api/ai/estimate', 'POST', body)).json();
+  assert.ok(est.token && est.usd > 0 && est.requests > 5, JSON.stringify(est));
+  const job = await (await write('/api/ai/jobs', 'POST', { token: est.token })).json();
+  let j = job;
+  for (let i = 0; i < 200 && j.status === 'running'; i++) {
+    await new Promise((r) => setTimeout(r, 50));
+    j = await (await req(`/api/ai/jobs/${job.id}`)).json();
+  }
+  assert.equal(j.status, 'done', JSON.stringify(j));
+  const doc = JSON.parse(fs.readFileSync(path.join(tmp, 'content/alignment/lech-lecha.json'), 'utf8'));
+  const pairs = Object.values(doc.verses).flat() as any[];
+  assert.ok(pairs.length > 50);
+  assert.ok(pairs.every((p) => p.status === 'draft' || p.status === 'uncertain'), 'nothing auto-approved');
+  // תקרה: AI_MAX_JOB_USD נמוך → אין token
+  const many = await (await write('/api/ai/estimate', 'POST', { ...body, model: 'anthropic/claude-haiku-5.5', slugs: Array.from({ length: 1 }, () => 'bereshit') })).json();
+  assert.ok(many.usd < 5);
+});
+
 test('AI rewrite saves a draft', async () => {
   const r = await write('/api/ai/rewrite', 'POST', { slug: 'bereshit', key: 'story.adult', preset: 'shorter', provider: 'deepseek', model: 'deepseek-flash' });
   assert.equal(r.status, 200, await r.clone().text());

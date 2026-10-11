@@ -17,6 +17,18 @@ export interface Storage {
    * זה מה שמפעיל בנייה ב-Cloudflare Pages.
    */
   promoteToProd?(message?: string): Promise<{ commit: string; files: number; empty?: boolean }>;
+  /** קריאה מענף הייצור (master). במצב מקומי = read */
+  readProd?(path: string): Promise<Buffer | null>;
+  /**
+   * מסנכרן master → content-drafts (merge אמיתי ב-GitHub), כדי שקוד/קורפוס/סכמה חדשים יגיעו לטיוטות
+   * ושום פרסום לא יחזיר גרסה ישנה. מחזיר האם בוצע merge.
+   */
+  syncDrafts?(): Promise<{ merged: boolean }>;
+  /**
+   * פרסום חלקי: commit אחד ל-master עם prodChanges בלבד, ואחריו commit מיזוג ב-content-drafts
+   * (הורים: drafts + master החדש) עם draftChanges — כך הענפים נשארים מסונכרנים בלי קונפליקטים.
+   */
+  publishSelected?(prodChanges: Change[], draftChanges: Change[], message: string): Promise<{ commit: string }>;
   /** רק במצב GitHub: האם לטוקן יש push (Contents write). null = לא ידוע. */
   canPush?(): Promise<boolean | null>;
   /** רק במצב GitHub: אבחון בטוח (בלי לחשוף את הטוקן). */

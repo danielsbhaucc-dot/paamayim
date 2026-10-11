@@ -67,6 +67,7 @@ function fakeGitHub() {
       commits.set(id, body);
       return Response.json({ sha: id });
     }
+    if (m === 'POST' && p === '/merges') return new Response(null, { status: 204 });
     if (m === 'PATCH' && p.startsWith('/git/refs/heads/')) {
       const br = decodeURIComponent(p.slice('/git/refs/heads/'.length));
       if (failNextRef-- > 0) return new Response('not a fast forward', { status: 422 });

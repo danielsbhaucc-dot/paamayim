@@ -64,12 +64,13 @@ export function Parasha({ slug, section, query }: { slug: string; section?: stri
   const pending = stats.pendingDrafts;
 
   const publishAll = async () => {
-    if (!confirm(`לפרסם את כל ${pending} הטיוטות בפרשת ${doc.meta.name}? הן יופיעו באפליקציה אחרי הבנייה הבאה.`)) return;
+    if (!confirm(`לפרסם עכשיו את כל מה שממתין בפרשת ${doc.meta.name}? רק הפרשה הזו תעלה לאתר (commit אחד); טיוטות בפרשות אחרות נשארות טיוטה.`)) return;
     setBusy(true);
     try {
-      const r = await api(`/parashot/${slug}/publish`, { json: {} });
-      onSaved(r);
-      toast(`פורסמו ${r.published} שדות`);
+      const r = await api(`/parashot/${slug}/publish-live`, { json: {} });
+      const fresh = await api(`/parashot/${slug}`);
+      onSaved(fresh);
+      toast(`פורסמו ${r.published} פריטים מהפרשה הזו`);
     } catch (e: any) {
       toast(e.message, true);
     } finally {
@@ -101,8 +102,8 @@ export function Parasha({ slug, section, query }: { slug: string; section?: stri
           <button type="button" className="btn" aria-pressed={showPreview} onClick={() => setShowPreview((s) => !s)}>
             {showPreview ? <EyeOff size={18} aria-hidden /> : <Eye size={18} aria-hidden />} תצוגה מקדימה
           </button>
-          <button type="button" className="btn primary" disabled={!pending || busy} onClick={publishAll}>
-            <CloudUpload size={18} aria-hidden /> פרסום כל הטיוטות ({pending})
+          <button type="button" className="btn primary" disabled={busy} onClick={publishAll}>
+            <CloudUpload size={18} aria-hidden /> פרסום הפרשה הזאת{pending ? ` (${pending})` : ''}
           </button>
         </div>
       </div>

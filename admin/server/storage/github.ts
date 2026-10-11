@@ -64,6 +64,9 @@ export type GithubStorage = Storage & {
   canPush(): Promise<boolean | null>;
   diagnose(): Promise<GithubDiagnose>;
   promoteToProd(message?: string): Promise<{ commit: string; files: number; empty?: boolean }>;
+  readProd(path: string): Promise<Buffer | null>;
+  syncDrafts(): Promise<{ merged: boolean }>;
+  publishSelected(prodChanges: Change[], draftChanges: Change[], message: string): Promise<{ commit: string }>;
 };
 
 export function githubStorage(opts: GithubStorageOpts): GithubStorage {
@@ -76,7 +79,7 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
     blobCache.set(sha, buf);
     while (blobCache.size > 300) blobCache.delete(blobCache.keys().next().value!);
   };
-  let tree: { at: number; commit: string; files: Map<string, TreeEntry>; branch: string } | null = null;
+  const trees = new Map<string, { at: number; commit: string; files: Map<string, TreeEntry>; branch: string }>();
   let draftReady: Promise<void> | null = null;
 
   async function gh(path: string, init: RequestInit = {}) {
@@ -164,7 +167,8 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
   }
 
   async function loadTree(branch: string, force = false) {
-    if (tree && tree.branch === branch && !force && Date.now() - tree.at < 15000) return tree;
+    const tree = trees.get(branch);
+    if (tree && !force && Date.now() - tree.at < 15000) return tree;
     let ref: any;
     try {
       ref = await gh(`/git/ref/heads/${encodeURIComponent(branch)}`);
@@ -175,7 +179,7 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
       throw e;
     }
     const commit = ref.object.sha as string;
-    if (tree && tree.branch === branch && tree.commit === commit) {
+    if (tree && tree.commit === commit) {
       tree.at = Date.now();
       return tree;
     }
@@ -185,11 +189,12 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
     for (const e of t.tree as TreeEntry[]) {
       if (e.type === 'blob' && isContentPath(e.path)) files.set(e.path, e);
     }
-    tree = { at: Date.now(), commit, files, branch };
-    return tree;
+    const next = { at: Date.now(), commit, files, branch };
+    trees.set(branch, next);
+    return next;
   }
 
-  async function writeOnce(branch: string, changes: Change[], message: string) {
+  async function writeOnce(branch: string, changes: Change[], message: string, extraParent?: string) {
     const ref = await gh(`/git/ref/heads/${encodeURIComponent(branch)}`);
     const parent = ref.object.sha as string;
     const pc = await gh(`/git/commits/${parent}`);
@@ -205,13 +210,83 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
       entries.push({ path: ch.path, mode: '100644', type: 'blob', sha: blob.sha });
     }
     const nt = await gh('/git/trees', { method: 'POST', body: JSON.stringify({ base_tree: pc.tree.sha, tree: entries }) });
-    const commit = await gh('/git/commits', { method: 'POST', body: JSON.stringify({ message, tree: nt.sha, parents: [parent] }) });
+    const parents = extraParent ? [parent, extraParent] : [parent];
+    const commit = await gh('/git/commits', { method: 'POST', body: JSON.stringify({ message, tree: nt.sha, parents }) });
     await gh(`/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha, force: false }) });
     return commit.sha as string;
   }
 
-  async function promoteToProd(message = 'פרסום תוכן מהאדמין (content-drafts → master)') {
+  /** merge אמיתי של master לתוך content-drafts (GitHub Merges API). 409 = קונפליקט אמיתי. */
+  async function syncDrafts(): Promise<{ merged: boolean }> {
+    const existing = await ghMaybe(`/git/ref/heads/${encodeURIComponent(draftBranch)}`);
+    if (!existing) return { merged: false };
+    const res = await f(`${api}/merges`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${opts.token}`,
+        'X-GitHub-Api-Version': '2022-11-28',
+        'User-Agent': 'paamayim-admin',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ base: draftBranch, head: prodBranch, commit_message: `סנכרון ${prodBranch} → ${draftBranch} [CF-Pages-Skip]` }),
+      signal: AbortSignal.timeout(30000),
+    });
+    if (res.status === 204) return { merged: false };
+    if (res.status === 201) {
+      await loadTree(draftBranch, true);
+      return { merged: true };
+    }
+    if (res.status === 409) {
+      throw ghErr(409, `יש קונפליקט בין ${prodBranch} ל-${draftBranch} — אותו קובץ שונה בשני הענפים. פנו למפתח (אין אובדן טיוטות).`);
+    }
+    const text = await res.text().catch(() => '');
+    const err = new Error(`GitHub ${res.status}: ${text.slice(0, 200)}`) as Error & { status?: number };
+    err.status = res.status;
+    if (isAuthDenied(err)) throw ghErr(502, GITHUB_WRITE_DENIED);
+    throw err;
+  }
+
+  async function readProd(path: string) {
+    assertAllowed(path);
+    const t = await loadTree(prodBranch);
+    const e = t.files.get(path);
+    if (!e) return null;
+    const hit = blobCache.get(e.sha);
+    if (hit) return hit;
+    const b = await gh(`/git/blobs/${e.sha}`);
+    const buf = Buffer.from(b.content, 'base64');
+    remember(e.sha, buf);
+    return buf;
+  }
+
+  async function publishSelected(prodChanges: Change[], draftChanges: Change[], message: string) {
+    for (const ch of [...prodChanges, ...draftChanges]) assertAllowed(ch.path);
     try {
+      await ensureDraftBranch();
+      await syncDrafts();
+      let prodSha: string;
+      try {
+        prodSha = await writeOnce(prodBranch, prodChanges, message);
+      } catch (e: any) {
+        if (e?.status !== 422 && e?.status !== 409) throw e;
+        prodSha = await writeOnce(prodBranch, prodChanges, message);
+      }
+      // content-drafts: אותם ערכים מפורסמים + master כהורה שני — המיזוג הבא יהיה ריק/נקי
+      await writeOnce(draftBranch, draftChanges, `${message} (סנכרון טיוטות) [CF-Pages-Skip]`, prodSha);
+      await loadTree(prodBranch, true);
+      await loadTree(draftBranch, true);
+      return { commit: prodSha };
+    } catch (e: any) {
+      if (e?.status === 409 && /^[\u0590-\u05FF]/.test(String(e.message ?? ''))) throw e;
+      if (isAuthDenied(e)) throw ghErr(502, GITHUB_WRITE_DENIED);
+      throw e;
+    }
+  }
+
+  async function promoteToProd(message = 'פרסום תוכן מהמנהל (content-drafts → master)') {
+    try {
+      await syncDrafts();
       const draft = await loadTree(draftBranch, true);
       const prodRef = await gh(`/git/ref/heads/${encodeURIComponent(prodBranch)}`);
       const prodParent = prodRef.object.sha as string;
@@ -227,9 +302,7 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
         const pe = prodFiles.get(path);
         if (!pe || pe.sha !== e.sha) entries.push({ path, mode: '100644', type: 'blob', sha: e.sha });
       }
-      for (const [path] of prodFiles) {
-        if (!draft.files.has(path)) entries.push({ path, mode: '100644', type: 'blob', sha: null });
-      }
+      // לא מוחקים מ-master קבצים שאין בטיוטות (קבצים חדשים מהקוד) — רק מוסיפים/מעדכנים
       if (!entries.length) return { commit: prodParent, files: 0, empty: true };
 
       const nt = await gh('/git/trees', { method: 'POST', body: JSON.stringify({ base_tree: prodCommit.tree.sha, tree: entries }) });
@@ -351,6 +424,9 @@ export function githubStorage(opts: GithubStorageOpts): GithubStorage {
     canPush,
     diagnose,
     promoteToProd,
+    readProd,
+    syncDrafts,
+    publishSelected,
     async read(path) {
       assertAllowed(path);
       const t = await loadTree(await resolveReadBranch());

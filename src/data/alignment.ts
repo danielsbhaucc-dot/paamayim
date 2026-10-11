@@ -12,12 +12,10 @@ export type AlignPair = {
 };
 type AlignFile = { parasha: string; verses: Record<string, AlignPair[]> };
 
-const FILES: AlignFile[] = [
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  require('../../content/alignment/bereshit.json'),
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  require('../../content/alignment/noach.json'),
-];
+// כל קובץ ב-content/alignment נטען אוטומטית (גם פרשות חדשות שנוצרו באדמין)
+declare const require: { context(dir: string, deep: boolean, re: RegExp): { keys(): string[]; (k: string): AlignFile } };
+const ctx = require.context('../../content/alignment', false, /\.json$/);
+const FILES: AlignFile[] = ctx.keys().map((k) => ctx(k));
 const BY_VERSE: Record<string, AlignPair[]> = {};
 for (const f of FILES) Object.assign(BY_VERSE, f.verses);
 

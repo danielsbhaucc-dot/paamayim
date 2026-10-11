@@ -6,6 +6,7 @@
 import crypto from 'node:crypto';
 import { entryStatus, fieldFor, type ContentDoc } from '../../scripts/content/lib.mjs';
 import type { Config } from './config';
+import { ALIGN_REVIEW_SYSTEM, ALIGN_SYSTEM, alignBatches, alignRows, applyReview, cleanAlignment, reviewCandidates } from './align';
 import { HttpError, type ContentService, type VerseRow } from './content';
 import { SLUG_RE, VERSE_ID_RE } from './paths';
 import { sefariaText } from './sefaria';
@@ -189,11 +190,12 @@ ${story ? `תקציר הפרשה: ${story.slice(0, 2500)}` : ''}`;
   ];
 }
 
-export type Task = 'explainVerses' | 'whyThisHaftara' | 'lifeLessons';
+export type Task = 'explainVerses' | 'whyThisHaftara' | 'lifeLessons' | 'alignVerses';
 export const TASKS: Record<Task, string> = {
   explainVerses: 'הסבר אונקלוס לכל פסוק',
   whyThisHaftara: 'למה ההפטרה הזו (מבוגרים + ילדים)',
   lifeLessons: 'לקחים לחיים (מבוגרים + ילדים)',
+  alignVerses: 'יישור עברית–ארמית (ביטוי מול ביטוי) + בדיקת מודל שני',
 };
 
 // ---------------- קריאה למודל ----------------
@@ -213,6 +215,18 @@ function parseJson(text: string) {
 }
 
 function mockAnswer(user: string): any {
+  if (user.includes('\nHE: ')) {
+    // יישור דמו: מילה מול מילה, מילולי
+    const verses = user.split('\n\n').map((block) => {
+      const id = /^id: (\S+)/.exec(block)?.[1];
+      const he = (/HE: (.*)/.exec(block)?.[1] ?? '').split(' ').map((t) => t.replace(/^\d+:/, ''));
+      const ar = (/AR: (.*)/.exec(block)?.[1] ?? '').split(' ').map((t) => t.replace(/^\d+:/, ''));
+      const n = Math.min(he.length, ar.length);
+      return { id, pairs: Array.from({ length: n }, (_, i) => ({ he: [i, i], ar: [i, i], heText: he[i], arText: ar[i], type: 'literal', confidence: 0.9 })) };
+    });
+    return { verses };
+  }
+  if (user.startsWith('[{"key"')) return { results: JSON.parse(user).map((c: any) => ({ key: c.key, ok: true })) };
   const ids = [...user.matchAll(/^id: (\S+)$/gm)].map((m) => m[1]);
   if (ids.length) return { items: ids.map((id) => ({ id, text: `[טיוטת דמו] אונקלוס מבהיר כאן את הפסוק ${id.split('-').slice(1).join(':')} במילים פשוטות.` })) };
   if (user.includes('"adult":[')) {
@@ -306,6 +320,20 @@ export class AiService {
       const doc = await this.content.doc(slug);
       if (task === 'explainVerses') reqs.push(...explainRequests(doc, await this.content.verses(doc), mode));
       else if (task === 'lifeLessons') reqs.push(...lifeLessonsRequest(doc, mode));
+      else if (task === 'alignVerses') {
+        const rows = alignRows(await this.content.verses(doc));
+        for (const b of alignBatches(rows)) {
+          reqs.push({
+            slug,
+            system: ALIGN_SYSTEM,
+            user: b.user,
+            // ~10 ביטויים לפסוק × ~120 תווים, ועוד ~25% לבדיקת המודל השני
+            maxTokens: 16000,
+            expectOutChars: Math.round(b.rows.length * 1300 * 1.25),
+            apply: (o) => [{ key: '__align', value: { rows: b.rows, answer: o } }],
+          });
+        }
+      }
       else if (task === 'whyThisHaftara') {
         let text = 'x'.repeat(6000); // להערכה: הנחה של 6000 תווים
         if (withHaftaraText) {
@@ -413,6 +441,7 @@ export class AiService {
 
   private async run(job: Job, mode: 'missing' | 'all') {
     const { price } = await priceFor(job.provider, job.model, this.fetchImpl);
+    if (job.task === 'alignVerses') return this.runAlign(job, price);
     const reqs = await this.buildRequests(job.task as Task, job.slugs, mode, true);
     job.total = reqs.length;
     const bySlug = new Map<string, { key: string; verseId?: string; value: unknown }[]>();
@@ -439,6 +468,73 @@ export class AiService {
       try {
         await this.content.saveMany(slug, items, `ai:${job.provider}:${job.model}`);
         job.saved += items.length;
+      } catch (e: any) {
+        job.errors.push(`${slug}: שמירה נכשלה — ${String(e?.message ?? e).slice(0, 120)}`);
+      }
+    }
+    job.usd = Math.round(job.usd * 10000) / 10000;
+    job.status = job.cancelled ? 'cancelled' : 'done';
+    job.finishedAt = new Date().toISOString();
+  }
+
+  /** יישור: יצירה → בדיקה מכנית → בדיקת מודל שני → שמירה כטיוטה (קובץ content/alignment/<slug>.json) */
+  private async runAlign(job: Job, price: { in: number; out: number }) {
+    const addCost = (r: CallResult) => {
+      job.usd += (r.inTokens * price.in + r.outTokens * price.out) / 1e6;
+      if (job.usd > this.cfg.ai.maxJobUsd * 1.2) {
+        job.cancelled = true;
+        job.errors.push(`נעצר: העלות עברה את התקרה (${this.cfg.ai.maxJobUsd}$)`);
+      }
+    };
+    for (const slug of job.slugs) {
+      if (job.cancelled) break;
+      const doc = await this.content.doc(slug);
+      const rows = alignRows(await this.content.verses(doc));
+      const batches = alignBatches(rows);
+      job.total += batches.length + 1;
+      const verses: Record<string, any[]> = {};
+      let dropped = 0;
+      let i = 0;
+      const worker = async () => {
+        while (i < batches.length && !job.cancelled) {
+          const b = batches[i++];
+          try {
+            const r = await this.call(job.provider, job.model, ALIGN_SYSTEM, b.user, 16000);
+            addCost(r);
+            const c = cleanAlignment(b.rows, r.json);
+            Object.assign(verses, c.verses);
+            dropped += c.dropped;
+          } catch (e: any) {
+            job.errors.push(`${slug}: ${String(e?.message ?? e).slice(0, 160)}`);
+          }
+          job.done++;
+        }
+      };
+      await Promise.all([worker(), worker(), worker()]);
+      if (job.cancelled) break;
+      const cands = reviewCandidates(verses);
+      const results: any[] = [];
+      const reviewModel = this.cfg.ai.reviewModel || job.model;
+      for (let k = 0; k < cands.length && !job.cancelled; k += 15) {
+        try {
+          const r = await this.call(job.provider, reviewModel, ALIGN_REVIEW_SYSTEM, JSON.stringify(cands.slice(k, k + 15)), 4000);
+          addCost(r);
+          results.push(...(Array.isArray(r.json?.results) ? r.json.results : []));
+        } catch (e: any) {
+          job.errors.push(`${slug}: בדיקה — ${String(e?.message ?? e).slice(0, 120)}`);
+        }
+      }
+      const rejected = applyReview(verses, cands, results);
+      job.done++;
+      if (!Object.keys(verses).length) continue;
+      try {
+        await this.content.saveAlignmentDraft(slug, {
+          verses,
+          generatedBy: job.model,
+          reviewedBy: reviewModel,
+          stats: { verses: Object.keys(verses).length, dropped, reviewed: cands.length, rejected },
+        });
+        job.saved += Object.values(verses).reduce((n, l) => n + l.length, 0);
       } catch (e: any) {
         job.errors.push(`${slug}: שמירה נכשלה — ${String(e?.message ?? e).slice(0, 120)}`);
       }

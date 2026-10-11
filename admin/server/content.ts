@@ -7,6 +7,8 @@ import {
   docStats,
   entryStatus,
   fieldFor,
+  isEmptyValue,
+  sameValue,
   normalizeValue,
   publishEntry,
   setDraft,
@@ -341,6 +343,192 @@ export class ContentService {
     });
   }
 
+  // ---------- פרסום סלקטיבי ----------
+  private async prodDoc(slug: string): Promise<ContentDoc | null> {
+    if (!this.storage.readProd) return null;
+    const b = await this.storage.readProd(paths.parasha(slug));
+    return b ? (JSON.parse(b.toString('utf8')) as ContentDoc) : null;
+  }
+
+  /** ערך ״מה יתפרסם״ של רשומה בטיוטות: הטיוטה אם יש, אחרת המפורסם */
+  private static target(e: Entry | undefined) {
+    if (!e) return undefined;
+    return e.draft !== undefined ? e.draft : e.published;
+  }
+
+  private static differs(a: unknown, b: unknown) {
+    const ea = a === undefined || isEmptyValue(a);
+    const eb = b === undefined || isEmptyValue(b);
+    if (ea && eb) return false;
+    return ea !== eb || !sameValue(a, b);
+  }
+
+  /**
+   * כל מה שממתין לפרסום: ערך בטיוטות (content-drafts) ששונה ממה שב-master.
+   * במצב מקומי (בלי master נפרד) — רק טיוטות פתוחות.
+   */
+  async pending() {
+    const schema = await this.schema();
+    const docs = (await this.allDocs(true)).slice().sort((a, b) => this.orderKey(a) - this.orderKey(b));
+    const pKeys = storageKeys(schema, 'parasha');
+    const vKeys = storageKeys(schema, 'verse');
+    const label = (k: { field: any; variant: string | null }) =>
+      `${k.field.label ?? k.field.key}${k.variant ? ` · ${k.variant === 'child' ? 'ילדים' : k.variant === 'adult' ? 'מבוגרים' : k.variant}` : ''}`;
+    const out: any[] = [];
+    for (const d of docs) {
+      const prod = this.storage.readProd ? await this.prodDoc(d.slug) : null;
+      const items: any[] = [];
+      const consider = (e: Entry | undefined, pe: Entry | undefined, k: any, verseId?: string) => {
+        if (!e) return;
+        const after = ContentService.target(e);
+        const before = this.storage.readProd ? pe?.published : e.published;
+        const open = e.draft !== undefined;
+        if (!open && !(this.storage.readProd && ContentService.differs(after, before))) return;
+        if (!ContentService.differs(after, before) && !open) return;
+        items.push({
+          id: `${d.slug}|${k.storageKey}|${verseId ?? ''}`,
+          key: k.storageKey,
+          verseId: verseId ?? null,
+          label: label(k),
+          kind: open ? 'draft' : 'unpromoted',
+          before: before ?? null,
+          after: after ?? null,
+          reviewed: !!(e as any).reviewedAt && (!e.updatedAt || (e as any).reviewedAt >= e.updatedAt),
+          updatedAt: e.updatedAt ?? null,
+        });
+      };
+      for (const k of pKeys) consider(d.fields?.[k.storageKey], prod?.fields?.[k.storageKey], k);
+      for (const [vid, row] of Object.entries(d.verses ?? {}))
+        for (const k of vKeys) consider((row as any)[k.storageKey], (prod?.verses?.[vid] as any)?.[k.storageKey], k, vid);
+      if (items.length) out.push({ slug: d.slug, name: d.meta?.name ?? d.slug, items });
+    }
+    // קובצי יישור: שונה בטיוטות ממה שב-master
+    if (this.storage.readProd) {
+      const files: any[] = [];
+      for (const f of await this.storage.list(paths.alignmentDir())) {
+        if (!/^[a-z0-9-]+\.json$/.test(f)) continue;
+        const rel = `${paths.alignmentDir()}/${f}`;
+        const a = (await this.storage.read(rel))?.toString('utf8') ?? null;
+        const b = (await this.storage.readProd(rel))?.toString('utf8') ?? null;
+        if (a !== null && a !== b) files.push({ id: `file|${rel}|`, key: rel, verseId: null, label: `יישור עברית–ארמית · ${f.replace('.json', '')}`, kind: 'file', before: null, after: null, reviewed: false });
+      }
+      if (files.length) out.push({ slug: '__files', name: 'קבצים נוספים', items: files });
+    }
+    return { parashot: out, mode: this.storage.kind };
+  }
+
+  /** סימון ״נבדק״ לפריט (נשמר בטיוטות בלבד) */
+  markReviewed(slug: string, key: string, verseId: string | undefined, reviewed: boolean) {
+    return this.mutate(slug, `נבדק: ${slug} · ${key}`, (doc, schema) => {
+      const e = verseId ? (this.fieldOrThrow(schema, key, 'verse'), this.verseRow(doc, verseId)[key]) : (this.fieldOrThrow(schema, key, 'parasha'), doc.fields[key]);
+      if (!e) throw new HttpError(404, 'הפריט לא נמצא');
+      if (reviewed) (e as any).reviewedAt = new Date().toISOString();
+      else delete (e as any).reviewedAt;
+    });
+  }
+
+  /**
+   * פרסום רק של הפריטים שנבחרו: commit אחד ל-master עם מסמכי הפרשה (ערכי master + הנבחרים בלבד)
+   * ו-bundled.json מחושב מ-master; בטיוטות — אותם פריטים מסומנים כמפורסמים (השאר נשאר טיוטה).
+   */
+  publishSelected(ids: string[]) {
+    if (!Array.isArray(ids) || !ids.length || ids.length > 5000) throw new HttpError(400, 'לא נבחרו פריטים');
+    return this.serial(async () => {
+      const schema = await this.schema();
+      const bySlug = new Map<string, { key: string; verseId?: string }[]>();
+      const fileIds: string[] = [];
+      for (const id of ids) {
+        const [slug, key, verseId] = String(id).split('|');
+        if (slug === 'file') {
+          if (!/^content\/alignment\/[a-z0-9-]+\.json$/.test(key)) throw new HttpError(400, 'קובץ לא מותר');
+          fileIds.push(key);
+          continue;
+        }
+        if (!slug || !key) throw new HttpError(400, 'מזהה פריט לא תקין');
+        if (!bySlug.has(slug)) bySlug.set(slug, []);
+        bySlug.get(slug)!.push({ key, verseId: verseId || undefined });
+      }
+      const github = !!this.storage.publishSelected;
+      const draftDocs = new Map<string, ContentDoc>();
+      const prodDocs = new Map<string, ContentDoc>();
+      const images = new Set<string>();
+      let count = 0;
+      for (const [slug, list] of bySlug) {
+        const d = await this.doc(slug);
+        const p = github ? ((await this.prodDoc(slug)) ?? { ...JSON.parse(JSON.stringify(d)), fields: {}, verses: {} }) : d;
+        for (const it of list) {
+          const fieldScope = it.verseId ? 'verse' : 'parasha';
+          this.fieldOrThrow(schema, it.key, fieldScope);
+          const src: Entry | undefined = it.verseId ? (d.verses?.[it.verseId] as any)?.[it.key] : d.fields?.[it.key];
+          if (!src) throw new HttpError(400, `אין מה לפרסם: ${slug} · ${it.key}`);
+          const pub: Entry = publishEntry(src);
+          delete (pub as any).reviewedAt;
+          const prodEntry: Entry = { ...pub };
+          delete (prodEntry as any).draft;
+          if (it.verseId) {
+            this.verseRow(d, it.verseId)[it.key] = pub;
+            p.verses ??= {};
+            ((p.verses[it.verseId] ??= {}) as any)[it.key] = prodEntry;
+          } else {
+            d.fields[it.key] = pub;
+            p.fields ??= {};
+            p.fields[it.key] = prodEntry;
+          }
+          const v = pub.published;
+          if (typeof v === 'string' && /^images\/[a-z0-9-]+\/[a-z0-9][a-z0-9.-]{0,80}\.webp$/.test(v)) images.add(v);
+          count++;
+        }
+        draftDocs.set(slug, d);
+        prodDocs.set(slug, p);
+      }
+      const fileChanges: Change[] = [];
+      for (const rel of fileIds) {
+        const buf = await this.storage.read(rel);
+        if (buf) fileChanges.push({ path: rel, content: buf });
+        count++;
+      }
+      const message = `פרסום נבחר: ${[...bySlug.keys(), ...fileIds.map((f) => f.split('/').pop())].join(', ')} (${count})`;
+      const draftChanges: Change[] = [...draftDocs].map(([slug, d]) => ({ path: paths.parasha(slug), content: json(d) }));
+      if (!github) {
+        if (!bySlug.size) {
+          this.invalidateDocs();
+          return { published: count, commit: undefined };
+        }
+        const all = (await this.allDocs(true)).map((x) => draftDocs.get(x.slug) ?? x);
+        const out = buildOutputs(all, schema);
+        draftChanges.push({ path: paths.bundled(), content: out.bundledJson });
+        const res = await this.storage.write(draftChanges, message);
+        this.invalidateDocs();
+        return { published: count, commit: res.commit };
+      }
+      // bundled.json מתוך master בלבד (עם הנבחרים) — בלי טיוטות של אף אחד
+      const prodAll: ContentDoc[] = [];
+      for (const slug of await this.slugs()) prodAll.push(prodDocs.get(slug) ?? (await this.prodDoc(slug)) ?? (await this.doc(slug)));
+      const bundled = buildOutputs(prodAll, schema).bundledJson;
+      const prodChanges: Change[] = [...prodDocs].map(([slug, p]) => ({ path: paths.parasha(slug), content: json(p) }));
+      if (bySlug.size) {
+        prodChanges.push({ path: paths.bundled(), content: bundled });
+        draftChanges.push({ path: paths.bundled(), content: bundled });
+      }
+      prodChanges.push(...fileChanges);
+      for (const rel of images) {
+        const buf = await this.storage.read(`content/${rel}`);
+        if (buf) prodChanges.push({ path: `content/${rel}`, content: buf });
+      }
+      const res = await this.storage.publishSelected!(prodChanges, draftChanges, message);
+      this.invalidateDocs();
+      return { published: count, commit: res.commit };
+    });
+  }
+
+  /** ״פרסום הפרשה הזאת״ — כל מה שממתין בה */
+  async publishParasha(slug: string) {
+    const { parashot } = await this.pending();
+    const p = parashot.find((x: any) => x.slug === slug);
+    if (!p) throw new HttpError(400, 'אין מה לפרסם בפרשה הזו');
+    return this.publishSelected(p.items.map((i: any) => i.id));
+  }
+
   // ---------- יישור עברית–ארמית (פיילוט) ----------
   async alignment(slug: string) {
     return (await readJson(this.storage, paths.alignment(slug))) ?? null;
@@ -369,7 +557,22 @@ export class ContentService {
           else delete p.note;
         }
       }
-      await this.storage.write([{ path: paths.alignment(slug), content: json(doc) }], `יישור: ${slug} (${(edits as any[]).length} עדכונים)`);
+      await this.storage.write([{ path: paths.alignment(slug), content: json(doc) }], `יישור: ${slug} (${(edits as any[]).length} עדכונים)`, { skipBuild: this.storage.kind === 'github' });
+      return doc;
+    });
+  }
+
+  /** תוצאת AI: קובץ יישור חדש/מעודכן כטיוטה (ביטויים שאושרו בעבר נשמרים כמו שהם) */
+  saveAlignmentDraft(slug: string, data: { verses: Record<string, any[]>; generatedBy: string; reviewedBy: string; stats: any }) {
+    return this.serial(async () => {
+      const prev = await readJson<any>(this.storage, paths.alignment(slug));
+      const verses: Record<string, any[]> = { ...data.verses };
+      // פסוק שכבר יש בו ביטויים מאושרים — לא דורסים
+      for (const [vid, list] of Object.entries(prev?.verses ?? {})) {
+        if ((list as any[]).some((p) => p.status === 'approved')) verses[vid] = list as any[];
+      }
+      const doc = { parasha: slug, generatedBy: data.generatedBy, reviewedBy: data.reviewedBy, generatedAt: new Date().toISOString(), stats: data.stats, verses };
+      await this.storage.write([{ path: paths.alignment(slug), content: JSON.stringify(doc, null, 1) + '\n' }], `יישור AI (טיוטה): ${slug}`, { skipBuild: true });
       return doc;
     });
   }

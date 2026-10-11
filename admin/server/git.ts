@@ -34,7 +34,7 @@ export async function gitStatus(root: string) {
 }
 
 export async function gitSync(root: string, message: string, push: boolean) {
-  const msg = String(message || 'עדכון תוכן מהאדמין')
+  const msg = String(message || 'עדכון תוכן מהמנהל')
     .replace(/[\r\n]+/g, ' ')
     .slice(0, 120);
   await git(root, ['add', '--', ...CONTENT_PATHS]);

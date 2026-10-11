@@ -225,6 +225,15 @@ export function createApp(cfg: Config, storage: Storage, opts: { distDir?: strin
     return new Response(new Uint8Array(buf), { headers: { 'Content-Type': 'image/webp', 'Cache-Control': 'private, max-age=300' } });
   });
 
+  // ---------- פרסום סלקטיבי ----------
+  app.get('/api/pending', async (c) => c.json(await content.pending()));
+  app.post('/api/publish-selected', async (c) => c.json(await content.publishSelected((await jsonBody(c))?.ids)));
+  app.post('/api/parashot/:slug/publish-live', async (c) => c.json(await content.publishParasha(slugParam(c))));
+  app.post('/api/parashot/:slug/reviewed', async (c) => {
+    const b = await jsonBody(c);
+    return c.json(await content.markReviewed(slugParam(c), String(b?.key ?? ''), b?.verseId ? String(b.verseId) : undefined, b?.reviewed !== false));
+  });
+
   // ---------- יישור עברית–ארמית ----------
   app.get('/api/alignment/:slug', async (c) => c.json(await content.alignment(slugParam(c))));
   app.put('/api/alignment/:slug', async (c) => c.json(await content.saveAlignment(slugParam(c), (await jsonBody(c))?.edits)));

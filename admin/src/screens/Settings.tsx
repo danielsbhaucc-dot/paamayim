@@ -22,7 +22,7 @@ type GhDiagnose = {
 export function Settings({ onLogout }: { onLogout: () => void }) {
   const { session, toast } = useApp();
   const [git, setGit] = useState<any>(null);
-  const [msg, setMsg] = useState('עדכון תוכן מהאדמין');
+  const [msg, setMsg] = useState('עדכון תוכן מהמנהל');
   const [busy, setBusy] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [diag, setDiag] = useState<GhDiagnose | null>(null);
@@ -58,7 +58,7 @@ export function Settings({ onLogout }: { onLogout: () => void }) {
     setPublishing(true);
     try {
       const r = await api<{ commit: string; files: number; empty?: boolean }>('/publish-all', {
-        json: { message: 'פרסום תוכן מהאדמין (content-drafts → master)' },
+        json: { message: 'פרסום תוכן מהמנהל (content-drafts → master)' },
       });
       if (r.empty) toast('אין שינויים לפרסום — master כבר מעודכן');
       else toast(`פורסם ל־master · ${r.files} קבצים · Cloudflare בונה עכשיו`);

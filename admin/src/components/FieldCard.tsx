@@ -107,7 +107,7 @@ export function EntryEditor({ slug, field, storageKey, entry, verseId, onSaved, 
         <div className="row">
           <Badge status={status} />
           {dirty && <span className="badge draft">לא נשמר</span>}
-          {entry?.source && <span className="help">מקור: {entry.source.startsWith('ai:') ? `AI · ${entry.source.split(':').slice(2).join(':')}` : entry.source.startsWith('import') ? 'כותב התוכן' : entry.source}</span>}
+          {entry?.source && <span className="help">מקור: {entry.source.startsWith('ai:') ? `AI · ${entry.source.split(':').slice(2).join(':')}` : entry.source.startsWith('import') ? 'כותב התוכן' : entry.source === 'admin' ? 'מנהל' : entry.source}</span>}
         </div>
         {status === 'changed' && (
           <button type="button" className="btn small ghost" aria-expanded={showPub} onClick={() => setShowPub((s) => !s)}>

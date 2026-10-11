@@ -46,6 +46,8 @@ export type Config = {
     deepseekModel: string;
     openrouterModel: string;
     maxJobUsd: number;
+    /** מודל שני לבדיקת יישור (ברירת מחדל: אותו מודל) */
+    reviewModel: string;
   };
 };
 
@@ -83,6 +85,7 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env): Config {
       deepseekModel: env.DEEPSEEK_MODEL || 'deepseek-flash',
       openrouterModel: env.OPENROUTER_MODEL || 'anthropic/claude-haiku-5.5',
       maxJobUsd: Number(env.AI_MAX_JOB_USD || 5),
+      reviewModel: env.AI_REVIEW_MODEL || '',
     },
   };
   if (storage === 'github') {

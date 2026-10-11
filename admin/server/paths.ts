@@ -24,9 +24,10 @@ export const paths = {
     return `content/parashot/${slug}.json`;
   },
   alignment(slug: string) {
-    if (!['bereshit', 'noach'].includes(slug)) throw new PathError('אין יישור לפרשה הזו');
+    assertSlug(slug);
     return `content/alignment/${slug}.json`;
   },
+  alignmentDir: () => 'content/alignment',
   statusLines: () => 'content/greetings/status-lines.json',
   statusLinesDraft: () => 'content/greetings/status-lines.draft.json',
   bundled: () => 'src/content/bundled.json',
@@ -52,12 +53,12 @@ const ALLOWED = [
   /^content\/schema\.json$/,
   /^content\/parashot\/[a-z0-9-]+\.json$/,
   /^content\/greetings\/status-lines(\.draft)?\.json$/,
-  /^content\/alignment\/(bereshit|noach)\.json$/,
+  /^content\/alignment\/[a-z0-9-]+\.json$/,
   /^content\/images\/[a-z0-9-]+\/[a-z0-9][a-z0-9.-]{0,80}\.webp$/,
   /^src\/content\/bundled\.json$/,
   /^src\/data\/corpus\/(genesis|exodus|leviticus|numbers|deuteronomy)\.json$/,
 ];
-const ALLOWED_DIRS = [/^content\/parashot$/, /^content\/images\/[a-z0-9-]+$/];
+const ALLOWED_DIRS = [/^content\/alignment$/, /^content\/parashot$/, /^content\/images\/[a-z0-9-]+$/];
 
 /** בדיקה אחרונה בשכבת האחסון — גם אם קוד אחר טעה */
 export function assertAllowed(rel: string, kind: 'file' | 'dir' = 'file') {
