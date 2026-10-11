@@ -30,9 +30,9 @@ function Glass({ fill, intensity = 70 }: { fill: string; intensity?: number }) {
     <>
       {Platform.OS === 'web' ? (
         <View style={[StyleSheet.absoluteFill, styles.webGlass]} pointerEvents="none" />
-      ) : (
-        <BlurView intensity={intensity} tint="light" style={StyleSheet.absoluteFill} />
-      )}
+      ) : Platform.OS === 'ios' ? (
+        <BlurView intensity={intensity} tint="systemUltraThinMaterialLight" style={StyleSheet.absoluteFill} />
+      ) : null}
       <View style={[StyleSheet.absoluteFill, { backgroundColor: fill }]} pointerEvents="none" />
     </>
   );

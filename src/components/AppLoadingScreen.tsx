@@ -1,6 +1,6 @@
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import Animated, {
   Easing,
@@ -9,16 +9,12 @@ import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
-  withDelay,
-  withRepeat,
-  withSequence,
   withTiming,
 } from 'react-native-reanimated';
 import { APP_NAME, APP_TAGLINE } from '../theme/brand';
 import { fonts } from '../theme/fonts';
 import { assets, colors, radii, shadows } from '../theme/tokens';
 import { pearl } from '../theme/design';
-import { prefersReducedMotion } from '../ui/reducedMotion';
 
 type Props = {
   /** כשהאפליקציה מוכנה (פונטים וכו') — מתחיל fade-out אחרי מינימום תצוגה */
@@ -31,78 +27,49 @@ type Props = {
 const MIN_DURATION = 1400;
 const FADE_OUT_MS = 520;
 
-function SoftDots() {
-  const a = useSharedValue(0.35);
-  const b = useSharedValue(0.35);
-  const c = useSharedValue(0.35);
+/**
+ * פס טעינה עם אחוזים אמיתיים: עולה בהדרגה בזמן שהאפליקציה נטענת,
+ * ומגיע ל־100% כש־ready + עבר המינימום — בלי חלון זכוכית ריק.
+ */
+function PercentProgress({ ready, minDurationMs }: { ready: boolean; minDurationMs: number }) {
+  const [percent, setPercent] = useState(8);
+  const startedAt = React.useRef(Date.now());
 
   useEffect(() => {
-    // הפחתת תנועה: נקודות קבועות בלי הבהוב
-    if (prefersReducedMotion()) {
-      a.value = 1;
-      b.value = 0.7;
-      c.value = 0.45;
-      return;
-    }
-    const pulse = (sv: typeof a, delay: number) => {
-      sv.value = withDelay(
-        delay,
-        withRepeat(
-          withSequence(
-            withTiming(1, { duration: 420, easing: Easing.inOut(Easing.ease) }),
-            withTiming(0.35, { duration: 420, easing: Easing.inOut(Easing.ease) }),
-          ),
-          -1,
-          false,
-        ),
-      );
+    const tick = () => {
+      const elapsed = Date.now() - startedAt.current;
+      if (ready && elapsed >= minDurationMs) {
+        setPercent(100);
+        return;
+      }
+      // עד ~88% בזמן ההמתנה; הקפיצה ל־100 רק כשמוכנים
+      const timed = Math.min(88, 8 + (elapsed / minDurationMs) * 80);
+      setPercent(ready ? Math.max(timed, 92) : Math.round(timed));
     };
-    pulse(a, 0);
-    pulse(b, 160);
-    pulse(c, 320);
-  }, [a, b, c]);
-
-  const styleA = useAnimatedStyle(() => ({ opacity: a.value, transform: [{ scale: 0.85 + a.value * 0.2 }] }));
-  const styleB = useAnimatedStyle(() => ({ opacity: b.value, transform: [{ scale: 0.85 + b.value * 0.2 }] }));
-  const styleC = useAnimatedStyle(() => ({ opacity: c.value, transform: [{ scale: 0.85 + c.value * 0.2 }] }));
+    tick();
+    const id = setInterval(tick, 80);
+    return () => clearInterval(id);
+  }, [ready, minDurationMs]);
 
   return (
-    <View style={styles.dotsRow} accessibilityLabel="טוען" accessibilityRole="progressbar">
-      <Animated.View style={[styles.dot, styleA]} />
-      <Animated.View style={[styles.dot, styleB]} />
-      <Animated.View style={[styles.dot, styleC]} />
-    </View>
-  );
-}
-
-function SoftProgress() {
-  const progress = useSharedValue(0.18);
-
-  useEffect(() => {
-    progress.value = withRepeat(
-      withSequence(
-        withTiming(0.92, { duration: 1600, easing: Easing.out(Easing.cubic) }),
-        withTiming(0.22, { duration: 900, easing: Easing.inOut(Easing.ease) }),
-      ),
-      -1,
-      false,
-    );
-  }, [progress]);
-
-  const fillStyle = useAnimatedStyle(() => ({
-    transform: [{ scaleX: progress.value }],
-  }));
-
-  return (
-    <View style={styles.track} accessibilityElementsHidden>
-      <Animated.View style={[styles.trackFill, fillStyle]} />
+    <View
+      style={styles.progressBlock}
+      accessibilityRole="progressbar"
+      accessibilityLabel={`טוען ${percent} אחוז`}
+      accessibilityValue={{ min: 0, max: 100, now: percent }}
+    >
+      <Text style={styles.percentText}>{`${percent}%`}</Text>
+      <View style={styles.track} accessibilityElementsHidden>
+        <View style={[styles.trackFill, { width: `${percent}%` }]} />
+      </View>
+      <Text style={styles.loadingCaption}>טוען…</Text>
     </View>
   );
 }
 
 /**
  * מסך טעינה פרימיום — מוצג מעל האפליקציה עד שהפונטים/אפליקציה מוכנים,
- * ואז נעלם ב-fade-out חלק.
+ * ואז נעלם ב-fade-out חלק. מציג אחוזי התקדמות במקום חלון זכוכית ריק.
  */
 export function AppLoadingScreen({ ready, onFinish, minDurationMs = MIN_DURATION }: Props) {
   const logoScale = useSharedValue(0.88);
@@ -139,7 +106,6 @@ export function AppLoadingScreen({ ready, onFinish, minDurationMs = MIN_DURATION
 
   const screenStyle = useAnimatedStyle(() => ({
     opacity: screenOpacity.value,
-    // קנה מידה עדין ביציאה
     transform: [{ scale: interpolate(screenOpacity.value, [0, 1], [1.03, 1]) }],
   }));
 
@@ -165,8 +131,8 @@ export function AppLoadingScreen({ ready, onFinish, minDurationMs = MIN_DURATION
 
       <View style={styles.center}>
         <Animated.View entering={FadeIn.duration(600)} style={[styles.glass, shadows.glass]}>
-          {Platform.OS !== 'web' ? (
-            <BlurView intensity={42} tint="light" style={StyleSheet.absoluteFill} />
+          {Platform.OS === 'ios' ? (
+            <BlurView intensity={42} tint="systemUltraThinMaterialLight" style={StyleSheet.absoluteFill} />
           ) : null}
           <View style={styles.glassFill} />
 
@@ -178,10 +144,7 @@ export function AppLoadingScreen({ ready, onFinish, minDurationMs = MIN_DURATION
             <Text style={styles.slogan}>{APP_TAGLINE}</Text>
           </Animated.View>
 
-          <View style={styles.loaderBlock}>
-            <SoftProgress />
-            <SoftDots />
-          </View>
+          <PercentProgress ready={ready} minDurationMs={minDurationMs} />
         </Animated.View>
       </View>
     </Animated.View>
@@ -215,6 +178,7 @@ const styles = StyleSheet.create({
   glassFill: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.glassCard,
+    borderRadius: radii.xl,
   },
   brandBlock: {
     alignItems: 'center',
@@ -253,34 +217,34 @@ const styles = StyleSheet.create({
     marginTop: 8,
     lineHeight: 24,
   },
-  loaderBlock: {
+  progressBlock: {
     marginTop: 28,
     width: '100%',
     alignItems: 'center',
-    gap: 14,
+    gap: 10,
+  },
+  percentText: {
+    fontFamily: fonts.uiBold,
+    fontSize: 18,
+    color: colors.accent,
+    writingDirection: 'rtl',
+  },
+  loadingCaption: {
+    fontFamily: fonts.uiSemi,
+    fontSize: 13,
+    color: colors.textSecondary,
+    writingDirection: 'rtl',
   },
   track: {
-    width: '72%',
-    height: 4,
+    width: '78%',
+    height: 6,
     borderRadius: 999,
     backgroundColor: 'rgba(26, 138, 148, 0.18)',
     overflow: 'hidden',
   },
   trackFill: {
     height: '100%',
-    width: '100%',
     borderRadius: 999,
-    backgroundColor: colors.accent,
-  },
-  dotsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  dot: {
-    width: 7,
-    height: 7,
-    borderRadius: 4,
     backgroundColor: colors.accent,
   },
 });

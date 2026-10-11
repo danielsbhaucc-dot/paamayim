@@ -189,8 +189,8 @@ function HomeMobile() {
               accessibilityLabel="התחל"
               style={({ pressed }) => [styles.startBtn, pressed && { opacity: 0.9 }]}
             >
-              {Platform.OS !== 'web' ? (
-                <BlurView intensity={50} tint="light" style={StyleSheet.absoluteFill} />
+              {Platform.OS === 'ios' ? (
+                <BlurView intensity={50} tint="systemUltraThinMaterialLight" style={StyleSheet.absoluteFill} />
               ) : null}
               <View style={styles.startFill} />
               <Text style={styles.startText}>התחל</Text>

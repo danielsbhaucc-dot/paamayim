@@ -41,16 +41,19 @@ export function GlassBottomNav() {
               { borderRadius: 24, backdropFilter: nw.glass.webBlur, WebkitBackdropFilter: nw.glass.webBlur },
             ]}
           />
-        ) : (
+        ) : Platform.OS === 'ios' ? (
           <BlurView
             pointerEvents="none"
             intensity={nw.glass.blurIntensity}
-            tint={Platform.OS === 'ios' ? 'systemUltraThinMaterialLight' : 'light'}
-            // Android: בלי dimezisBlurView (קריסות native בפתיחה). המילוי למטה מספיק.
-            style={StyleSheet.absoluteFill}
+            tint="systemUltraThinMaterialLight"
+            style={[StyleSheet.absoluteFill, { borderRadius: 24 }]}
           />
-        )}
-        <View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: nw.glass.fillStrong }]} />
+        ) : null}
+        {/* Android: בלי BlurView — בלי dimezis הוא מצייר מלבן לבן לא חתוך; המילוי מספיק */}
+        <View
+          pointerEvents="none"
+          style={[StyleSheet.absoluteFill, { borderRadius: 24, backgroundColor: nw.glass.fillStrong }]}
+        />
         <View style={styles.row}>
           {NAV_ITEMS.map(({ href, match, label, Icon }) => {
             const active = isNavActive(pathname, match);

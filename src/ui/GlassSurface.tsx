@@ -12,7 +12,7 @@ import {
   type StyleProp,
   type ViewStyle,
 } from 'react-native';
-import { nw } from '../theme/design';
+import { nw, pearl } from '../theme/design';
 
 /** frost = זכוכית כפור אמיתית לכרטיסי גיבור: מילוי נמוך, טשטוש חזק יותר, קו מתאר עדין */
 type Variant = 'card' | 'strong' | 'subtle' | 'onPhoto' | 'frost';
@@ -76,6 +76,26 @@ export function GlassSurface({
     style,
   ];
 
+  // Android: BlurView בלי dimezisBlurView מצייר מלבן לבן שלא נחתך ל־radius
+  // (״ריבועים״ בתוך כרטיסים מעוגלים, כפתורים ענקיים, חלונות שקופים ריקים).
+  // המילוי הפנינה מספיק למראה זכוכיתי — iOS/web נשארים עם טשטוש אמיתי.
+  const layerRadius = { borderRadius: radius } as const;
+  const baseFill = reading ? nw.glass.fillReading : tint ?? (denser ? nw.glass.fillDense : FILL[variant]);
+  // בלי טשטוש אמיתי צריך מילוי מעט אטום יותר — אחרת נראה ״חלון שקוף ריק״
+  // tint מותאם (למשל מצב ״סיימתי״) נשמר; frost/denser מקבלים חיזוק קבוע.
+  let fillColor = baseFill;
+  if (Platform.OS === 'android' && !reading) {
+    if (frost || denser) fillColor = pearl(0.54);
+    else if (!tint) {
+      fillColor =
+        variant === 'strong'
+          ? pearl(0.7)
+          : variant === 'subtle' || variant === 'onPhoto'
+            ? pearl(0.5)
+            : pearl(0.6);
+    }
+  }
+
   const inner = (
     <View
       style={{
@@ -97,28 +117,25 @@ export function GlassSurface({
             { borderRadius: radius, backdropFilter: webBlur, WebkitBackdropFilter: webBlur },
           ]}
         />
-      ) : (
+      ) : Platform.OS === 'ios' ? (
         <BlurView
           pointerEvents="none"
           intensity={reading ? nw.glass.blurIntensityReading : denser ? nw.glass.blurIntensityDense : frost ? nw.glass.blurIntensityFrost : nw.glass.blurIntensity}
-          tint={Platform.OS === 'ios' ? 'systemUltraThinMaterialLight' : 'light'}
-          // Android: בלי dimezisBlurView — ידוע כגורם לקריסה בפתיחה (New Arch / מכשירים מסוימים).
-          // המילוי הפנינה למטה נשאר, אז המראה עדיין זכוכיתי.
-          style={StyleSheet.absoluteFill}
+          tint="systemUltraThinMaterialLight"
+          style={[StyleSheet.absoluteFill, layerRadius]}
         />
-      )}
+      ) : null}
       <View
         pointerEvents="none"
-        style={[
-          StyleSheet.absoluteFill,
-          { backgroundColor: reading ? nw.glass.fillReading : tint ?? (denser ? nw.glass.fillDense : FILL[variant]) },
-        ]}
+        style={[StyleSheet.absoluteFill, layerRadius, { backgroundColor: fillColor }]}
       />
-      {reading && tint ? <View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: tint }]} /> : null}
+      {reading && tint ? (
+        <View pointerEvents="none" style={[StyleSheet.absoluteFill, layerRadius, { backgroundColor: tint }]} />
+      ) : null}
       <LinearGradient
         pointerEvents="none"
         colors={[frost ? nw.glass.highlightFrost : nw.glass.highlightFrom, nw.glass.highlightTo]}
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '45%' }}
+        style={[{ position: 'absolute', top: 0, left: 0, right: 0, height: '45%' }, layerRadius]}
       />
       <View style={[{ flexGrow: 1 }, padded && { padding: nw.space.cardPad }, contentStyle]}>
         {children}

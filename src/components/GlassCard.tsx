@@ -58,8 +58,8 @@ export function GlassCard({
         >
           {children}
         </View>
-      ) : (
-        <BlurView intensity={intensity} tint="light" style={{ borderRadius: radius, overflow: 'hidden' }}>
+      ) : Platform.OS === 'ios' ? (
+        <BlurView intensity={intensity} tint="systemUltraThinMaterialLight" style={{ borderRadius: radius, overflow: 'hidden' }}>
           <View
             style={[
               styles.inner,
@@ -70,6 +70,16 @@ export function GlassCard({
             {children}
           </View>
         </BlurView>
+      ) : (
+        <View
+          style={[
+            styles.inner,
+            { backgroundColor: bg, borderRadius: radius },
+            padded && styles.pad,
+          ]}
+        >
+          {children}
+        </View>
       )}
     </View>
   );
