@@ -19,7 +19,8 @@
     "test:dates": "node scripts/tests/run.mjs",
     "content:publish": "node scripts/content/publish.mjs",
     "admin": "npm --prefix admin run go",
-    "test": "node scripts/tests/run.mjs"
+    "test": "node scripts/tests/run.mjs",
+    "smoke": "node scripts/smoke-check.js"
   },
   "dependencies": {
     "@expo-google-fonts/assistant": "^0.4.1",
