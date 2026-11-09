@@ -22,6 +22,8 @@ export const installedModules = (): ReadonlySet<string> => snapshot;
 /** מודולים שהאפליקציה יודעת לטעון. מודול שלא כאן מתעלמים ממנו (גם אם הופעל בלוח). */
 export const REGISTRY: Record<string, ModuleLoader> = {
   a11y: () => import('./mods/a11y'),
+  /** החשבון המרכזי (@core/account-kit). כבוי בלוח כברירת מחדל, ועולה רק כשהשרת של נהורא מוגדר. */
+  account: () => import('./mods/account'),
 };
 
 let pubKey: Promise<CryptoKey | null> | null = null;

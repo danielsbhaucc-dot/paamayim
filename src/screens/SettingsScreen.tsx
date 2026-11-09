@@ -17,6 +17,7 @@ import { LANDING_URL } from '../content/config';
 import type { FlowLayout, CalendarMode, FamilyVoice, ReadingView } from '../data/types';
 import { READING_MODES } from '../reading/modes';
 import { useAppStore } from '../store/useAppStore';
+import { useAccountUi } from '../parent/accountUi';
 import { DisplaySettings, NotifySettings, PlanSettings } from './PlanSettings';
 import { APP_NAME } from '../theme/brand';
 import { nw } from '../theme/design';
@@ -74,6 +75,7 @@ function SettingsMobile() {
           <ReadingSection />
           <PlanGroups />
           <PrivacySection />
+          <ParentAccountSection />
           <InfoSection />
         </Animated.ScrollView>
       </SafeAreaView>
@@ -97,6 +99,7 @@ function SettingsWide() {
         </View>
         <View style={{ flex: 1 }}>
           <PrivacySection />
+          <ParentAccountSection />
           <InfoSection />
         </View>
       </WideCols>
@@ -285,6 +288,46 @@ function PrivacySection() {
           last
           onPress={confirmReset}
         />
+      </GlassSurface>
+    </Section>
+  );
+}
+
+/**
+ * החשבון המרכזי (מודול 'account' מספריית האם). כבוי כברירת מחדל: בלי הפעלה בלוח ובלי הגדרת שרת אין כאן כלום.
+ * עיצוב לפי התבנית של נהורא (NEHORA_ACCOUNT); ההתנהגות מהווק המשותף.
+ */
+function ParentAccountSection() {
+  const a = useAccountUi();
+  if (!a) return null;
+  const primary = a.action === 'signIn';
+  return (
+    <Section title={a.title} sub={a.sub} defaultOpen>
+      <GlassSurface variant="card" radius={22} contentStyle={{ padding: 18, gap: 10 }}>
+        <Text style={{ ...nw.type.bodySm, fontSize: 15, color: a.signedIn ? a.colors.text : a.colors.muted, ...T }}>{a.line}</Text>
+        {a.error ? (
+          <Text accessibilityRole="alert" style={{ ...nw.type.bodySm, fontSize: 14, color: a.colors.text, ...T }}>{a.error}</Text>
+        ) : null}
+        {a.action ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={primary ? `${a.actionLabel} לחשבון המרכזי` : `${a.actionLabel} מהחשבון המרכזי`}
+            onPress={a.run}
+            style={({ pressed }) => ({
+              alignSelf: rtl.alignRight,
+              minHeight: 44,
+              paddingHorizontal: 24,
+              justifyContent: 'center',
+              borderRadius: a.radius,
+              backgroundColor: primary ? a.colors.accent : 'transparent',
+              borderWidth: primary ? 0 : 1,
+              borderColor: a.colors.accent,
+              opacity: pressed ? 0.75 : 1,
+            })}
+          >
+            <Text style={{ fontSize: 16, fontWeight: '700', color: primary ? a.colors.onAccent : a.colors.accent }}>{a.actionLabel}</Text>
+          </Pressable>
+        ) : null}
       </GlassSurface>
     </Section>
   );
