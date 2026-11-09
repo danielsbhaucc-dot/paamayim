@@ -5,8 +5,13 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@core/*": [
+        "./packages/@core/*/src/index.ts"
       ]
-    }
+    },
+    "allowImportingTsExtensions": true,
+    "module": "esnext"
   },
   "include": [
     "**/*.ts",
@@ -18,6 +23,8 @@
     "node_modules",
     "admin",
     "dist",
-    ".cache"
+    ".cache",
+    "packages/@core/*/tests",
+    "packages/@core/*/demo"
   ]
 }

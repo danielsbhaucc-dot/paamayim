@@ -13,11 +13,14 @@ import { ReadingWatcher } from '../src/schedule/ReadingWatcher';
 import { coreFontAssets, mikraFontAssets, setMikraFontsReady } from '../src/theme/fonts';
 import { colors } from '../src/theme/tokens';
 import { applyWebA11y, capFontScaling, enforceRTL } from '../src/utils/a11y';
+import { startParentLink } from '../src/parent/startParentLink';
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
 enforceRTL();
 capFontScaling();
 applyWebA11y();
+// חיבור קל לחברת האם (web בלבד): פינג אנונימי ברקע ומודולים מהספרייה לפי הלוח; לא משנה התנהגות או נתונים (ראו src/parent).
+startParentLink();
 
 /** כל שגיאה במסך: הודעה רגועה עם הטקסט שלה ו״לנסות שוב״ — לא סגירה שקטה */
 export function ErrorBoundary({ error, retry }: { error: Error; retry: () => Promise<void> }) {
