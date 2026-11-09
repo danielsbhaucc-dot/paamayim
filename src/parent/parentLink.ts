@@ -2,7 +2,7 @@
  * חיבור קל לחברת האם (שלב 2, אושר 2.11.2026).
  * נשלחים רק: מזהה התקנה אקראי, גרסה, מצב ופלטפורמה — דרך LightLink מ־@core/product-link (platform-core, תג core-v2026.11.09.2).
  * אין חשבון, אין רישוי, אין נתוני משתמש. האפליקציה עובדת בדיוק אותו דבר בלי רשת או אם החיבור נכשל:
- * הכול רץ ברקע, לכל היותר פעם בשעה, ושום שגיאה לא יוצאת מכאן.
+ * הכול רץ ברקע, לכל היותר פעם בדקה, ושום שגיאה לא יוצאת מכאן.
  * מזהה המפתח ציבורי מעצם הגדרתו (פותח רק את /v1/light); אין כאן סוד.
  */
 import { LightLink } from '../../packages/@core/product-link/src/index.ts';
@@ -11,8 +11,10 @@ export const PARENT_PRODUCT_ID = 'nehora';
 export const PARENT_LIGHT_KEY = 'pk_dv9xyoob85bxy69i';
 /** Native פונה ישירות לפונקציה; Web עובר דרך /api/pl באותו מקור (Cloudflare Pages Function, functions/api/pl; ה־CSP לא משתנה). */
 export const PARENT_NATIVE_ENDPOINT = 'https://snvjsopfvoshddaydjlm.supabase.co/functions/v1/product-link';
-/** פינג לכל היותר פעם בשעה (מגבלת השרת: 12 בשעה להתקנה). כך שינוי מודול בלוח מגיע תוך שעה. */
-export const PING_EVERY_MS = 60 * 60 * 1000;
+/** מינימום בין פינגים: דקה אחת (מגבלת השרת: 12 בשעה להתקנה). כך שינוי מודול בלוח מגיע בכניסה הבאה לאתר. */
+export const PING_EVERY_MS = 60 * 1000;
+/** רענון ברקע כל עוד האתר פתוח, בלי לעבור את מגבלת השרת. */
+export const PING_WHILE_OPEN_MS = 5 * 60 * 1000;
 const LAST_KEY = 'pl:last-ping';
 
 export interface KV { get(k: string): Promise<string | null>; set(k: string, v: string): Promise<void> }
@@ -25,7 +27,7 @@ export function endpointFor(platform: Platform, origin?: string | null): string 
   return `${origin.replace(/\/+$/, '')}/api/pl`;
 }
 
-/** שולח פינג אחד אם עברה שעה מהקודם. מחזיר true אם נשלח ניסיון. לעולם לא זורק. */
+/** שולח פינג אחד אם עברה לפחות דקה מהקודם. מחזיר true אם נשלח ניסיון. לעולם לא זורק. */
 export async function pingParent(o: {
   platform: Platform; version: string; store: KV; origin?: string | null; now?: number; fetch?: typeof fetch;
 }): Promise<boolean> {
