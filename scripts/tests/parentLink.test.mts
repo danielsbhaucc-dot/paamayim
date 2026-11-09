@@ -38,7 +38,7 @@ test('sends only install id, version, health, platform + the public key id; no c
   assert.match(body.installId, /^[0-9a-f-]{36}$/);
 });
 
-test('pings at most once an hour', async () => {
+test('pings at most once a minute', async () => {
   let n = 0; const f = (async () => { n++; return new Response('{}', { status: 200 }); }) as unknown as typeof fetch;
   const store = mem(); const t = 1_800_000_000_000; const o = { platform: 'web' as const, version: '1', store, origin: ORIGIN, fetch: f };
   await pingParent({ ...o, now: t }); await pingParent({ ...o, now: t + 1000 }); await pingParent({ ...o, now: t + PING_EVERY_MS + 1 });
