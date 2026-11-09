@@ -24,6 +24,9 @@ const hebcalEntry = (name) => {
 };
 const upstreamResolve = config.resolver.resolveRequest;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
+  // ערכות platform-core (core-sync, packages/@core): ייבוא חשוף @core/<kit> בין הערכות.
+  const core = /^@core\/(crypto|audit)$/.exec(moduleName);
+  if (core) return { type: 'sourceFile', filePath: path.join(__dirname, 'packages', '@core', core[1], 'src', 'index.ts') };
   if (/^@hebcal\/[^/]+$/.test(moduleName)) {
     const filePath = hebcalEntry(moduleName);
     if (filePath && fs.existsSync(filePath)) return { type: 'sourceFile', filePath };

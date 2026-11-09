@@ -68,6 +68,15 @@ function main() {
     process.exit(1);
   }
   console.log('fix-web-assets: אין שאריות node_modules ב-dist');
+
+  // גופני Alef של מודול הנגישות המשותף (@core/a11y-kit, OFL) מוגשים מאותו מקור: /a11y-fonts (נדרש רק כשהמודול מופעל מהלוח).
+  const A11Y_FONTS = path.join(ROOT, 'packages', '@core', 'a11y-kit', 'assets', 'fonts');
+  if (fs.existsSync(A11Y_FONTS)) {
+    const out = path.join(DIST, 'a11y-fonts');
+    fs.mkdirSync(out, { recursive: true });
+    for (const f of fs.readdirSync(A11Y_FONTS)) fs.copyFileSync(path.join(A11Y_FONTS, f), path.join(out, f));
+    console.log('fix-web-assets: a11y-fonts הועתקו');
+  }
 }
 
 main();
