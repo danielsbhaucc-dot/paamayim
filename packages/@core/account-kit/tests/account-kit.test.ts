@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { accountView, contrast, createParentAccount, defineAccountTemplate, makeUseParentAccount, MAASER_ACCOUNT, NEHORA_ACCOUNT, type AccountStore } from '../src/index.ts';
+import { ACCOUNT_MODULE, ACCOUNT_UI_MODULE, accountUiVisible, accountView, contrast, createParentAccount, defineAccountTemplate, makeUseParentAccount, MAASER_ACCOUNT, NEHORA_ACCOUNT, type AccountStore } from '../src/index.ts';
 import { emailHint, handleAccountExchange, verifyParentToken, type ExchangeConfig } from '../src/server.ts';
 
 const PARENT = 'https://parent.test', ISS = 'https://platform-core-preview.vercel.app/id', APP = 'https://app.test';
@@ -164,5 +164,18 @@ describe('account-kit design templates', () => {
     expect(accountView(t, { status: 'signed-out', error: 'network' }).error).toMatch(/אין חיבור/);
     expect(accountView(t, { status: 'busy' }).action).toBeNull();
     expect(accountView(t, { status: 'signed-in', user: { sub: 's'.repeat(20), emailHint: 'd•••@e•••.com', verified: true, licensed: false, since: '' } })).toMatchObject({ action: 'signOut', line: 'מחובר/ת בתור d•••@e•••.com' });
+  });
+});
+
+describe('account-kit UI visibility flag (account-ui, off by default)', () => {
+  it('hidden unless both the plumbing and the UI module are in the verified list', () => {
+    expect(ACCOUNT_MODULE).toBe('account');
+    expect(ACCOUNT_UI_MODULE).toBe('account-ui');
+    expect(accountUiVisible(null)).toBe(false);
+    expect(accountUiVisible([])).toBe(false);
+    expect(accountUiVisible(['a11y', 'account'])).toBe(false); // plumbing live, button hidden
+    expect(accountUiVisible(['account-ui'])).toBe(false); // never without the plumbing
+    expect(accountUiVisible(new Set(['account', 'account-ui']))).toBe(true); // the one-step flip
+    expect(accountUiVisible(['a11y', 'account', 'account-ui'])).toBe(true);
   });
 });
