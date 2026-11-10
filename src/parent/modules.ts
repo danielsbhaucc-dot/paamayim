@@ -24,6 +24,8 @@ export const REGISTRY: Record<string, ModuleLoader> = {
   a11y: () => import('./mods/a11y'),
   /** החשבון המרכזי (@core/account-kit). כבוי בלוח כברירת מחדל, ועולה רק כשהשרת של נהורא מוגדר. */
   account: () => import('./mods/account'),
+  /** המתג הגלוי (כפתור/קטע בהגדרות). כבוי בלוח = מחובר ברקע בלי כפתור. תלוי ב־'account'. */
+  'account-ui': () => import('./mods/accountUi'),
 };
 
 let pubKey: Promise<CryptoKey | null> | null = null;

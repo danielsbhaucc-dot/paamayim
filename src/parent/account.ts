@@ -4,7 +4,8 @@
  * ושום דבר לא מוצג. ההתקדמות בקריאה לא קשורה לחשבון ונשארת במכשיר.
  */
 import { useSyncExternalStore } from 'react';
-import { makeUseParentAccount, type ParentAccount } from '../../packages/@core/account-kit/src/index.ts';
+import { accountUiVisible, makeUseParentAccount, type ParentAccount } from '../../packages/@core/account-kit/src/index.ts';
+import { installedModules, subscribeModules } from './modules';
 
 export const ACCOUNT_EXCHANGE_PATH = '/api/account/exchange';
 /** המקור היחיד שרשום (או יירשם) אצל האם ככתובת חזרה מדויקת. */
@@ -25,3 +26,9 @@ export function useParentAccountHandle(): ParentAccount | null {
 }
 /** מצב החשבון (מחובר/לא מחובר/רגע), או null כשהמודול כבוי. */
 export const useParentAccount = makeUseParentAccount(useSyncExternalStore);
+
+/** האם להציג את הכפתור/הקטע: רק כש־'account' (מחובר) וגם 'account-ui' (המתג הגלוי בלוח) מותקנים. ברירת מחדל: מוסתר. */
+export const isAccountUiShown = (): boolean => accountUiVisible(installedModules());
+export function useAccountUiShown(): boolean {
+  return useSyncExternalStore(subscribeModules, isAccountUiShown, () => false);
+}

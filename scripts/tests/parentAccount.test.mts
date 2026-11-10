@@ -5,7 +5,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { REGISTRY, applyManifest, installedModules, __resetModulesForTests, type ModuleLoader } from '../../src/parent/modules';
-import { getParentAccount } from '../../src/parent/account';
+import { getParentAccount, isAccountUiShown } from '../../src/parent/account';
+import { install as installUiFlag } from '../../src/parent/mods/accountUi';
 import { install } from '../../src/parent/mods/account.web';
 import { install as installNative } from '../../src/parent/mods/account';
 import { onRequest } from '../../functions/api/account/exchange';
@@ -89,4 +90,21 @@ test('Pages Function is closed without the secret; refuses other origins', async
   assert.equal((await onRequest({ request: req('POST'), env: {} })).status, 503);
   assert.equal((await onRequest({ request: req('POST', 'https://evil.example'), env: { PARENT_ACCOUNT_CLIENT_SECRET: 'x'.repeat(40) } })).status, 403);
   assert.deepEqual(await (await onRequest({ request: req('GET'), env: { PARENT_ACCOUNT_CLIENT_SECRET: 'x'.repeat(40) } })).json(), { ready: true });
+});
+
+test('account-ui: connected in the background with NO button until the console switches account-ui on (one step)', async () => {
+  __resetModulesForTests();
+  assert.equal(typeof REGISTRY['account-ui'], 'function');
+  const reg: Record<string, ModuleLoader> = { ...REGISTRY, account: async () => ({ install: async () => ({ remove() {} }) }) };
+  await applyManifest(man(['a11y', 'account']), reg); // today's target live state: plumbing on, button off
+  assert.equal(installedModules().has('account'), true);
+  assert.equal(isAccountUiShown(), false);
+  await applyManifest(man(['a11y', 'account', 'account-ui']), reg); // the one step in the console
+  assert.equal(isAccountUiShown(), true);
+  await applyManifest(man(['a11y', 'account']), reg); // switched off again: hidden, plumbing stays
+  assert.equal(isAccountUiShown(), false); assert.equal(installedModules().has('account'), true);
+  await applyManifest(man(['a11y', 'account-ui']), reg); // never without the plumbing
+  assert.equal(isAccountUiShown(), false);
+  const h = await installUiFlag(); assert.ok(h); h!.remove();
+  __resetModulesForTests();
 });
