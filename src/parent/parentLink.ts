@@ -1,6 +1,6 @@
 /**
  * חיבור קל לחברת האם (שלב 2, אושר 2.11.2026).
- * נשלחים רק: מזהה התקנה אקראי, גרסה, מצב ופלטפורמה — דרך LightLink מ־@core/product-link (platform-core, תג core-v2026.11.09.2).
+ * נשלחים רק: מזהה התקנה אקראי, גרסה, מצב ופלטפורמה — דרך LightLink מ־@core/product-link (platform-core, תג core-v2026.11.10.1).
  * אין חשבון, אין רישוי, אין נתוני משתמש. האפליקציה עובדת בדיוק אותו דבר בלי רשת או אם החיבור נכשל:
  * הכול רץ ברקע, לכל היותר פעם בדקה, ושום שגיאה לא יוצאת מכאן.
  * מזהה המפתח ציבורי מעצם הגדרתו (פותח רק את /v1/light); אין כאן סוד.
@@ -30,6 +30,8 @@ export function endpointFor(platform: Platform, origin?: string | null): string 
 /** שולח פינג אחד אם עברה לפחות דקה מהקודם. מחזיר true אם נשלח ניסיון. לעולם לא זורק. */
 export async function pingParent(o: {
   platform: Platform; version: string; store: KV; origin?: string | null; now?: number; fetch?: typeof fetch;
+  /** Public key of the parent; a received module list is stored only after it verifies. */
+  manifestKey?: CryptoKey | null;
 }): Promise<boolean> {
   try {
     const endpoint = endpointFor(o.platform, o.origin);
@@ -41,6 +43,7 @@ export async function pingParent(o: {
     const link = new LightLink({
       productId: PARENT_PRODUCT_ID, keyId: PARENT_LIGHT_KEY, endpoint, version: o.version,
       platform: o.platform, store: o.store, fetch: o.fetch, timeoutMs: 5000,
+      manifestKey: o.manifestKey,
     });
     await link.ping('ok');
     return true;

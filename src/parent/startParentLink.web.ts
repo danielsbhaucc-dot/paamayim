@@ -21,7 +21,7 @@ export function startParentLink(): void {
     set: (k: string, v: string) => AsyncStorage.setItem(k, v).catch(() => undefined),
   };
   const sync = async () => { try { await applyManifest(await lastManifest(store, await parentKey(PARENT_MANIFEST_JWK), PARENT_PRODUCT_ID)); } catch { /* keep built-in */ } };
-  const refresh = () => { void pingParent({ platform: 'web', version, store, origin }).then((sent) => { if (sent) void sync(); }); };
+  const refresh = () => { void parentKey(PARENT_MANIFEST_JWK).then((manifestKey) => pingParent({ platform: 'web', version, store, origin, manifestKey }).then((sent) => { if (sent) void sync(); })); };
   void sync();
   setTimeout(refresh, 4000);
   setInterval(refresh, PING_WHILE_OPEN_MS);

@@ -83,3 +83,19 @@ test('only a manifest signed by the parent for nehora is used', async () => {
   assert.equal(await lastManifest(store(s), k.publicKey, 'maaser-yashar'), null);
   assert.equal(await lastManifest(store(undefined), k.publicKey, 'nehora'), null);
 });
+
+test('stores a signed manifest only after it verifies; an invalid list does not replace the last good one', async () => {
+  const k = await keys(), other = await keys();
+  const good = await signManifest({ product: 'nehora', issuedAt: '2026-11-09T10:00:00.000Z', modules: [{ id: 'a11y', version: '0.2.0', ref: 'r' }] }, k.privateKey);
+  const bad = await signManifest({ product: 'nehora', issuedAt: '2026-11-09T11:00:00.000Z', modules: [{ id: 'a11y', version: '9.9.9', ref: 'x' }] }, other.privateKey);
+  const store = mem();
+  const t0 = 2_000_000_000_000;
+  const ok = (body: unknown) => (async () => new Response(JSON.stringify({ flags: {}, manifest: body }), { status: 200 })) as unknown as typeof fetch;
+  await pingParent({ platform: 'web', version: '1', store, origin: ORIGIN, fetch: ok(good), manifestKey: k.publicKey, now: t0 });
+  assert.equal((await lastManifest(store, k.publicKey, 'nehora'))?.modules[0]?.version, '0.2.0');
+  await pingParent({ platform: 'web', version: '1', store, origin: ORIGIN, fetch: ok(bad), manifestKey: k.publicKey, now: t0 + PING_EVERY_MS + 1 });
+  assert.equal((await lastManifest(store, k.publicKey, 'nehora'))?.modules[0]?.version, '0.2.0');
+  const bare = mem();
+  await pingParent({ platform: 'web', version: '1', store: bare, origin: ORIGIN, fetch: ok(good), now: t0 });
+  assert.equal(bare.m.has('pl:manifest'), false);
+});
