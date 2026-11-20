@@ -56,14 +56,17 @@ export function WeeklyJourney({
         ? `להמשיך בעלייה ה${ord}`
         : `לעלייה ה${ord} (${dayName(sel.aliyah)})`;
 
-  // 7 chips in 2 or 3 columns leave a short last row. In RTL the leftover
-  // lands in the physical-right cell, which is where the shared FAB sits.
-  // Push that last chip to the start side so the FAB corner stays empty —
-  // not a full-height gutter, just the naturally empty leftover cell.
-  const leftover = !wide && items.length % cols !== 0;
-  const chips = items.map((i, idx) => {
-    const lastLeftover = leftover && idx === items.length - 1;
-    return (
+  // 7 chips in 2 or 3 columns leave a short last row. In RTL / row-reverse
+  // the leftover lands in the physical-right cell, which is where the shared
+  // FAB sits. Insert a same-width spacer before the last chip so that cell
+  // stays empty. Not a full-height gutter — only the leftover cells.
+  const emptyCells = !wide && items.length % cols !== 0 ? cols - (items.length % cols) : 0;
+  const chipStyle = wide
+    ? undefined
+    : chipW
+      ? { flexGrow: 0, flexShrink: 0 }
+      : { flexGrow: 1, flexShrink: 0, flexBasis: cols === 3 ? '31%' : '47%', maxWidth: cols === 3 ? '33%' : '50%' };
+  const chips = items.map((i) => (
     <DayChip
       key={i.aliyah.id}
       day={dayName(i.aliyah)}
@@ -74,13 +77,24 @@ export function WeeklyJourney({
       selected={i.aliyah.id === sel.aliyah.id}
       width={wide ? undefined : chipW}
       compact={compact}
-      style={wide ? undefined : chipW
-        ? { flexGrow: 0, flexShrink: 0, ...(lastLeftover ? { marginStart: 'auto' as const } : {}) }
-        : { flexGrow: 1, flexShrink: 0, flexBasis: cols === 3 ? '31%' : '47%', maxWidth: cols === 3 ? '33%' : '50%', ...(lastLeftover ? { marginStart: 'auto' as const } : {}) }}
+      style={chipStyle}
       onPress={() => setActiveAliyah(i.aliyah.id)}
     />
-    );
-  });
+  ));
+  if (emptyCells > 0) {
+    const spacerW = chipW ? emptyCells * chipW + (emptyCells - 1) * gap : undefined;
+    chips.splice(chips.length - 1, 0, (
+      <View
+        key="fab-corner-spacer"
+        pointerEvents="none"
+        accessible={false}
+        importantForAccessibility="no-hide-descendants"
+        style={spacerW
+          ? { width: spacerW, height: 1 }
+          : { flexGrow: emptyCells, flexShrink: 0, flexBasis: cols === 3 ? `${31 * emptyCells}%` : `${47 * emptyCells}%`, height: 1 }}
+      />
+    ));
+  }
 
   return (
     <GlassSurface variant="card" radius={24} style={style} contentStyle={{ padding: wide ? 24 : 16, gap: 16 }}>
