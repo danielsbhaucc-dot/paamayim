@@ -1,6 +1,6 @@
 {
   "repo": "danielsbhaucc-dot/platform-core",
-  "sha": "dcdcbd532eaad2f5e1b79c973186968b7a7ede0f",
+  "sha": "f7a284ed0722aa1e80fb9de1dc4a83da81236e8b",
   "files": {
     "a11y-kit/CHANGELOG.md": "c0687a3f0f2929fd7fa15daa506aa9122c1f6d3d54a2debd7d4c91fc22e78b2a",
     "a11y-kit/README.he.md": "4e304e429dd97f28d2a0a1442412d65014e1c2e9e2b33e0cc370bf7c97311e7a",
@@ -12,6 +12,7 @@
     "a11y-kit/demo/build.mjs": "9fd302a5715ef3d6055179bf003aa2558091adba2a5000c4d3e4eeedb34a32a3",
     "a11y-kit/demo/e2e.mjs": "1d9bdd1e08229170f90ed6eb035996dc044edba2930174407003ed9aaf7af2e6",
     "a11y-kit/demo/index.html": "290827899d8a11c302ff282bc512d23fcc0909aac82548047ded2665d8c1b8b4",
+    "a11y-kit/llms.txt": "dbde52859a69590ce8e75bff6cb59a9f6c041fbcb460afc497083c7570ebe125",
     "a11y-kit/module.json": "15eef43cca7ed3e0cc78b5920c4d5d97917fe007007a453e00018d15ec8e267f",
     "a11y-kit/package.json": "336964269cc0226fb4f964fc588955b78a718354e5813e79afbea5ef922a91d5",
     "a11y-kit/src/core.ts": "9a3b96b6f72eeb78c0f284c4e8bc8e6857d2c9bec913ce62bba51df80c841bfe",
@@ -40,13 +41,11 @@
     "crypto/src/index.ts": "36197a6f6b78fd96c73a26e01d7d0c7b3cb67a6b5abc8d914a3fea635532ce3b",
     "licensing/package.json": "28c94e37062c374fb61e3a39fe9f7fc847d99c82723ce60bdf2d3dfaf4a06f10",
     "licensing/src/index.ts": "46d1a594c9994bc657570f90fc4aa6814e1e61458e156a2759e30740c42712b0",
-    "product-link/README.md": "4f502eae8019b41c84837700c46f05cefe50dc915c9e21129d312b3d993cb332",
+    "product-link/README.md": "4d7d397744a87549bdc8175ef8e8868f2256edf60d5134e7d539c2dc4c3020ac",
     "product-link/package.json": "cbab6d67e53699ff102a7136f8d3b09bf41fd05688f2ed8a09622b00c4e408d4",
-    "product-link/src/index.ts": "9236613cf0d391c6aa4405d47f6c9a3275354d15cfdd4759f9ad4239f96c0569",
+    "product-link/src/index.ts": "3ebccb1f85d268778271505b815bf17480e9392f9b08bcf3d1d07f9e824ddf3f",
     "product-link/src/manifest.ts": "e8685c2de7a6c4f99d7e4a4529d2d984a5b6d9d5c92a1401828885f69f782790",
-    "product-link/src/schema.ts": "068ba30ace6d290f4ad82d805d03a079efa0bae8f6e9684354323299f1510d7c",
-    "product-link/src/sign.ts": "b7ba46afb37dcbbe36a071742292388842864fca7f672383a09df0e174ba7ced",
-    "a11y-kit/llms.txt": "dbde52859a69590ce8e75bff6cb59a9f6c041fbcb460afc497083c7570ebe125"
-  },
-  "tag": "core-v2026.11.10.1"
+    "product-link/src/schema.ts": "aded7dcd1ac0e9c40e263d6589218dca7a247364dccd901b13471b526ada8b5c",
+    "product-link/src/sign.ts": "b7ba46afb37dcbbe36a071742292388842864fca7f672383a09df0e174ba7ced"
+  }
 }

@@ -3,7 +3,7 @@
  * Strict: unknown keys are refused, strings are short and pattern-bound, and anything that looks like personal data
  * (an email address, a phone number, a card number, an IP address) is refused with `pii` before it is stored.
  */
-export const LIMITS = { bodyMax: 16_384, lightBodyMax: 1_024, usageEvents: 100, decisions: 50, skewMs: 5 * 60_000, usageDays: 2 } as const;
+export const LIMITS = { bodyMax: 16_384, lightBodyMax: 2_048, usageEvents: 100, lightUsageEvents: 16, decisions: 50, skewMs: 5 * 60_000, usageDays: 2 } as const;
 export const METRIC = /^[a-z][a-z0-9_.]{1,39}$/;
 export const MODULE = /^[a-z][a-z0-9-]{1,40}$/;
 export const PRODUCT = /^[a-z][a-z0-9-]{1,40}$/;
@@ -23,7 +23,7 @@ export interface UsageBody { events: UsageEvent[] }
 export interface HeartbeatBody { instance: string; version: string; health: Health; uptimeS?: number }
 export interface Decision { moduleId: string; lic: string | null; local: 'allow' | 'block'; reason: Reason; at: string }
 export interface DecisionBody { decisions: Decision[] }
-export interface LightBody { installId: string; version: string; health: Health; platform?: typeof PLATFORMS[number] }
+export interface LightBody { installId: string; version: string; health: Health; platform?: typeof PLATFORMS[number]; events?: UsageEvent[] }
 
 const PII: [RegExp, string][] = [[/[^\s@]+@[^\s@]+\.[^\s@]+/, 'email'], [/(?:\+|\b0)\d[\d\s().-]{7,}\d/, 'phone'], [/\b(?:\d[ -]?){13,19}\b/, 'card'],
   [/\b(?:\d{1,3}\.){3}\d{1,3}\b/, 'ip'], [/\b\d{9}\b/, 'national_id']];
@@ -43,10 +43,12 @@ const iso = (s: unknown, now: number) => typeof s === 'string' && s.length <= 30
 export type Check<T> = { ok: true; value: T } | { ok: false; error: 'invalid' | 'pii' };
 const pii = <T>(x: unknown, v: () => boolean): Check<T> => findPii(x) ? { ok: false, error: 'pii' } : v() ? { ok: true, value: x as T } : { ok: false, error: 'invalid' };
 
-export const checkUsage = (x: unknown, now = Date.now()): Check<UsageBody> => pii(x, () => obj(x) && only(x, ['events']) && Array.isArray(x.events) && x.events.length >= 1 && x.events.length <= LIMITS.usageEvents
-  && new Set(x.events.map((e: { id?: unknown }) => e?.id)).size === x.events.length
-  && x.events.every((e: unknown) => obj(e) && only(e, ['id', 'metric', 'n', 'day']) && typeof e.id === 'string' && UUID.test(e.id) && typeof e.metric === 'string' && METRIC.test(e.metric)
-    && Number.isInteger(e.n) && (e.n as number) >= 1 && (e.n as number) <= 1_000_000 && day(e.day, now)));
+const usageEvents = (events: unknown, now: number, max: number): boolean =>
+  Array.isArray(events) && events.length >= 1 && events.length <= max
+  && new Set(events.map((e: { id?: unknown }) => e?.id)).size === events.length
+  && events.every((e: unknown) => obj(e) && only(e, ['id', 'metric', 'n', 'day']) && typeof e.id === 'string' && UUID.test(e.id) && typeof e.metric === 'string' && METRIC.test(e.metric)
+    && Number.isInteger(e.n) && (e.n as number) >= 1 && (e.n as number) <= 1_000_000 && day(e.day, now));
+export const checkUsage = (x: unknown, now = Date.now()): Check<UsageBody> => pii(x, () => obj(x) && only(x, ['events']) && usageEvents(x.events, now, LIMITS.usageEvents));
 export const checkHeartbeat = (x: unknown): Check<HeartbeatBody> => pii(x, () => obj(x) && only(x, ['instance', 'version', 'health'], ['uptimeS']) && typeof x.instance === 'string' && INSTANCE.test(x.instance)
   && typeof x.version === 'string' && VERSION.test(x.version) && HEALTH.includes(x.health as Health) && (x.uptimeS === undefined || (Number.isInteger(x.uptimeS) && (x.uptimeS as number) >= 0 && (x.uptimeS as number) < 1e9)));
 export const checkDecisions = (x: unknown, now = Date.now()): Check<DecisionBody> => {
@@ -58,5 +60,6 @@ export const checkDecisions = (x: unknown, now = Date.now()): Check<DecisionBody
       && (d.lic === null || (typeof d.lic === 'string' && LIC.test(d.lic))) && (d.local === 'allow' || d.local === 'block') && REASONS.includes(d.reason as Reason) && iso(d.at, now));
   return v ? { ok: true, value: x as unknown as DecisionBody } : { ok: false, error: 'invalid' };
 };
-export const checkLight = (x: unknown): Check<LightBody> => pii(x, () => obj(x) && only(x, ['installId', 'version', 'health'], ['platform']) && typeof x.installId === 'string' && UUID.test(x.installId)
-  && typeof x.version === 'string' && VERSION.test(x.version) && HEALTH.includes(x.health as Health) && (x.platform === undefined || PLATFORMS.includes(x.platform as typeof PLATFORMS[number])));
+export const checkLight = (x: unknown, now = Date.now()): Check<LightBody> => pii(x, () => obj(x) && only(x, ['installId', 'version', 'health'], ['platform', 'events']) && typeof x.installId === 'string' && UUID.test(x.installId)
+  && typeof x.version === 'string' && VERSION.test(x.version) && HEALTH.includes(x.health as Health) && (x.platform === undefined || PLATFORMS.includes(x.platform as typeof PLATFORMS[number]))
+  && (x.events === undefined || usageEvents(x.events, now, LIMITS.lightUsageEvents)));

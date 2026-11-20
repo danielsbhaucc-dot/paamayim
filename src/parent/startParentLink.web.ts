@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import appJson from '../../app.json';
 import { pingParent, PARENT_PRODUCT_ID, PING_WHILE_OPEN_MS } from './parentLink';
+import { countParentUsage } from './parentUsage';
 import { applyManifest, lastManifest, parentKey } from './modules';
 import { PARENT_MANIFEST_JWK } from './publicKey';
 
@@ -14,6 +15,7 @@ let started = false;
 export function startParentLink(): void {
   if (started || typeof window === 'undefined') return;
   started = true;
+  countParentUsage('app.open');
   const origin = window.location?.origin ?? null;
   const version = String((appJson as { expo?: { version?: string } }).expo?.version ?? '0.0.0');
   const store = {

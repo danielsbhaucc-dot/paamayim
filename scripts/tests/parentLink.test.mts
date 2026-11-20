@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { signManifest } from '../../packages/@core/product-link/src/index.ts';
 import { endpointFor, pingParent, PARENT_LIGHT_KEY, PARENT_PRODUCT_ID, PING_EVERY_MS, type KV } from '../../src/parent/parentLink';
+import { countParentUsage, __resetParentUsageForTests } from '../../src/parent/parentUsage';
 import { __resetModulesForTests, applyManifest, installedModules, lastManifest, type ModuleLoader } from '../../src/parent/modules';
 
 const mem = (): KV & { m: Map<string, string> } => { const m = new Map<string, string>(); return { m, get: async (k) => m.get(k) ?? null, set: async (k, v) => { m.set(k, v); } }; };
@@ -24,6 +25,7 @@ test('web goes same-origin over https only (CSP unchanged)', () => {
 });
 
 test('sends only install id, version, health, platform + the public key id; no cookies', async () => {
+  __resetParentUsageForTests();
   const calls: { url: string; init: RequestInit }[] = [];
   const f = (async (url: string, init: RequestInit) => { calls.push({ url, init }); return new Response('{"flags":{}}', { status: 200 }); }) as unknown as typeof fetch;
   assert.equal(await pingParent({ platform: 'web', version: '1.0.0', store: mem(), origin: ORIGIN, fetch: f }), true);
@@ -36,6 +38,40 @@ test('sends only install id, version, health, platform + the public key id; no c
   const body = JSON.parse(String(calls[0].init.body));
   assert.deepEqual(Object.keys(body).sort(), ['health', 'installId', 'platform', 'version']);
   assert.match(body.installId, /^[0-9a-f-]{36}$/);
+});
+
+
+test('count/flush piggybacks usage events on the same light ping; invalid names are dropped', async () => {
+  __resetParentUsageForTests();
+  const calls: { body: unknown }[] = [];
+  const f = (async (_url: string, init: RequestInit) => { calls.push({ body: JSON.parse(String(init.body)) }); return new Response('{"flags":{}}', { status: 200 }); }) as unknown as typeof fetch;
+  countParentUsage('app.open'); countParentUsage('app.open', 2); countParentUsage('bad metric!'); countParentUsage('reading.session');
+  const store = mem(); const t = 1_800_000_000_000;
+  assert.equal(await pingParent({ platform: 'web', version: '1.0.0', store, origin: ORIGIN, fetch: f, now: t }), true);
+  const body = calls[0].body as { events?: { metric: string; n: number; day: string; id: string }[] };
+  assert.ok(Array.isArray(body.events));
+  const by = Object.fromEntries(body.events.map((e) => [e.metric, e]));
+  assert.equal(by['app.open'].n, 3);
+  assert.equal(by['reading.session'].n, 1);
+  assert.equal(Object.keys(by).sort().join(','), 'app.open,reading.session');
+  assert.match(by['app.open'].id, /^[0-9a-f-]{36}$/);
+  // second ping within a minute does not send (queue already flushed)
+  assert.equal(await pingParent({ platform: 'web', version: '1.0.0', store, origin: ORIGIN, fetch: f, now: t + 1000 }), false);
+  assert.equal(calls.length, 1);
+});
+
+test('a failed ping retries the same usage event ids', async () => {
+  __resetParentUsageForTests();
+  const bodies: { events?: { id: string; metric: string }[] }[] = [];
+  let next = 500;
+  const f = (async (_url: string, init: RequestInit) => { bodies.push(JSON.parse(String(init.body))); return new Response('x', { status: next }); }) as unknown as typeof fetch;
+  countParentUsage('app.open');
+  const store = mem(); const t = 1_900_000_000_000;
+  assert.equal(await pingParent({ platform: 'web', version: '1.0.0', store, origin: ORIGIN, fetch: f, now: t }), true);
+  next = 200;
+  assert.equal(await pingParent({ platform: 'web', version: '1.0.0', store, origin: ORIGIN, fetch: f, now: t + PING_EVERY_MS + 1 }), true);
+  assert.equal(bodies[0].events[0].metric, 'app.open');
+  assert.equal(bodies[1].events[0].id, bodies[0].events[0].id);
 });
 
 test('pings at most once a minute', async () => {

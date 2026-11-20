@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useParasha } from '../content';
 import { aliyahProgress, isParashaComplete } from '../data/parashot';
 import type { Aliyah, PassKind, Verse } from '../data/types';
+import { countParentUsage } from '../parent/parentUsage';
 import { useAppStore } from '../store/useAppStore';
 
 /**
@@ -58,6 +59,14 @@ export function useReadingSession() {
     if (a && a.id !== activeAliyah) setActiveAliyah(a.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- פעם אחת בכניסה
   }, [params.aliyah, params.verse]);
+
+  const sessionCounted = useRef(false);
+  useEffect(() => {
+    if (sessionCounted.current) return;
+    sessionCounted.current = true;
+    if (typeof window !== 'undefined') countParentUsage('reading.session');
+  }, []);
+
 
   const aliyah = parasha.aliyot.find((a) => a.id === activeAliyah) ?? parasha.aliyot[0];
   const verseMap = useMemo(
@@ -163,11 +172,24 @@ export function useReadingSession() {
   };
 
   /** ״קראתי שניים ואחד״: מסמן את שלושת המעברים ועובר לפסוק הבא */
+  const markVerseRead = (verseId: string) => {
+    const a = aliyahOf(verseId);
+    const before = useAppStore.getState().progress;
+    const wasAliyah = a ? aliyahProgress(a.verseIds, before).ratio >= 1 : false;
+    const wasParasha = isParashaComplete(parasha, before);
+    completeVerse(verseId);
+    if (typeof window !== 'undefined') {
+      countParentUsage('reading.verse');
+      const after = useAppStore.getState().progress;
+      if (a && !wasAliyah && aliyahProgress(a.verseIds, after).ratio >= 1) countParentUsage('reading.aliyah');
+      if (!wasParasha && isParashaComplete(parasha, after)) countParentUsage('reading.parasha');
+    }
+  };
+
   const completeAndNext = () => {
     if (!verse) return;
-    completeVerse(verse.id);
-    const state = useAppStore.getState();
-    if (isParashaComplete(parasha, state.progress)) {
+    markVerseRead(verse.id);
+    if (isParashaComplete(parasha, useAppStore.getState().progress)) {
       setTimeout(() => router.push('/completion'), 160);
       return;
     }
@@ -176,7 +198,7 @@ export function useReadingSession() {
 
   /** מצב גלילה: ״קראתי שניים ואחד״ לפסוק מסוים (בלי לעבור פסוק) */
   const completeVerseAt = (verseId: string) => {
-    completeVerse(verseId);
+    markVerseRead(verseId);
     if (isParashaComplete(parasha, useAppStore.getState().progress)) setTimeout(() => router.push('/completion'), 160);
   };
 
