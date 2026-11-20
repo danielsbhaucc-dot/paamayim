@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Text, View, useWindowDimensions, type StyleProp, type ViewStyle } from 'react-native';
 import type { Parasha } from '../data/types';
 import { ORDINAL_SHORT, STATUS_LABEL, dayName, useJourney } from '../reading/journey';
 import { useAppStore } from '../store/useAppStore';
@@ -28,6 +28,14 @@ export function WeeklyJourney({
   style?: StyleProp<ViewStyle>;
 }) {
   const router = useRouter();
+  const { width: winW } = useWindowDimensions();
+  // 3 columns from 340px layout width; 2 columns below. No side gutter — the
+  // FAB is handled by scroll padding and the shared auto-lift.
+  const cols = wide ? 7 : winW >= 340 ? 3 : 2;
+  const compact = !wide && cols === 2;
+  const gap = wide ? 10 : 8;
+  const [gridW, setGridW] = React.useState(0);
+  const chipW = !wide && gridW > 0 ? Math.floor((gridW - gap * (cols - 1)) / cols) : undefined;
   const activeAliyah = useAppStore((s) => s.activeAliyah);
   const setActiveAliyah = useAppStore((s) => s.setActiveAliyah);
   const { items, completed } = useJourney(parasha);
@@ -57,7 +65,9 @@ export function WeeklyJourney({
       status={i.status}
       ratio={i.ratio}
       selected={i.aliyah.id === sel.aliyah.id}
-      style={wide ? undefined : { flexGrow: 1, flexShrink: 1, flexBasis: '42%', minWidth: 0, maxWidth: '48%' }}
+      width={wide ? undefined : chipW}
+      compact={compact}
+      style={wide ? undefined : chipW ? { flexGrow: 0, flexShrink: 0 } : { flexGrow: 1, flexShrink: 0, flexBasis: cols === 3 ? '31%' : '47%', maxWidth: cols === 3 ? '33%' : '50%' }}
       onPress={() => setActiveAliyah(i.aliyah.id)}
     />
   ));
@@ -81,12 +91,13 @@ export function WeeklyJourney({
 
       <View
         accessibilityRole="tablist"
-        style={{ flexDirection: rtl.row, flexWrap: wide ? 'nowrap' : 'wrap', gap: wide ? 10 : 8, paddingRight: wide ? 0 : 88 }}
+        onLayout={(e) => setGridW(e.nativeEvent.layout.width)}
+        style={{ flexDirection: rtl.row, flexWrap: wide ? 'nowrap' : 'wrap', gap, width: '100%' }}
       >
         {chips}
       </View>
 
-      <View style={[{ gap: 12, paddingRight: wide ? 0 : 88 }, wide && { flexDirection: rtl.row, alignItems: 'center', gap: 20, paddingRight: 0 }]}>
+      <View style={[{ gap: 12 }, wide && { flexDirection: rtl.row, alignItems: 'center', gap: 20 }]}>
         <View style={{ flex: wide ? 1 : undefined, flexDirection: rtl.row, alignItems: 'center', gap: 10, minWidth: 0 }}>
           <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: h.solid }} />
           <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, flex: 1, ...T }}>

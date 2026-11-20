@@ -20,6 +20,8 @@ type Props = {
   onPress: () => void;
   /** רוחב קבוע (פריסה רחבה) במקום flex */
   width?: number;
+  /** שני טורים ברוחב צר: גופן וריפוד מעט קטנים, בלי שלוש נקודות */
+  compact?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -28,13 +30,17 @@ type Props = {
  * ״היום״ מודגש במילוי בגוון העלייה; הנבחר (אם אינו היום) — מסגרת בגוון; הושלמה — סימן ✓.
  * כל עלייה בגוון עדין משלה (פס עליון), אבל המצב תמיד כתוב גם במילים — לא רק בצבע.
  */
-export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, onPress, width, style }: Props) {
+export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, onPress, width, compact, style }: Props) {
   const h = aliyahHue(aliyahId);
   const today = status === 'today';
   const done = status === 'done';
   const ink = today ? nw.color.onAccent : nw.color.ink;
   const sub = today ? nw.color.onAccent : h.ink;
   const statusText = status === 'partial' ? `${STATUS_LABEL.partial} · ${Math.round(ratio * 100)}%` : STATUS_LABEL[status];
+  const daySize = compact ? 12 : 13;
+  const ordinalSize = compact ? 13 : 15;
+  const statusSize = compact ? 11 : 12;
+  const chipH = compact ? 80 : 96;
 
   return (
     <GlassSurface
@@ -44,8 +50,8 @@ export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, o
       // בחירה מסומנת בגוון ובהרמה — בלי מסגרת צבעונית
       tint={today ? h.ink : selected || done ? h.soft : undefined}
       shadow={today || selected ? 'none' : 'card'}
-      style={[{ height: 96 }, width ? { width } : { flex: 1, minWidth: 0 }, today || selected ? nw.shadow.active : null, style]}
-      contentStyle={{ alignItems: 'center', justifyContent: 'center', gap: 2, paddingTop: 6, paddingHorizontal: 4 }}
+      style={[{ height: chipH, minHeight: 44 }, width ? { width } : { flex: 1, minWidth: 0 }, today || selected ? nw.shadow.active : null, style]}
+      contentStyle={{ alignItems: 'center', justifyContent: 'center', gap: compact ? 1 : 2, paddingTop: compact ? 5 : 6, paddingHorizontal: compact ? 3 : 4 }}
       onPress={onPress}
       accessibilityRole="tab"
       accessibilityState={{ selected }}
@@ -64,15 +70,15 @@ export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, o
           backgroundColor: today ? pearl(0.7) : h.solid,
         }}
       />
-      <Text numberOfLines={1} style={{ fontFamily: fonts.uiSemi, fontSize: 13, color: today ? nw.color.onAccent : nw.color.inkSoft, textAlign: 'center', writingDirection: 'rtl' }}>
+      <Text style={{ fontFamily: fonts.uiSemi, fontSize: daySize, color: today ? nw.color.onAccent : nw.color.inkSoft, textAlign: 'center', writingDirection: 'rtl', flexShrink: 0 }}>
         {day}
       </Text>
-      <Text numberOfLines={1} style={{ fontFamily: fonts.uiExtra, fontSize: 15, color: ink, textAlign: 'center', writingDirection: 'rtl' }}>
+      <Text style={{ fontFamily: fonts.uiExtra, fontSize: ordinalSize, color: ink, textAlign: 'center', writingDirection: 'rtl', flexShrink: 0 }}>
         {ordinal}
       </Text>
-      <View style={{ flexDirection: 'row-reverse', alignItems: 'center', gap: 3, marginTop: 2 }}>
-        {done ? <Check size={13} color={sub} strokeWidth={3} /> : null}
-        <Text numberOfLines={1} style={{ fontFamily: fonts.uiBold, fontSize: 12, color: sub, textAlign: 'center', writingDirection: 'rtl' }}>
+      <View style={{ flexDirection: 'row-reverse', alignItems: 'center', gap: 3, marginTop: 2, flexShrink: 0 }}>
+        {done ? <Check size={compact ? 12 : 13} color={sub} strokeWidth={3} /> : null}
+        <Text style={{ fontFamily: fonts.uiBold, fontSize: statusSize, color: sub, textAlign: 'center', writingDirection: 'rtl', flexShrink: 0 }}>
           {statusText}
         </Text>
       </View>
