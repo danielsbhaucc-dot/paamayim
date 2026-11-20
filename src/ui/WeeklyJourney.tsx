@@ -57,7 +57,7 @@ export function WeeklyJourney({
       status={i.status}
       ratio={i.ratio}
       selected={i.aliyah.id === sel.aliyah.id}
-      style={wide ? undefined : { flexGrow: 1, flexBasis: '30%', minWidth: 88, maxWidth: '48%' }}
+      style={wide ? undefined : { flexGrow: 1, flexShrink: 1, flexBasis: '42%', minWidth: 0, maxWidth: '48%' }}
       onPress={() => setActiveAliyah(i.aliyah.id)}
     />
   ));
@@ -81,12 +81,12 @@ export function WeeklyJourney({
 
       <View
         accessibilityRole="tablist"
-        style={{ flexDirection: rtl.row, flexWrap: wide ? 'nowrap' : 'wrap', gap: wide ? 10 : 8, paddingInlineStart: wide ? 0 : 88 }}
+        style={{ flexDirection: rtl.row, flexWrap: wide ? 'nowrap' : 'wrap', gap: wide ? 10 : 8, paddingRight: wide ? 0 : 88 }}
       >
         {chips}
       </View>
 
-      <View style={[{ gap: 12, paddingInlineStart: wide ? 0 : 88 }, wide && { flexDirection: rtl.row, alignItems: 'center', gap: 20, paddingInlineStart: 0 }]}>
+      <View style={[{ gap: 12, paddingRight: wide ? 0 : 88 }, wide && { flexDirection: rtl.row, alignItems: 'center', gap: 20, paddingRight: 0 }]}>
         <View style={{ flex: wide ? 1 : undefined, flexDirection: rtl.row, alignItems: 'center', gap: 10, minWidth: 0 }}>
           <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: h.solid }} />
           <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, flex: 1, ...T }}>
