@@ -269,10 +269,17 @@ export function mountA11yWidget(o: MountOptions): A11yWidgetHandle {
     const r = fab.getBoundingClientRect();
     if (r.width < 1) return;
     const base = { left: r.left, right: r.right, top: r.top + lift, bottom: r.bottom + lift };
-    const next = liftToClear(base, [
-      ...collectObstacles(doc, o.avoid ?? DEFAULT_AVOID, ROOT_ID),
-      ...collectFlowOverlaps(doc, base, t.fab.gap, ROOT_ID),
-    ], t.fab.gap, Math.round(win.innerHeight * 0.5));
+    const gap = t.fab.gap, maxLift = Math.round(win.innerHeight * 0.5);
+    const pinned = collectObstacles(doc, o.avoid ?? DEFAULT_AVOID, ROOT_ID);
+    // Flow overlaps must be gathered against the already-lifted box. The un-lifted
+    // FAB sits on the nav, so chips/copy just above the nav would otherwise be missed.
+    let next = liftToClear(base, pinned, gap, maxLift);
+    for (let i = 0; i < 4; i++) {
+      const cur = { ...base, top: base.top - next, bottom: base.bottom - next };
+      const n2 = liftToClear(base, [...pinned, ...collectFlowOverlaps(doc, cur, gap, ROOT_ID)], gap, maxLift);
+      if (n2 === next) break;
+      next = n2;
+    }
     if (next !== lift) { lift = next; root.style.setProperty('--ca11y-lift', `${lift}px`); html.style.setProperty('--a11y-fab-lift', `${lift}px`); }
   };
   const schedule = () => { win.clearTimeout(relayoutT); relayoutT = win.setTimeout(relayout, 120); };
