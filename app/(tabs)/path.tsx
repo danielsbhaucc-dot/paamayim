@@ -14,6 +14,7 @@ import {
   useLayout,
 } from '../../src/ui';
 import { PathWide } from '../../src/wide/PathWide';
+import { BOTTOM_NAV_SPACE } from '../../src/components/GlassBottomNav';
 import { useParasha } from '../../src/content';
 
 export default function PathScreen() {
@@ -33,7 +34,7 @@ function PathMobile() {
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
         <ScreenHeader title="מסלול עד שבת" scrollY={t.scrollY} />
         <Animated.ScrollView
-          contentContainerStyle={{ paddingBottom: 24 }}
+          contentContainerStyle={{ paddingBottom: BOTTOM_NAV_SPACE + 24 }}
           showsVerticalScrollIndicator={false}
           {...t.scrollProps}
         >

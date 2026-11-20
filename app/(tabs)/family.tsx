@@ -22,6 +22,7 @@ import {
 } from '../../src/ui';
 import { FamilyWide } from '../../src/wide/FamilyWide';
 import { contentImage, useParasha } from '../../src/content';
+import { BOTTOM_NAV_SPACE } from '../../src/components/GlassBottomNav';
 
 export default function FamilyScreen() {
   const { isWide } = useLayout();
@@ -48,7 +49,7 @@ function FamilyMobile() {
           {...t.scrollProps}
           contentContainerStyle={{
             paddingHorizontal: nw.space.screenX,
-            paddingBottom: 24,
+            paddingBottom: BOTTOM_NAV_SPACE + 24,
           }}
           showsVerticalScrollIndicator={false}
         >

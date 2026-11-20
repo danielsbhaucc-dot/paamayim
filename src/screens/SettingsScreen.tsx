@@ -22,6 +22,7 @@ import { DisplaySettings, NotifySettings, PlanSettings } from './PlanSettings';
 import { APP_NAME } from '../theme/brand';
 import { nw } from '../theme/design';
 import { rtl } from '../theme/rtl';
+import { BOTTOM_NAV_SPACE } from '../components/GlassBottomNav';
 import {
   SectionHeader,
   GlassSurface,
@@ -61,7 +62,7 @@ function SettingsMobile() {
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
         <ScreenHeader title="הגדרות" showBack={false} scrollY={t.scrollY} />
         <Animated.ScrollView
-          contentContainerStyle={{ paddingBottom: 28, paddingHorizontal: nw.space.screenX }}
+          contentContainerStyle={{ paddingBottom: BOTTOM_NAV_SPACE + 28, paddingHorizontal: nw.space.screenX }}
           showsVerticalScrollIndicator={false}
           {...t.scrollProps}
         >

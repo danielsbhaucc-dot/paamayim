@@ -1,6 +1,6 @@
 import { Check } from 'lucide-react-native';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import { STATUS_LABEL, type AliyahStatus } from '../reading/journey';
 import { aliyahHue, nw, pearl } from '../theme/design';
 import { fonts } from '../theme/fonts';
@@ -18,8 +18,9 @@ type Props = {
   ratio?: number;
   selected: boolean;
   onPress: () => void;
-  /** רוחב קבוע (גלילה אופקית בטלפון) במקום flex */
+  /** רוחב קבוע (פריסה רחבה) במקום flex */
   width?: number;
+  style?: StyleProp<ViewStyle>;
 };
 
 /**
@@ -27,7 +28,7 @@ type Props = {
  * ״היום״ מודגש במילוי בגוון העלייה; הנבחר (אם אינו היום) — מסגרת בגוון; הושלמה — סימן ✓.
  * כל עלייה בגוון עדין משלה (פס עליון), אבל המצב תמיד כתוב גם במילים — לא רק בצבע.
  */
-export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, onPress, width }: Props) {
+export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, onPress, width, style }: Props) {
   const h = aliyahHue(aliyahId);
   const today = status === 'today';
   const done = status === 'done';
@@ -43,7 +44,7 @@ export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, o
       // בחירה מסומנת בגוון ובהרמה — בלי מסגרת צבעונית
       tint={today ? h.ink : selected || done ? h.soft : undefined}
       shadow={today || selected ? 'none' : 'card'}
-      style={[{ height: 96 }, width ? { width } : { flex: 1, minWidth: 0 }, today || selected ? nw.shadow.active : null]}
+      style={[{ height: 96 }, width ? { width } : { flex: 1, minWidth: 0 }, today || selected ? nw.shadow.active : null, style]}
       contentStyle={{ alignItems: 'center', justifyContent: 'center', gap: 2, paddingTop: 6, paddingHorizontal: 4 }}
       onPress={onPress}
       accessibilityRole="tab"

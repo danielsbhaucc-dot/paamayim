@@ -143,7 +143,7 @@ function HomeMobile() {
 
             <View style={{ flex: 1 }} />
 
-            <View style={{ alignItems: 'center' }}>
+            <View style={{ alignItems: 'center', flexShrink: 0, overflow: 'visible' }}>
               <Text
                 accessibilityRole="header"
                 style={{
@@ -164,6 +164,7 @@ function HomeMobile() {
                 style={{
                   fontFamily: fonts.uiSemi,
                   fontSize: 16,
+                  lineHeight: 24,
                   color: 'rgba(255,255,255,0.92)',
                   textShadowColor: 'rgba(6,28,44,0.55)',
                   textShadowOffset: { width: 0, height: 2 },
@@ -171,6 +172,10 @@ function HomeMobile() {
                   textAlign: 'center',
                   writingDirection: 'rtl',
                   marginTop: 8,
+                  paddingHorizontal: 12,
+                  flexShrink: 0,
+                  alignSelf: 'stretch',
+                  width: '100%',
                 }}
               >
                 סיפורים. מקרא. תרגום. בדרך שלך.
@@ -349,7 +354,7 @@ function HomeMobile() {
                 writingDirection: 'rtl',
               }}
             >
-              {`${parasha.name} – ${parasha.story.title}`}
+              {`${parasha.name} — ${parasha.story.title}`}
             </Text>
             <Text
               numberOfLines={4}
