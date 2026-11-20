@@ -33,6 +33,9 @@ export function WeeklyJourney({
   // FAB is handled by scroll padding and the shared auto-lift.
   const cols = wide ? 7 : winW >= 340 ? 3 : 2;
   const compact = !wide && cols === 2;
+  // Below 300 the intro wraps tall enough that a full-width שבת would sit
+  // in the FAB band; tighten type and padding so the grid ends above the FAB.
+  const tight = !wide && winW < 300;
   const gap = wide ? 10 : 8;
   const [gridW, setGridW] = React.useState(0);
   const chipW = !wide && gridW > 0 ? Math.floor((gridW - gap * (cols - 1)) / cols) : undefined;
@@ -86,17 +89,17 @@ export function WeeklyJourney({
   });
 
   return (
-    <GlassSurface variant="card" radius={24} style={style} contentStyle={{ padding: wide ? 24 : 16, gap: 16 }}>
-      <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: 16 }}>
-        <ProgressRing current={completed} total={7} size={wide ? 84 : 68} stroke={wide ? 8 : 7} segments={items.map((i) => i.status === 'done')} />
-        <View style={{ flex: 1, gap: 2 }}>
-          <Text accessibilityRole="header" style={{ ...nw.type.h2, fontSize: wide ? 24 : 20, color: nw.color.ink, ...T }}>
+    <GlassSurface variant="card" radius={24} style={style} contentStyle={{ padding: wide ? 24 : tight ? 12 : 16, gap: tight ? 12 : 16 }}>
+      <View style={{ flexDirection: rtl.row, alignItems: 'center', gap: tight ? 10 : 16 }}>
+        <ProgressRing current={completed} total={7} size={wide ? 84 : tight ? 56 : 68} stroke={wide ? 8 : tight ? 6 : 7} segments={items.map((i) => i.status === 'done')} />
+        <View style={{ flex: 1, gap: tight ? 1 : 2 }}>
+          <Text accessibilityRole="header" style={{ ...nw.type.h2, fontSize: wide ? 24 : tight ? 18 : 20, lineHeight: wide ? undefined : tight ? 24 : 26, color: nw.color.ink, ...T }}>
             מסלול עד שבת
           </Text>
-          <Text style={{ ...nw.type.bodySm, color: nw.color.inkSoft, ...T }}>
+          <Text style={{ ...nw.type.bodySm, fontSize: tight ? 13 : nw.type.bodySm.fontSize, lineHeight: tight ? 19 : nw.type.bodySm.lineHeight, color: nw.color.inkSoft, ...T }}>
             תוכנית הקריאה שלך לשבוע — עלייה אחת בכל יום, ועד שבת מסיימים את כל הפרשה.
           </Text>
-          <Text style={{ ...nw.type.label, color: nw.color.inkMuted, marginTop: 2, ...T }}>
+          <Text style={{ ...nw.type.label, color: nw.color.inkMuted, marginTop: tight ? 0 : 2, ...T }}>
             {`${completed} מתוך 7 עליות הושלמו`}
           </Text>
         </View>
