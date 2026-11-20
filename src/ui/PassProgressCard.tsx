@@ -37,8 +37,8 @@ export function PassProgressCard({ aliyah, style, wide }: { aliyah: Aliyah; styl
         color={aliyahHue(aliyah.id).solid}
         style={{ marginTop: 8, marginBottom: 2 }}
       />
-      <CheckRow label="מקרא – קריאה ראשונה" Icon={BookOpen} hue={passHue.mikra1} {...row(m1)} />
-      <CheckRow label="מקרא – קריאה שנייה" Icon={Repeat} hue={passHue.mikra2} {...row(m2)} />
+      <CheckRow label="מקרא — קריאה ראשונה" Icon={BookOpen} hue={passHue.mikra1} {...row(m1)} />
+      <CheckRow label="מקרא — קריאה שנייה" Icon={Repeat} hue={passHue.mikra2} {...row(m2)} />
       <CheckRow label="תרגום אונקלוס" Icon={Languages} hue={passHue.onkelos} {...row(onk)} last />
     </GlassSurface>
   );

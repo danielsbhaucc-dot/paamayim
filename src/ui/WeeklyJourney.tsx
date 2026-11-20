@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { ScrollView, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import type { Parasha } from '../data/types';
 import { ORDINAL_SHORT, STATUS_LABEL, dayName, useJourney } from '../reading/journey';
 import { useAppStore } from '../store/useAppStore';
@@ -57,7 +57,7 @@ export function WeeklyJourney({
       status={i.status}
       ratio={i.ratio}
       selected={i.aliyah.id === sel.aliyah.id}
-      width={wide ? undefined : 82}
+      style={wide ? undefined : { flexGrow: 1, flexBasis: '30%', minWidth: 88, maxWidth: '48%' }}
       onPress={() => setActiveAliyah(i.aliyah.id)}
     />
   ));
@@ -79,21 +79,12 @@ export function WeeklyJourney({
         </View>
       </View>
 
-      {wide ? (
-        <View accessibilityRole="tablist" style={{ flexDirection: rtl.row, gap: 10 }}>
-          {chips}
-        </View>
-      ) : (
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          accessibilityRole="tablist"
-          style={{ marginHorizontal: -16 }}
-          contentContainerStyle={{ flexDirection: rtl.row, gap: 8, paddingHorizontal: 16, paddingVertical: 4 }}
-        >
-          {chips}
-        </ScrollView>
-      )}
+      <View
+        accessibilityRole="tablist"
+        style={{ flexDirection: rtl.row, flexWrap: wide ? 'nowrap' : 'wrap', gap: wide ? 10 : 8 }}
+      >
+        {chips}
+      </View>
 
       <View style={[{ gap: 12 }, wide && { flexDirection: rtl.row, alignItems: 'center', gap: 20 }]}>
         <View style={{ flex: wide ? 1 : undefined, flexDirection: rtl.row, alignItems: 'center', gap: 10 }}>

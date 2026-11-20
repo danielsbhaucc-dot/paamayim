@@ -4,9 +4,11 @@ import { usePathname, useRouter, type Router } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
+  Dimensions,
   Easing,
   Image,
   ImageBackground,
+  PanResponder,
   Platform,
   Pressable,
   StyleSheet,
@@ -231,6 +233,8 @@ export function SideMenu() {
   const itemAnims = useRef(
     Array.from({ length: MENU_ITEMS.length }, () => new Animated.Value(0)),
   ).current;
+  const dragY = useRef(new Animated.Value(0)).current;
+  const dragYNum = useRef(0);
 
   const finishUnmount = () => {
     renderedRef.current = false;
@@ -248,6 +252,8 @@ export function SideMenu() {
       closeAnim.setValue(0);
       ornamentAnim.setValue(0);
       itemAnims.forEach((a) => a.setValue(0));
+      dragY.setValue(0);
+      dragYNum.current = 0;
 
       // פריים ב-0 ואז אנימציה — חובה ב-web
       const id = requestAnimationFrame(() => {
@@ -345,6 +351,40 @@ export function SideMenu() {
     setTimeout(() => item.onPress(router), 280);
   };
 
+  const pan = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, g) =>
+        !closingRef.current && g.dy > 8 && Math.abs(g.dy) > Math.abs(g.dx),
+      onPanResponderMove: (_, g) => {
+        const y = g.dy >= 0 ? g.dy : -Math.pow(-g.dy, 0.62);
+        dragYNum.current = y;
+        dragY.setValue(y);
+      },
+      onPanResponderRelease: (_, g) => {
+        const h = Dimensions.get('window').height;
+        const shouldClose = dragYNum.current > h * 0.3 || (g.vy > 1.2 && dragYNum.current > 24);
+        if (shouldClose) {
+          Animated.timing(dragY, {
+            toValue: h,
+            duration: 220,
+            easing: Easing.in(Easing.cubic),
+            useNativeDriver: NATIVE_DRIVER,
+          }).start(({ finished }) => {
+            if (finished) closeSideMenu();
+          });
+        } else {
+          Animated.spring(dragY, {
+            toValue: 0,
+            friction: 7,
+            tension: 80,
+            useNativeDriver: NATIVE_DRIVER,
+          }).start();
+          dragYNum.current = 0;
+        }
+      },
+    }),
+  ).current;
+
   if (!rendered) return null;
 
   const overlayStyle = {
@@ -358,10 +398,13 @@ export function SideMenu() {
     }),
     transform: [
       {
-        translateY: progress.interpolate({
-          inputRange: [0, 1],
-          outputRange: [48, 0],
-        }),
+        translateY: Animated.add(
+          progress.interpolate({
+            inputRange: [0, 1],
+            outputRange: [48, 0],
+          }),
+          dragY,
+        ),
       },
       {
         scale: progress.interpolate({
@@ -432,6 +475,7 @@ export function SideMenu() {
           },
         ]}
         pointerEvents="box-none"
+        {...pan.panHandlers}
       >
         <View style={styles.topRow} pointerEvents="box-none">
           <Pressable

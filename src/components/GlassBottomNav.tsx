@@ -32,7 +32,13 @@ export function GlassBottomNav() {
   const barFill = Platform.OS === 'android' ? pearl(0.78) : nw.glass.fillStrong;
 
   return (
-    <View pointerEvents="box-none" style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]}>
+    <View
+      pointerEvents="box-none"
+      // RN Web: data-a11y-avoid so the shared FAB lifts above this absolute bottom nav
+      {...({ dataSet: { a11yAvoid: 'true' } } as object)}
+      accessibilityLabel="ניווט ראשי"
+      style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]}
+    >
       <View collapsable={false} style={[styles.bar, { backgroundColor: barFill }]}>
         {Platform.OS === 'web' ? (
           <View
