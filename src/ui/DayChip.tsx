@@ -22,6 +22,8 @@ type Props = {
   width?: number;
   /** שני טורים ברוחב צר: גופן וריפוד מעט קטנים, בלי שלוש נקודות */
   compact?: boolean;
+  /** שבב השיא (שבת) — אותה שפה, הדגשה עדינה של היעד, בלי לבן */
+  climax?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -30,7 +32,7 @@ type Props = {
  * ״היום״ מודגש במילוי בגוון העלייה; הנבחר (אם אינו היום) — מסגרת בגוון; הושלמה — סימן ✓.
  * כל עלייה בגוון עדין משלה (פס עליון), אבל המצב תמיד כתוב גם במילים — לא רק בצבע.
  */
-export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, onPress, width, compact, style }: Props) {
+export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, onPress, width, compact, climax, style }: Props) {
   const h = aliyahHue(aliyahId);
   const today = status === 'today';
   const done = status === 'done';
@@ -48,23 +50,23 @@ export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, o
       radius={16}
       padded={false}
       // בחירה מסומנת בגוון ובהרמה — בלי מסגרת צבעונית
-      tint={today ? h.ink : selected || done ? h.soft : undefined}
+      tint={today ? h.ink : selected || done || climax ? h.soft : undefined}
       shadow={today || selected ? 'none' : 'card'}
       style={[{ height: chipH, minHeight: 44 }, width ? { width } : { flex: 1, minWidth: 0 }, today || selected ? nw.shadow.active : null, style]}
       contentStyle={{ alignItems: 'center', justifyContent: 'center', gap: compact ? 1 : 2, paddingTop: compact ? 5 : 6, paddingHorizontal: compact ? 3 : 4 }}
       onPress={onPress}
       accessibilityRole="tab"
       accessibilityState={{ selected }}
-      accessibilityLabel={`${day}, עלייה ${ordinal}, ${statusText}`}
+      accessibilityLabel={`${day}, עלייה ${ordinal}, ${statusText}${climax ? ", היעד" : ""}`}
     >
       {/* פס הגוון של העלייה */}
       <View
         style={{
           position: 'absolute',
           top: 0,
-          left: 14,
-          right: 14,
-          height: 4,
+          left: climax ? 22 : 14,
+          right: climax ? 22 : 14,
+          height: climax ? 5 : 4,
           borderBottomLeftRadius: 3,
           borderBottomRightRadius: 3,
           backgroundColor: today ? pearl(0.7) : h.solid,
@@ -79,7 +81,7 @@ export function DayChip({ day, ordinal, aliyahId, status, ratio = 0, selected, o
       <View style={{ flexDirection: 'row-reverse', alignItems: 'center', gap: 3, marginTop: 2, flexShrink: 0 }}>
         {done ? <Check size={compact ? 12 : 13} color={sub} strokeWidth={3} /> : null}
         <Text style={{ fontFamily: fonts.uiBold, fontSize: statusSize, color: sub, textAlign: 'center', writingDirection: 'rtl', flexShrink: 0 }}>
-          {statusText}
+          {climax ? `${statusText} · היעד` : statusText}
         </Text>
       </View>
     </GlassSurface>

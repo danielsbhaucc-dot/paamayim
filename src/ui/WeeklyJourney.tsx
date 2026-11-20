@@ -56,45 +56,34 @@ export function WeeklyJourney({
         ? `להמשיך בעלייה ה${ord}`
         : `לעלייה ה${ord} (${dayName(sel.aliyah)})`;
 
-  // 7 chips in 2 or 3 columns leave a short last row. In RTL / row-reverse
-  // the leftover lands in the physical-right cell, which is where the shared
-  // FAB sits. Insert a same-width spacer before the last chip so that cell
-  // stays empty. Not a full-height gutter — only the leftover cells.
-  const emptyCells = !wide && items.length % cols !== 0 ? cols - (items.length % cols) : 0;
   const chipStyle = wide
     ? undefined
     : chipW
       ? { flexGrow: 0, flexShrink: 0 }
       : { flexGrow: 1, flexShrink: 0, flexBasis: cols === 3 ? '31%' : '47%', maxWidth: cols === 3 ? '33%' : '50%' };
-  const chips = items.map((i) => (
-    <DayChip
-      key={i.aliyah.id}
-      day={dayName(i.aliyah)}
-      ordinal={ORDINAL_SHORT[i.aliyah.id - 1]}
-      aliyahId={i.aliyah.id}
-      status={i.status}
-      ratio={i.ratio}
-      selected={i.aliyah.id === sel.aliyah.id}
-      width={wide ? undefined : chipW}
-      compact={compact}
-      style={chipStyle}
-      onPress={() => setActiveAliyah(i.aliyah.id)}
-    />
-  ));
-  if (emptyCells > 0) {
-    const spacerW = chipW ? emptyCells * chipW + (emptyCells - 1) * gap : undefined;
-    chips.splice(chips.length - 1, 0, (
-      <View
-        key="fab-corner-spacer"
-        pointerEvents="none"
-        accessible={false}
-        importantForAccessibility="no-hide-descendants"
-        style={spacerW
-          ? { width: spacerW, height: 1 }
-          : { flexGrow: emptyCells, flexShrink: 0, flexBasis: cols === 3 ? `${31 * emptyCells}%` : `${47 * emptyCells}%`, height: 1 }}
+  // שבת is the climax of the week: it spans the full last row (not a leftover
+  // cell on the end side). FAB clearance stays with scroll padding + auto-lift.
+  const chips = items.map((i, idx) => {
+    const climax = !wide && idx === items.length - 1;
+    return (
+      <DayChip
+        key={i.aliyah.id}
+        day={dayName(i.aliyah)}
+        ordinal={ORDINAL_SHORT[i.aliyah.id - 1]}
+        aliyahId={i.aliyah.id}
+        status={i.status}
+        ratio={i.ratio}
+        selected={i.aliyah.id === sel.aliyah.id}
+        width={wide ? undefined : climax ? (gridW || undefined) : chipW}
+        compact={compact}
+        climax={climax}
+        style={wide ? undefined : climax
+          ? { flexGrow: 0, flexShrink: 0, width: gridW || '100%', alignSelf: 'stretch' }
+          : chipStyle}
+        onPress={() => setActiveAliyah(i.aliyah.id)}
       />
-    ));
-  }
+    );
+  });
 
   return (
     <GlassSurface variant="card" radius={24} style={style} contentStyle={{ padding: wide ? 24 : 16, gap: 16 }}>
@@ -126,8 +115,11 @@ export function WeeklyJourney({
         <View style={{ flex: wide ? 1 : undefined, flexDirection: rtl.row, alignItems: 'center', gap: 10, minWidth: 0 }}>
           <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: h.solid }} />
           <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, flex: 1, ...T }}>
-            {`${dayName(sel.aliyah)} · עלייה ${ord} · ${sel.aliyah.verseIds.length} פסוקים · `}
-            <Text style={{ color: h.ink }}>{sel.status === 'partial' ? `${STATUS_LABEL.partial} ${pct}%` : STATUS_LABEL[sel.status]}</Text>
+            {/* NBSP keeps each middot with its words; a normal space is the wrap point between the two phrases. */}
+            {`${dayName(sel.aliyah)} · עלייה ${ord}`}
+            {' '}
+            {`${sel.aliyah.verseIds.length} פסוקים · `}
+            <Text style={{ color: h.ink }}>{sel.status === 'partial' ? `${STATUS_LABEL.partial} ${pct}%` : STATUS_LABEL[sel.status]}</Text>
           </Text>
         </View>
         <PrimaryButton
