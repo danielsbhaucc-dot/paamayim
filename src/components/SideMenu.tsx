@@ -7,7 +7,6 @@ import {
   Dimensions,
   Easing,
   Image,
-  ImageBackground,
   PanResponder,
   Platform,
   Pressable,
@@ -21,9 +20,20 @@ import { APP_NAME, APP_TAGLINE } from '../theme/brand';
 import { fonts } from '../theme/fonts';
 import { assets, colors, radii, spacing } from '../theme/tokens';
 import { a11y } from '../utils/a11y';
+import { swipeToDismiss } from '../../packages/@core/a11y-kit/src/swipe';
 
 /** ב-web אין native driver (אזהרה בקונסול); בטלפון — בדיוק כמו קודם */
 const NATIVE_DRIVER = Platform.OS !== 'web';
+
+function asHtml(ref: unknown): HTMLElement | null {
+  if (typeof HTMLElement === 'undefined' || ref == null) return null;
+  if (ref instanceof HTMLElement) return ref;
+  const node = typeof ref === 'object' && ref && 'getNode' in ref
+    ? (ref as { getNode: () => unknown }).getNode()
+    : ref;
+  return node instanceof HTMLElement ? node : null;
+}
+
 
 const OPEN_MS = 400;
 const CLOSE_MS = 320;
@@ -214,7 +224,7 @@ function MenuRow({
 }
 
 /**
- * תפריט צד — Animated של RN (עובד ב-web) + glassmorphism שקוף.
+ * תפריט צד — קרם אטום. ב-web סגירה בהחלקה למטה עם Pointer Events (כמו גיליון הנגישות).
  */
 export function SideMenu() {
   const menuOpen = useAppStore((s) => s.sideMenuOpen);
@@ -235,6 +245,8 @@ export function SideMenu() {
   ).current;
   const dragY = useRef(new Animated.Value(0)).current;
   const dragYNum = useRef(0);
+  const panelRef = useRef<View>(null);
+  const backdropRef = useRef<View>(null);
 
   const finishUnmount = () => {
     renderedRef.current = false;
@@ -339,6 +351,48 @@ export function SideMenu() {
       if (finished) finishUnmount();
     });
   }, [menuOpen, progress, closeAnim, ornamentAnim, itemAnims]);
+
+  // Hide the shared a11y FAB while this full-screen drawer is up.
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const root = document.getElementById('ca11y-root');
+    if (rendered) {
+      document.documentElement.setAttribute('data-a11y-fab-hide', '');
+      if (root) {
+        root.style.visibility = 'hidden';
+        root.style.pointerEvents = 'none';
+      }
+    } else {
+      document.documentElement.removeAttribute('data-a11y-fab-hide');
+      if (root) {
+        root.style.visibility = '';
+        root.style.pointerEvents = '';
+      }
+    }
+    return () => {
+      document.documentElement.removeAttribute('data-a11y-fab-hide');
+      if (root) {
+        root.style.visibility = '';
+        root.style.pointerEvents = '';
+      }
+    };
+  }, [rendered]);
+
+  // Web: Pointer Events + setPointerCapture, same hook as the a11y sheet.
+  useEffect(() => {
+    if (Platform.OS !== 'web' || !rendered) return;
+    const sheet = asHtml(panelRef.current);
+    if (!sheet) return;
+    const backdrop = asHtml(backdropRef.current);
+    return swipeToDismiss({
+      sheet,
+      backdrop,
+      drag: '[data-swipe-handle]',
+      onDismiss: () => {
+        if (!closingRef.current) closeSideMenu();
+      },
+    });
+  }, [rendered, closeSideMenu]);
 
   const handleClose = () => {
     if (closingRef.current) return;
@@ -448,24 +502,14 @@ export function SideMenu() {
   return (
     <View style={styles.root} pointerEvents="box-none" accessibilityViewIsModal>
       {/* נוף מלא מסך → זכוכית מעליו → תוכן */}
-      <Animated.View style={[StyleSheet.absoluteFill, overlayStyle]}>
-        <ImageBackground
-          source={assets.galilee}
-          style={StyleSheet.absoluteFill}
-          resizeMode="cover"
-          accessibilityIgnoresInvertColors
-        >
-          <GlassLayer intensity={75} fill="rgba(255,255,255,0.34)" />
-          <Pressable
-            style={StyleSheet.absoluteFill}
-            onPress={handleClose}
-            accessibilityRole={a11y.roles.button}
-            accessibilityLabel="סגירת תפריט"
-          />
-        </ImageBackground>
-      </Animated.View>
+      <Animated.View
+        ref={backdropRef}
+        style={[StyleSheet.absoluteFill, overlayStyle, styles.creamFill]}
+        pointerEvents="none"
+      />
 
       <Animated.View
+        ref={panelRef}
         style={[
           styles.panel,
           contentStyle,
@@ -474,10 +518,20 @@ export function SideMenu() {
             paddingBottom: Math.max(insets.bottom, 16) + 8,
           },
         ]}
-        pointerEvents="box-none"
-        {...pan.panHandlers}
+        pointerEvents="auto"
+        {...(Platform.OS === 'web' ? {} : pan.panHandlers)}
       >
-        <View style={styles.topRow} pointerEvents="box-none">
+        <View
+          style={styles.handle}
+          accessibilityRole="button"
+          accessibilityLabel="סגירת תפריט · אפשר לגרור למטה"
+          {...(Platform.OS === 'web' ? ({ dataSet: { swipeHandle: 'true' } } as object) : null)}
+        />
+        <View
+          style={styles.topRow}
+          pointerEvents="box-none"
+          {...(Platform.OS === 'web' ? ({ dataSet: { swipeHandle: 'true' } } as object) : null)}
+        >
           <Pressable
             onPress={handleClose}
             accessibilityRole={a11y.roles.button}
@@ -492,7 +546,10 @@ export function SideMenu() {
           </Pressable>
         </View>
 
-        <View style={styles.brand}>
+        <View
+          style={styles.brand}
+          {...(Platform.OS === 'web' ? ({ dataSet: { swipeHandle: 'true' }, style: [styles.brand, { touchAction: 'none' }] } as object) : null)}
+        >
           <Image source={assets.icon} style={styles.logo} accessibilityLabel={APP_NAME} />
           <Text style={styles.appName}>{APP_NAME}</Text>
           <Text style={styles.slogan}>{APP_TAGLINE}</Text>
@@ -522,7 +579,6 @@ export function SideMenu() {
         <View style={styles.spacer} />
 
         <View style={styles.quoteCard}>
-          <GlassLayer intensity={50} fill="rgba(255,255,255,0.32)" />
           <View style={styles.quoteInner}>
             <Text style={styles.quote}>
               {'"'}התורה לא רק ללמוד — אלא לחיות.{'"'}
@@ -538,11 +594,24 @@ export function SideMenu() {
 const styles = StyleSheet.create({
   root: {
     ...StyleSheet.absoluteFillObject,
-    zIndex: 9999,
+    zIndex: 2147483000,
     elevation: 9999,
+    backgroundColor: colors.cream,
     ...(Platform.OS === 'web'
       ? ({ position: 'fixed', inset: 0 } as object)
       : null),
+  },
+  creamFill: {
+    backgroundColor: colors.cream,
+  },
+  handle: {
+    alignSelf: 'center',
+    width: 48,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: 'rgba(13, 92, 99, 0.28)',
+    marginBottom: 6,
+    ...(Platform.OS === 'web' ? ({ touchAction: 'none' } as object) : null),
   },
   /** blur מעל ImageBackground — ב-web backdropFilter מטשטש את הנוף מתחת */
   webGlass: {
@@ -669,9 +738,11 @@ const styles = StyleSheet.create({
     borderRadius: radii.xl,
     overflow: 'hidden',
     borderWidth: 1.25,
-    borderColor: 'rgba(255,255,255,0.65)',
+    borderColor: 'rgba(13, 92, 99, 0.16)',
+    backgroundColor: '#EFE8DC',
     paddingVertical: 20,
     paddingHorizontal: 20,
+    paddingInlineEnd: 20,
     minHeight: 110,
     justifyContent: 'center',
   },
