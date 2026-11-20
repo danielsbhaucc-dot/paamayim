@@ -271,19 +271,16 @@ export function mountA11yWidget(o: MountOptions): A11yWidgetHandle {
     const base = { left: r.left, right: r.right, top: r.top + lift, bottom: r.bottom + lift };
     const gap = t.fab.gap, maxLift = Math.round(win.innerHeight * 0.5);
     const pinned = collectObstacles(doc, o.avoid ?? DEFAULT_AVOID, ROOT_ID);
-    // Flow overlaps must be gathered against the already-lifted box. The un-lifted
-    // FAB sits on the nav, so chips/copy just above the nav would otherwise be missed.
+    // Flow overlaps are taken once against the nav-cleared box. The un-lifted
+    // FAB sits on the nav, so chips/copy just above the nav would otherwise be
+    // missed; iterating again after that lift would climb a column of chips.
     let next = liftToClear(base, pinned, gap, maxLift);
-    for (let i = 0; i < 4; i++) {
-      const cur = { ...base, top: base.top - next, bottom: base.bottom - next };
-      const n2 = liftToClear(base, [...pinned, ...collectFlowOverlaps(doc, cur, gap, ROOT_ID)], gap, maxLift);
-      if (n2 === next) break;
-      next = n2;
-    }
+    const cur = { ...base, top: base.top - next, bottom: base.bottom - next };
+    next = liftToClear(base, [...pinned, ...collectFlowOverlaps(doc, cur, gap, ROOT_ID)], gap, maxLift);
     if (next !== lift) { lift = next; root.style.setProperty('--ca11y-lift', `${lift}px`); html.style.setProperty('--a11y-fab-lift', `${lift}px`); }
   };
   const schedule = () => { win.clearTimeout(relayoutT); relayoutT = win.setTimeout(relayout, 120); };
-  on(win, 'resize', schedule); on(win, 'scroll', schedule, { passive: true });
+  on(win, 'resize', schedule); on(win, 'scroll', schedule, { passive: true }); on(doc, 'scroll', schedule, { passive: true, capture: true });
   if (typeof win.MutationObserver === 'function') {
     const mo = new win.MutationObserver((recs) => { if (recs.some((r) => !root.contains(r.target))) schedule(); });
     mo.observe(doc.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style', 'hidden'] });

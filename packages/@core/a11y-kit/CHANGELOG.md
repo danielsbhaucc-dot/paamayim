@@ -1,5 +1,9 @@
 # @core/a11y-kit
 
+## 0.2.4
+- In-flow overlaps are collected once against the nav-cleared FAB, then the lift stops. Iterating again was climbing a column of chips (each raise uncovered the chip above).
+- `scroll` is observed on `document` in the capture phase so overflow scrollers (React Native Web `ScrollView`) trigger relayout, not only `window`.
+
 ## 0.2.3
 - Auto-lift gathers in-flow overlaps against the already-raised FAB (after clearing the bottom nav), so chips and copy just above the nav are cleared too.
 - Text ranges are included, not only `button`/`span` nodes (React Native Web `<Text>` is often a bare `div`).
