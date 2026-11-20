@@ -121,7 +121,8 @@ export function WeeklyJourney({
         {chips}
       </View>
 
-      <View style={[{ gap: 12 }, wide && { flexDirection: rtl.row, alignItems: 'center', gap: 20 }]}>
+      {/* Inset only the summary/CTA from the physical-right FAB column. The chip grid stays full width. */}
+      <View style={[{ gap: 12 }, !wide && { paddingRight: 72 }, wide && { flexDirection: rtl.row, alignItems: 'center', gap: 20 }]}>
         <View style={{ flex: wide ? 1 : undefined, flexDirection: rtl.row, alignItems: 'center', gap: 10, minWidth: 0 }}>
           <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: h.solid }} />
           <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, flex: 1, ...T }}>
