@@ -56,7 +56,14 @@ export function WeeklyJourney({
         ? `להמשיך בעלייה ה${ord}`
         : `לעלייה ה${ord} (${dayName(sel.aliyah)})`;
 
-  const chips = items.map((i) => (
+  // 7 chips in 2 or 3 columns leave a short last row. In RTL the leftover
+  // lands in the physical-right cell, which is where the shared FAB sits.
+  // Push that last chip to the start side so the FAB corner stays empty —
+  // not a full-height gutter, just the naturally empty leftover cell.
+  const leftover = !wide && items.length % cols !== 0;
+  const chips = items.map((i, idx) => {
+    const lastLeftover = leftover && idx === items.length - 1;
+    return (
     <DayChip
       key={i.aliyah.id}
       day={dayName(i.aliyah)}
@@ -67,10 +74,13 @@ export function WeeklyJourney({
       selected={i.aliyah.id === sel.aliyah.id}
       width={wide ? undefined : chipW}
       compact={compact}
-      style={wide ? undefined : chipW ? { flexGrow: 0, flexShrink: 0 } : { flexGrow: 1, flexShrink: 0, flexBasis: cols === 3 ? '31%' : '47%', maxWidth: cols === 3 ? '33%' : '50%' }}
+      style={wide ? undefined : chipW
+        ? { flexGrow: 0, flexShrink: 0, ...(lastLeftover ? { marginStart: 'auto' as const } : {}) }
+        : { flexGrow: 1, flexShrink: 0, flexBasis: cols === 3 ? '31%' : '47%', maxWidth: cols === 3 ? '33%' : '50%', ...(lastLeftover ? { marginStart: 'auto' as const } : {}) }}
       onPress={() => setActiveAliyah(i.aliyah.id)}
     />
-  ));
+    );
+  });
 
   return (
     <GlassSurface variant="card" radius={24} style={style} contentStyle={{ padding: wide ? 24 : 16, gap: 16 }}>
