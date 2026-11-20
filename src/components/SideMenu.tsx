@@ -27,11 +27,25 @@ const NATIVE_DRIVER = Platform.OS !== 'web';
 
 function asHtml(ref: unknown): HTMLElement | null {
   if (typeof HTMLElement === 'undefined' || ref == null) return null;
-  if (ref instanceof HTMLElement) return ref;
-  const node = typeof ref === 'object' && ref && 'getNode' in ref
-    ? (ref as { getNode: () => unknown }).getNode()
-    : ref;
-  return node instanceof HTMLElement ? node : null;
+  const seen = new Set<unknown>();
+  let cur: unknown = ref;
+  for (let i = 0; i < 8 && cur && !seen.has(cur); i++) {
+    seen.add(cur);
+    if (cur instanceof HTMLElement) return cur;
+    if (typeof cur !== 'object') break;
+    const o = cur as Record<string, unknown>;
+    for (const k of ['_nativeNode', '_node', 'node', '_element']) {
+      if (o[k] instanceof HTMLElement) return o[k] as HTMLElement;
+    }
+    const next = (['getNativeNode', 'getNode', 'getHostNode'] as const)
+      .map((k) => (typeof o[k] === 'function' ? k : null))
+      .find((k) => k);
+    if (next) {
+      try { cur = (o[next] as () => unknown)(); continue; } catch { /* ignore */ }
+    }
+    break;
+  }
+  return null;
 }
 
 
@@ -379,19 +393,27 @@ export function SideMenu() {
   }, [rendered]);
 
   // Web: Pointer Events + setPointerCapture, same hook as the a11y sheet.
+  // Bind to a plain (non-Animated) wrapper so RN Web's Animated transform
+  // does not overwrite the follow-the-finger translate on every frame.
   useEffect(() => {
     if (Platform.OS !== 'web' || !rendered) return;
-    const sheet = asHtml(panelRef.current);
-    if (!sheet) return;
-    const backdrop = asHtml(backdropRef.current);
-    return swipeToDismiss({
-      sheet,
-      backdrop,
-      drag: '[data-swipe-handle]',
-      onDismiss: () => {
-        if (!closingRef.current) closeSideMenu();
-      },
-    });
+    let off: (() => void) | undefined;
+    let raf = 0;
+    const bind = (): boolean => {
+      const sheet = asHtml(panelRef.current) ?? document.querySelector<HTMLElement>('[data-side-menu-sheet]');
+      if (!sheet) return false;
+      off = swipeToDismiss({
+        sheet,
+        backdrop: asHtml(backdropRef.current),
+        drag: '[data-side-menu-sheet] [data-swipe-handle]',
+        onDismiss: () => {
+          if (!closingRef.current) closeSideMenu();
+        },
+      });
+      return true;
+    };
+    if (!bind()) raf = requestAnimationFrame(() => { bind(); });
+    return () => { if (raf) cancelAnimationFrame(raf); off?.(); };
   }, [rendered, closeSideMenu]);
 
   const handleClose = () => {
@@ -508,19 +530,21 @@ export function SideMenu() {
         pointerEvents="none"
       />
 
-      <Animated.View
+      <View
         ref={panelRef}
         style={[
           styles.panel,
-          contentStyle,
           {
             paddingTop: Math.max(insets.top, 12) + 4,
             paddingBottom: Math.max(insets.bottom, 16) + 8,
           },
         ]}
         pointerEvents="auto"
-        {...(Platform.OS === 'web' ? {} : pan.panHandlers)}
+        {...(Platform.OS === 'web'
+          ? ({ dataSet: { sideMenuSheet: 'true' } } as object)
+          : pan.panHandlers)}
       >
+        <Animated.View style={[{ flex: 1 }, contentStyle]} pointerEvents="box-none">
         <View
           style={styles.handle}
           accessibilityRole="button"
@@ -586,7 +610,8 @@ export function SideMenu() {
             <Image source={assets.icon} style={styles.quoteLogo} />
           </View>
         </View>
-      </Animated.View>
+        </Animated.View>
+      </View>
     </View>
   );
 }
@@ -597,8 +622,10 @@ const styles = StyleSheet.create({
     zIndex: 2147483000,
     elevation: 9999,
     backgroundColor: colors.cream,
+    overflow: 'hidden',
+    width: '100%',
     ...(Platform.OS === 'web'
-      ? ({ position: 'fixed', inset: 0 } as object)
+      ? ({ position: 'fixed', inset: 0, maxWidth: '100%' } as object)
       : null),
   },
   creamFill: {
