@@ -7,8 +7,9 @@
  *    SHADOW MODE: always allows. It records what it WOULD have decided and reports it, so central can show mismatches.
  *  - count()/flush(): usage counters, aggregated per day and metric, sent in batches with stable ids (retries are idempotent).
  *  - heartbeat(): version + health.
- * Light link (on-device products without accounts): anonymous random install id, version, health, and a feature-flag pull.
- * Nothing else leaves the device.
+ * Light link (on-device products without accounts): anonymous random install id, version, health, a feature-flag pull,
+ * and optional count()/flush() usage (counts only, no personal data) piggybacked on the same /v1/light ping.
+ * Nothing about a person leaves the device.
  */
 import { verifyStatus, licenseActive, MAX_STALE_MS, POLL_MS, type Signed, type StatusFile } from '../../licensing/src/index.ts';
 import { signRequest } from './sign.ts';
@@ -124,31 +125,69 @@ export class ProductLink {
 }
 
 export interface LightOptions { productId: string; keyId: string; endpoint: string; version: string; platform?: typeof PLATFORMS[number]; store?: Store; fetch?: Fetch; timeoutMs?: number;
+  now?: () => number;
   /** Central's public key. A received module manifest is cached only after it verifies against this key (never without it). */
   manifestKey?: CryptoKey | null }
-/** Light link: for products with no accounts and no server data. Sends ONLY {installId, version, health, platform}. */
+/** Light link: for products with no accounts and no server data. Sends {installId, version, health, platform} and, when counted, aggregated usage events on the same ping. */
 export class LightLink {
   private flags: Record<string, boolean> = {};
+  private usage = new Map<string, number>();
   /** True when the last ping() got a 2xx from central (false: offline, timeout, error status). */
   lastPingOk = false;
   constructor(private o: LightOptions) { if (!/^https:\/\//.test(o.endpoint)) throw new Error('https only'); }
   private get store() { return this.o.store ?? (this.o.store = memoryStore()); }
+  private now() { return this.o.now?.() ?? Date.now(); }
   /** Random, per-install, not derived from the device or the person. Reinstall = new id. */
   async installId(): Promise<string> { let id = await this.store.get('pl:install'); if (!id) { id = crypto.randomUUID(); await this.store.set('pl:install', id); } return id; }
-  /** Report health and pull feature flags. Offline: the last flags (or defaults) are used. Never throws. */
+  /** Count something (a metric name, never a value about a person). Aggregated in memory until ping() or flush(). */
+  count(metric: string, n = 1): void {
+    if (!METRIC.test(metric) || findPii(metric) || !Number.isInteger(n) || n < 1) return;
+    const k = `${today(this.now())}|${metric}`; this.usage.set(k, Math.min(1_000_000, (this.usage.get(k) ?? 0) + n));
+  }
+  /** Take pending events from memory + store. Overflow beyond the light cap stays queued. */
+  private async takeEvents(): Promise<{ send: UsageEvent[]; rest: UsageEvent[] }> {
+    const pend: UsageEvent[] = JSON.parse((await this.store.get('pl:usage')) ?? '[]');
+    for (const [k, n] of this.usage) { const [day = '', metric = ''] = k.split('|'); pend.push({ id: crypto.randomUUID(), metric, n, day }); }
+    this.usage.clear();
+    return { send: pend.slice(0, LIMITS.lightUsageEvents), rest: pend.slice(LIMITS.lightUsageEvents) };
+  }
+  /** Report health, pull feature flags, and flush pending usage on the same request. Offline: last flags are used; events are retried with the same ids. Never throws. */
   async ping(health: Health = 'ok'): Promise<Record<string, boolean>> {
     this.lastPingOk = false;
     try { const c = await this.store.get('pl:flags'); if (c) this.flags = JSON.parse(c); } catch { /* ignore */ }
+    let batch: UsageEvent[] = [], rest: UsageEvent[] = [], body = '';
+    try {
+      const taken = await this.takeEvents();
+      batch = taken.send; rest = taken.rest;
+      const base = { installId: await this.installId(), version: this.o.version, health, ...(this.o.platform ? { platform: this.o.platform } : {}) };
+      body = JSON.stringify(batch.length ? { ...base, events: batch } : base);
+      while (batch.length && te.encode(body).length > LIMITS.lightBodyMax) {
+        rest.unshift(batch.pop()!);
+        body = JSON.stringify(batch.length ? { ...base, events: batch } : base);
+      }
+    } catch { return this.flags; }
+    const keepOnFail = [...batch, ...rest];
     try {
       const r = await (this.o.fetch ?? fetch)(`${this.o.endpoint}/v1/light`, { method: 'POST', signal: AbortSignal.timeout(this.o.timeoutMs ?? 5000),
         headers: { 'content-type': 'application/json', 'x-pl-key': this.o.keyId },
-        body: JSON.stringify({ installId: await this.installId(), version: this.o.version, health, ...(this.o.platform ? { platform: this.o.platform } : {}) }) });
-      if (r.ok) { this.lastPingOk = true; const j = await r.json() as { flags?: Record<string, boolean>; manifest?: unknown }; if (j.flags && typeof j.flags === 'object') { this.flags = j.flags; await this.store.set('pl:flags', JSON.stringify(j.flags)); }
+        body });
+      if (r.ok) {
+        this.lastPingOk = true;
+        await this.store.set('pl:usage', JSON.stringify(rest.slice(-1000)));
+        const j = await r.json() as { flags?: Record<string, boolean>; manifest?: unknown }; if (j.flags && typeof j.flags === 'object') { this.flags = j.flags; await this.store.set('pl:flags', JSON.stringify(j.flags)); }
         // verify BEFORE caching: an invalid manifest must never overwrite the last good (offline) copy
-        if (this.o.manifestKey && isSignedManifest(j.manifest) && await verifyManifest(j.manifest, this.o.manifestKey, this.o.productId)) await this.store.set('pl:manifest', JSON.stringify(j.manifest)); }
-    } catch { /* offline */ }
+        if (this.o.manifestKey && isSignedManifest(j.manifest) && await verifyManifest(j.manifest, this.o.manifestKey, this.o.productId)) await this.store.set('pl:manifest', JSON.stringify(j.manifest));
+      } else if (r.status === 429 || r.status >= 500) {
+        await this.store.set('pl:usage', JSON.stringify(keepOnFail.slice(-1000)));
+      } else {
+        // 4xx (other than 429): do not retry a rejected batch; keep only overflow that was never sent
+        await this.store.set('pl:usage', JSON.stringify(rest.slice(-1000)));
+      }
+    } catch { await this.store.set('pl:usage', JSON.stringify(keepOnFail.slice(-1000))); }
     return this.flags;
   }
+  /** Send pending usage on the next (or this) light ping. Same path as ping(); no extra request. */
+  async flush(): Promise<number> { await this.ping(); return this.lastPingOk ? 200 : 0; }
   /** Last module manifest received, verified locally against central's public key (works offline). Null = none/invalid. */
   async manifest(pub: CryptoKey): Promise<ModuleManifest | null> {
     try { const raw = await this.store.get('pl:manifest'); return raw ? await verifyManifest(JSON.parse(raw), pub, this.o.productId) : null; } catch { return null; }

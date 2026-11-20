@@ -1,11 +1,13 @@
 /**
  * חיבור קל לחברת האם (שלב 2, אושר 2.11.2026).
- * נשלחים רק: מזהה התקנה אקראי, גרסה, מצב ופלטפורמה — דרך LightLink מ־@core/product-link (platform-core, תג core-v2026.11.10.1).
- * אין חשבון, אין רישוי, אין נתוני משתמש. האפליקציה עובדת בדיוק אותו דבר בלי רשת או אם החיבור נכשל:
+ * נשלחים: מזהה התקנה אקראי, גרסה, מצב, פלטפורמה, וספירות שימוש יומיות (count/flush על אותו פינג) —
+ * דרך LightLink מ־@core/product-link (platform-core, f7a284e).
+ * אין חשבון, אין רישוי, אין נתוני משתמש, אין סוד. האפליקציה עובדת בדיוק אותו דבר בלי רשת או אם החיבור נכשל:
  * הכול רץ ברקע, לכל היותר פעם בדקה, ושום שגיאה לא יוצאת מכאן.
- * מזהה המפתח ציבורי מעצם הגדרתו (פותח רק את /v1/light); אין כאן סוד.
+ * מזהה המפתח ציבורי מעצם הגדרתו (פותח רק את /v1/light, כולל ספירות על אותו נתיב).
  */
 import { LightLink } from '../../packages/@core/product-link/src/index.ts';
+import { takeParentUsage } from './parentUsage';
 
 export const PARENT_PRODUCT_ID = 'nehora';
 export const PARENT_LIGHT_KEY = 'pk_dv9xyoob85bxy69i';
@@ -43,8 +45,9 @@ export async function pingParent(o: {
     const link = new LightLink({
       productId: PARENT_PRODUCT_ID, keyId: PARENT_LIGHT_KEY, endpoint, version: o.version,
       platform: o.platform, store: o.store, fetch: o.fetch, timeoutMs: 5000,
-      manifestKey: o.manifestKey,
+      manifestKey: o.manifestKey, now: () => now,
     });
+    for (const e of takeParentUsage()) link.count(e.metric, e.n);
     await link.ping('ok');
     return true;
   } catch {

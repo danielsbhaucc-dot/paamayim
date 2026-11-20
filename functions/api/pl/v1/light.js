@@ -4,7 +4,7 @@
  * בלי עוגיות, בלי IP ובלי כותרות אחרות. כל כשל מחזיר שגיאה שקטה והאפליקציה ממשיכה כרגיל.
  */
 const UPSTREAM = 'https://snvjsopfvoshddaydjlm.supabase.co/functions/v1/product-link/v1/light';
-const MAX = 1024;
+const MAX = 2048;
 
 export async function onRequestPost({ request }) {
   const key = request.headers.get('x-pl-key') || '';
