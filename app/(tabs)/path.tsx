@@ -34,7 +34,7 @@ function PathMobile() {
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
         <ScreenHeader title="מסלול עד שבת" scrollY={t.scrollY} />
         <Animated.ScrollView
-          contentContainerStyle={{ paddingBottom: BOTTOM_NAV_SPACE + 24 }}
+          contentContainerStyle={{ paddingBottom: BOTTOM_NAV_SPACE + 24 + 72 /* FAB clearance, no side gutter */ }}
           showsVerticalScrollIndicator={false}
           {...t.scrollProps}
         >
