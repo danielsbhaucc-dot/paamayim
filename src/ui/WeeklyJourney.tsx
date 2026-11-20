@@ -81,13 +81,13 @@ export function WeeklyJourney({
 
       <View
         accessibilityRole="tablist"
-        style={{ flexDirection: rtl.row, flexWrap: wide ? 'nowrap' : 'wrap', gap: wide ? 10 : 8 }}
+        style={{ flexDirection: rtl.row, flexWrap: wide ? 'nowrap' : 'wrap', gap: wide ? 10 : 8, paddingInlineStart: wide ? 0 : 88 }}
       >
         {chips}
       </View>
 
-      <View style={[{ gap: 12 }, wide && { flexDirection: rtl.row, alignItems: 'center', gap: 20 }]}>
-        <View style={{ flex: wide ? 1 : undefined, flexDirection: rtl.row, alignItems: 'center', gap: 10 }}>
+      <View style={[{ gap: 12, paddingInlineStart: wide ? 0 : 88 }, wide && { flexDirection: rtl.row, alignItems: 'center', gap: 20, paddingInlineStart: 0 }]}>
+        <View style={{ flex: wide ? 1 : undefined, flexDirection: rtl.row, alignItems: 'center', gap: 10, minWidth: 0 }}>
           <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: h.solid }} />
           <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, flex: 1, ...T }}>
             {`${dayName(sel.aliyah)} · עלייה ${ord} · ${sel.aliyah.verseIds.length} פסוקים · `}

@@ -52,10 +52,13 @@ export function CheckRow({ label, done, inProgress, caption, last, hue, Icon, ra
       </View>
 
       <View style={{ flex: 1, gap: 6 }}>
-        <View style={{ flexDirection: rtl.row, alignItems: 'baseline', justifyContent: 'space-between', gap: 8 }}>
-          <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, textAlign: rtl.textRight, writingDirection: 'rtl' }}>{label}</Text>
-          <Text style={{ ...nw.type.label, color: h.ink, writingDirection: 'rtl' }}>
-            {done ? '✓ הושלם' : inProgress ? `${pct}%` : 'עוד לא'}
+        <View style={{ flexDirection: rtl.row, alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
+          <Text style={{ ...nw.type.bodyStrong, color: nw.color.ink, textAlign: rtl.textRight, writingDirection: 'rtl', flex: 1, minWidth: 0 }}>{label}</Text>
+          <Text
+            numberOfLines={1}
+            style={{ ...nw.type.label, color: h.ink, writingDirection: 'rtl', flexShrink: 0, flexGrow: 0, ...( { whiteSpace: 'nowrap' } as object) }}
+          >
+            {done ? '✓ הושלם' : inProgress ? `${pct}%` : 'עוד לא'}
           </Text>
         </View>
         <View style={{ height: 6, borderRadius: 3, backgroundColor: h.soft, overflow: 'hidden', flexDirection: rtl.row }}>
