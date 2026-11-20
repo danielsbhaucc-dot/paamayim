@@ -96,6 +96,23 @@ export function collectFlowOverlaps(doc: Document, fab: Box, gap = 16, rootId = 
     if (r.height >= vh * 0.4 || r.width >= vw * 0.9) continue;
     if (boxesOverlap(pad, r, 0)) out.push(r);
   }
+  // RN Web <Text> is often a bare div, which FLOW_SEL misses. Use the text range.
+  const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+  let n: Node | null;
+  while ((n = walker.nextNode())) {
+    const text = (n.textContent || '').trim();
+    if (!text) continue;
+    const parent = n.parentElement;
+    if (!parent || parent.closest(`#${rootId}`) || !visible(parent)) continue;
+    if (typeof doc.createRange !== 'function') break;
+    const range = doc.createRange();
+    range.selectNodeContents(n);
+    if (typeof range.getBoundingClientRect !== 'function') break;
+    const r = range.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1) continue;
+    if (r.height >= vh * 0.4 || r.width >= vw * 0.9) continue;
+    if (boxesOverlap(pad, r, 0)) out.push(r);
+  }
   return out;
 }
 

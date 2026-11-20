@@ -251,4 +251,38 @@ describe('safe area + overlap helper', () => {
       banner.remove();
     }
   });
+  it('collectFlowOverlaps includes a text range in a bare div (RN Web Text) under the FAB', () => {
+    const wrap = document.createElement('div');
+    wrap.id = 'synth-rn-text';
+    wrap.setAttribute('style', 'opacity:1;visibility:visible;display:block');
+    wrap.textContent = 'להשלים';
+    document.body.appendChild(wrap);
+    const origBR = Element.prototype.getBoundingClientRect;
+    const origRange = Range.prototype.getBoundingClientRect;
+    Element.prototype.getBoundingClientRect = function getBoundingClientRect() {
+      if ((this as Element).id === 'synth-rn-text') return { x: 40, y: 660, width: 240, height: 24, top: 660, bottom: 684, left: 40, right: 280, toJSON() { return this; } } as DOMRect;
+      return origBR.call(this);
+    };
+    Range.prototype.getBoundingClientRect = function getBoundingClientRect() {
+      if (this.commonAncestorContainer?.parentElement?.id === 'synth-rn-text' || this.startContainer?.parentElement?.id === 'synth-rn-text') {
+        return { x: 200, y: 660, width: 60, height: 24, top: 660, bottom: 684, left: 200, right: 260, toJSON() { return this; } } as DOMRect;
+      }
+      return origRange.call(this);
+    };
+    const origW = Object.getOwnPropertyDescriptor(window, 'innerWidth');
+    const origH = Object.getOwnPropertyDescriptor(window, 'innerHeight');
+    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 390 });
+    Object.defineProperty(window, 'innerHeight', { configurable: true, value: 800 });
+    try {
+      const fab = { left: 230, right: 286, top: 650, bottom: 706 };
+      const boxes = collectFlowOverlaps(document, fab, 16);
+      expect(boxes.some((b) => b.top === 660 && b.left === 200)).toBe(true);
+    } finally {
+      Element.prototype.getBoundingClientRect = origBR;
+      Range.prototype.getBoundingClientRect = origRange;
+      if (origW) Object.defineProperty(window, 'innerWidth', origW);
+      if (origH) Object.defineProperty(window, 'innerHeight', origH);
+      wrap.remove();
+    }
+  });
 });

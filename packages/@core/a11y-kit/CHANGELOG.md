@@ -1,5 +1,9 @@
 # @core/a11y-kit
 
+## 0.2.3
+- Auto-lift gathers in-flow overlaps against the already-raised FAB (after clearing the bottom nav), so chips and copy just above the nav are cleared too.
+- Text ranges are included, not only `button`/`span` nodes (React Native Web `<Text>` is often a bare `div`).
+
 ## 0.2.2
 - Auto-lift also clears in-flow interactive elements and text that currently sit under the FAB (not only pinned bottom bars).
 - Host attribute `html[data-a11y-fab-hide]` hides the widget (full-screen drawers/sheets) so the FAB cannot cover them.
