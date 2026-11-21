@@ -41,7 +41,7 @@ function LegendMobile() {
       onPress={() => router.replace('/(tabs)/more' as never)}
       accessibilityRole="button"
       accessibilityLabel="סגור"
-      style={{ minHeight: 44, justifyContent: 'center', paddingHorizontal: 8 }}
+      style={{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8 }}
     >
       <Text style={{ ...nw.type.label, color: nw.color.tealText, writingDirection: 'rtl' }}>סגור</Text>
     </Pressable>

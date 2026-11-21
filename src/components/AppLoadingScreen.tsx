@@ -118,7 +118,7 @@ export function AppLoadingScreen({ ready, onFinish, minDurationMs = MIN_DURATION
     >
       <Image
         source={assets.galilee}
-        style={StyleSheet.absoluteFill}
+        style={[StyleSheet.absoluteFill, Platform.OS === 'web' ? styles.webCover : null]}
         resizeMode="cover"
         accessibilityIgnoresInvertColors
       />
@@ -248,5 +248,11 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 999,
     backgroundColor: colors.accent,
+  },
+  webCover: {
+    width: '100%',
+    height: '100%',
+    maxWidth: '100%',
+    maxHeight: '100%',
   },
 });
