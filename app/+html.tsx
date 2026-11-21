@@ -17,8 +17,14 @@ export default function Root({ children }: PropsWithChildren) {
 }
 
 const responsiveBackground = `
-body {
+html, body {
   background-color: #C5E4E8;
   direction: rtl;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
+/* Do not set a global img { max-width:100% }: cover backgrounds and the
+   megillah need to size independently. Overflow is clipped here; image
+   boxes are constrained in ScreenBackground / AppLoadingScreen. */
 `;

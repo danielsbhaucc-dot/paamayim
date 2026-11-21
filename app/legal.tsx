@@ -20,7 +20,7 @@ export default function LegalScreen() {
       onPress={() => router.replace('/(tabs)')}
       accessibilityRole="button"
       accessibilityLabel="סגור"
-      style={{ minHeight: 44, justifyContent: 'center', paddingHorizontal: 8 }}
+      style={{ minWidth: 44, minHeight: 44, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8 }}
     >
       <Text style={{ ...nw.type.label, color: nw.color.tealText, writingDirection: 'rtl' }}>
         סגור

@@ -77,6 +77,7 @@ export function GlassBottomNav() {
                     strokeWidth={active ? 2 : nw.icon.stroke}
                   />
                   <Text
+                    numberOfLines={1}
                     style={{
                       fontFamily: active ? fonts.uiBold : fonts.uiSemi,
                       fontSize: 12,
@@ -84,6 +85,7 @@ export function GlassBottomNav() {
                       color: active ? nw.color.ink : nw.color.inkSoft,
                       textAlign: 'center',
                       writingDirection: 'rtl',
+                      maxWidth: '100%',
                     }}
                   >
                     {label}
@@ -125,14 +127,16 @@ const styles = StyleSheet.create({
   },
   item: {
     flex: 1,
+    minWidth: 0,
     alignItems: 'center',
     minHeight: a11y.minTouch,
   },
   press: { borderRadius: 16 },
   tile: {
-    minWidth: 64,
+    minWidth: 44,
+    minHeight: 44,
     height: 56,
-    paddingHorizontal: 10,
+    paddingHorizontal: 4,
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',

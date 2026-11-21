@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { StyleSheet, View, type ImageSourcePropType } from 'react-native';
+import { Platform, StyleSheet, View, type ImageSourcePropType } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BOTTOM_NAV_SPACE, GlassBottomNav } from '../components/GlassBottomNav';
 import { nw } from '../theme/design';
@@ -60,7 +60,7 @@ export function ScreenBackground({
       >
         <Image
           source={imageSource}
-          style={StyleSheet.absoluteFill}
+          style={[StyleSheet.absoluteFill, Platform.OS === 'web' ? coverWeb : null]}
           contentFit="cover"
           contentPosition={variant === 'mist' ? 'bottom' : 'center'}
         />
@@ -87,7 +87,7 @@ export function ScreenBackground({
 
   return (
     <View style={{ flex: 1, backgroundColor: nw.bg.base }}>
-      <Image source={imageSource} style={StyleSheet.absoluteFill} contentFit="cover" />
+      <Image source={imageSource} style={[StyleSheet.absoluteFill, Platform.OS === 'web' ? coverWeb : null]} contentFit="cover" />
       <LinearGradient
         pointerEvents="none"
         colors={variant === 'mist' ? nw.bg.mistVeil : nw.bg.photoVeil}
@@ -100,3 +100,7 @@ export function ScreenBackground({
     </View>
   );
 }
+
+const coverWeb = StyleSheet.create({
+  box: { width: '100%', height: '100%', maxWidth: '100%', maxHeight: '100%' },
+}).box;
